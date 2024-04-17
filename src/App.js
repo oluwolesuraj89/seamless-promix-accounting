@@ -8,10 +8,10 @@ function App() {
   return (
 
     <Router>
-    <Routes>
-      <Route path='/Promix' element={<Promix />}/>
-      <Route path='/PromixLanding' element={<PromixLanding />}/>
-    </Routes>
+      <Routes>
+        <Route path='/Promix' element={<Promix />} />
+        <Route path='/PromixLanding' element={<PromixLanding />} />
+      </Routes>
     </Router>
   );
 }
