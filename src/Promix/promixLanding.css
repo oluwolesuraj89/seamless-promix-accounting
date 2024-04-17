@@ -114,19 +114,29 @@ body {
   padding-left: 67px;
   padding-right: 67px;
   padding-top: 130px;
+  padding-bottom: 52px;
 }
 
 .why {
   font-weight: 700;
   font-size: 36px;
-  margin-left: 270px;
+  margin-left: 310px;
+}
+
+.why2 {
+  font-weight: 700;
+  font-size: 36px;
+  margin-left: 519px;
+  color: #343A40;
+  font-family: inter;
+  margin-bottom: 70px;
 }
 
 .underWhy {
   color: #6C757D;
   font-weight: 400;
   font-size: 14px;
-  margin-left: 93px;
+  margin-left: 193px;
   margin-top: -10px;
 }
 
@@ -138,6 +148,7 @@ body {
   margin-top: 314px;
   display: block;
 }
+
 .card1 {
   /* background-color: rgba(255, 186, 8, 0.3); */
   background-color: rgba(172, 231, 199, 0.3);
@@ -148,7 +159,8 @@ body {
   display: block;
   margin-left: 33px;
 }
-.card2{
+
+.card2 {
   width: 446px;
   height: 316px;
   background-color: rgba(253, 101, 132, 0.2);
@@ -157,7 +169,8 @@ body {
   display: block;
   margin-left: 33px;
 }
-.card3{
+
+.card3 {
   width: 446px;
   height: 316px;
   background-color: rgba(69, 122, 20, 0.25);
@@ -166,7 +179,8 @@ body {
   display: block;
   margin-left: 33px;
 }
-.card5{
+
+.card5 {
   width: 446px;
   height: 316px;
   background-color: rgba(172, 231, 199, 0.3);
@@ -176,7 +190,8 @@ body {
   display: block;
   margin-left: 33px;
 }
-.card4{
+
+.card4 {
   width: 446px;
   height: 316px;
   background-color: rgba(42, 83, 187, 0.25);
@@ -213,4 +228,166 @@ body {
   width: 400px;
   height: 245px;
   margin-top: 212px;
+}
+
+.efficientCard {
+  width: 33.3333333%;
+  background-color: #F9F9F9;
+  height: 347px;
+}
+
+.efficientCardGreen {
+  width: 33.3333333%;
+  background-color: #2D995F;
+  height: 347px;
+  color: #fff;
+}
+
+.efficientxt {
+  margin-top: 140px;
+  font-size: 36px;
+  padding-left: 50px;
+  font-weight: 700;
+}
+
+.uder {
+  font-size: 16px;
+  color: #6C757D;
+  padding-left: 50px;
+  margin-top: -20px;
+  font-weight: 400;
+}
+
+.howItWorks {
+  padding-left: 50px;
+  padding-top: 81px;
+}
+
+.howItWorksTxt {
+  font-size: 92px;
+  font-weight: 800;
+  color: #343A40;
+}
+
+.underhowItWorksTxt {
+  color: #6C757D;
+  font-size: 19px;
+  margin-top: -80px;
+  font-family: inter;
+  font-weight: 400;
+}
+
+.options {
+  display: flex;
+}
+
+.optsdeg {
+  width: 335px;
+  height: 259px;
+  background-color: #343A40;
+
+}
+.optsdeg2{
+  width: 335px;
+  height: 259px;
+  background-color: #F5F5F5;
+  margin-left: 43px;
+
+}
+
+.optsdeg23{
+  width: 335px;
+  height: 259px;
+  background-color: #F5F5F5;
+  margin-left: 43px;
+  margin-top: 32px;
+
+}
+.optsdeg3{
+  width: 335px;
+  height: 259px;
+  background-color: #F5F5F5;
+  /* margin-left: 43px; */
+  margin-top: 32px;
+}
+
+.number {
+  width: 64px;
+  height: 64px;
+  background-color: #fff;
+  border-radius: 50%;
+  color: #343A40;
+  font-size: 36px;
+  text-align: center;
+  margin-left: 24px;
+  margin-top: 28px;
+  line-height: 60px;
+  font-weight: 700;
+}
+
+.si {
+  font-weight: 700;
+  font-size: 36px;
+  color: #E9ECEF;
+  margin-left: 35px;
+  margin-top: 26px;
+}
+.si2{
+  font-weight: 700;
+  font-size: 36px;
+  color: #6C757D;
+  margin-left: 35px;
+  margin-top: 26px;
+}
+
+.underSi {
+  font-size: 14px;
+  font-weight: 400;
+  color: #E9ECEF;
+  margin-left: 36px;
+  margin-top: -30px;
+}
+.underSi2 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6C757D;
+  margin-left: 36px;
+  margin-top: -30px;
+}
+.phone{
+  margin-top: 152px;
+  margin-left: 81px;
+  width: 602px;
+  height: 1160px;
+}
+.pricingTxt{
+  font-size: 36px;
+  font-weight: 700;
+  color: #343A40;
+  margin-left: 42%;
+  padding-top: 83px;
+}
+.pricingContainer{
+  background-color: rgba(172, 231, 199, 0.1);
+  width: 88.69%;
+  padding-left: 86px;
+  padding-right: 86px;
+}
+.under_pricingTxt{
+  margin-left: 30%;
+  margin-top: -30px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #6C757D;
+}
+.pricingOpts{
+  margin-top: 76px;
+}
+.pricingDesg{
+  background-color: #ffffff;
+  /* background-color: pink; */
+  width: 362px;
+  height: 606px;
+  border-radius: 20px;
+  padding-bottom: 20px;
 }

@@ -6,6 +6,7 @@ import suit from '../assets/promix/suit.png';
 import frame from '../assets/promix/Frame 47.png';
 import eclipse from '../assets/promix/Ellipse 29.png';
 import womanimg from '../assets/promix/womanimg.png';
+import phone from '../assets/promix/phone.png';
 
 function App() {
 
@@ -159,6 +160,138 @@ function App() {
 
         </div>
       </div>
+
+      <div>
+        <p className="why2">
+          Discover the benefits of our<br />
+          <span style={{ marginLeft: '62px' }} />
+          accounting solution
+        </p>
+      </div>
+      <div className="container4">
+        <div style={{ display: 'flex' }}>
+
+          <div className="efficientCard">
+            <p className="efficientxt">Efficient</p>
+            <p className="uder">Our accounting software is designed to make your<br />
+              business life easier by minimising admin time.</p>
+          </div>
+
+          <div className="efficientCardGreen">
+            <p className="efficientxt">Efficient</p>
+            <p className="uder" style={{ color: '#fff' }}>Our accounting software is designed to make your<br />
+              business life easier by minimising admin time.</p>
+          </div>
+
+          <div className="efficientCard">
+            <p className="efficientxt">Efficient</p>
+            <p className="uder">Our accounting software is designed to make your<br />
+              business life easier by minimising admin time.</p>
+          </div>
+
+        </div>
+
+        <div style={{ display: 'flex' }}>
+
+          <div className="efficientCardGreen">
+            <p className="efficientxt">Efficient</p>
+            <p className="uder" style={{ color: '#fff' }}>Our accounting software is designed to make your<br />
+              business life easier by minimising admin time.</p>
+          </div>
+
+          <div className="efficientCard">
+            <p className="efficientxt">Efficient</p>
+            <p className="uder">Our accounting software is designed to make your<br />
+              business life easier by minimising admin time.</p>
+          </div>
+
+          <div className="efficientCardGreen">
+            <p className="efficientxt">Efficient</p>
+            <p className="uder" style={{ color: '#fff' }}>Our accounting software is designed to make your<br />
+              business life easier by minimising admin time.</p>
+          </div>
+
+        </div>
+
+      </div>
+      <div style={{ display: 'flex' }}>
+        <div className="howItWorks">
+          <p className="howItWorksTxt">How it works</p>
+          <p className="underhowItWorksTxt">Automate your accounting management system today.<br />
+            Our software solutions will help streamline accounting<br />management</p>
+
+          <div className="options">
+            <div className="optsdeg">
+              <div className="number">1</div>
+              <p className="si">Sign up</p>
+              <p className="underSi">Choose the favorite pricing and<br />
+                sign up</p>
+            </div>
+
+            <div className="optsdeg2">
+              <div className="number">2</div>
+              <p className="si2">Pricing</p>
+              <p className="underSi2">Choose the favorite pricing and sign up</p>
+            </div>
+
+          </div>
+
+          <div className="options">
+
+            <div className="optsdeg3">
+              <div className="number">3</div>
+              <p className="si2">Link Accounts</p>
+              <p className="underSi2">Choose the favorite pricing and<br />sign up
+                sign up</p>
+            </div>
+
+            <div className="optsdeg23">
+              <div className="number">4</div>
+              <p className="si2">Add Employee's<br />
+                Info</p>
+              <p className="underSi2">Choose the favorite pricing and<br />
+                sign up</p>
+            </div>
+
+          </div>
+
+          <div className="options">
+
+            <div className="optsdeg3">
+              <div className="number">5</div>
+              <p className="si2">Sign up</p>
+              <p className="underSi2">Choose the favorite pricing and<br />
+                sign up</p>
+            </div>
+
+            <div className="optsdeg23">
+              <div className="number">6</div>
+              <p className="si2">Sign up</p>
+              <p className="underSi2">Choose the favorite pricing and<br />
+                sign up</p>
+            </div>
+
+          </div>
+
+        </div>
+        <div>
+          <img src={phone} className="phone" />
+        </div>
+      </div>
+
+      <div className="pricingContainer">
+        <p className="pricingTxt">Pricing</p>
+        <p className="under_pricingTxt">Choose the pricing that works for you and align to  your business</p>
+        <div className="pricingOpts">
+          
+          <div className="pricingDesg">
+            <p>Free Plan</p>
+            <p>N0.00<span>/30 days</span></p>
+            <p>Use only for Personal use</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   );
 }
