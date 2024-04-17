@@ -1,23 +1,23 @@
 import React from "react";
 import './promix.css';
-import logo from './assets/promix/logo-green 1.png';
-import bell from './assets/promix/bell.png';
-import up from './assets/promix/Vector.png';
-import image1 from './assets/promix/image1.png';
-import image2 from './assets/promix/image2.png';
-import image3 from './assets/promix/image3.png';
-import image4 from './assets/promix/image4.png';
-import image5 from './assets/promix/image5.png';
-import image6 from './assets/promix/image6.png';
-import image7 from './assets/promix/image7.png';
-import image8 from './assets/promix/image8.png';
-import pie from './assets/promix/pie.png';
-import recieve from './assets/promix/recieve.png';
-import wallet from './assets/promix/wallet.png';
-import inventory from './assets/promix/inventory.png';
-import transactions from './assets/promix/transactions.png';
-import profile from './assets/promix/profile.png';
-import exit from './assets/promix/export.png';
+import logo from "../assets/promix/logo-green 1.png";
+import bell from '../assets/promix/bell.png';
+import up from '../assets/promix/Vector.png';
+import image1 from '../assets/promix/image1.png';
+import image2 from '../assets/promix/image2.png';
+import image3 from '../assets/promix/image3.png';
+import image4 from '../assets/promix/image4.png';
+import image5 from '../assets/promix/image5.png';
+import image6 from '../assets/promix/image6.png';
+import image7 from '../assets/promix/image7.png';
+import image8 from '../assets/promix/image8.png';
+import pie from '../assets/promix/pie.png';
+import recieve from '../assets/promix/recieve.png';
+import wallet from '../assets/promix/wallet.png';
+import inventory from '../assets/promix/inventory.png';
+import transactions from '../assets/promix/transactions.png';
+import profile from '../assets/promix/profile.png';
+import exit from '../assets/promix/export.png';
 
 function App() {
 

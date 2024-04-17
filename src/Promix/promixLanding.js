@@ -1,6 +1,6 @@
 import React from "react";
 import './promixLanding.css';
-import logo from './assets/promix/logoGreen.png';
+import logo from '../assets/promix/logoGreen.png';
 
 
 function App() {
