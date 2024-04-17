@@ -1,0 +1,24 @@
+.landing_header{
+  width: 100%;
+  height: 40px;
+  background-color: #ffffff;
+  /* background-color: pink; */
+  padding-left: 87px;
+  padding-right: 87px;
+  padding-top: 28px;
+  padding-bottom: 20px;
+  display: flex;
+}
+.headerText{
+  display: flex;
+  margin-left: 30px;
+  color: #343A40;
+  font-family: inter;
+  font-weight: 400;
+  font-size: 16px;
+  gap: 30px;
+}
+.logoicon{
+  width: 143px;
+  height: 33px;
+}
