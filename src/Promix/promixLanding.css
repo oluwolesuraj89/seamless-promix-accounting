@@ -590,11 +590,55 @@ body {
   background-position: center;
   position: relative;
   text-align: center;
-  padding-top: 40px;
+  padding-top: 95px;
+  padding-bottom: 80px;
 }
 .footerTxt{
   font-size: 76px;
   font-weight: 900;
   margin: 0;
 }
-
+button{
+  margin-top: 59px;
+  background-color: #ffffff;
+  border: none;
+  width: 188px;
+  height: 44px;
+  color: #2D995F;
+  border-radius: 4px;
+}
+.copy{
+  line-height: normal;
+  margin-top: 100px;
+}
+.name{
+  font-size: 18px;
+  color: #343A40;
+  font-weight: 700;
+  font-family: inter;
+}
+.finalDiv{
+  display: flex;
+  background-color: #ffffff;
+  padding-top: 89px;
+  padding-left: 82px;
+  font-size: 14px;
+  font-weight: 400;
+  gap: 158px;
+  color: #6C757D;
+  line-height: 20px;
+  padding-bottom: 99px;
+  
+}
+.contact{
+  background-color: #F2F5F3;
+  border: none;
+  border-radius: 8px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 248px;
+}
+:placeholder-shown{
+  font-size: x-small;
+  padding-left: 20px;
+}

@@ -459,7 +459,44 @@ function App() {
                   Sign Up now
                   </button>
               </div>
-     
+                  
+                  <div className="finalDiv">
+                        <div>
+                        <p className="copy">Copyright © 2023 Promix<br/>All rights reserved</p>
+                        </div>
+
+                        <div>
+                          <p className="name">Product</p>
+                          <p>Individual</p>
+                          <p>Business</p>
+                          <p>Request Demo</p>
+                          <p>Pricing</p>
+                        </div>
+
+                        <div>
+                          <p className="name">Legal</p>
+                          <p>Privacy Policy</p>
+                          <p>Terms of Service</p>
+                        </div>
+
+                        <div>
+                          <p className="name">Resources</p>
+                          <p>FAQs</p>
+                          <p>Blog</p>
+                          <p>Career</p>
+                          <p>Customer stories</p>
+                        </div>
+
+                        <div>
+                          <p className="name">Contact Us</p>
+                          <p>info@brookessoftware.com</p>
+                          <p>+234 816 124 1827 , +234 806 020 2011</p>
+                          <input className="contact"
+                          placeholder="Your email address"
+                          />
+                        </div>
+
+                  </div>
     </div>
   );
 }
