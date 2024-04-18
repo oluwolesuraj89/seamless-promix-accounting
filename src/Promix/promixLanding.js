@@ -7,7 +7,10 @@ import frame from '../assets/promix/Frame 47.png';
 import eclipse from '../assets/promix/Ellipse 29.png';
 import womanimg from '../assets/promix/womanimg.png';
 import phone from '../assets/promix/phone.png';
-
+import tick from '../assets/promix/tick-circle.png';
+import tick2 from '../assets/promix/pick2.png';
+import arrow from '../assets/promix/arrow.png';
+import frame1 from '../assets/promix/Frame 91.png'
 function App() {
 
   return (
@@ -281,17 +284,182 @@ function App() {
 
       <div className="pricingContainer">
         <p className="pricingTxt">Pricing</p>
-        <p className="under_pricingTxt">Choose the pricing that works for you and align to  your business</p>
+        <p className="under_pricingTxt">Choose the pricing that works for you and align to your business</p>
         <div className="pricingOpts">
-          
-          <div className="pricingDesg">
-            <p>Free Plan</p>
-            <p>N0.00<span>/30 days</span></p>
-            <p>Use only for Personal use</p>
+
+          <div className="containerForPricing">
+            <div className="pricingDesg">
+              <div className="pricingPad">
+                <p className="freePlan">Free Plan</p>
+                <p className='amount'>N0.00<span className="amountSpan">/30 days</span></p>
+                <p className="useFor">Use only for Personal use</p>
+                <div className="textUnderUsefor">
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>1 user</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Account Receivables</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Account Payables</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>General Ledger</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Cashbook</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="Tryfree">
+                Try for Free
+              </div>
+
+            </div>
+
+            <div className="pricingDesg2">
+              <div className="pricingPad">
+                <p className="freePlan2">Basic Plan</p>
+                <p className='amount2'>N50,000.00<span className="amountSpan">/year</span></p>
+                <p className="useFor2">Use only for Personal use</p>
+                <div className="textUnderUsefor2">
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>2 user</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>Account Receivables</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>Account Payables</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>General Ledger</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>Cashbook</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>Journal Posting</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick2} className="tick2" />
+                    <p>Expenses Posting</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="Tryfree2">
+                Purchase Plan
+              </div>
+
+            </div>
+
+            <div className="pricingDesg">
+              <div className="pricingPad">
+                <p className="freePlan">Standard Plan</p>
+                <p className='amount'>N60,000.00<span className="amountSpan">/year</span></p>
+                <p className="useFor">For Commercial use</p>
+                <div className="textUnderUsefor">
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>3 user</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>All Basic</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Sales Invoice Generation</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Loan Application</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Inventory Management</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="Tryfree">
+                Purchase Plan
+              </div>
+
+            </div>
+
+            <div className="pricingDesg">
+              <div className="pricingPad">
+                <p className="freePlan">Business Plan</p>
+                <p className='amount'>Contact Us</p>
+                <div className="textUnderUsefor">
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>4 users and above</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>All Features</p>
+                  </div>
+                  <div style={{ display: 'flex' }}>
+                    <img src={tick} className="tick" />
+                    <p>Customization Request</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="Tryfree3">
+                Contact Us
+              </div>
+
+            </div>
+
           </div>
         </div>
       </div>
+      <div className="FAQs">
+        <div>
+            <p className="faqsTxt">FAQs</p>
+            <p className="underfaqs">See answers to some frequently asked questions here</p>
+        </div>
 
+       
+            <div className="firstFaq">
+              <p>Is there a free trial available?</p>
+              <img src={arrow} className="arrow"/>
+            </div>
+        
+            <div className="firstFaq">
+              <p>Can I change my plan later</p>
+              <img src={arrow} className="arrow"/>
+            </div>
+
+            <div className="firstFaq">
+              <p>What is your Cancellation Policy?</p>
+              <img src={arrow} className="arrow"/>
+            </div>
+      </div>
+
+              <div className="footer">
+                  <p className="footerTxt">Discover the benefits of our<br/>accounting solutions</p>
+                  <button>
+                  Sign Up now
+                  </button>
+              </div>
+     
     </div>
   );
 }
