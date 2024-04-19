@@ -1,0 +1,88 @@
+body{
+  overflow-x: visible;
+}
+.SignUp{
+  padding-left: 20px;
+  padding-right: 0px;
+}
+.mainContainer{
+  padding-top: 80px; 
+  padding-left: 830px;
+  /* padding to the bottonof the imaee */
+  padding-bottom: 160px;
+  padding-right: 120px;
+  background-image: url('../assets/promix/bgForSignup.png'); 
+  background-size: cover;
+  /* background-position: center;  */
+  background-repeat: no-repeat;
+  height: 100%;
+}
+.signUpTxt{
+  font-size: 42px;
+  font-weight: 700;
+  font-family: inter;
+  margin-left: 121px;
+}
+.SignUp{
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 580px;
+  justify-content: center;
+  display: flex;
+  border-radius: 20px;
+  padding-bottom: 40px;
+}
+.underSignupTxt{
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: -20px;
+}
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  padding-top: 0px;
+  display: block;
+  font-size: 16px;
+  margin-bottom: 5px; /* Add spacing below labels */
+}
+
+.custom-input{
+  height: 41px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  width: 413px;
+  margin-top: -20px;
+}
+
+:placeholder-shown{
+  font-size: 14px;
+  color: #ADB5BD;
+
+}
+
+.signUpButton{
+  width: 440px;
+  height: 41px;
+  border-radius: 4px;
+  background-color: #2D995F;
+  text-align: center;
+  margin-top: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 40px;
+}
+.alr2{
+  color: #2D995F;
+}
+.alr{
+  font-size: 14px;
+  font-weight: 400;
+  color: #fff;
+  display: flex;
+  white-space: nowrap;
+  margin-left: 30px;
+  justify-content: center;
+}

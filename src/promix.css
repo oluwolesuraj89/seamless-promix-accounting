@@ -1,0 +1,204 @@
+
+body {
+  /* font-family: inter; */
+  color: #ffffff;
+  overflow-x: visible;
+}
+
+.promix_nav {
+  background-color: #164B2E;
+  width: 305px;
+  height: 1315px;
+}
+
+.divine {
+  width: 305px;
+  background-color: #E9ECEF;
+  height: 2px;
+  margin-bottom: 37px;
+}
+
+.header_promix {
+  margin-left: 25px;
+  margin-right: 30px;
+}
+
+.logo {
+  width: 148px;
+  height: 33px;
+  margin-left: 34px;
+  margin-top: 38px;
+  margin-bottom: 28px;
+}
+
+.DashboardTxt {
+  font-size: 20px;
+  font-weight: 700;
+  color: #343A40;
+  margin-right: 650px;
+  /* margin-top: 49px; */
+}
+
+.search {
+  width: 306px;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #ADB5BD;
+  background-color: #F5F5F5;
+  /* margin-top: 34px; */
+}
+
+.bell {
+  width: 49px;
+  height: 48px;
+  margin-left: 35px;
+}
+
+.bell_search {
+  display: flex;
+  margin-top: 24px;
+}
+
+.up {
+  width: 20px;
+  height: 20px;
+  /* margin-top: 5px; */
+}
+
+.top_values {
+  background-color: #164B2E;
+  color: #E9ECEF;
+  border-radius: 8px;
+  border: 1px solid #2D995F;
+  margin-top: 31px;
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 210px;
+  width: 1159px;
+}
+
+.totalTxt {
+  font-size: 12px;
+  font-weight: 400;
+  padding-top: 18px;
+  padding-left: 32px;
+}
+
+.pricy {
+  color: #E9ECEF;
+  font-weight: 700;
+  font-size: 20px;
+  margin-left: 32px;
+  margin-top: -5px;
+}
+
+.txtImg {
+  margin-left: 32px;
+  display: flex;
+  line-height: 0px;
+  margin-top: -15px;
+  padding-bottom: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #E9ECEF;
+  gap: 10px;
+}
+
+.images {
+  width: 420px;
+  height: 395px;
+  margin-left: -25px;
+}
+
+.images7 {
+  width: 781px;
+  height: 225px;
+  margin-left: -7px;
+}
+
+.images8 {
+  width: 395px;
+  height: 225px;
+  /* margin-left: -25px; */
+}
+
+.promix_nav {
+  color: #fff;
+  font-weight: 400;
+  display: block;
+}
+
+.NavTxt {
+  padding-left: 20px;
+}
+
+.pie {
+  width: 24px;
+  height: 24px;
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+.Dashboard_header_text {
+  font-size: 16px;
+  line-height: 10px;
+}
+
+.des_dashboard {
+  width: 238px;
+  height: 44px;
+  border-radius: 8px;
+  background-color: #2D995F;
+  display: flex;
+}
+
+.idk {
+  width: 238px;
+  height: 44px;
+  display: flex;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  /* background-color: #2D995F; */
+  gap: 9px;
+  color: #ffffff;
+  margin-left: 0px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  margin-top: 10px;
+}
+
+.underPayables {
+  font-size: 13.99px;
+  font-weight: 400;
+  margin-left: 59px;
+  line-height: 30px;
+}
+
+.exit {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+  margin-left: 70px;
+  margin-right: 20px;
+}
+
+.logout {
+  display: flex;
+  font-family: inter;
+  width: 238px;
+  height: 40px;
+  border: 1px solid #FFFFFF;
+  text-align: center;
+  /* align-items: center; */
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 40px;
+  margin-top: 340px;
+
+}

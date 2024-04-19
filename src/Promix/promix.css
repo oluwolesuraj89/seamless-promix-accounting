@@ -2,7 +2,7 @@
 body {
   /* font-family: inter; */
   color: #ffffff;
-  overflow-x: visible;
+  background-image: none;
 }
 
 .promix_nav {

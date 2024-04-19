@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;900&family=Open+Sans:wght@700&family=Roboto:wght@300;500&display=swap');
 
 body {
-  overflow-x: hidden;
+  overflow-x: hidden!important;
   font-family: inter;
+  background-image: none;
 }
 
 .landing_header {
@@ -122,6 +123,7 @@ body {
   font-weight: 700;
   font-size: 36px;
   margin-left: 310px;
+  color: #343A40;
 }
 
 .why2 {
@@ -249,6 +251,15 @@ body {
   font-size: 36px;
   padding-left: 50px;
   font-weight: 700;
+}
+
+.efficientxt2 {
+  margin-top: 140px;
+  font-size: 36px;
+  padding-left: 50px;
+  font-weight: 700;
+  color: #343A40;
+  
 }
 
 .uder {
@@ -606,6 +617,7 @@ button{
   height: 44px;
   color: #2D995F;
   border-radius: 4px;
+  font-weight: 700;
 }
 .copy{
   line-height: normal;

@@ -175,21 +175,21 @@ function App() {
         <div style={{ display: 'flex' }}>
 
           <div className="efficientCard">
-            <p className="efficientxt">Efficient</p>
+            <p className="efficientxt2">Efficient</p>
             <p className="uder">Our accounting software is designed to make your<br />
               business life easier by minimising admin time.</p>
           </div>
 
           <div className="efficientCardGreen">
-            <p className="efficientxt">Efficient</p>
-            <p className="uder" style={{ color: '#fff' }}>Our accounting software is designed to make your<br />
-              business life easier by minimising admin time.</p>
+            <p className="efficientxt">Accessible</p>
+            <p className="uder" style={{ color: '#fff' }}>Give your employees online access to payslips and<br/>
+            expense claims.</p>
           </div>
 
           <div className="efficientCard">
-            <p className="efficientxt">Efficient</p>
-            <p className="uder">Our accounting software is designed to make your<br />
-              business life easier by minimising admin time.</p>
+            <p className="efficientxt2">Affordable</p>
+            <p className="uder">We offer competitive pricing on our HR and accounting<br/>
+            systems. Request a quote today.</p>
           </div>
 
         </div>
@@ -197,21 +197,21 @@ function App() {
         <div style={{ display: 'flex' }}>
 
           <div className="efficientCardGreen">
-            <p className="efficientxt">Efficient</p>
-            <p className="uder" style={{ color: '#fff' }}>Our accounting software is designed to make your<br />
-              business life easier by minimising admin time.</p>
+            <p className="efficientxt">compliant</p>
+            <p className="uder" style={{ color: '#fff' }}>A cloud-based system means you stay up to speed<br/>
+            on the latest wage, salary and pensions legislation.</p>
           </div>
 
           <div className="efficientCard">
-            <p className="efficientxt">Efficient</p>
-            <p className="uder">Our accounting software is designed to make your<br />
-              business life easier by minimising admin time.</p>
+            <p className="efficientxt2">Supportive</p>
+            <p className="uder">Our friendly team is always on hand to help with<br/>
+            any questions or issues you may encounter.</p>
           </div>
 
           <div className="efficientCardGreen">
-            <p className="efficientxt">Efficient</p>
-            <p className="uder" style={{ color: '#fff' }}>Our accounting software is designed to make your<br />
-              business life easier by minimising admin time.</p>
+            <p className="efficientxt">Automated</p>
+            <p className="uder" style={{ color: '#fff' }}>With automated and accurate tax calculations,<br/>
+            there's no need for in-house tax expertise.</p>
           </div>
 
         </div>

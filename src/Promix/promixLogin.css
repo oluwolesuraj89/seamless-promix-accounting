@@ -1,0 +1,36 @@
+.mainContainerLogin{
+  padding-top: 80px; 
+  padding-left: 830px;
+  /* padding to the bottonof the imaee */
+  padding-bottom: 160px;
+  padding-right: 120px;
+  background-image: url('../assets/promix/LogIn.png')!important; 
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  color: pink;
+}
+.HeaderPosition{
+  margin-left: 40px;
+}
+.LogIn{
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 580px;
+  justify-content: center;
+  display: flex;
+  border-radius: 20px;
+  padding-bottom: 120px;
+}
+.LoginTxt{
+  font-size: 42px;
+  font-weight: 700;
+  font-family: inter;
+  margin-left: 121px;
+  padding-top: 100px;
+}
+.underLoginTxt{
+  font-size: 18px;
+  font-weight: 400;
+  margin-top: -20px;
+  margin-left: 100px;
+}
