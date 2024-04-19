@@ -19,8 +19,8 @@ import transactions from '../assets/promix/transactions.png';
 import profile from '../assets/promix/profile.png';
 import exit from '../assets/promix/export.png';
 
-function App() {
-
+// function Dashboard() {
+  const Dashboard = () => {
   return (
     <div>
       <div style={{ display: 'flex' }}>
@@ -148,4 +148,4 @@ Logout
   );
 }
 
-export default App;
+export default Dashboard;

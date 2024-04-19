@@ -7,12 +7,13 @@ import frame from '../assets/promix/Frame 47.png';
 import eclipse from '../assets/promix/Ellipse 29.png';
 import womanimg from '../assets/promix/womanimg.png';
 import phone from '../assets/promix/phone.png';
+import HeaderNav from "./HeaderNav/HeaderNav";
 
 function App() {
 
   return (
     <div>
-      <div className="landing_header">
+      {/* <div className="landing_header">
         <img src={logo} className="logoicon" />
         <div className="headerText">
           <p>Home</p>
@@ -29,7 +30,8 @@ function App() {
           Sign Up
         </div>
 
-      </div>
+      </div> */}
+      <HeaderNav/>
 
       <div>
         <img src={firstFrame} className="firstFrame" />

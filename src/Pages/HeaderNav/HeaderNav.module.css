@@ -1,0 +1,223 @@
+*,
+::after,
+::before{
+    padding: 0;
+    margin: 0;
+}
+/* colors */
+:root{
+    --white:  #ffffff;
+    --light-blue:#DDF3E7;
+    --green:#2D995F;
+    --text:#6C757D;
+    --h-tags:#343A40;
+    --Light-Black: #6C757D;
+}
+button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: 700;
+    border-radius: 4px;
+}
+.greenBtn{
+    background-color: var(--green);
+    color: white;
+    transition: ease 0.3s;
+    border: 1px solid var(--green);
+    padding: 16px 50px;
+    border-radius: 4px;
+}
+
+
+.greenBtn:hover{
+    background-color: #87c5a4;
+    border: none;
+}
+.whiteBtn{
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: 16px 50px;
+    margin-right: 20px;
+    border-radius: 4px;
+}
+.whiteBtn:hover{
+    border: 1px solid #87c5a4;
+    color: #87c5a4;
+}
+
+.headerSection{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-shadow: 3px 3px 5px rgba(138, 137, 137, 0.226);
+    padding: 20px 0;
+    position: fixed;
+    background-color: var(--white);
+    z-index: 9999;
+}
+.nav{
+    background-color: var(--white);
+    width: 100%;
+    max-width: 90%;
+}
+.navContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-items: center;
+    position: relative;
+    z-index: 9999;
+}
+.navContainer .navLogoMobile{
+    display: none;
+}
+.navContainer .navLogoWeb,
+.navContainer .navLogoMobile{
+    /* height: 70px; */
+    max-width: 143px;
+    overflow: hidden;
+}
+logoicon
+
+.navContainer .navLogoWeb img,
+.navContainer .navLogoMobile img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    width: 100%;
+    max-width: 70%;
+    transition: ease top 0.5s;
+}
+ul li:nth-child(1) a{
+    color: var(--Light-Black);
+    padding: 0 20px;
+    font-size: 18px;
+}
+ul li:nth-child(1) a:hover{
+    color: var(--green);
+    font-weight: 700;
+}
+ul a{
+    text-decoration: none;
+    color: var(--Light-Black); 
+}
+.harmborgers{
+    display: none;
+    font-size: 24px;
+}
+@media(max-width:800px){
+    /* Nav  */
+    .headerSection{
+        padding: 5px 0;
+    }
+    .navContainer{
+        padding: 0;
+    }
+    
+    /* Nav Logo */
+    .navContainer .navLogoWeb{
+        display: none;
+    }
+    .navContainer .navLogoMobile{
+        display: block;
+        width: 206px;
+        margin-left: 20px;
+    }
+    .navContainer .navLogoMobile img{
+        object-fit: contain;
+    }
+    /* Nav Menus */
+    .nav{
+        max-width: 100%;
+        /* padding: 0 27px; */
+    }
+    ul{
+        position: absolute;
+        display: block;
+        top: 90px;
+        width: 100%;
+        max-width: 100%;
+        padding: 30px 27px ;
+        justify-content: left;
+        background-color: var(--white);
+        margin: 0;
+        gap: 10px;  
+    }
+    /* .mainMenu {
+        display: none;
+      } */
+    .menuOpen{
+        display: none;    
+    }
+    ul .linkList{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    ul li{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 25px;
+        padding:0;
+    }
+    ul li:nth-child(1) a{
+        padding: 0;
+        color: black;
+    }
+    button{
+        font-weight: 400;
+        color: black;
+    }
+    .greenBtn{
+        background-color: transparent;
+        /* color: var(--Light-Black); */
+        border:none;
+        padding:0;
+        /* border-radius: 4px; */
+    }
+    /* .greenBtn:hover{
+        background-color: #87c5a4;
+        border: none;
+    } */
+    .whiteBtn{
+        border: none;
+        /* color: var(--Light-Black); */
+        padding: 0;
+        margin-right: 0;
+        margin-top: 25px;
+        /* border-radius: 4px; */
+    }
+    /* .whiteBtn:hover{
+        border: 1px solid #87c5a4;
+        color: #87c5a4;
+    } */
+    
+    /* ul li:nth-child(1) a:hover{
+        color: var(--green);
+        font-weight: 700;
+    } */
+    /* ul a{
+        text-decoration: none;
+        color: var(--Light-Black); 
+    } */
+
+    /* Nav Menu Buttons */
+    .harmborgers{
+        display: block;
+        margin-right: 27px;
+    }
+    /* .harmborgers .closs{
+        display: none;
+    } */
+    .harmborgers span i{
+        font-size: 24px;
+    }
+}
