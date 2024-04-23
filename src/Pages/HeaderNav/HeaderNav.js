@@ -47,7 +47,7 @@ const HeaderNav = () => {
     <div className={classes.headerSection} >
       <nav className={classes.nav}>
         <div className={classes.navContainer} >
-          <NavLink to={'/'} className={classes.navLogoWeb}><img src={logo} className="logoicon" /></NavLink>
+          <NavLink to={'/'} className={classes.navLogoWeb}><img src={logo} className={classes.logoicon}/></NavLink>
           {/* <NavLink to={'/'} className={classes.navLogoMobile}><img src={mobileLogo} alt='Logo' /></NavLink> */}
           <ul className={`${classes.mainMenu} ${isMenuOpen ?  '' : classes.menuOpen}`}>
             <li className={classes.linkList}>
@@ -55,7 +55,7 @@ const HeaderNav = () => {
               <Link to={'#'}>Features</Link>
               <Link to={'#'}>Pricing</Link>
               <Link to={'#'}>FAQs</Link>
-              <Link to={'darshboard '}>Dashboard</Link>
+              {/* <Link to={'darshboard '}>Dashboard</Link> */}
             </li>
             <li className={classes.navItem}>
               <NavLink to={'/sign_in'}><button className={classes.whiteBtn}>Log In</button></NavLink>

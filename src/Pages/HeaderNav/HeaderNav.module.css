@@ -25,7 +25,7 @@ button{
     color: white;
     transition: ease 0.3s;
     border: 1px solid var(--green);
-    padding: 16px 50px;
+    padding: 16px 40px;
     border-radius: 4px;
 }
 
@@ -37,7 +37,7 @@ button{
 .whiteBtn{
     border: 1px solid var(--green);
     color: var(--green);
-    padding: 16px 50px;
+    padding: 16px 40px;
     margin-right: 20px;
     border-radius: 4px;
 }
@@ -78,7 +78,6 @@ button{
     max-width: 143px;
     overflow: hidden;
 }
-logoicon
 
 .navContainer .navLogoWeb img,
 .navContainer .navLogoMobile img{
@@ -92,8 +91,11 @@ ul{
     align-items: center;
     list-style: none;
     width: 100%;
-    max-width: 70%;
+    max-width: 60%;
     transition: ease top 0.5s;
+}
+ul li{
+    display: flex;
 }
 ul li:nth-child(1) a{
     color: var(--Light-Black);
