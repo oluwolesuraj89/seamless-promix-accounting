@@ -1,0 +1,114 @@
+.background {
+    /* Set the background image */
+    background-image: url('../../assets/promix/bgForSignup.png');
+  
+    /* Set background image size and positioning */
+    background-size: cover; /* Cover the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    
+    /* Set the height to fill the screen */
+    height: 100vh; /* 100% of the viewport height */
+    overflow: hidden;
+  }
+
+  
+
+  .mainContainerx {
+    background-color: rgba(0, 0, 0, 0.8);
+    /* width: 571px; */
+    height: auto;
+    border-radius: 20px;
+    display: flex;
+    
+    
+  }
+
+  .thecntnt {
+    margin: 35px 35px 0 45px;
+    /* margin-right: 20px; */
+    
+  }
+
+  .background  {
+    justify-content: right;
+    display: flex;
+    
+  }
+
+  .SignUptxt {
+    font-family: 'inter';
+    font-weight: 800;
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .SignUptxtsub {
+    font-family: 'inter';
+    font-weight: 400;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 15px;
+  }
+
+  .input1 {
+    display: flex;
+    flex-direction: column;
+  }
+  .dlabl {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'inter';
+    margin-bottom: 1px;
+  }
+
+  .inputlbl {
+    height: 41px;
+    width: 185px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-top: 8px;
+  }
+
+  .inputlbl::placeholder {
+    color: #ADB5BD;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .firstset {
+    display: flex;
+    justify-content: space-between;
+  } 
+  .secondset {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  } 
+
+  .snupbtn {
+    background-color: #2D995F;
+    color: white;
+    width: 100%;
+    margin-top: 32px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'inter';
+  }
+
+  .lgin {
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: -25px;
+  }
+
+  .lgin span {
+    color: #2D995F;
+  }

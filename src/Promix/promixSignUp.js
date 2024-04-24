@@ -28,7 +28,7 @@ function App() {
               </div>
 
               <div class="form-group">
-                <label for="name">Re-emter Password</label><br />
+                <label for="name">Re-enter Password</label><br />
                 <input type="text" id="name" name="name" placeholder="Enter your password" class="custom-input" />
               </div>
 
