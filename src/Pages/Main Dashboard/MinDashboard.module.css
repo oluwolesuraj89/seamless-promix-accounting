@@ -15,7 +15,9 @@
     --Black: #343A40;
     /* --Background:rgba(172, 231, 199, 0.05); */
 }
-
+p{
+    margin:0;
+}
 .logoCont{
     width: 100%;
     display: flex;
@@ -110,7 +112,10 @@
 }
 .formSectionHeader h3{
     color: var(--Light-green);
-    font-size: 28px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.formSectionHeader h4{
     font-weight: 700;
 }
 .formSecCont{
@@ -131,6 +136,7 @@
 .analysisCont h3,
 .analysisCont p{
     color: var(--White);
+    margin: 0;
 }
 .perceCont{
     display: flex;
