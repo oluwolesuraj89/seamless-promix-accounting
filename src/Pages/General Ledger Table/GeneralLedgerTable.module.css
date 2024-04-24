@@ -81,7 +81,6 @@
 
 
 
-
 .flex1{
     display: flex;
     justify-content: space-between;
@@ -95,6 +94,11 @@
     color: var(--blackGray);
     border: 1px solid var(--blackGray);
 }
+.transparents{
+    color: var(--blackGray);
+    cursor: pointer;
+    /* border: 1px solid var(--blackGray); */
+}
 .bodyContainer{
     padding:2rem 3rem 0 20rem ;
     /* padding-right: ; */
@@ -102,11 +106,12 @@
 .main{
     border: 1px solid var(--Light-green);
     border-radius: 8px;
+    margin-bottom: 40px;
 }
 .header1{
     width: 100%;   
     padding: 20px 21px;
-    border-bottom: 1px solid var(--Light-green);
+    /* border-bottom: 1px solid var(--Light-green); */
 
 }
 .actionBtns{

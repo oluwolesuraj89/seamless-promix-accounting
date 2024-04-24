@@ -133,7 +133,7 @@ p{
     border-radius: 8px;
     /* color: var(--White); */
 }
-.analysisCont h3,
+.analysisCont h5,
 .analysisCont p{
     color: var(--White);
     margin: 0;
@@ -307,7 +307,6 @@ p{
             padding: 24px 32px;
             background-color: var(--White);
             border-radius: 12px;
-            
             width: 100%;
         }
         .shadow{

@@ -81,7 +81,6 @@
 
 
 
-
 .flex1{
     display: flex;
     justify-content: space-between;
@@ -114,48 +113,31 @@
     gap: 24px;
 }
 .header2{
-    display: flex;
+    /* display: flex; */
     padding: 12px 20px;
-    gap: 31px;
+    /* gap: 31px; */
 }
-.discrp{
-    padding: 10px 15px;
+.formContainer{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
+}
+.formCont{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* justify-content: space-between; */
+    gap: 20px   ;
+}
+.formGroup{
+    width: 100%;
+}
+.formGroup label{
+    font-size: 12px;
+}
+.formGroup input,
+.formGroup select{
+    margin: 0;
+    font-size: 12px;
     border-radius: 4px;
-}
-.discrp i{
-    font-size: 24px;
-}
-.pagenate{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 71px;
-    padding: 17px 0 21px 0;
-}
-.transparent{
-    background-color: transparent;
-    color: var(--Black);
-    border: none;
-}
-.pagenate button{
-    padding: 5px 20px;
-}
-table .actions{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-table .action{
-    padding: 5px 15px;
-}
-.tableHead th{
-    background-color: var(--Deep-green);
-    color: var(--White);
-    font-size: 14px;
-    font-weight: 600;
+    padding: 14px 20px;
 }
