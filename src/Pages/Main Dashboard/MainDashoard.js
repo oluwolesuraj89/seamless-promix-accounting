@@ -12,6 +12,7 @@ import dIcon6 from '../../assets/promix/dIcon6.svg'
 import Arrow from '../../assets/promix/dArrow-down.svg'
 import Out from '../../assets/promix/dLoginIcon.svg'
 import Logo from '../../assets/promix/dLogoWhite.svg'
+import Accordion from 'react-bootstrap/Accordion';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';

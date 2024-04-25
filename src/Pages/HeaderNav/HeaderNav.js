@@ -58,8 +58,8 @@ const HeaderNav = () => {
               {/* <Link to={'darshboard '}>Dashboard</Link> */}
             </li>
             <li className={classes.navItem}>
-              <NavLink to={'/sign_in'}><button className={classes.whiteBtn}>Log In</button></NavLink>
-              <NavLink to={'/sign_up'}><button className={classes.greenBtn}>Sign Up</button></NavLink>
+              <NavLink to={'/login'}><button className={classes.whiteBtn}>Log In</button></NavLink>
+              <NavLink to={'/signup'}><button className={classes.greenBtn}>Sign Up</button></NavLink>
             </li>
           </ul>
           <div className={classes.harmborgers} onClick={toggleMenu}>
