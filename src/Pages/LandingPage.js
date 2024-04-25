@@ -34,7 +34,7 @@ const LandingPage = () => {
               <p>Automate your accounting management system today. Oursoftware solutions will help streamline account management</p>
               <div className={classes.heroBtns}>
                 <button className={`${classes.heroGreenBtn} ${classes.greenBtn}`}> Get started </button>
-                <button> See How it Works </button>
+                <button className={classes.btnss}> See How it Works </button>
               </div>
               <div className={classes.heroAmounts}>
                 <div>
@@ -463,35 +463,9 @@ const LandingPage = () => {
             <p className={classes.happeningText}>See answers to some frequently asked questions here</p>
           </div>
           <div className={classes.accordionContainer}>
-            <Accordion defaultActiveKey="0">
+            <Accordion>
               <Accordion.Item eventKey="0">
-                <Accordion.Header>Accordion Item #1</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>Accordion Item #2</Accordion.Header>
-                <Accordion.Body>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in
-                  reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-            {/* <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header >What is the Ogun State SME Empowerment Fund?</Accordion.Header>
+                <Accordion.Header >Is there a free trial available?</Accordion.Header>
                 <Accordion.Body >
                   In order to ameliorate the challenges currently facing
                   entrepreneurs across the country, in particular the high cost
@@ -506,20 +480,13 @@ const LandingPage = () => {
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item className={classes.accordionSpace} eventKey="1">
-                <Accordion.Header>Who Is Eligible to Apply For Grant?</Accordion.Header>
+                <Accordion.Header>Can I change my plan later?</Accordion.Header>
                 <Accordion.Body>
-                  ELIGIBILITY CRITERIA
-                  Business must:<br />
-                  • Be located in Ogun State; <br />
-                  • Be in operation for a minimum of 1year;<br />
-                  • Employ a minimum of 1-3;<br />
-                  • Be owned by someone between the ages
-                  of 18-60 years;<br />
-                  • Not have benefitted from OG-Cares operational grant
+                  Yes, you can change your plan at anytime
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item className={classes.accordionSpace} eventKey="2">
-                <Accordion.Header>What Are The Required Document To Apply For Grant?</Accordion.Header>
+                <Accordion.Header>What is your Cancellation Policy?</Accordion.Header>
                 <Accordion.Body className={classes.accordCont}>
                   DOCUMENTATION
                   Applicant must provide:<br />
@@ -530,68 +497,8 @@ const LandingPage = () => {
                   • Bank account<br />
                 </Accordion.Body>
               </Accordion.Item>
-              <Accordion.Item className={classes.accordionSpace} eventKey="3">
-                <Accordion.Header>How much Can I Get When I Apply For Grant?
-                </Accordion.Header>
-                <Accordion.Body>
-                  Flat amount of N100,000.00 per business
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item className={classes.accordionSpace} eventKey="4">
-                <Accordion.Header>Who Is Eligible to Apply For Loan?
-                </Accordion.Header>
-                <Accordion.Body>
-                  ELIGIBILITY CRITERIA <br />
-                  Business must:<br />
-                  • Be located in Ogun State;<br />
-                  • Be in operation for a minimum of 3years;<br />
-                  • Employ a minimum of 3;<br />
-                  • Be owned by someone between the ages
-                  of 21- 60 years;<br />
-                  • Be in retail, service and manufacturing
-                  sector
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item className={classes.accordionSpace} eventKey="5">
-                <Accordion.Header>What Are The Required Document To Apply For Loan?
-                </Accordion.Header>
-                <Accordion.Body>
-                  DOCUMENTATION  <br />
-                  Applicant must provide:<br />
-                  • CAC certificate of business registration;<br />
-                  • State business premises permit/LG trade
-                  permit<br />
-                  • Evidence of annual turnover for 2years;<br />
-                  • 2 years Bank statement<br />
-                  • Ogun State tax clearance/OGRIS Tax
-                  Identification number for the business
-                  owner<br />
-                  • Bank verification number(BVN)<br />
-                  <br />
-                  SECURITY <br />
-                  • Right to set- off on the company & owner’s
-                  other accounts in any financial institutions.<br />
-                  • One (1) Third party Guarantor who must
-                  have verifiable income – working in a
-                  bank/Managers of Corporate
-                  Organizations/a senior public servant
-
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item className={classes.accordionSpace} eventKey="6">
-                <Accordion.Header>How much Can I Get When I Apply For Loan?</Accordion.Header>
-                <Accordion.Body>
-                  Flat amount of N500,000.00 per business
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item className={classes.accordionSpace} eventKey="7">
-                <Accordion.Header>What is the Interest Rate on The Loan?
-                </Accordion.Header>
-                <Accordion.Body>
-                  The loan is interest free - 0%
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion> */}
+              
+            </Accordion>
           </div>
         </div>
       </div>

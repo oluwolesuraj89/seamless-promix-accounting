@@ -24,7 +24,7 @@ p{
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--White);
-    padding: 31px 64px 26px 23px;
+    padding: 21px 64px 16px 23px;
     font-size: 14px;
     color: var(--White);
 }
@@ -63,7 +63,7 @@ p{
     /* padding: 31px 64px ; */
 }
 .sideNav{
-    padding: 37px 27px 0 24px;
+    padding: 17px 27px 0 24px;
 }
 .regMenu{
     display: flex;
@@ -72,7 +72,7 @@ p{
 }
 .regMenu a{
     text-decoration: none;
-    padding: 0 34px 12px 20px;
+    color: var(--White);
 }
 .regMenu .active {
     background: linear-gradient(to right, #4b9483, #2d998050);
@@ -89,7 +89,7 @@ p{
     font-weight: 400;
     margin:0;
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -163,21 +163,25 @@ p{
     margin-top: 2rem;
     width: 100%;
 }
+.dFooter a {
+    text-decoration: none;
+}
 .logoPic{
     width: 148px;
     height: 33px;
     overflow: hidden;
 }
 .dFooter button{
-    border: 2px solid var(--White);
+    border: 1px solid var(--White);
     border-radius: 8px;
-    width: 238px;
+    width: 250px;
     color: var(--White);
     /* font-weight: 600; */
     font-size: 16px;
     display: flex;
-    /* justify-content: space-around; */
+    justify-content: center;
     align-items: center;
+    padding: 5px 0 !important;
     gap: 20px;
 }
 
@@ -201,6 +205,40 @@ p{
 .harmborgers i{
     font-size: 24px;
 }
+
+.accordionCard{
+    border: none;
+    color: var(--White);
+}
+.cardHeader{
+    background-color: #164B2E;
+    color: var(--White);
+    border: none;
+    padding: 5px 0;
+    font-size: 16px !important;
+    font-weight: lighter !important;
+}
+.accordionCard button{
+    padding: 10px 10px 0 0 !important;
+    width: 100%;
+}
+.collapses{
+    /* background-color: green !important; */
+}
+.cardBody a{
+    padding: 20px  0 !important;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+.cardBody{
+    background-color: var(--Deep-green);
+    color: var(--White);
+    padding: 10px 0 10px 10px ;
+    border-left: 1px solid var(--White);
+    margin-left: 10px;
+}
+
     @media(max-width:800px){
 
         .mobileshow{
