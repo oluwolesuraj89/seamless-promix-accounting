@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 import classes from '../../../Pages/PaymentVouchers/GeneralPaymentVoucher/GeneralPaymentVoucher.module.css'
 import Table from 'react-bootstrap/Table';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
+import { Link } from 'react-router-dom';
 
 export default function GeneralPaymentVoucher() {
   return (
@@ -62,7 +63,9 @@ export default function GeneralPaymentVoucher() {
               <h5>Voucher</h5>
               <div className={classes.actionBtns}>
                 <Button variant="light" className={classes.whiteBtn}>Filters</Button>
-                <Button variant="success" className={classes.greenBtn}>Add New Payment Vouchers</Button>
+                <Link to={'/payment_voucher_form'}>
+                  <Button variant="success" className={classes.greenBtn}>Add New Payment Vouchers</Button>
+                </Link>
               </div>
           </div>
           <div className={classes.header2}>

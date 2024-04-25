@@ -19,12 +19,56 @@ import dChart5 from '../../assets/promix/dShart5.svg'
 import dChart6 from '../../assets/promix/dShart6.svg'
 import dChart7 from '../../assets/promix/dShart7.svg'
 import dChart8 from '../../assets/promix/dShart8.svg'
+import Arrow from '../../assets/promix/dArrow-down.svg'
 
 const Dashboard = () => {
     
     return (
         <div>
             <MainDashoard/>
+            
+            <div className={classes.formSection}>
+                <div className={classes.formSectionHeader}>
+                    <div>
+                        <h4 style={{color:'black'}}>Dashboard</h4>
+                        
+                    </div>
+                    <div style={{textAlign:'right'}}>
+                        <p style={{margin:'0'}}>Welcome</p>
+                        <h3>
+                            user
+                        </h3>
+                        
+                    </div>
+                </div>
+                <div className={classes.analysis}>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className={classes.chartCont}>
                 <div className={classes.chartBox}>
                     <img src={dChart1} alt='chart' className={classes.imgs}/>

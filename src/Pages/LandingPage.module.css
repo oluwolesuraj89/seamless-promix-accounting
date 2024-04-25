@@ -17,7 +17,8 @@ p{
 h1, h2, h3, h4, h5, h6{
   color: var(--h-color);
 }
-button{
+/* button{ */
+.btnss{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,6 +113,7 @@ button{
   border-radius: 4px;
   font-size: 14px;
   margin-top: 40px;
+  padding: 12px 31px;
 }
 .automateImg{
   /* width: 100%; */
@@ -595,6 +597,15 @@ button{
 }
 .faqsHead{
   text-align: center;
+}
+.faqsHead h1{
+  font-size: 38px;
+  font-weight: 800;
+}
+.faqsHead p{
+  font-size: 20px;
+  font-weight: 400;
+  padding: 16px 0 54px 0;
 }
 
 /* .frame1{

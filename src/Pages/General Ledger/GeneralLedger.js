@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 import classes from '../../Pages/General Ledger/GeneralLedger.module.css'
 import Form from 'react-bootstrap/Form';
 import Arrow from '../../assets/promix/dArrow-down.svg'
+import { Link } from 'react-router-dom';
 
 export default function GeneralLedger() {
   return (
@@ -83,7 +84,9 @@ export default function GeneralLedger() {
         </div>
       </div>
         
+       <Link to={'/general_ledger_table'}>
         <Button variant='success' style={{marginTop:'20px'}}>Generate Report</Button>
+       </Link> 
       {/* </fieldset>    */}
     </Form>
 
