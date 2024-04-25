@@ -6,7 +6,6 @@
   --White: #ffffff;
   --Black: #343A40;
   --blackGray: #6C757D;
-  /* --Background:rgba(172, 231, 199, 0.05); */
 }
 
 
@@ -55,9 +54,6 @@
   .thecntnt p{
     color: var(--White);
   }
-  .thecntnt button{
-
-  }
 
   .SignUptxt {
     font-family: 'inter';
@@ -76,23 +72,6 @@
     padding-bottom: 15px;
   }
 
-
-  /* .inputlbl::placeholder {
-    color: #ADB5BD;
-    font-size: 14px;
-    font-weight: 400;
-  } */
-
-  /* .firstset {
-    display: flex;
-    justify-content: space-between;
-  }  */
-  /* .secondset {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }  */
-
   .snupbtn {
     /* background-color: #2D995F; */
     color: white;
@@ -108,7 +87,6 @@
     font-weight: 400;
     font-size: 14px;
     text-align: center;
-    /* margin-bottom: -25px; */
   }
 
   .lgin span {

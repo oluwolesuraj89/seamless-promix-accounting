@@ -1,6 +1,9 @@
 import React from "react";
 import backgroundImage from '../../assets/promix/bgForSignup.png';
 import classes from './Signup.module.css'
+import Form from 'react-bootstrap/Form';
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 
 function SignUp() {
@@ -8,35 +11,33 @@ function SignUp() {
     return (
         <div className={classes.background}>
             <div className={classes.mainContainerx}>
-                <div className={classes.thecntnt}>
-                    <div >
-                        <p className={classes.SignUptxt}>Sign Up</p>
-                        <p className={classes.SignUptxtsub}>Enter your information and let's get you started</p>
-                    </div>
-                    <div className={classes.firstset}>
-                        <div className={classes.input1}>
-                            <label className={classes.dlabl}>Name</label>
-                            <input placeholder="Enter your name" type="text" className={classes.inputlbl}></input>
-                        </div>
-                        <div className={classes.input1}>
-                            <label className={classes.dlabl}>Email Address</label>
-                            <input placeholder="Enter your email address" type="text" className={classes.inputlbl}></input>
-                        </div>
-                    </div>
-                    <div className={classes.secondset}>
-                        <div className={classes.input1}>
-                            <label className={classes.dlabl}>Password</label>
-                            <input placeholder="Enter your password" type="password" className={classes.inputlbl}></input>
-                        </div>
-                        <div className={classes.input1}>
-                            <label className={classes.dlabl}>Re-enter password</label>
-                            <input placeholder="Enter your password" type="password" className={classes.inputlbl}></input>
-                        </div>
-                    </div>
-                    <button className={classes.snupbtn}>Signup</button>
-                    <p className={classes.lgin}>Already have an account? <span>Log in</span></p>
+            <div className={classes.thecntnt}>
+                <div className={classes.head}>
+                    <p className={classes.SignUptxt}>Sign Up</p>
+                    <p className={classes.SignUptxtsub}>Enter your Information and let’s get you started</p>
                 </div>
+                <Form>
+                <Form.Group className={classes.formGroup}>
+                    <Form.Label  >Name</Form.Label>
+                    <Form.Control type='text' id="date" placeholder="Enter your name"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                </Form.Group>
+                <Form.Group className={classes.formGroup}>
+                    <Form.Label  >Email address</Form.Label>
+                    <Form.Control type='email' id="date" placeholder="Enter your email address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                </Form.Group>
+                <Form.Group className={classes.formGroup}>
+                    <Form.Label  >Password</Form.Label>
+                    <Form.Control type='password' id="date" placeholder="Enter your password"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                </Form.Group>
+                <Form.Group className={classes.formGroup}>
+                    <Form.Label  >Re-enter Password</Form.Label>
+                    <Form.Control type='password' id="date" placeholder="Enter your password"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                </Form.Group>
+                </Form>
+                <Button variant="success" className={classes.snupbtn}>Sign Up</Button>
+                <p className={classes.lgin}>Don't have an account? <Link to={'/login'} style={{textDecoration:'none'}}><span>Login In</span></Link></p>
             </div>
+        </div>
         </div>
     );
 }

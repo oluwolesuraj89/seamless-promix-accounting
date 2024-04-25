@@ -27,7 +27,6 @@ return (
                 </Form.Group>
                 </Form>
                 <Button variant="success" className={classes.snupbtn}>Login</Button>
-                {/* <button className={classes.snupbtn}>Login</button> */}
                 <p className={classes.lgin}>Don't have an account? <Link to={'/signup'} style={{textDecoration:'none'}}><span>Sign Up</span></Link></p>
             </div>
         </div>
