@@ -215,17 +215,15 @@ export default function MainDashoard() {
 
     return (
         <div className={classes.sideNavBody}>
-            <div className={classes.sideNavContainer}>
+            <div className={`${classes.sideNavContainer} ${classes.overflow}`}>
                 <div className={classes.logoCont}>
                     <span>A</span>
                     <p style={{color:'white', fontSize:'14px'}}>Ajanla Farms and Pastry</p>
-
                 </div>
-                <div className={classes.sideNav}>
+                <div className={`${classes.sideNav}`}>
                     {/* {`${classes.mainMenu} ${isMenuOpen ? classes.menuOpen : ''}`} */}
 
                     <div className={`${classes.regMenu} ${isMenuOpen ? '' : classes.menuOpen}`}>
-                
                         <Link
                             to={'/dashboard'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
@@ -250,7 +248,12 @@ export default function MainDashoard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'#'}>Hey!</Link>
+                                        <Link to={'#'}>Customer/Employee/Member</Link><br/>
+                                        <Link to={'#'}>Sales Invoices</Link><br/>
+                                        <Link to={'#'}>Advance Bookin</Link><br/>
+                                        <Link to={'#'}>Advance Booking Payments</Link><br/>
+                                        <Link to={'#'}>Sales Invoice Payments</Link><br/>
+                                        <Link to={'#'}>Loan & Advances</Link>
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
@@ -265,7 +268,8 @@ export default function MainDashoard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="1" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/general_payment_voucher'}>General Payment Voucher</Link><br/>
+                                        <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/>
+                                        <Link to={'#'}>General Payment Voucher</Link><br/>
                                         <Link to={'#'}>Pending Payment Voucher</Link><br/>
                                         <Link to={'#'}>Completed Payment Voucher</Link><br/>
                                         <Link to={'#'}>Bulk Payment Excel</Link><br/>
@@ -287,7 +291,12 @@ export default function MainDashoard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="2" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'#'}>General Payment Voucher</Link><br/><br/>
+                                        <Link to={'#'}>Manage Department</Link><br/>
+                                        <Link to={'#'}>Manage Unit</Link><br/>
+                                        <Link to={'#'}>Manage Items</Link><br/>
+                                        <Link to={'#'}>Manage Order</Link><br/>
+                                        <Link to={'#'}>Manage Requisition</Link><br/>
+                                        <Link to={'#'}>Manage Purchase Delivery</Link><br/>
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
@@ -308,7 +317,10 @@ export default function MainDashoard() {
                                         <Link to={'#'}>Journal Entries</Link><br/>
                                         <Link to={'#'}>Deposit/Lodgement</Link><br/>
                                         <Link to={'#'}>Loan Repayment</Link><br/>
+                                        <Link to={'#'}>Loan Repayment Excel</Link><br/>
                                         <Link to={'#'}>Savings Withdrawal</Link>
+                                        <Link to={'#'}>Income Excel Upload</Link>
+                                        <Link to={'#'}>Payment Excel Upload</Link>
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
@@ -343,7 +355,13 @@ export default function MainDashoard() {
                                     </ContextAwareToggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="5" style={{backgroundColor:'#164B2E'}}>
-                                    <Card.Body className={classes.cardBody}>Hello! I am the body</Card.Body>
+                                    <Card.Body className={classes.cardBody}>
+                                    <Link to={'#'}>My Profile</Link><br/>
+                                    <Link to={'#'}>Edit Profile</Link><br/>
+                                    <Link to={'#'}>Manage User</Link><br/>
+                                    <Link to={'#'}>Change Password</Link><br/>
+                                    <Link to={'#'}>Sign Out</Link>
+                                    </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
                             
@@ -423,47 +441,6 @@ export default function MainDashoard() {
                     </Link>
                 </div>
             </div>
-            {/* <div className={classes.formSection}>
-                <div className={classes.formSectionHeader}>
-                    <div>
-                        <h4 style={{color:'black'}}>Dashboard</h4>
-                        
-                    </div>
-                    <div style={{textAlign:'right'}}>
-                        <p style={{margin:'0'}}>Welcome</p>
-                        <h3>
-                            {user}user
-                        </h3>
-                        
-                    </div>
-                </div>
-                <div className={classes.analysis}>
-                    <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
-                        </div>
-                    </div>
-                    <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
-                        </div>
-                    </div>
-                    <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
         </div>
         // </div>
     )
