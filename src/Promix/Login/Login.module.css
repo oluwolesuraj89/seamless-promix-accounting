@@ -10,7 +10,7 @@
 
 
 .background {
-    background-image: url('../../assets/promix/LogIn.png');
+    background-image: url('../../assets/promix/Login.svg');
     background-size: cover; /* Cover the entire container */
     width: 100%;
     background-position:center; /* Center the image */

@@ -19,11 +19,11 @@ return (
                 <Form>
                 <Form.Group className={classes.formGroup}>
                     <Form.Label  >Email Address</Form.Label>
-                    <Form.Control type='text' id="date" placeholder="Enter you email address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                    <Form.Control type='text' id="date" placeholder="Enter you email address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)', color: "#fff"}}/>
                 </Form.Group>
                 <Form.Group className={classes.formGroup}>
                     <Form.Label  >Password</Form.Label>
-                    <Form.Control type='password' id="date" placeholder="Enter you password address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                    <Form.Control type='password' id="date" placeholder="Enter you password address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)', color: "#fff"}}/>
                 </Form.Group>
                 </Form>
                 <Button variant="success" className={classes.snupbtn}>Login</Button>

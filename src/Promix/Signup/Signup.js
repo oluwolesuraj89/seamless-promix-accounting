@@ -19,19 +19,19 @@ function SignUp() {
                 <Form>
                 <Form.Group className={classes.formGroup}>
                     <Form.Label  >Name</Form.Label>
-                    <Form.Control type='text' id="date" placeholder="Enter your name"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                    <Form.Control type='text' id="date" placeholder="Enter your name"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)', color: "#fff"}}/>
                 </Form.Group>
                 <Form.Group className={classes.formGroup}>
                     <Form.Label  >Email address</Form.Label>
-                    <Form.Control type='email' id="date" placeholder="Enter your email address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                    <Form.Control type='email' id="date" placeholder="Enter your email address"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)', color: "#fff"}}/>
                 </Form.Group>
                 <Form.Group className={classes.formGroup}>
                     <Form.Label  >Password</Form.Label>
-                    <Form.Control type='password' id="date" placeholder="Enter your password"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                    <Form.Control type='password' id="date" placeholder="Enter your password"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)', color: "#fff"}}/>
                 </Form.Group>
                 <Form.Group className={classes.formGroup}>
                     <Form.Label  >Re-enter Password</Form.Label>
-                    <Form.Control type='password' id="date" placeholder="Enter your password"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)'}}/>
+                    <Form.Control type='password' id="date" placeholder="Enter your password"  style={{backgroundColor:'rgba(0, 0, 0, 0.8)', color: "#fff"}}/>
                 </Form.Group>
                 </Form>
                 <Button variant="success" className={classes.snupbtn}>Sign Up</Button>
