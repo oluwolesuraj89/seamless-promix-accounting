@@ -11,7 +11,11 @@ import tick from '../assets/promix/tick-circle.png';
 import tick2 from '../assets/promix/pick2.png';
 import arrow from '../assets/promix/arrow.png';
 import frame1 from '../assets/promix/Frame 91.png'
+import { plans } from './api/pricing';
+
 function App() {
+
+console.log(plans, "New");
 
   return (
     <div>

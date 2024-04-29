@@ -41,7 +41,7 @@ import { Button } from 'bootstrap';
 // import { useRegistration } from '../RegistrationContext';
 
 
-export default function MainDashoard() {
+export default function MainDashboard() {
     const location = useLocation();
     const navigate = useNavigate();
     const [bearer, setBearer] = useState('');

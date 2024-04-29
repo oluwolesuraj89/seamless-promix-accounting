@@ -4,9 +4,17 @@ import classes from './Signup.module.css'
 import Form from 'react-bootstrap/Form';
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../api/api";
+import axios from "axios";
+
 
 
 function SignUp() {
+    const location = useLocation();
+    const selectedPlan = location.state?.selectedPlan;
+
+ 
 
     return (
         <div className={classes.background}>

@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // import Dashboard from './Pages/Dashboard.js';
 // import PromixLanding from './Pages/promixLanding.js';
 import LandingPage from './Pages/LandingPage.js';
-import Dashoard from './Pages/Dashboard/Dashboard.js';
-import MainDashoard from './Pages/Main Dashboard/MainDashoard.js';
 import GeneralPaymentVoucher from './Pages/PaymentVouchers/GeneralPaymentVoucher/GeneralPaymentVoucher.js';
 import PaymentVoucherForm from './Pages/PaymentVouchers/PaymentVoucherForm/PaymentVoucherForm.js';
 import GeneralLedger from './Pages/General Ledger/GeneralLedger.js';
@@ -14,13 +12,14 @@ import CreatePaymentVoucher from './Pages/PaymentVouchers/Create Payment Voucher
 import SalesReceipt from './Pages/Sales Receipt/SalesReceipt.js';
 
 import Login from './Promix/Login/Login.js';
+import MainDashboard from './Pages/Main Dashboard/MainDashoard.js';
+import Dashboard from './Pages/Dashboard/Dashboard.js';
 
 function App() {
   return (
       <Routes>
         <Route path='/' element={<LandingPage/>} />
-        <Route path='/dashboard' element={<Dashoard/>} />
-        <Route path='/main_dashboard' element={<MainDashoard />} />
+        <Route path='/main_dashboard' element={<Dashboard />} />
         <Route path='/general_payment_voucher' element={<GeneralPaymentVoucher/>} />
         <Route path='/payment_voucher_form' element={<PaymentVoucherForm/>} />
         <Route path='/general_ledger' element={<GeneralLedger/>} />

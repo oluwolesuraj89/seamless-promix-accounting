@@ -10,7 +10,7 @@ import classes from './Dashboard.module.css';
 import { Button } from 'react-bootstrap';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Link } from 'react-router-dom'
-import MainDashoard from '../Main Dashboard/MainDashoard';
+import MainDashboard from '../Main Dashboard/MainDashoard';
 import dChart1 from '../../assets/promix/dShart1.svg'
 import dChart2 from '../../assets/promix/dShart2.svg'
 import dChart3 from '../../assets/promix/dShart3.svg'
@@ -25,7 +25,7 @@ const Dashboard = () => {
     
     return (
         <div>
-            <MainDashoard/>
+            <MainDashboard/>
             
             <div className={classes.formSection}>
                 <div className={classes.formSectionHeader}>
