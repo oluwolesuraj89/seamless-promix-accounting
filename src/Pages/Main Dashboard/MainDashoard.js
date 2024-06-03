@@ -343,7 +343,7 @@ export default function MainDashboard() {
                                 <Accordion.Collapse eventKey="4" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                         <Link to={'/general_ledger'}>General Ledger</Link><br/>
-                                        <Link to={'#'}>Cashbook</Link><br/>
+                                        <Link to={'/cashbook'}>Cashbook</Link><br/>
                                         <Link to={'#'}>Trial Balance</Link><br/>
                                         <Link to={'#'}>Income & Expenditure</Link><br/>
                                         <Link to={'#'}>Monthly Income</Link><br/>
