@@ -16,6 +16,7 @@ import MainDashboard from './Pages/Main Dashboard/MainDashoard.js';
 import Dashboard from './Pages/Dashboard/Dashboard.js';
 import ManageRole from './Pages/Manae Role/ManageRole.js';
 import ApprovalLevel from './Pages/Manae Approval Level/ApprovalLevel.js';
+import Members from './Pages/Manage Cooperatives/Manage Members/Members.js';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path='/signup' element={<SignUp/>} />
         <Route path='/manage_role' element={<ManageRole/>} />
         <Route path='/approval_level' element={<ApprovalLevel/>} />
+        <Route path='/members' element={<Members/>} />
       </Routes>
   );
 }
