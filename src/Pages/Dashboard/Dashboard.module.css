@@ -32,7 +32,7 @@ body {
   padding-top: 40px;
   margin-bottom: 10px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 .formSection p{
@@ -81,6 +81,27 @@ body {
     gap: 10px;
     /* color: var(--White); */
 }
+
+.dashboardName{
+    width: 60%;
+}
+.userSide{
+    width: 40%;
+}
+.userSide h3{
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-align: right;
+}
+.dashboardName h4{
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 
 
 .chartCont{
