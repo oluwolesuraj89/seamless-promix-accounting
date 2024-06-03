@@ -54,6 +54,7 @@ export default function MainDashboard() {
     const [isMenuOpen3, setIsMenuOpen3] = useState(false);
     const [isMenuOpen4, setIsMenuOpen4] = useState(false);
     const [isMenuOpen5, setIsMenuOpen5] = useState(false);
+    const [isMenuOpen6, setIsMenuOpen6] = useState(false);
     // const { isReg, retrieveRegStatus } = useRegistration();
     const PINK = 'rgba(255, 192, 203, 0.6)';
     const BLUE = 'rgba(0, 0, 255, 0.6)';
@@ -98,6 +99,9 @@ export default function MainDashboard() {
     };
     const toggleMenu5 = () => {
         setIsMenuOpen5(!isMenuOpen5); // Toggle the menu open/close state
+    };
+    const toggleMenu6 = () => {
+        setIsMenuOpen6(!isMenuOpen6); // Toggle the menu open/close state
     };
     // const toggleMenu6 = () => {
     //     setIsMenuOpen6(!isMenuOpen6); // Toggle the menu open/close state
@@ -224,13 +228,13 @@ export default function MainDashboard() {
 
                     <div className={`${classes.regMenu} ${isMenuOpen ? '' : classes.menuOpen}`}>
                         <Link
-                            to={'/dashboard'}
+                            to={'/main_dashboard'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p>
                                 <span><img src={dashIcon} alt='icon' className={classes.webshow} />
                                 <img src={dashIcon} alt='icon' className={classes.mobileshow} />
-                                Dashboard </span>
+                                Home </span>
                             </p>
                         </Link>
                         <Accordion>
@@ -261,13 +265,36 @@ export default function MainDashboard() {
                                     <ContextAwareToggle eventKey="0">
                                         <p>
                                             <span>
-                                                <img src={dIcon2} alt='icon'/> Receivables
+                                                <img src={dIcon2} alt='icon'/> Configuration
                                             </span>
                                             {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
                                         </p>
                                     </ContextAwareToggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                        <Link to={'/manage_role'}>Manage Roles</Link><br/>
+                                        <Link to={'/approval_level'}>Approval Levels</Link><br/>
+                                        <Link to={'#'}>Manage User</Link><br/>
+                                        <Link to={'#'}>Manage Category </Link><br/>
+                                        <Link to={'#'}>Charts of Account</Link><br/>
+                                        {/* <Link to={'#'}>Loan & Advances</Link> */}
+                                    </Card.Body>
+                                    
+                                </Accordion.Collapse>
+                            </Card>
+                            <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
+                                    <ContextAwareToggle eventKey="6">
+                                        <p>
+                                            <span>
+                                                <img src={dIcon2} alt='icon'/> Receivables
+                                            </span>
+                                            {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                     <Link to={'#'}>Customer/Employee/Member</Link><br/>
                                         <Link to={'#'}>Sales Invoices</Link><br/>
