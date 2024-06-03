@@ -210,9 +210,9 @@ export default function MainDashboard() {
                                     <Card.Body className={classes.cardBody}>
                                         <NavLink to={'/manage_roles'} >Manage Roles</NavLink><br/>
                                         <NavLink to={'/approval_level'}>Approval Levels</NavLink><br/>
-                                        <NavLink to={'/manage_role'}>Manage User</NavLink><br/>
-                                        <NavLink to={'/manage_role'}>Manage Category </NavLink><br/>
-                                        <NavLink to={'#'}>Charts of Account</NavLink><br/>
+                                        <NavLink to={'/manage_user'}>Manage User</NavLink><br/>
+                                        <NavLink to={'/manage_category'}>Manage Category </NavLink><br/>
+                                        <NavLink to={'/charts_of_account'}>Charts of Account</NavLink><br/>
                                         {/* <Link to={'#'}>Loan & Advances</Link> */}
                                     </Card.Body>
                                     

@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainDashoard from '../Main Dashboard/MainDashoard';
 // import Ready from '../../Images/nothing.svg'
 // import Ready1 from '../../Images/review.svg';
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
@@ -18,8 +18,7 @@ import Swal from 'sweetalert2';
 import ToggleSlider from './ToggleSlider';
 
 
-export default function CreateRole() {
-    const [role, setRole] = useState('');
+export default function EditRole() {
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +35,10 @@ export default function CreateRole() {
   const [role1, setRole1] = useState("");
   const [eyeClicked, setEyeClicked] = useState(false);
   const [selectedRoleId, setSelectedRoleId] = useState(null);
+  const location = useLocation();
+  const { selectedPermission, selectedRoles } = location.state || {};
+  const [role, setRole] = useState(selectedRoles.name);
+  console.log(role, "fjd");
 
   const readData = async () => {
     try {
@@ -63,38 +66,40 @@ export default function CreateRole() {
     };
 
     const fetchPermission = async () => {
-        setIsLoading(true);
-        try {
-          const response = await axios.get(`${BASE_URL}/role/permissions`, { headers });
-          const data = response.data?.data;
-          const permissionId = data.map(item => item.id);
-          setPermId(permissionId);
+      setIsLoading(true);
+      try {
+        const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/role/permissions', { headers });
+        const data = response.data?.data;
+        const permissionId = data.map(item => item.id);
+        setPermId(permissionId);
+      
+        // Move the logic for setting initial toggle states here
+        const initialToggleStates = Object.fromEntries(
+          data.map((permission) => [
+            permission.id,
+            selectedPermission?.includes(permission.id),
+          ])
+        );
+        // console.log(initialToggleStates, "neww");
+        setPermissions(data);
+        setToggleStates(initialToggleStates);
+      } catch (error) {
+        const errorStatus = error.response?.data?.message;
+        console.error(errorStatus);
+        setPermissions([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     
-          const initialToggleStates = Object.fromEntries(permissions.map(id => [id, false]));
-    
-          // const initialToggleStates = false; 
-    
-    
-          setPermissions(data);
-          setToggleStates(initialToggleStates);
-    
-        } catch (error) {
-          const errorStatus = error.response?.data?.message;
-          console.error(errorStatus);
-          setPermissions([]);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-    
-      useEffect(() => {
-        if (bearer) {
-          fetchPermission();
-        }
-      }, [bearer]);
+    // console.log(toggleStates, "ffff");
+    useEffect(() => {
+      if (bearer) {
+        fetchPermission();
+      }
+    }, [bearer]);
     
    
-    
       const handleToggleChange = (itemId) => {
         setToggleStates(prevToggleStates => ({
           ...prevToggleStates,
@@ -126,38 +131,34 @@ export default function CreateRole() {
         navigate(-1);
       }
     
-     
-    
       
-     
     
       const createRole = async () => {
         setRoleLoading(true);
-       
-        try {
-          const selectedToggle = Object.entries(toggleStates)
+        const selectedToggle = Object.entries(toggleStates)
           .filter(([_, value]) => value)
           .map(([key, _]) => parseInt(key));
-        
-                const response = await axios.post(
-                `${BASE_URL}/role/create`,
-                {
-                  name: role,
-                  permission: selectedToggle
     
-                },
-                { headers }
-            );
-    
-          
-            
-            navigate('/manage_roles');
-    
-           toast.success(response.data.message)
-    
-            
+          // console.log(role, selectedToggle, selectedRoles.id, "here");
+        try {
+          const response = await axios.post(
+            'https://api-sme.promixaccounting.com/api/v1/role/update',
+            {
+              name: role,
+              permission: selectedToggle,
+              role_id: selectedRoles.id,
+            },
+            {headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${bearer}`
+            }}
+          );
+      
+          navigate('/manage_roles');
+      
+          toast.success(response.data.message);
         } catch (error) {
-            let errorMessage = 'An error occurred. Please try again.';
+          let errorMessage = 'An error occurred. Please try again.';
             if (error.response && error.response.data && error.response.data.message) {
                 if (typeof error.response.data.message === 'string') {
                     errorMessage = error.response.data.message;
@@ -169,11 +170,10 @@ export default function CreateRole() {
                 toast.error(errorMessage);
                 console.log(error);
             }
-
         } finally {
           setRoleLoading(false);
         }
-    };
+      };
 
     return (
         <div>
@@ -183,7 +183,7 @@ export default function CreateRole() {
             <div className={classes.topPadding}>
                 <div className={`${classes.formSecCont}`}>
                     <div className={classes.formSectionHeader}>
-                        <h3>Create Role</h3>
+                        <h3>Update Role</h3>
                     </div>
                     <div className={classes.formSectionHeader}>
                         <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
@@ -275,10 +275,10 @@ export default function CreateRole() {
                     {roleLoading ? (
                         <>
                             <Spinner size='sm' />
-                            <span style={{ marginLeft: '5px' }}>Creating your role, Please wait...</span>
+                            <span style={{ marginLeft: '5px' }}>Updating your role, Please wait...</span>
                         </>
                     ) : (
-                        "Create your Role"
+                        "Update Role"
                     )}
                 </Button>
             </div>

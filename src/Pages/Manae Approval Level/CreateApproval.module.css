@@ -24,15 +24,7 @@
   padding: 0 2rem 0 21rem;
   /* padding-right: 4rem; */
 
-
 }
-.mainTable table td{
-  /* padding: 15px 0 0 5px; */
-align-items: center;
-
-  /* display: none; */
-}
-
 
 .endded {
   display: flex;
@@ -84,6 +76,10 @@ align-items: center;
   align-items: center;
   font-size: 14px;
   gap: 10px;
+  
+}
+.formIntBtn{
+margin-top: 30px;
 }
 
 .formIntBtn .btn1{
@@ -100,6 +96,7 @@ align-items: center;
 }
 .formIntBtn .btn2{
   font-size: 14px;
+  margin-left: 20px;
 }
 
 /* .loandethead button{
@@ -159,7 +156,11 @@ align-items: center;
 
 .loanContainer{
   margin-top: 15px;
-  overflow-x: auto;
+  /* overflow-x: auto; */
+}
+
+.roleBorder{
+  margin-bottom: 20px;
 }
 
 .loanTable {

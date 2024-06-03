@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import classes from './CreateRole.module.css';
+import classes from './CreateApproval.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
-import { Spinner, Badge, Button, Modal, Form } from 'react-bootstrap';
+import { Spinner, Badge, Button, Modal, Form, Col, Row } from 'react-bootstrap';
 // import Folder from '../../Images/folder-2.svg';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,15 +15,17 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import ToggleSlider from './ToggleSlider';
 
 
-export default function CreateRole() {
+
+export default function CreateApproval() {
     const [role, setRole] = useState('');
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
+  const [tableData1, setTableData1] = useState([]);
+  const [tableData, setTableData] = useState([]);
   const [user, setUser] = useState('');
   const navigate = useNavigate();
   const [permissions, setPermissions] = useState([]);
@@ -36,6 +38,8 @@ export default function CreateRole() {
   const [role1, setRole1] = useState("");
   const [eyeClicked, setEyeClicked] = useState(false);
   const [selectedRoleId, setSelectedRoleId] = useState(null);
+  const [selectedModule, setSelectedModule] = useState('');
+  const [formFields, setFormFields] = useState([{ role: '' }]);
 
   const readData = async () => {
     try {
@@ -62,63 +66,66 @@ export default function CreateRole() {
         'Authorization': `Bearer ${bearer}`
     };
 
-    const fetchPermission = async () => {
+    const fetchData = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get(`${BASE_URL}/role/permissions`, { headers });
-          const data = response.data?.data;
-          const permissionId = data.map(item => item.id);
-          setPermId(permissionId);
-    
-          const initialToggleStates = Object.fromEntries(permissions.map(id => [id, false]));
-    
-          // const initialToggleStates = false; 
-    
-    
-          setPermissions(data);
-          setToggleStates(initialToggleStates);
+          const response = await axios.get(`${BASE_URL}/role/get-roles`, { headers });
+          const results = response.data?.data;
+      
+      setTableData(results);
     
         } catch (error) {
           const errorStatus = error.response?.data?.message;
           console.error(errorStatus);
-          setPermissions([]);
+          setTableData([]);
         } finally {
           setIsLoading(false);
+        }
+      };
+    const fetchData1 = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(`${BASE_URL}/module`, { headers });
+          const resultss = response.data?.data;
+          setTableData1(resultss);
+    
+        } catch (error) {
+          const errorStatus = error.response?.data?.message;
+          console.error(errorStatus);
+          setTableData1([]);
+        } finally {
+          setLoading(false);
         }
       };
     
       useEffect(() => {
         if (bearer) {
-          fetchPermission();
+          fetchData();
+          fetchData1();
         }
       }, [bearer]);
     
    
     
-      const handleToggleChange = (itemId) => {
-        setToggleStates(prevToggleStates => ({
-          ...prevToggleStates,
-          [itemId]: !prevToggleStates[itemId],
-        }));
+      const handleRoleChange = (index, event) => {
+        const newFormFields = [...formFields];
+        newFormFields[index].role = event.target.value;
+        setFormFields(newFormFields);
       };
     
-      const handleCheckAllToggle = () => {
-        const checkAllValue = !checkAll;
-        setCheckAll(checkAllValue);
-    
-        // Set all toggle states to the determined value
-        const updatedToggleStates = Object.fromEntries(permId.map(id => [id, checkAllValue]));
-        setToggleStates(updatedToggleStates);
+      const addNewField = () => {
+        setFormFields([...formFields, { role: '' }]);
       };
     
-      const handleToggleChange1 = (itemId) => {
-        setToggleStates1((prevToggleStates) => ({
-          ...prevToggleStates,
-          [itemId]: !prevToggleStates[itemId],
-        }));
+      const removeField = (index) => {
+        const newFormFields = [...formFields];
+        newFormFields.splice(index, 1);
+        setFormFields(newFormFields);
       };
     
-    
+      const handleModuleChange = (event) => {
+        setSelectedModule(event.target.value);
+    };
      
      
     
@@ -131,19 +138,17 @@ export default function CreateRole() {
       
      
     
-      const createRole = async () => {
+      const createApproval = async () => {
         setRoleLoading(true);
        
         try {
-          const selectedToggle = Object.entries(toggleStates)
-          .filter(([_, value]) => value)
-          .map(([key, _]) => parseInt(key));
+          
         
                 const response = await axios.post(
-                `${BASE_URL}/role/create`,
+                `${BASE_URL}/approval_level/create_app`,
                 {
-                  name: role,
-                  permission: selectedToggle
+                  module: selectedModule,
+                  roles: formFields.map((field) => field.role),
     
                 },
                 { headers }
@@ -151,7 +156,7 @@ export default function CreateRole() {
     
           
             
-            navigate('/manage_roles');
+            navigate('/approval_level');
     
            toast.success(response.data.message)
     
@@ -183,7 +188,7 @@ export default function CreateRole() {
             <div className={classes.topPadding}>
                 <div className={`${classes.formSecCont}`}>
                     <div className={classes.formSectionHeader}>
-                        <h3>Create Role</h3>
+                        <h3>Create Approval Level</h3>
                     </div>
                     <div className={classes.formSectionHeader}>
                         <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
@@ -213,72 +218,82 @@ export default function CreateRole() {
                     <Form className={classes.form}>
                         <div className={classes.formGrid}>
 
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Role Name</Form.Label>
-                                <Form.Control type="text" 
-                               value={role} onChange={(e) => setRole(e.target.value)} placeholder="Enter Role name"
-                                />
-                            </Form.Group>
+                        <Form.Group controlId="formBasicEmail">
+      <Row>
+        <Col xs={1}>
+          <Form.Label>Module</Form.Label>
+        </Col>
+        <Col xs={4}>
+          <Form.Select 
+            as="select"
+            value={selectedModule}
+            onChange={handleModuleChange}
+          >
+            <option value="" disabled>Select Module</option>
+            {tableData1.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </Form.Select>
+        </Col>
+      </Row>
+    </Form.Group>
                         </div>
-                    </Form>
-                    <div className='modal-footer' style={{ marginTop: 20 }} />
-                              <div style={{ display: "flex", gap: 5 }}>
-                    <ToggleSlider checked={checkAll} onChange={handleCheckAllToggle} />
-                    <p>Check All</p>
-
-                    
-                </div>
-                <div className='modal-footer' style={{ marginTop: 20 }} />
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: "center", justifyContent: "center" }}>
-                  {isLoading ? (
-        <>
-        <Spinner size='sm' animation="border" role="status" />
-          
-        </>
-  ) : (
-    <>
-      {permissions.map((item, index) => (
-        <div
-          key={index}
-          style={{
-            width: '150px',
-            height: '150px',
-            margin: '5px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: '8px',
-            backgroundColor: '#fff',
-            border: '1px solid rgba(0, 0, 0, 0.2)',
-            boxShadow: '2px 2px 2px 1px rgba(0, 0, 0, 0.2)',
-            boxSizing: 'border-box', // Include padding and border in the width
-            marginBottom: 20
-          }}
-        >
-          <p style={{ fontSize: 13.5, margin: '5px 0', textAlign: "center" }}>{item.name}</p>
-          <ToggleSlider
-            checked={toggleStates[item.id]}
-            onChange={() => handleToggleChange(item.id)}
-          />
+                        <div className='modal-footer' style={{ marginTop: 40 }} />
+                        <div>
+      {formFields.map((field, index) => (
+        <div key={index} className={classes. roleBorder}>
+          <Row >
+            <Col xs={1}>
+              <Form.Label>Role</Form.Label>
+            </Col>
+            <Col xs={4}>
+              <Form.Select
+                className="form-control"
+                as="select"
+                value={field.role}
+                onChange={(e) => handleRoleChange(index, e)}
+              >
+                <option value="" disabled>Select Role</option>
+                {tableData.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </Form.Select>
+            </Col>
+            <Col xs={2}>
+              <Button style={{borderRadius: 80}} variant="danger" onClick={() => removeField(index)}>
+                <i className="far fa-trash-alt"></i>
+              </Button>
+            </Col>
+          </Row>
         </div>
       ))}
-    </>
-  )}
+    
+
+  <Button style={{borderRadius: 80}} variant="primary" onClick={() =>addNewField()}><i className="fas fa-plus"></i></Button>
 </div>
+
+                    </Form>
+                    
+
+                               
+                
                 </div>
                 
             </div>
             <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
                 <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
-                <Button variant="success" className={classes.btn2} onClick={createRole}>
+                <Button variant="success" className={classes.btn2} onClick={createApproval}>
                     {roleLoading ? (
                         <>
                             <Spinner size='sm' />
-                            <span style={{ marginLeft: '5px' }}>Creating your role, Please wait...</span>
+                            <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
                         </>
                     ) : (
-                        "Create your Role"
+                        "Create your Approval"
                     )}
                 </Button>
             </div>
@@ -286,13 +301,7 @@ export default function CreateRole() {
         </div>
     </div> 
 
-    <div className={classes.loandgrantcards}>
-   
-   
-
-   
-  
-</div> 
+    
 
 </div>
 
