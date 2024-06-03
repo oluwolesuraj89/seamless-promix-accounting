@@ -19,7 +19,6 @@ import AccordionContext from 'react-bootstrap/AccordionContext';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import Card from 'react-bootstrap/Card';
 
-
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Button } from 'bootstrap';
@@ -218,7 +217,7 @@ export default function MainDashboard() {
             <div className={`${classes.sideNavContainer} ${classes.overflow}`}>
                 <div className={classes.logoCont}>
                     <span>A</span>
-                    <p style={{color:'white', fontSize:'14px'}}>Ajanla Farms and Pastry</p>
+                    <p style={{color:'white', fontSize:'14px'}}>{user}</p>
                 </div>
                 <div className={`${classes.sideNav}`}>
                     {/* {`${classes.mainMenu} ${isMenuOpen ? classes.menuOpen : ''}`} */}

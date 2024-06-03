@@ -33,7 +33,7 @@ function Login() {
                     password: password
                 }
             );
-            //  console.log(response);
+             console.log(response);
             const result = response.data?.data?.user?.name;
             const addresses = response.data?.data?.user?.company?.address;
             const phones = response.data?.data?.user?.company?.phone_number;
