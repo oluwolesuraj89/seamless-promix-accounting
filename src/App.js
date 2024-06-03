@@ -16,9 +16,15 @@ import MainDashboard from './Pages/Main Dashboard/MainDashoard.js';
 import Dashboard from './Pages/Dashboard/Dashboard.js';
 import ManageRole from './Pages/Manae Role/ManageRole.js';
 import ApprovalLevel from './Pages/Manae Approval Level/ApprovalLevel.js';
+import ManageRoles from './Pages/Manae Role/ManageRole.js';
+import CreateRole from './Pages/Manae Role/CreateRole.js';
+import { ToastContainer } from 'react-toastify';
+
 
 function App() {
   return (
+    <>
+    
       <Routes>
         <Route path='/' element={<LandingPage/>} />
         <Route path='/main_dashboard' element={<Dashboard />} />
@@ -30,9 +36,23 @@ function App() {
         <Route path='/sales_receipt' element={<SalesReceipt/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
-        <Route path='/manage_role' element={<ManageRole/>} />
+        <Route path='/manage_roles' element={<ManageRoles/>} />
+        <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/approval_level' element={<ApprovalLevel/>} />
       </Routes>
+
+      <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+    </>
   );
 }
 

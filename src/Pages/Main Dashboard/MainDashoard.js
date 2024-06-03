@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classes from '../../Pages/Main Dashboard/MinDashboard.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Tab, Tabs, Form, Spinner } from 'react-bootstrap';
 import dashIcon from '../../assets/promix/dash-icon1.svg'
 import dIcon2 from '../../assets/promix/dIcon2.svg'
@@ -12,7 +12,7 @@ import dIcon6 from '../../assets/promix/dIcon6.svg'
 import Arrow from '../../assets/promix/dArrow-down.svg'
 import Out from '../../assets/promix/dLoginIcon.svg'
 import Logo from '../../assets/promix/dLogoWhite.svg'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useContext } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import AccordionContext from 'react-bootstrap/AccordionContext';
@@ -23,21 +23,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Button } from 'bootstrap';
 
-// import Folder from '../../Images/folder-2.svg';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
-// import axios from 'axios';
-// import SuccessImg from '../../Images/completed.svg';
-// import messageIcon from '../../Images/Dashbord-menu-icons/message-text.svg';
-// import Invoice from '../../Images/Dashbord-menu-icons/invoice.svg';
-// import LogOutIcon from '../../Images/Dashbord-menu-icons/logout.svg';
-// import DashImg from '../../Images/DI-mobile1.svg';
-// import Msg1 from '../../Images/DI-mobile2.svg';
-// import Inv from '../../Images/DI-mobile3.svg';
-// import LgOut from '../../Images/DI-mobile4.svg';
-// import DashboardLogo from '../../Images/dashboardLogo.svg';
-// import UserLogo from '../../Images/user-edit.svg';
-// import Swal from 'sweetalert2';
-// import { useRegistration } from '../RegistrationContext';
 
 
 export default function MainDashboard() {
@@ -45,6 +30,7 @@ export default function MainDashboard() {
     const navigate = useNavigate();
     const [bearer, setBearer] = useState('');
     const [user, setUser] = useState('');
+    const [company, setCompany] = useState('');
     const [activeLink, setActiveLink] = useState(null);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -56,11 +42,7 @@ export default function MainDashboard() {
     const [isMenuOpen5, setIsMenuOpen5] = useState(false);
     const [isMenuOpen6, setIsMenuOpen6] = useState(false);
     const [isMenuOpen7, setIsMenuOpen7] = useState(false);
-    // const { isReg, retrieveRegStatus } = useRegistration();
-    const PINK = 'rgba(255, 192, 203, 0.6)';
-    const BLUE = 'rgba(0, 0, 255, 0.6)';
-    const DEEPGREEN = '#164B2E';
-    const LIGHTGREE = '#2D995F';
+   
 
     function ContextAwareToggle({ children, eventKey, callback }) {
         const { activeEventKey } = useContext(AccordionContext);
@@ -112,108 +94,35 @@ export default function MainDashboard() {
     const closeMenu = () => {
         setIsMenuOpen(false); // Close the menu
     };
-    // const [isReg, setIsReg] = useState(false);
+    
+    const readData = async () => {
+        try {
+            const detail = await AsyncStorage.getItem('fullName');
+            const details = await AsyncStorage.getItem('userToken');
+            const detailss = await AsyncStorage.getItem('companyName');
 
 
-    // useEffect(() => {
-    //     const pathname = location.pathname;
-    //     if (pathname.includes('dashboard')) {
-    //         setActiveLink('Dashboard');
-    //     } else if (pathname.includes('loan')) {
-    //         setActiveLink('Loan');
-    //     } else if (pathname.includes('complete_registration')) {
-    //         setActiveLink('Update Profile');
-    //     } else if (pathname.includes('my_profile')) {
-    //         setActiveLink('My Profile');
-    //     } else if (pathname.includes('grant')) {
-    //         setActiveLink('Grants');
-    //     } else if (pathname.includes('invoice')) {
-    //         setActiveLink('Invoices');
-    //     } else if (pathname === '/sign_in') {
-    //         setActiveLink('Logout');
-    //     } else {
-    //         setActiveLink(null);
-    //     }
-    // }, [location]);
-
-    // const readData = async () => {
-    //     try {
-    //         const detail = await AsyncStorage.getItem('fullName');
-    //         const details = await AsyncStorage.getItem('userToken');
+            if (detail !== null) {
+                // const firstName = detail.split(' ')[0];
+                setUser(detail);
+             
+            }
 
 
-    //         if (detail !== null) {
-    //             const firstName = detail.split(' ')[0];
-    //             setUser(firstName);
-    //         }
+            if (details !== null) {
+                setBearer(details);
+            }
+            if (detailss !== null) {
+                setCompany(detailss);
+            }
+        } catch (e) {
+            alert('Failed to fetch the input from storage');
+        }
+    };
 
-
-    //         if (details !== null) {
-    //             setBearer(details);
-    //         }
-    //     } catch (e) {
-    //         alert('Failed to fetch the input from storage');
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     readData();
-    // }, []);
-
-
-    // useEffect(() => {
-    //     const retrieveRegStatus = async () => {
-    //       try {
-    //         const regStatus = await AsyncStorage.getItem('isComplete');
-    //           setIsReg(regStatus === 'true');
-
-
-
-    //       } catch (error) {
-    //         console.error('Error retrieving admin status:', error);
-    //       }
-    //     };
-
-    //     retrieveRegStatus();
-    //   }, []);
-
-
-    // const handleLogout = async () => {
-    //     setLoading(true);
-    //     try {
-    //         const response = await axios.post(
-    //             'https://api-smesupport.ogunstate.gov.ng/api/logout',
-    //             {},
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Bearer ${bearer}`
-    //                 }
-    //             }
-    //         );
-    //         navigate('/sign_in');
-
-
-    //     } catch (error) {
-    //         let errorMessage = 'An error occurred. Please try again.';
-    //         if (error.response && error.response.data && error.response.data.message) {
-    //             if (typeof error.response.data.message === 'string') {
-    //                 errorMessage = error.response.data.message;
-    //             } else if (Array.isArray(error.response.data.message)) {
-    //                 errorMessage = error.response.data.message.join('; ');
-    //             } else if (typeof error.response.data.message === 'object') {
-    //                 errorMessage = JSON.stringify(error.response.data.message);
-    //             }
-    //             if (errorMessage.toLowerCase().includes('unauthenticated') || errorMessage.toLowerCase().includes('unauthorized')) {
-    //                 navigate('/sign_in');
-    //                 return;
-    //             }
-    //         }
-    //         setErrorMessage(errorMessage);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
+    useEffect(() => {
+        readData();
+    }, []);
 
 
 
@@ -221,8 +130,11 @@ export default function MainDashboard() {
         <div className={classes.sideNavBody}>
             <div className={`${classes.sideNavContainer} ${classes.overflow}`}>
                 <div className={classes.logoCont}>
-                    <span>A</span>
-                    <p style={{color:'white', fontSize:'14px'}}>{user}</p>
+                <div className={classes.logoPic}>
+                        <img src={Logo} alt='Logo' className={classes.imgs}/>
+                    </div>
+                    {/* <span>A</span> */}
+                    {/* <p style={{color:'white', fontSize:'16px'}}>{company}</p> */}
                 </div>
                 <div className={`${classes.sideNav}`}>
                     {/* {`${classes.mainMenu} ${isMenuOpen ? classes.menuOpen : ''}`} */}
@@ -296,11 +208,11 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/manage_role'}>Manage Roles</Link><br/>
-                                        <Link to={'/approval_level'}>Approval Levels</Link><br/>
-                                        <Link to={'#'}>Manage User</Link><br/>
-                                        <Link to={'#'}>Manage Category </Link><br/>
-                                        <Link to={'#'}>Charts of Account</Link><br/>
+                                        <NavLink to={'/manage_roles'} >Manage Roles</NavLink><br/>
+                                        <NavLink to={'/approval_level'}>Approval Levels</NavLink><br/>
+                                        <NavLink to={'/manage_role'}>Manage User</NavLink><br/>
+                                        <NavLink to={'/manage_role'}>Manage Category </NavLink><br/>
+                                        <NavLink to={'#'}>Charts of Account</NavLink><br/>
                                         {/* <Link to={'#'}>Loan & Advances</Link> */}
                                     </Card.Body>
                                     
@@ -525,9 +437,7 @@ export default function MainDashboard() {
                     </div> */}
                 </div>
                 <div className={classes.dFooter}>
-                    <div className={classes.logoPic}>
-                        <img src={Logo} alt='Logo' className={classes.imgs}/>
-                    </div>
+                    
                     <Link>
                         <button className={classes.logout}>
                             <img src={Out} alt='Logo' style={{width:'20px', height:'20px'}}/>

@@ -25,6 +25,13 @@
   /* padding-right: 4rem; */
 
 }
+
+.endded {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+  align-items: center;
+}
 .topPadding{
   width: 100%;
   padding-top: 1rem;

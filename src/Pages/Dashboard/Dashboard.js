@@ -20,9 +20,41 @@ import dChart6 from '../../assets/promix/dShart6.svg'
 import dChart7 from '../../assets/promix/dShart7.svg'
 import dChart8 from '../../assets/promix/dShart8.svg'
 import Arrow from '../../assets/promix/dArrow-down.svg'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Dashboard = () => {
-    
+    const [bearer, setBearer] = useState('');
+    const [user, setUser] = useState('');
+    const [company, setCompany] = useState('');
+
+    const readData = async () => {
+        try {
+            const detail = await AsyncStorage.getItem('tobi');
+            const details = await AsyncStorage.getItem('userToken');
+            const detailss = await AsyncStorage.getItem('companyName');
+
+
+            if (detail !== null) {
+                // const firstName = detail.split(' ')[0];
+                setUser(detail);
+             
+            }
+
+
+            if (details !== null) {
+                setBearer(details);
+            }
+            if (detailss !== null) {
+                setCompany(detailss);
+            }
+        } catch (e) {
+            alert('Failed to fetch the input from storage');
+        }
+    };
+
+    useEffect(() => {
+        readData();
+    }, []);
 
     
     return (
@@ -31,14 +63,14 @@ const Dashboard = () => {
             
             <div className={classes.formSection}>
                 <div className={classes.formSectionHeader}>
-                    <div>
-                        <h4 style={{color:'black'}}>Dashboard</h4>
+                    <div className={classes.dashboardName}>
+                        <h4 style={{color:'black'}}>{company}</h4>
                         
                     </div>
-                    <div style={{textAlign:'right'}}>
-                        <p style={{margin:'0'}}>Welcome</p>
+                    <div className={classes.userSide} >
+                        {/* <p style={{margin:'0'}}>Welcome</p> */}
                         <h3>
-                            user
+                            {user.toLocaleUpperCase()}
                         </h3>
                         
                     </div>
