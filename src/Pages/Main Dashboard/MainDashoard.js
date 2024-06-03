@@ -217,7 +217,7 @@ export default function MainDashboard() {
             <div className={`${classes.sideNavContainer} ${classes.overflow}`}>
                 <div className={classes.logoCont}>
                     <span>A</span>
-                    <p style={{color:'white', fontSize:'14px'}}>Grace Model School</p>
+                    <p style={{color:'white', fontSize:'14px'}}>{user}</p>
                 </div>
                 <div className={`${classes.sideNav}`}>
                     {/* {`${classes.mainMenu} ${isMenuOpen ? classes.menuOpen : ''}`} */}
