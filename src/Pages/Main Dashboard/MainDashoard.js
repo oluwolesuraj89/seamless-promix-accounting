@@ -295,8 +295,8 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'#'}>Manage Roles</Link><br/>
-                                        <Link to={'#'}>Approval Levels</Link><br/>
+                                        <Link to={'/manage_role'}>Manage Roles</Link><br/>
+                                        <Link to={'/approval_level'}>Approval Levels</Link><br/>
                                         <Link to={'#'}>Manage User</Link><br/>
                                         <Link to={'#'}>Manage Category </Link><br/>
                                         <Link to={'#'}>Charts of Account</Link><br/>

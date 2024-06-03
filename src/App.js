@@ -14,6 +14,8 @@ import SalesReceipt from './Pages/Sales Receipt/SalesReceipt.js';
 import Login from './Promix/Login/Login.js';
 import MainDashboard from './Pages/Main Dashboard/MainDashoard.js';
 import Dashboard from './Pages/Dashboard/Dashboard.js';
+import ManageRole from './Pages/Manae Role/ManageRole.js';
+import ApprovalLevel from './Pages/Manae Approval Level/ApprovalLevel.js';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <Route path='/sales_receipt' element={<SalesReceipt/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
+        <Route path='/manage_role' element={<ManageRole/>} />
+        <Route path='/approval_level' element={<ApprovalLevel/>} />
       </Routes>
   );
 }
