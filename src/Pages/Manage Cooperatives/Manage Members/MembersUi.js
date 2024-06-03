@@ -8,6 +8,7 @@ import MainDashboard from '../../Main Dashboard/MainDashoard';
 
 function MembersUi({
   show,
+  user,
   show1,
   show56,
   handleShow,
@@ -81,7 +82,7 @@ function MembersUi({
                             <h3>Manage Members</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            <h3 style={{color:'#2D995F'}}>user</h3>
+                            <h3 style={{color:'#2D995F'}}>{user}</h3>
                         </div>
                     </div>
                 </div>

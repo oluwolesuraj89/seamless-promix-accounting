@@ -37,16 +37,20 @@ const navigate = useNavigate();
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [user, setUser] = useState("");
   const [permittedHeaders, setPermittedHeaders] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const readData = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
+      const value1 = await AsyncStorage.getItem('tobi');
 
       if (value !== null) {
         setBearer(value);
-        // setAuthenticated(true);
+      }
+      if (value1 !== null) {
+        setUser(value1);
       }
     } catch (e) {
       alert('Failed to fetch the input from storage');
@@ -201,7 +205,7 @@ const navigate = useNavigate();
                             <h3>Manage Savings</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            <h3 style={{color:'#2D995F'}}>user</h3>
+                            <h3 style={{color:'#2D995F'}}>{user}</h3>
                         </div>
                     </div>
                 </div>

@@ -56,6 +56,7 @@ function Members() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [customers, setCustomers] = useState('');
+  const [user, setUser] = useState('');
   const [uploadLoading, setUploadLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
@@ -63,10 +64,13 @@ function Members() {
   const readData = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
+      const value1 = await AsyncStorage.getItem('tobi');
 
       if (value !== null) {
         setBearer(value);
-        setAuthenticated(true);
+      }
+      if (value1 !== null) {
+        setUser(value1);
       }
     } catch (e) {
       alert('Failed to fetch the input from storage');
@@ -76,6 +80,9 @@ function Members() {
   useEffect(() => {
     readData();
   }, []);
+
+
+  
 
   // specify header
   const headers = {
@@ -371,6 +378,7 @@ function Members() {
       handleFileChange={handleFileChange}
       uploadLoading={uploadLoading}
       benLoading={benLoading}
+      user = {user}
     />
   )
 }
