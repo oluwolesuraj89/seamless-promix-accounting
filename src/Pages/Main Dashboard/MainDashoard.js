@@ -343,8 +343,8 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="4" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/general_ledger'}>Generate Ledger</Link><br/>
-                                        <Link to={'#'}>Cashbook</Link><br/>
+                                        <Link to={'/general_ledger'}>General Ledger</Link><br/>
+                                        <Link to={'/cashbook'}>Cashbook</Link><br/>
                                         <Link to={'#'}>Trial Balance</Link><br/>
                                         <Link to={'#'}>Income & Expenditure</Link><br/>
                                         <Link to={'#'}>Monthly Income</Link><br/>
@@ -364,11 +364,11 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="5" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'#'}>My Profile</Link><br/>
-                                    <Link to={'#'}>Edit Profile</Link><br/>
-                                    <Link to={'#'}>Manage User</Link><br/>
+                                    {/* <Link to={'#'}>My Profile</Link><br/> */}
+                                    {/* <Link to={'#'}>Edit Profile</Link><br/> */}
+                                    {/* <Link to={'#'}>Manage User</Link><br/> */}
                                     <Link to={'#'}>Change Password</Link><br/>
-                                    <Link to={'#'}>Sign Out</Link>
+                                    {/* <Link to={'#'}>Sign Out</Link> */}
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>

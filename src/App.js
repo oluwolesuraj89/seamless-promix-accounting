@@ -23,6 +23,7 @@ import { ToastContainer } from 'react-toastify';
 import EditMember from './Pages/Manage Cooperatives/Manage Members/EditMember.js';
 import SavingsAccounts from './Pages/Manage Cooperatives/Manage Savings Account/SavingAccount.js';
 import EditSavings from './Pages/Manage Cooperatives/Manage Savings Account/EditSavings.js';
+import Cashbook from './Pages/Cashbook/Cashbook.js';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
         <Route path='/edit_member' element={<EditMember/>} />
         <Route path='/savings_account' element={<SavingsAccounts/>} />
         <Route path='/edit_savings' element={<EditSavings/>} />
+        <Route path='/cashbook' element={<Cashbook/>} />
       </Routes>
 
       <ToastContainer
