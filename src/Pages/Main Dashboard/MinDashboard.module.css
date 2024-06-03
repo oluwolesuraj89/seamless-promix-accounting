@@ -69,7 +69,23 @@ p{
 }
 .sideNav{
     padding: 17px 27px 0 24px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    /* max-height: calc(100vh - 74px); Adjust this value based on your layout */
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
 }
+/* Hide the scrollbar */
+.sideNav::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+    /* display: none; Hide scrollbar */
+}
+.sideNav::-webkit-scrollbar-thumb {
+    background: var(--Light-green); /* Color of the scrollbar handle */
+    border-radius: 4px; /* Rounded corners of the scrollbar handle */
+}
+
+
+
 .regMenu{
     display: flex;
     flex-direction: column;
@@ -247,6 +263,7 @@ p{
 }
 .cardBody::-webkit-scrollbar {
     width: 8px; /* Width of the scrollbar */
+    display: none;
 }
 .cardBody::-webkit-scrollbar-thumb {
     background: #2D995F; /* Color of the scrollbar handle */

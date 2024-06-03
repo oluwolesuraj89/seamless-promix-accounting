@@ -233,8 +233,8 @@ export default function MainDashboard() {
                                 Home </span>
                             </p>
                         </Link>
-                        <Accordion defaultActiveKey="0">
-                            <Card className={classes.accordionCard}>
+                        <Accordion>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu}>
                                     <ContextAwareToggle eventKey="0">
                                         <p> 
@@ -263,7 +263,7 @@ export default function MainDashboard() {
                                             <span>
                                             <img src={dIcon2} alt='icon'/> Receivables
                                             </span>
-                                            {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                            {isMenuOpen ? (<i class='bx bx-chevron-up'></i>) : (<i class='bx bx-chevron-down'></i>)} 
                                         </p>
                                     </ContextAwareToggle>
                                 </Card.Header>
@@ -276,6 +276,29 @@ export default function MainDashboard() {
                                         <Link to={'#'}>Sales Invoice Payments</Link><br/>
                                         <Link to={'#'}>Loan & Advances</Link>
                                     </Card.Body>
+                                </Accordion.Collapse>
+                            </Card> */}
+                            <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu}>
+                                    <ContextAwareToggle eventKey="0">
+                                        <p>
+                                            <span>
+                                                <img src={dIcon2} alt='icon'/> Receivables
+                                            </span>
+                                            {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                    <Link to={'#'}>Customer/Employee/Member</Link><br/>
+                                        <Link to={'#'}>Sales Invoices</Link><br/>
+                                        <Link to={'#'}>Advance Bookin</Link><br/>
+                                        <Link to={'#'}>Advance Booking Payments</Link><br/>
+                                        <Link to={'#'}>Sales Invoice Payments</Link><br/>
+                                        <Link to={'#'}>Loan & Advances</Link>
+                                    </Card.Body>
+                                    
                                 </Accordion.Collapse>
                             </Card>
                             <Card className={classes.accordionCard}>
