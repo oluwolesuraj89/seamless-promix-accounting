@@ -22,6 +22,13 @@ import dChart8 from '../../assets/promix/dShart8.svg'
 import Arrow from '../../assets/promix/dArrow-down.svg'
 
 const Dashboard = () => {
+    const [count, setCount] = useState("Sade");
+
+
+    const handleCount = () => {
+        setCount("Bola");
+    }
+
     
     return (
         <div>
@@ -67,6 +74,9 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
+
+           <p style={{color: "red", fontSize: 34}}>{count}</p>
+           <button onClick={handleCount}>Start Counting</button>
             </div>
 
             <div className={classes.chartCont}>
