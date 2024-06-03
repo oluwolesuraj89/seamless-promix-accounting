@@ -1,21 +1,25 @@
 import React, { useState, useEffect, useRef  } from 'react';
-import "../assets/plugins/bootstrap/css/bootstrap.min.css";
-import "../assets/plugins/metisMenu/metisMenu.min.css";
-import "../assets/plugins/fontawesome/css/all.min.css";
-import "../assets/plugins/typicons/src/typicons.min.css";
-import "../assets/plugins/themify-icons/themify-icons.min.css";
-import "../assets/plugins/datatables/dataTables.bootstrap4.min.css";
-import { AdminHeaderNav } from '../AdminHeaderNav';
+// import "../../../assetss/assets/plugins/bootstrap/css/bootstrap.min.css";
+// import "../../../assetss/assets/plugins/metisMenu/metisMenu.min.css";
+// import "../../../assetss/assets/plugins/fontawesome/css/all.min.css";
+// import "../../../assetss/assets/plugins/typicons/src/typicons.min.css";
+// import "../../../assetss/assets/plugins/themify-icons/themify-icons.min.css";
+import "../../../assetss/assets/plugins/datatables/dataTables.bootstrap4.min.css";
+// import { AdminHeaderNav } from '../AdminHeaderNav';
 // import Footer from '../../Pages/Footer/Footer';
-import { InfoFooter } from '../../InfoFooter';
+// import { InfoFooter } from '../../InfoFooter';
+
+import classes from '../Manage Members/ManageMember.module.css'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Button, Spinner, Accordion, Badge } from 'react-bootstrap';
-import favicon from '../../Images/faviconn.png'
-import TableToPrint from './TableToPrint';
+// import favicon from '../../Im/ages/faviconn.png'
+// import TableToPrint from './TableToPrint';
 import { useReactToPrint } from 'react-to-print';
+import { BASE_URL } from '../../api/api';
+import MainDashboard from '../../Main Dashboard/MainDashoard';
 
 function EditMember() {
 
@@ -80,8 +84,7 @@ function EditMember() {
         const accountNames = formData.map(item => item.accountName);
         const bankNames = formData.map(item => item.bankName);
 
-        const response = await axios.post(
-          'https://api-sme.promixaccounting.com/api/v1/beneficiaryaccounts/update',
+        const response = await axios.post(`${BASE_URL}/beneficiaryaccounts/update`,
           {
             name: name,
             email: email,
@@ -149,12 +152,22 @@ function EditMember() {
 
 
     return (
-        <div style={{marginTop:'8rem',}}>
-            <AdminHeaderNav />
+        <div>
+            <MainDashboard/>
             <div className='newBody'>
-                <div className='newWidth'>
+            <div className={classes.newWidth}>
+                <div className={classes.topPadding}>
+                    {/* <div className={`${classes.formSecCont}`}>
+                        <div className={classes.formSectionHeader}>
+                            <h3>View Members</h3>
+                        </div>
+                        <div className={classes.formSectionHeader}>
+                            <h3 style={{color:'#2D995F'}}>user</h3>
+                        </div>
+                    </div> */}
+                </div>
                     <div className="wrapper">
-                        {/* <!-- Sidebar  --> */}
+                        
 
 
                         {/* <!-- Page Content  --> */}
@@ -167,13 +180,13 @@ function EditMember() {
 
                                 <div className="content-header row align-items-center m-0">
 
-                                    <div className="col-sm-8 header-title p-0">
-                                        <div className="media">
-                                            <div className="header-icon text-success mr-3"><i className=""><img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i></div>
+                                    <div className="col-sm-12 header-title p-0">
+                                        <div className={classes.actionBtns}>
+                                            {/* <div className="header-icon text-success mr-3"><i className=""><img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i></div> */}
                                             <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
                                                 <div>
-                                                    <h1 className="font-weight-bold">View Customer/Employee/Member </h1>
-                                                    <small> ....</small>
+                                                    <h4 className="font-weight-bold">View Member </h4>
+                                                    {/* <small> ....</small> */}
                                                 </div>
                                                 <div style={{ marginBottom: 30 }}>
                                                     <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
@@ -191,53 +204,54 @@ function EditMember() {
 
 
                                 <div className="col-lg-12">
-                                    <div className="card">
-                                        <div className="create-new-staff-card-header">
-                                            <div className="d-flex justify-content-between align-items-center">
-                                            <h5 style={{marginLeft: 20}}>Personal Details</h5>
+                                    <div className="card" style={{border:'none'}}>
+                                        <div  className={classes.contentCont}>
+                                            <div>
+                                                <h5 style={{marginLeft: 20}}>Personal Details</h5>
                                             </div>
                                         </div>
                                         <div className="row">
                                             <div className="col-lg-12">
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <div className="card-body">
+                                                <div className="card" style={{borderLeft:'none', borderRight:'none', borderBottom:'none', borderRadius:'0'}}>
+                                                    <div className="card-body" >
+                                                        <div className="card-body" >
 
-
-                                                            <div className="row">
-                                                            <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Name</label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
+                                                            <div  className={classes.formSec}>
+                                                                <div className="row">
+                                                                <div className="col-md-6">
+                                                                        <div className="form-group row">
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Name</label>
+                                                                            <div className="col-sm-9">
+                                                                                <input className="form-control" required="" type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" />
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Email</label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={email} onChange={(e) => setEmail(e.target.value)} name="name" />
+                                                                <div className="col-md-6">
+                                                                        <div className="form-group row">
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Email</label>
+                                                                            <div className="col-sm-9">
+                                                                                <input className="form-control" required="" type="text" value={email} onChange={(e) => setEmail(e.target.value)} name="name" />
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Phone Number</label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} name="name" />
+                                                                <div className="col-md-6">
+                                                                        <div className="form-group row">
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Phone Number</label>
+                                                                            <div className="col-sm-9">
+                                                                                <input className="form-control" required="" type="text" value={phone} onChange={(e) => setPhone(e.target.value)} name="name" />
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Address</label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={address} onChange={(e) => setAddress(e.target.value)} name="name" />
+                                                                <div className="col-md-6">
+                                                                        <div className="form-group row">
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Address</label>
+                                                                            <div className="col-sm-9">
+                                                                                <input className="form-control" required="" type="text" value={address} onChange={(e) => setAddress(e.target.value)} name="name" />
+                                                                            </div>
                                                                         </div>
                                                                     </div>
+                                                            
                                                                 </div>
-                                                         
                                                             </div>
                                                             
                                                             <div style={{ marginTop: 30 }} />
@@ -251,7 +265,7 @@ function EditMember() {
             <div className="print-ledger" style={{ marginBottom: 10 }}>
               <Button variant='success' onClick={handlePrint}>Print Ledger</Button>
             </div>
-            <TableToPrint ref={componentRef} customerLedgers={customerLedgers} formatDate={formatDate} />
+            {/* <TableToPrint ref={componentRef} customerLedgers={customerLedgers} formatDate={formatDate} /> */}
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
@@ -260,14 +274,14 @@ function EditMember() {
                                                             
 
                                                             <div style={{justifyContent: "flex-start"}} class="modal-footer">
-                                                            <Button style={{borderRadius: 0}} variant="success" onClick={updateBeneficiary}>
+                                                            <Button style={{borderRadius: 0, marginTop:15}} variant="success" onClick={updateBeneficiary}>
                     {load ? (
                       <>
                       <Spinner  size='sm' /> 
                       <span style={{ marginLeft: '5px' }}>Updating records, Please wait...</span>
     </>
   ) : (
-                "Update Customer/Employee/Member"
+                "Update Member"
                       )}
                     </Button>
                                                                 {/* <Button>Save Changes</Button> */}
@@ -287,7 +301,7 @@ function EditMember() {
                     </div>
                 </div>
             </div>
-            <InfoFooter />
+            {/* <InfoFooter /> */}
         </div>
     )
 }

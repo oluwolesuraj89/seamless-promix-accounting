@@ -291,46 +291,50 @@ function MembersUi({
                             </div>
 
 
-                            {benLoading ? (
+                            
+                                <div className={classes.mainTable}>
+                                {benLoading ? (
                               <p>Fetching customers...</p>
                             ) : (
-                              <div className="table-responsive">
-                                <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
+                                    <div className="table-responsive">
+                                        <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
-                                  <thead style={{ whiteSpace: 'nowrap' }}>
-                                    <tr>
-                                      <th>ID</th>
-                                      <th>Employee Number</th>
-                                      <th>Name</th>
-                                      <th>Email</th>
-                                      <th>Phone Number</th>
-                                      <th>Created At</th>
-                                      <th>Actions</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody style={{ whiteSpace: 'nowrap' }}>
-                                    {tableData.map((item, index) => (
-                                      <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{item.employee_no}</td>
-                                        <td>{item.name}</td>
-                                        <td style={{textAlign: "left"}}>{item.email}</td>
-                                        <td>{item.phone}</td>
-                                        <td>{formatDate(item.created_at)}</td>
-                                        <td style={{textAlign: "left"}}>
-                                          <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                            <i className="far fa-eye"></i>
-                                          </div>
-                                          <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                            <i className="far fa-trash-alt"></i>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                    ))}
-                                  </tbody>
-                                </table>
-                              </div>
-                            )}
+                                        <thead style={{ whiteSpace: 'nowrap' }}>
+                                            <tr>
+                                            <th>ID</th>
+                                            <th>Employee Number</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone Number</th>
+                                            <th>Created At</th>
+                                            <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style={{ whiteSpace: 'nowrap' }}>
+                                            {tableData.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{item.employee_no}</td>
+                                                <td>{item.name}</td>
+                                                <td style={{textAlign: "left"}}>{item.email}</td>
+                                                <td>{item.phone}</td>
+                                                <td>{formatDate(item.created_at)}</td>
+                                                <td style={{textAlign: "left"}}>
+                                                <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                                    <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
+                                                </div>
+                                                <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                                    <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
+                                                </div>
+                                                </td>
+                                            </tr>
+                                            ))}
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                                </div>
+                            
                             <div className={classes.endded}>
                               <p>
                                 Showing {`Page ${currentPage} to ${totalPages} pages`} of {formattedTotalEntries} entries

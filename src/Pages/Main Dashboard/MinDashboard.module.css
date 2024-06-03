@@ -25,12 +25,19 @@ p{
 .logoCont{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     border-bottom: 2px solid var(--White);
     padding: 21px 64px 16px 23px;
     font-size: 14px;
     color: var(--White);
+}
+.logoCont p{
+    margin-left: 10px;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .logoCont span{
     width: 40px;
@@ -38,7 +45,7 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 50%;
+    border-radius: 89px;
     background-color: #ACE7C7;
     font-size: 16px;
     font-weight: 700;
@@ -247,10 +254,17 @@ p{
     /* background-color: green !important; */
 }
 .cardBody a{
-    padding: 20px  0 !important;
+    /* padding: 20px  0 !important; */
+    margin: 15px 0;
     overflow-y: auto;
     font-size: 14px;
 }
+/* .manageHover:hover{
+    background-color: #bdc3c9;
+    width: 100%;
+    padding: 40px 40px 40px 40px;
+    height: fit-content;
+} */
 
 .cardBody{
     background-color: var(--Deep-green);

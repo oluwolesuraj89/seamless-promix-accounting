@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../api/api';
+import { toast } from 'react-toastify';
+// import Swal from 'sweetalert2';
 import MembersUi from './MembersUi';
 
 
@@ -92,6 +94,7 @@ function Members() {
         const total = response.data?.data?.last_page || 1;
         setTotalPages(total);
         console.log(total);
+        toast.success(response.data.message);
     } catch (error) {
         if (error.response && error.response.status === 401) {
             navigate('/login');
@@ -103,7 +106,8 @@ function Members() {
               } else if (Array.isArray(error.response.data.message)) {
                   errorMessage = error.response.data.message.join('; ');
               } else if (typeof error.response.data.message === 'object') {
-                  errorMessage = JSON.stringify(error.response.data.message);
+                toast.error(errorMessage)
+                console.log(errorMessage);
               }
           }
             setTableData([]);
@@ -175,7 +179,7 @@ function Members() {
   //view records
   const handleEyeClick = (id) => {
     const foundCustomer = tableData.find(item => item.id === id);
-        navigate('/edit_userss', { state: { selectedCustomer: foundCustomer } });
+        navigate('/edit_member', { state: { selectedCustomer: foundCustomer } });
         console.log(foundCustomer, "hdfhds");
         setEyeClicked(true);
       };
