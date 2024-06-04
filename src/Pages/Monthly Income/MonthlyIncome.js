@@ -79,7 +79,7 @@ export default function MonthlyIncome() {
             const response = await axios.get(`${BASE_URL}/get-company-months`, { headers });
             const results = response.data?.data?.journal || [];
             setTableData(results);
-
+            console.log(results, "hereee");
 
         } catch (error) {
             const errorStatus = error.response?.data?.message;
@@ -108,7 +108,7 @@ export default function MonthlyIncome() {
             const ordinaryResult = response.data?.data;
             const totalCurr = response.data?.data?.totalIncome;
             const totalYearly = response.data?.data?.totalYearlyIncome;
-
+console.log(journalResult, ordinaryResult, totalCurr, totalYearly);
             setTableData1(journalResult);
             setTableData2(ordinaryResult);
             setTotalCurrent(totalCurr);
@@ -182,6 +182,64 @@ export default function MonthlyIncome() {
                     </div>
                 </div>
 
+                <div className={classes.topPadding}>
+                    <div className={`${classes.formSecCont}`}>
+                        <div className="card" style={{ width: '100%' }}>
+                        <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
+                                                       
+
+                                                       <div className="row" style={{ marginTop: 30 }}>
+                                                           <div className="col-lg-12">
+                                                               <div >
+
+
+
+
+                                                                  
+                                                                       
+                                                                           <div className="">
+                                                                               <div className="form-group row">
+                                                                                   <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Select Month:</label>
+                                                                                   <div className="col-sm-12">
+                                                                                       <Form.Select name="account" className="form-control" required="" value={selectedMonth} onChange={handleMonthChange}>
+                                                                                           <option value="">Choose Month</option>
+                                                                                           {tableData.map((item) => (
+                                                                                               <option key={item} value={item}>
+                                                                                                   {item}
+                                                                                               </option>
+                                                                                           ))}
+                                                                                       </Form.Select>
+                                                                                   </div>
+                                                                               </div>
+                                                                           
+
+                                 
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                       <div className="row justify-content-center" style={{ marginTop: 30 }}>
+                                                           <div className="col-md-4 text-center" >
+                                                               <div className="form-group row">
+                                                                   <Button disabled={monthlyLoading} variant='success' onClick={fetchMonthExpenditure}>
+                                                                       {monthlyLoading ? (
+                                                                           <>
+                                                                               <Spinner size='sm' />
+                                                                               <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
+                                                                           </>
+                                                                       ) : (
+                                                                           "Process"
+                                                                       )}
+                                                                   </Button>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                                   </div>
+                                               </div>
+                                </div>
+                                </div>
+                                
+
 
                 <div className={classes.mainform}>
 
@@ -191,119 +249,9 @@ export default function MonthlyIncome() {
 
 
 
-                            <div className="main-content">
+                            
 
-
-                                <div className="content-header row align-items-center m-0">
-
-                                    <div className="col-sm-8 header-title p-0" >
-                                        <div className="media">
-                                            <div className="header-icon text-success mr-3">
-                                                {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
-                                            </div>
-                                            {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
-                                                <div>
-                                                    <h1 className="font-weight-bold">Monthly Income </h1>
-                                                    <small>Complete the respective fields ....</small>
-                                                </div>
-
-                                            </div> */}
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="body-content">
-                                <div className="col-lg-12">
-                                    <div className="card">
-                                        <div className="create-new-staff-card-header">
-                                            <div className="d-flex justify-content-between align-items-center">
-
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-lg-12">
-                                                <div className="card">
-
-
-
-
-                                                    <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
-                                                        <div className="row">
-                                                            <div className="col-md-12">
-                                                                {/* <div className="form-group row">
-                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
-                                                                    <div className="col-sm-12">
-                                                                        <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
-                                                                            <option value="">Choose Bank</option>
-                                                                            {tableData.map((item) => (
-                                                                                <option key={item.id} value={item.id}>
-                                                                                    {item.gl_name}
-                                                                                </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                    </div>
-                                                                </div> */}
-                                                            </div>
-
-                                                            <div className="row" style={{ marginTop: 30 }}>
-                                                                <div className="col-lg-12">
-                                                                    <div >
-
-
-
-
-                                                                        <div className="card-body" >
-                                                                            <div className="row">
-                                                                                <div className="">
-                                                                                    <div className="form-group row">
-                                                                                        <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Select Month:</label>
-                                                                                        <div className="col-sm-12">
-                                                                                            <Form.Select name="account" className="form-control" required="" value={selectedMonth} onChange={handleMonthChange}>
-                                                                                                <option value="">Choose Month</option>
-                                                                                                {tableData.map((item) => (
-                                                                                                    <option key={item} value={item}>
-                                                                                                        {item}
-                                                                                                    </option>
-                                                                                                ))}
-                                                                                            </Form.Select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row justify-content-center" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-4 text-center" >
-                                                                    <div className="form-group row">
-                                                                        <Button disabled={monthlyLoading} variant='success' onClick={fetchMonthExpenditure}>
-                                                                            {monthlyLoading ? (
-                                                                                <>
-                                                                                    <Spinner size='sm' />
-                                                                                    <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
-                                                                                </>
-                                                                            ) : (
-                                                                                "Process"
-                                                                            )}
-                                                                        </Button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           
 
 
 

@@ -224,70 +224,12 @@ export default function TrialBalance() {
                 </div>
 
 
-                <div className={classes.mainform}>
-
-                    <div className={classes.loandgrantcards}>
-
-                        <div className="content-wrapper">
-
-
-
-                            <div className="main-content">
-
-
-                                <div className="content-header row align-items-center m-0">
-
-                                    <div className="col-sm-8 header-title p-0" >
-                                        <div className="media">
-                                            <div className="header-icon text-success mr-3">
-                                                {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
-                                            </div>
-                                            {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
-                                                <div>
-                                                    <h1 className="font-weight-bold">Trial Balance </h1>
-                                                    <small>Complete the respective fields ....</small>
-                                                </div>
-
-                                            </div> */}
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="body-content">
-                                <div className="col-lg-12">
-                                    <div className="card">
-                                        <div className="create-new-staff-card-header">
-                                            <div className="d-flex justify-content-between align-items-center">
-
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-lg-12">
-                                                <div className="card">
-
-
-
-
-                                                    <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
-                                                        <div className="row">
-                                                            <div className="col-md-12">
-                                                                {/* <div className="form-group row">
-                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
-                                                                    <div className="col-sm-12">
-                                                                        <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
-                                                                            <option value="">Choose Bank</option>
-                                                                            {tableData.map((item) => (
-                                                                                <option key={item.id} value={item.id}>
-                                                                                    {item.gl_name}
-                                                                                </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                    </div>
-                                                                </div> */}
-                                                            </div>
+                <div className={classes.topPadding}>
+                    <div className={`${classes.formSecCont}`}>
+                        <div className="card" style={{ width: '100%' }}>
+                            <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
+                            <div className="row">
+                                                            
 
                                                             <div className="row" style={{ marginTop: 30 }}>
                                                                 <div className="col-md-6">
@@ -328,15 +270,23 @@ export default function TrialBalance() {
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
+                                </div>
+                                </div>
+                                </div>
+
+
+                <div className={classes.mainform}>
+
+                    <div className={classes.loandgrantcards}>
+
+                        <div className="content-wrapper">
+
+
+
+                            
+
+                      
 
 
 

@@ -40,6 +40,7 @@ import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
+// import BalanceSheetPrint from './Pages/Balance Sheet Print/BalanceSheetPrint.js';
 import LoanRepayment from './Pages/Manage Cooperatives/Loan Repayment/LoanRepayment.js';
 import LoanRepaymentExcel from './Pages/Manage Cooperatives/Loan Repayment Excel/LoanRepaymentExcel.js';
 import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavings.js';
@@ -87,6 +88,8 @@ function App() {
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
         <Route path='/balance_sheet' element={<BalanceSheet/>} />
+        {/* <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/> */}
+
         <Route path='/loan_repayment' element={<LoanRepayment/>} />
         <Route path='/loan_repayment_excel' element={<LoanRepaymentExcel/>} />
         <Route path='/manage_savings' element={<ManageSavings/>} />
