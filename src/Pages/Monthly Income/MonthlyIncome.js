@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import classes from '../General Ledger/GeneralLedger.module.css';
+import classes from '../Monthly Income/MonthlyIncome.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Spinner, Badge, Button, Modal, Form } from 'react-bootstrap';
 // import Folder from '../../Images/folder-2.svg';
@@ -18,192 +18,153 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 
-export default function GeneralLedger() {
+export default function MonthlyIncome() {
     const [entriesPerPage, setEntriesPerPage] = useState(100);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [load, setLoad] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [bearer, setBearer] = useState('');
-  const [user, setUser] = useState('');
-  const navigate = useNavigate();
-  const [selectedEndDate, setSelectedEndDate] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [accounts, setAccounts] = useState([]);
-  const [inputss, setInputss] = useState([]);
-  const [tableData, setTableData] = useState([]);
-  const [selectedAccount, setSelectedAccount] = useState('');
-  const [totalDebit, setTotalDebit] = useState('');
-  const [totalCredit, setTotalCredit] = useState('');
-
-   
-
-  const filteredData = accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase()));
-
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
-
-
-
-  const handleDateChange1 = (event) => {
-    setSelectedEndDate(event.target.value);
-  };
-
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-  };
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [load, setLoad] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [bearer, setBearer] = useState('');
+    const navigate = useNavigate();
+    const [selectedBank, setSelectedBank] = useState('');
+    const [selectedEndDate, setSelectedEndDate] = useState('');
+    const [selectedDate, setSelectedDate] = useState('');
+    const [monthlyLoading, setMonthlyLoading] = useState(false);
+    const [selectedMonth, setSelectedMonth] = useState('');
+    const [tableData, setTableData] = useState([]);
+    const [tableData1, setTableData1] = useState([]);
+    const [tableData2, setTableData2] = useState([]);
+    const [accounts, setAccounts] = useState([]);
+    const [user, setUser] = useState('');
+    const [inputss, setInputss] = useState([]);
+    const [totalDebit, setTotalDebit] = useState('');
+    const [totalCredit, setTotalCredit] = useState('');
+    const [totalCurrent, setTotalCurrent] = useState('');
+    const [totalYearly, setTotalYearly] = useState('');
 
 
 
+    const filteredData = accounts ? accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+    const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
+    const handleDateChange1 = (event) => {
+        setSelectedEndDate(event.target.value);
+    };
 
-  const handlePrevPage = () => {
-    setCurrentPage(Math.max(currentPage - 1, 1));
-  };
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
 
-  const handleNextPage = () => {
-    setCurrentPage(Math.min(currentPage + 1, totalPages));
-  };
+    const handleMonthChange = (event) => {
+        setSelectedMonth(event.target.value);
+      };
 
-  const totalEntries = filteredData.length;
-  const startIndexx = (currentPage - 1) * entriesPerPage + 1;
-  const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-  const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
+    const handlePrevPage = () => {
+        setCurrentPage(Math.max(currentPage - 1, 1));
+    };
 
+    const handleNextPage = () => {
+        setCurrentPage(Math.min(currentPage + 1, totalPages));
+    };
 
+    const totalEntries = filteredData.length;
+    const startIndexx = (currentPage - 1) * entriesPerPage + 1;
+    const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
+    const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
 
-
-  const fetchAccounts = async () => {
-    setLoad(true);
+    const fetchMonths = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.get(`${BASE_URL}/reports/general-ledger-filter`, { params: {
-                gl_code: selectedAccount,
-                start_date: selectedDate,
-                end_date: selectedEndDate
-              },
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${bearer}`
-              } });
-              const resultsss = response.data?.data?.journal;
-              setAccounts(resultsss);
-        
-              const resultssx = response.data?.data?.input;
-              setInputss(resultssx);
+            const response = await axios.get(`${BASE_URL}/get-company-months`, { headers });
+            const results = response.data?.data?.journal || [];
+            setTableData(results);
+
+
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                // Redirect to login page if unauthorized
-                navigate('/login');
-            } else {
-                const errorStatus = error.response?.data?.message;
-                console.log(errorStatus);
-                
-            }
+            const errorStatus = error.response?.data?.message;
+            console.log(errorStatus);
+            setTableData([]);
         } finally {
-            setLoad(false);
+            setIsLoading(false);
         }
     };
 
 
+    const fetchMonthExpenditure = async () => {
+        setMonthlyLoading(true);
+        try {
+            let url = (`${BASE_URL}/reports/get-monthly-income-and-expenditure`);
+            if (selectedMonth) {
+                url += `?month=${selectedMonth}`;
+            }
+            const response = await axios.get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${bearer}`
+                }
+            });
+            const journalResult = response.data?.data?.journals;
+            const ordinaryResult = response.data?.data;
+            const totalCurr = response.data?.data?.totalIncome;
+            const totalYearly = response.data?.data?.totalYearlyIncome;
 
-   const fetchCharts = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`${BASE_URL}/account`, { headers });
-      const results = response.data?.data;
+            setTableData1(journalResult);
+            setTableData2(ordinaryResult);
+            setTotalCurrent(totalCurr);
+            setTotalYearly(totalYearly);
 
-      setTableData(results);
-      console.log(results);
-    } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      console.log(errorStatus);
-      setTableData([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+            // console.log(ordinaryResult, "journals");
+        } catch (error) {
+            const errorStatus = error.response?.data?.message;
+            console.log(errorStatus);
+            setTableData1([]);
+        } finally {
+            setMonthlyLoading(false);
+        }
+    };
 
-  useEffect(() => {
-    if (bearer) {
-      fetchCharts();
-
-    }
-  }, [bearer]);
-
-  const handleAccountChange = (event) => {
-    setSelectedAccount(event.target.value);
-    // Set the start date to the first date of the current month
-    const currentDate = new Date();
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    setSelectedDate(firstDayOfMonth.toISOString().split('T')[0]);
-    // Set the end date to the current date
-    setSelectedEndDate(currentDate.toISOString().split('T')[0]);
-    // Fetch accounts
-    fetchAccounts();
-  };
-
-
+    useEffect(() => {
+        fetchMonthExpenditure();
+    }, [bearer, selectedMonth]);
 
 
 
-  const readData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('userToken');
-      const value1 = await AsyncStorage.getItem('tobi');
 
-      if (value !== null) {
-        setBearer(value);
-      }
-      if (value1 !== null) {
-        setUser(value1);
-    }
-    } catch (e) {
-      alert('Failed to fetch the input from storage');
-    }
-  };
-
-  useEffect(() => {
-    readData();
-
-  }, []);
-
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${bearer}`
-  };
-
-  useEffect(() => {
-    if (accounts) {
-      const debitTotal = accounts.reduce((total, item) => total + parseFloat(item.debit), 0);
-      const creditTotal = accounts.reduce((total, item) => total + parseFloat(item.credit), 0);
-
-      // Format the numbers with commas and two decimal places
-      const formattedDebitTotal = debitTotal.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      const formattedCreditTotal = creditTotal.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-
-      setTotalDebit(formattedDebitTotal);
-      setTotalCredit(formattedCreditTotal);
-    }
-  }, [accounts]);
+    useEffect(() => {
+        fetchMonths();
+    }, [bearer]);
 
 
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
-    return formattedDate;
-  }
 
-  function padZero(num) {
-    return num < 10 ? `0${num}` : num;
-  }
 
-  
+
+    const readData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('userToken');
+            const value1 = await AsyncStorage.getItem('tobi');
+            if (value !== null) {
+                setBearer(value);
+            }
+            if (value1 !== null) {
+                setUser(value1);
+            }
+        } catch (e) {
+            alert('Failed to fetch the input from storage');
+        }
+    };
+
+    useEffect(() => {
+        readData();
+
+    }, []);
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearer}`
+    };
+
+
 
     return (
         <div>
@@ -213,7 +174,7 @@ export default function GeneralLedger() {
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>General Ledger</h3>
+                            <h3>Monthly Income</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
@@ -225,7 +186,7 @@ export default function GeneralLedger() {
                 <div className={classes.mainform}>
 
                     <div className={classes.loandgrantcards}>
-                      
+
                         <div className="content-wrapper">
 
 
@@ -239,10 +200,10 @@ export default function GeneralLedger() {
                                         <div className="media">
                                             <div className="header-icon text-success mr-3">
                                                 {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
-                                                </div>
+                                            </div>
                                             {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
                                                 <div>
-                                                    <h1 className="font-weight-bold">General Ledger </h1>
+                                                    <h1 className="font-weight-bold">Monthly Income </h1>
                                                     <small>Complete the respective fields ....</small>
                                                 </div>
 
@@ -272,11 +233,11 @@ export default function GeneralLedger() {
                                                     <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
                                                         <div className="row">
                                                             <div className="col-md-12">
-                                                                <div className="form-group row">
-                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Accounts:</label>
+                                                                {/* <div className="form-group row">
+                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
                                                                     <div className="col-sm-12">
-                                                                        <Form.Select name="account" className="form-control" required="" value={selectedAccount} onChange={handleAccountChange}>
-                                                                            <option value="">Choose Account</option>
+                                                                        <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
+                                                                            <option value="">Choose Bank</option>
                                                                             {tableData.map((item) => (
                                                                                 <option key={item.id} value={item.id}>
                                                                                     {item.gl_name}
@@ -284,27 +245,35 @@ export default function GeneralLedger() {
                                                                             ))}
                                                                         </Form.Select>
                                                                     </div>
-                                                                </div>
+                                                                </div> */}
                                                             </div>
 
                                                             <div className="row" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            Start Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            End Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
+                                                                <div className="col-lg-12">
+                                                                    <div >
+
+
+
+
+                                                                        <div className="card-body" >
+                                                                            <div className="row">
+                                                                                <div className="">
+                                                                                    <div className="form-group row">
+                                                                                        <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Select Month:</label>
+                                                                                        <div className="col-sm-12">
+                                                                                            <Form.Select name="account" className="form-control" required="" value={selectedMonth} onChange={handleMonthChange}>
+                                                                                                <option value="">Choose Month</option>
+                                                                                                {tableData.map((item) => (
+                                                                                                    <option key={item} value={item}>
+                                                                                                        {item}
+                                                                                                    </option>
+                                                                                                ))}
+                                                                                            </Form.Select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -312,8 +281,8 @@ export default function GeneralLedger() {
                                                             <div className="row justify-content-center" style={{ marginTop: 30 }}>
                                                                 <div className="col-md-4 text-center" >
                                                                     <div className="form-group row">
-                                                                        <Button variant='success' onClick={fetchAccounts}>
-                                                                            {load ? (
+                                                                        <Button disabled={monthlyLoading} variant='success' onClick={fetchMonthExpenditure}>
+                                                                            {monthlyLoading ? (
                                                                                 <>
                                                                                     <Spinner size='sm' />
                                                                                     <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
@@ -353,8 +322,8 @@ export default function GeneralLedger() {
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
-                                                    {accounts.length > 0 && (
-                                                        <button onClick={() => navigate('/process_general', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                    {tableData1.length > 0 && (
+                                                        <button onClick={() => navigate('/monthly_income_process', { state: { tableData1, tableData2 } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>
@@ -396,7 +365,7 @@ export default function GeneralLedger() {
                                         </div>
 
 
-                                        {load ? (
+                                        {monthlyLoading ? (
                                             <p>Fetching data...</p>
                                         ) : (
                                             <div className="table-responsive">
@@ -404,38 +373,37 @@ export default function GeneralLedger() {
 
                                                     <thead style={{ whiteSpace: 'nowrap' }}>
                                                         <tr>
-                                                            <th>Post Date</th>
-                                                            <th>Value Date</th>
-                                                            <th>Detail</th>
-                                                            <th>Debit</th>
-                                                            <th>Credit</th>
+                                                            <th>Account Code</th>
+                                                            <th>Account Name</th>
+                                                            <th>Type</th>
+                                                            <th>Current Month</th>
+                                                            <th>Yearly</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody style={{ whiteSpace: 'nowrap' }}>
                                                         {displayedData.map((item, index) => (
                                                             <tr key={index}>
-                                                                <td>{formatDate(item.created_at)}</td>
-                                                                <td>{item.transaction_date}</td>
-                                                                <td>{item.details}</td>
-                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.debit).toLocaleString('en-US', {
+                                                                <td>{item.account_code}</td>
+                                                                <td>{item.account_name}</td>
+
+                                                                <td >{item.type === 2 ? "CR" : "DR"}</td>
+
+                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.amount).toLocaleString('en-US', {
                                                                     minimumIntegerDigits: 1,
                                                                     minimumFractionDigits: 2,
                                                                     maximumFractionDigits: 2
                                                                 })}</td>
-                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.credit).toLocaleString('en-US', {
-                                                                    minimumIntegerDigits: 1,
-                                                                    minimumFractionDigits: 2,
-                                                                    maximumFractionDigits: 2
+
+<td style={{ textAlign: "right" }}>{parseFloat(item.yearly).toLocaleString('en-US', {
+                                  minimumIntegerDigits: 1,
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2
                                                                 })}</td>
                                                             </tr>
                                                         ))}
-                                                        {accounts.length > 0 && (
-                                                            <>
-                                                                <td colSpan={3}>Total</td>
-                                                                <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalDebit}</td>
-                                                                <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalCredit}</td>
-                                                            </>
-                                                        )}
+
+
+
 
                                                     </tbody>
                                                 </table>
@@ -499,13 +467,13 @@ export default function GeneralLedger() {
 
                             </div>
                         </div>
-                        
-                        
+
+
 
                     </div>
-                    </div>
-                    </div>
-
                 </div>
-                )
+            </div>
+
+        </div>
+    )
 }

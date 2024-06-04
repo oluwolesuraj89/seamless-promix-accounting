@@ -290,23 +290,7 @@ function CreateLoan() {
                                                                     </div>
                                                                     </div>
                                                                 </div>
-                                                                {/* <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Report To</label>
-                                                                        <div className="col-sm-9">
-                                                                        <Form.Select name="customer" className="form-control" required="" value={selectedReport} onChange={handleReportChange}>
-                                                                            <option value="">Choose Report To</option>
-                                                                            {subCat2.map((item) => (
-                                                                            <option key={item.id} value={item.id}>
-                                                                                {item.gl_name}
-                                                                            </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> */}
-                                                                                                
-                                                                {/* </div> */}
+                                                                
                                                             </div>
                                                             
                                                             

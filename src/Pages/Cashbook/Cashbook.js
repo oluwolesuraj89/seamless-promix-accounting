@@ -27,6 +27,7 @@ export default function Cashbook() {
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
   const navigate = useNavigate();
+  const [user, setUser] = useState('');
   const [selectedBank, setSelectedBank] = useState('');
     const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
@@ -160,9 +161,13 @@ fetchAccounts();
    const readData = async () => {
         try {
             const value = await AsyncStorage.getItem('userToken');
+            const value1 = await AsyncStorage.getItem('tobi');
 
             if (value !== null) {
                 setBearer(value);
+            }
+            if (value1 !== null) {
+                setUser(value1);
             }
         } catch (e) {
             alert('Failed to fetch the input from storage');
@@ -204,7 +209,7 @@ fetchAccounts();
                             <h3>Cashbook</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            {/* <h3 style={{ color: '#2D995F' }}>{user}</h3> */}
+                            <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
                 </div>
@@ -228,13 +233,13 @@ fetchAccounts();
                                             <div className="header-icon text-success mr-3">
                                                 {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
                                                 </div>
-                                            <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
+                                            {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
                                                 <div>
                                                     <h1 className="font-weight-bold">Cashbook </h1>
                                                     <small>Complete the respective fields ....</small>
                                                 </div>
 
-                                            </div>
+                                            </div> */}
 
                                         </div>
 
@@ -390,43 +395,47 @@ fetchAccounts();
                                             <div className="table-responsive">
                                                 <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
-                                                    <thead style={{ whiteSpace: 'nowrap' }}>
-                                                        <tr>
-                                                            <th>Post Date</th>
-                                                            <th>Value Date</th>
-                                                            <th>Detail</th>
-                                                            <th>Debit</th>
-                                                            <th>Credit</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody style={{ whiteSpace: 'nowrap' }}>
-                                                        {displayedData.map((item, index) => (
-                                                            <tr key={index}>
-                                                                <td>{formatDate(item.created_at)}</td>
-                                                                <td>{item.transaction_date}</td>
-                                                                <td>{item.details}</td>
-                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.debit).toLocaleString('en-US', {
-                                                                    minimumIntegerDigits: 1,
-                                                                    minimumFractionDigits: 2,
-                                                                    maximumFractionDigits: 2
-                                                                })}</td>
-                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.credit).toLocaleString('en-US', {
-                                                                    minimumIntegerDigits: 1,
-                                                                    minimumFractionDigits: 2,
-                                                                    maximumFractionDigits: 2
-                                                                })}</td>
-                                                            </tr>
-                                                        ))}
-                                                        {accounts.length > 0 && (
-                                                            <>
-                                                                <td colSpan={2}>Total</td>
-                                                                <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalDebit}</td>
-                                                                <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalCredit}</td>
-                                                            </>
-                                                        )}
+<thead style={{ whiteSpace: 'nowrap' }}>
+  <tr>
+    <th>Post Date</th>
+    <th>Value Date</th>
+    <th>Particular</th>
+    <th>Detail</th>
+    <th>Debit</th>
+    <th>Credit</th>
+    
+  </tr>
+</thead>
+<tbody style={{ whiteSpace: 'nowrap' }}>
+  {displayedData.map((item, index) => (
+    <tr key={index}>
+      <td>{formatDate(item.created_at)}</td>
+      <td>{item.transaction_date}</td>
+      <td>{item.account?.gl_name}</td>
+      <td>{item.details}</td>
+      <td style={{textAlign: "right"}}>{parseFloat(item.debit).toLocaleString('en-US', {
+      minimumIntegerDigits: 1,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}</td>
+     <td style={{textAlign: "right"}}>{parseFloat(item.credit).toLocaleString('en-US', {
+      minimumIntegerDigits: 1,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}</td>
+    
+    </tr>
+  ))}
+  {accounts.length > 0 && (
+<>
+<td colSpan={3}>Total</td>
+<td style={{textAlign: 'right', fontWeight: "bold"}}>{totalDebit}</td>
+<td style={{textAlign: 'right', fontWeight: "bold"}}>{totalCredit}</td>
 
-                                                    </tbody>
-                                                </table>
+</>
+)}
+</tbody>
+</table>
                                             </div>
                                         )}
                                         <div className={classes.endded}>

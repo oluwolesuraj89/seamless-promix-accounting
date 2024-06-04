@@ -235,7 +235,7 @@ export default function MainDashboard() {
                                         <NavLink to={'/savings_account'}>Savings Account</NavLink><br/>
                                         <NavLink to={'/loan_account'}>Loan Account</NavLink><br/>
                                         <NavLink to={'/deductions'}>Monthly Deduction</NavLink><br/>
-                                        <NavLink to={'#'}>Loan Repayment</NavLink><br/>
+                                        <NavLink to={'/loan_repayment'}>Loan Repayment</NavLink><br/>
                                         <NavLink to={'#'}>Loan Excel</NavLink><br/>
                                         <NavLink to={'#'}>Savings Repayment</NavLink>
                                     </Card.Body>
@@ -255,7 +255,7 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'#'}>Customer/Employee/Member</Link><br/>
+                                    <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
                                         <Link to={'#'}>Sales Invoices</Link><br/>
                                         <Link to={'#'}>Advance Bookin</Link><br/>
                                         <Link to={'#'}>Advance Booking Payments</Link><br/>
@@ -345,10 +345,10 @@ export default function MainDashboard() {
                                     <Card.Body className={classes.cardBody}>
                                         <Link to={'/general_ledger'}>General Ledger</Link><br/>
                                         <Link to={'/cashbook'}>Cashbook</Link><br/>
-                                        <Link to={'#'}>Trial Balance</Link><br/>
-                                        <Link to={'#'}>Income & Expenditure</Link><br/>
-                                        <Link to={'#'}>Monthly Income</Link><br/>
-                                        <Link to={'#'}>Balance Sheet</Link><br/>
+                                        <Link to={'/trial_balance'}>Trial Balance</Link><br/>
+                                        <Link to={'/income_expenditure'}>Income & Expenditure</Link><br/>
+                                        <Link to={'/monthly_income'}>Monthly Income</Link><br/>
+                                        <Link to={'/balance_sheet'}>Balance Sheet</Link><br/>
                                         <Link to={'#'}>Inflow</Link>
                                     </Card.Body>
                                 </Accordion.Collapse>

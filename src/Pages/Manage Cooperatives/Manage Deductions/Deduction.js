@@ -83,7 +83,7 @@ function Deduction() {
       readData();
     }, []);
   
-    console.log("CompanyId:", companyId)
+    // console.log("CompanyId:", companyId)
 
     const handleFileChange = (event) => {
       const files = event.target.files;
@@ -390,7 +390,7 @@ function Deduction() {
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
                             <h3>Monthly Savings Deduction</h3>
-                            <small>Create and view your monthly savings deductions...</small>
+                            {/* <small>Create and view your monthly savings deductions...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
