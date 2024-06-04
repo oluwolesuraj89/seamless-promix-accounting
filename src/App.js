@@ -19,6 +19,7 @@ import ApprovalLevel from './Pages/Manae Approval Level/ApprovalLevel.js';
 import ManageRoles from './Pages/Manae Role/ManageRole.js';
 import CreateRole from './Pages/Manae Role/CreateRole.js';
 import { ToastContainer } from 'react-toastify';
+import Cashbook from './Pages/Cashbook/Cashbook.js';
 import EditRole from './Pages/Manae Role/EditRole.js';
 import CreateApproval from './Pages/Manae Approval Level/CreateApproval.js';
 import ManageUser from './Pages/Manage User/ManageUser.js';
@@ -45,6 +46,7 @@ function App() {
         <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/edit_role' element={<EditRole/>} />
         <Route path='/approval_level' element={<ApprovalLevel/>} />
+        <Route path='/cashbook' element={<Cashbook/>} />
         <Route path='/manage_user' element={<ManageUser />} />
         <Route path='/manage_category' element={<ManageCategory />} />
         <Route path='/charts_of_account' element={<Charts />} />

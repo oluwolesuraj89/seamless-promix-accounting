@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import classes from '../General Ledger/GeneralLedger.module.css';
+import classes from '../Cashbook/Cashbook.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Spinner, Badge, Button, Modal, Form } from 'react-bootstrap';
 // import Folder from '../../Images/folder-2.svg';
@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 
-export default function GeneralLedger() {
+export default function Cashbook() {
     const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,13 +27,13 @@ export default function GeneralLedger() {
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
   const navigate = useNavigate();
-  const [selectedEndDate, setSelectedEndDate] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [accounts, setAccounts] = useState([]);
-  const [inputss, setInputss] = useState([]);
-  const [tableData, setTableData] = useState([]);
-  const [selectedAccount, setSelectedAccount] = useState('');
-  const [totalDebit, setTotalDebit] = useState('');
+  const [selectedBank, setSelectedBank] = useState('');
+    const [selectedEndDate, setSelectedEndDate] = useState('');
+    const [selectedDate, setSelectedDate] = useState('');
+    const [tableData, setTableData] = useState([]);
+    const [accounts, setAccounts] = useState([]);
+    const [inputss, setInputss] = useState([]);
+    const [totalDebit, setTotalDebit] = useState('');
   const [totalCredit, setTotalCredit] = useState('');
 
    
@@ -43,6 +43,28 @@ export default function GeneralLedger() {
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
 
+  const fetchBankss = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/get-account-by-sub-category-id?sub_category_id=${1}`, { headers });
+      const results = response.data?.data;
+
+      setTableData(results);
+      // console.log(results);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+
+        navigate('/login');
+      } else {
+        const errorStatus = error.response?.data?.message;
+        console.log(errorStatus);
+        setTableData([]);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   const handleDateChange1 = (event) => {
     setSelectedEndDate(event.target.value);
@@ -51,9 +73,6 @@ export default function GeneralLedger() {
   const handleDateChange = (event) => {
     setSelectedDate(event.target.value);
   };
-
-
-
 
 
   const handlePrevPage = () => {
@@ -70,15 +89,34 @@ export default function GeneralLedger() {
   const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
 
 
+  useEffect(() => {
+    if (accounts) {
+      const debitTotal = accounts.reduce((total, item) => total + parseFloat(item.debit), 0);
+      const creditTotal = accounts.reduce((total, item) => total + parseFloat(item.credit), 0);
+  
+      // Format the numbers with commas and two decimal places
+      const formattedDebitTotal = debitTotal.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      const formattedCreditTotal = creditTotal.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+  
+      setTotalDebit(formattedDebitTotal);
+      setTotalCredit(formattedCreditTotal);
+    }
+  }, [accounts]);
 
 
   const fetchAccounts = async () => {
     setLoad(true);
         try {
             const response = await axios.get(`${BASE_URL}/reports/general-ledger-filter`, { params: {
-                gl_code: selectedAccount,
-                start_date: selectedDate,
-                end_date: selectedEndDate
+                gl_code: selectedBank,
+                      start_date: selectedDate,
+                      end_date: selectedEndDate
               },
               headers: {
                 'Content-Type': 'application/json',
@@ -89,114 +127,69 @@ export default function GeneralLedger() {
         
               const resultssx = response.data?.data?.input;
               setInputss(resultssx);
+
+
         } catch (error) {
-            if (error.response && error.response.status === 401) {
-                // Redirect to login page if unauthorized
-                navigate('/login');
-            } else {
-                const errorStatus = error.response?.data?.message;
-                console.log(errorStatus);
-                
-            }
-        } finally {
-            setLoad(false);
-        }
-    };
-
-
-
-   const fetchCharts = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`${BASE_URL}/account`, { headers });
-      const results = response.data?.data;
-
-      setTableData(results);
-      // console.log(results);
-    } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      console.log(errorStatus);
-      setTableData([]);
-    } finally {
-      setIsLoading(false);
-    }
+          const errorStatus = error.response.data.message;
+          console.error(errorStatus);
+      } finally {
+          setLoad(false);
+      }
   };
 
   useEffect(() => {
     if (bearer) {
-      fetchCharts();
-
+      fetchBankss();
+        
     }
-  }, [bearer]);
+}, [bearer]);
 
-  const handleAccountChange = (event) => {
-    setSelectedAccount(event.target.value);
-    // Set the start date to the first date of the current month
+
+const handleBank = (event) => {
+    setSelectedBank(event.target.value);
     const currentDate = new Date();
-    const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    setSelectedDate(firstDayOfMonth.toISOString().split('T')[0]);
-    // Set the end date to the current date
-    setSelectedEndDate(currentDate.toISOString().split('T')[0]);
-    // Fetch accounts
-    fetchAccounts();
+const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+setSelectedDate(firstDayOfMonth.toISOString().split('T')[0]);
+
+setSelectedEndDate(currentDate.toISOString().split('T')[0]);
+
+fetchAccounts();
   };
 
 
+   const readData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('userToken');
 
+            if (value !== null) {
+                setBearer(value);
+            }
+        } catch (e) {
+            alert('Failed to fetch the input from storage');
+        }
+    };
 
+    useEffect(() => {
+        readData();
 
-  const readData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('userToken');
+    }, []);
 
-      if (value !== null) {
-        setBearer(value);
-      }
-    } catch (e) {
-      alert('Failed to fetch the input from storage');
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${bearer}`
+    };
+
+  
+
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+      return formattedDate;
     }
-  };
-
-  useEffect(() => {
-    readData();
-
-  }, []);
-
-  const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${bearer}`
-  };
-
-  useEffect(() => {
-    if (accounts) {
-      const debitTotal = accounts.reduce((total, item) => total + parseFloat(item.debit), 0);
-      const creditTotal = accounts.reduce((total, item) => total + parseFloat(item.credit), 0);
-
-      // Format the numbers with commas and two decimal places
-      const formattedDebitTotal = debitTotal.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      const formattedCreditTotal = creditTotal.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-
-      setTotalDebit(formattedDebitTotal);
-      setTotalCredit(formattedCreditTotal);
+  
+    function padZero(num) {
+      return num < 10 ? `0${num}` : num;
     }
-  }, [accounts]);
-
-
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
-    return formattedDate;
-  }
-
-  function padZero(num) {
-    return num < 10 ? `0${num}` : num;
-  }
 
   
 
@@ -208,7 +201,7 @@ export default function GeneralLedger() {
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>General Ledger</h3>
+                            <h3>Cashbook</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
                             {/* <h3 style={{ color: '#2D995F' }}>{user}</h3> */}
@@ -237,7 +230,7 @@ export default function GeneralLedger() {
                                                 </div>
                                             <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
                                                 <div>
-                                                    <h1 className="font-weight-bold">General Ledger </h1>
+                                                    <h1 className="font-weight-bold">Cashbook </h1>
                                                     <small>Complete the respective fields ....</small>
                                                 </div>
 
@@ -268,10 +261,10 @@ export default function GeneralLedger() {
                                                         <div className="row">
                                                             <div className="col-md-12">
                                                                 <div className="form-group row">
-                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Accounts:</label>
+                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
                                                                     <div className="col-sm-12">
-                                                                        <Form.Select name="account" className="form-control" required="" value={selectedAccount} onChange={handleAccountChange}>
-                                                                            <option value="">Choose Account</option>
+                                                                        <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
+                                                                            <option value="">Choose Bank</option>
                                                                             {tableData.map((item) => (
                                                                                 <option key={item.id} value={item.id}>
                                                                                     {item.gl_name}
@@ -349,7 +342,7 @@ export default function GeneralLedger() {
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
                                                     {accounts.length > 0 && (
-                                                        <button onClick={() => navigate('/process_general', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                        <button onClick={() => navigate('/process_cash_book', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>
