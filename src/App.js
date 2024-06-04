@@ -32,6 +32,7 @@ import Charts from './Pages/Charts of Account/Charts.js';
 import TrialBalance from './Pages/Trial balance/Trial_balance.js';
 import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure.js';
 import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
+import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
         <Route path='/trial_balance' element={<TrialBalance/>} />
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
+        <Route path='/balance_sheet' element={<BalanceSheet/>} />
       </Routes>
 
       <ToastContainer

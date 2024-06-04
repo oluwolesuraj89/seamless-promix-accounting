@@ -26,6 +26,7 @@ export default function GeneralLedger() {
   const [load, setLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
+  const [user, setUser] = useState('');
   const navigate = useNavigate();
   const [selectedEndDate, setSelectedEndDate] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
@@ -148,10 +149,14 @@ export default function GeneralLedger() {
   const readData = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
+      const value1 = await AsyncStorage.getItem('tobi');
 
       if (value !== null) {
         setBearer(value);
       }
+      if (value1 !== null) {
+        setUser(value1);
+    }
     } catch (e) {
       alert('Failed to fetch the input from storage');
     }
@@ -211,7 +216,7 @@ export default function GeneralLedger() {
                             <h3>General Ledger</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            {/* <h3 style={{ color: '#2D995F' }}>{user}</h3> */}
+                            <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
                 </div>
@@ -235,13 +240,13 @@ export default function GeneralLedger() {
                                             <div className="header-icon text-success mr-3">
                                                 {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
                                                 </div>
-                                            <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
+                                            {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
                                                 <div>
                                                     <h1 className="font-weight-bold">General Ledger </h1>
                                                     <small>Complete the respective fields ....</small>
                                                 </div>
 
-                                            </div>
+                                            </div> */}
 
                                         </div>
 
