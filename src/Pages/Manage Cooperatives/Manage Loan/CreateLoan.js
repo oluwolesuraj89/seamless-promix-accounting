@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef  } from 'react';
 // import "../../../assetss/assets/plugins/fontawesome/css/all.min.css";
 // import "../../../assetss/assets/plugins/typicons/src/typicons.min.css";
 // import "../../../assetss/assets/plugins/themify-icons/themify-icons.min.css";
-import "../../../assetss/assets/plugins/datatables/dataTables.bootstrap4.min.css";
+// import "../../../assetss/assets/plugins/datatables/dataTables.bootstrap4.min.css";
 // import { AdminHeaderNav } from '../AdminHeaderNav';
 // import Footer from '../../Pages/Footer/Footer';
 // import { InfoFooter } from '../../InfoFooter';

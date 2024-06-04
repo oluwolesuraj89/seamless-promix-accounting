@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 // import "../assets/plugins/typicons/src/typicons.min.css";
 // import "../assets/plugins/themify-icons/themify-icons.min.css";
 // import "../assets/plugins/datatables/dataTables.bootstrap4.min.css";
+// import "../../../assetss/assets/plugins/datatables/dataTable.bootstrap4.min.css"
 // import "../style.css";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'react-bootstrap';
@@ -88,7 +89,7 @@ function LoanRepayment() {
     const fetchLoanRepayments = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/customer/fetch-loan-repayment', { headers });
+            const response = await axios.get(`${BASE_URL}/customer/fetch-loan-repayment`, { headers });
             const results = response.data?.data;
             setTableData(results);
             //   setSelectOptions(options);
@@ -115,7 +116,7 @@ function LoanRepayment() {
     const fetchSupplierss = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/customer/no-pagination', { headers });
+            const response = await axios.get(`${BASE_URL}/customer/no-pagination`, { headers });
             const results = response.data?.data;
 
 
@@ -146,8 +147,7 @@ function LoanRepayment() {
         setLoading(true);
         // console.log()
         try {
-            const response = await axios.get(
-                `https://api-sme.promixaccounting.com/api/v1/customer/loan?customer_id=${selectedCustomer}`,
+            const response = await axios.get(`${BASE_URL}/customer/loan?customer_id=${selectedCustomer}`,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -239,7 +239,7 @@ function LoanRepayment() {
     const fetchLoanType = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get`(https://api-sme.promixaccounting.com/api/v1/customer/loan?customer_id=${selectedCustomer}, { headers })`;
+            const response = await axios.get`(${BASE_URL}/customer/loan?customer_id=${selectedCustomer}, { headers })`;
             const loanss = response.data?.data;
 
             const options1 = loanss.map((item) => ({
@@ -262,8 +262,7 @@ function LoanRepayment() {
         setRepaymentLoading(true);
         try {
 
-            const response = await axios.post(
-                'https://api-sme.promixaccounting.com/api/v1/customer/loan-repayment',
+            const response = await axios.post(`${BASE_URL}/customer/loan-repayment`,
                 {
                     amount: amountToPay,
                     transaction_date: selectedDate,
@@ -324,7 +323,7 @@ function LoanRepayment() {
     const fetchBanks = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`https://api-sme.promixaccounting.com/api/v1/get-account-by-class-id?class_id=${1}`, { headers });
+            const response = await axios.get(`${BASE_URL}/get-account-by-class-id?class_id=${1}`, { headers });
             const results = response.data?.data;
 
             const options1 = results.map((item) => ({
@@ -445,7 +444,7 @@ function LoanRepayment() {
                         </div>
 
                         <div className="col-md-6">
-                            <div className="form-group row">
+                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Type:</label>
                                 <div className="col-sm-9">
                                     <Select
@@ -467,8 +466,8 @@ function LoanRepayment() {
                         </div>
 
                         <div className="col-md-6">
-                            <div className="form-group row">
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Total Principal:</label>
+                            <div className="form-group row" style={{marginBottom:"10px", desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Total Principal:</label>
                                 <div className="col-sm-9">
                                     <  CurrencyInput
                                         name="amount-to-pay"
@@ -483,7 +482,7 @@ function LoanRepayment() {
                         </div>
 
                         <div className="col-md-6">
-                            <div className="form-group row">
+                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount Paid:</label>
                                 <div className="col-sm-9">
                                     <CurrencyInput
@@ -502,7 +501,7 @@ function LoanRepayment() {
 
 
                         <div className="col-md-6">
-                            <div className="form-group row">
+                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Outstanding:</label>
                                 <div className="col-sm-9">
                                     <CurrencyInput
@@ -519,7 +518,7 @@ function LoanRepayment() {
                         </div>
 
                         <div className="col-md-6">
-                            <div className="form-group row" style={{marginTop:'20px'}}>
+                            <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount to Pay:</label>
                                 <div className="col-sm-9" >
                                     <CurrencyInput
@@ -547,7 +546,7 @@ function LoanRepayment() {
 
 
     <div className="col-md-6">
-        <div className="form-group row" style={{marginTop:'20px',}}>
+        <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Bank:</label>
             <div className="col-sm-9" >
                 <Select

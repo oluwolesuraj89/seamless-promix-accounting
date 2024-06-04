@@ -41,6 +41,10 @@ import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
 import LoanRepayment from './Pages/Manage Cooperatives/Loan Repayment/LoanRepayment.js';
+import LoanRepaymentExcel from './Pages/Manage Cooperatives/Loan Repayment Excel/LoanRepaymentExcel.js';
+import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavings.js';
+import CreateSavingsApp from './Pages/Manage Cooperatives/Manage Savings/CreateSavingsApp.js';
+import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.js';
 
 
 function App() {
@@ -84,6 +88,10 @@ function App() {
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
         <Route path='/balance_sheet' element={<BalanceSheet/>} />
         <Route path='/loan_repayment' element={<LoanRepayment/>} />
+        <Route path='/loan_repayment_excel' element={<LoanRepaymentExcel/>} />
+        <Route path='/manage_savings' element={<ManageSavings/>} />
+        <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
+        <Route path='/saving_excel' element={<SavingExcel/>} />
       </Routes>
 
       <ToastContainer
