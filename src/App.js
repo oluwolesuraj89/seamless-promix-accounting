@@ -34,6 +34,8 @@ import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure
 import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
+import SalesInvoice from './Pages/Receiveables/Sales Invoice/SalesInvoice.js';
+import CreateSales from './Pages/Receiveables/Sales Invoice/CreateSales.js';
 
 
 function App() {
@@ -69,6 +71,8 @@ function App() {
         <Route path='/trial_balance' element={<TrialBalance/>} />
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
+        <Route path='/sales_invoice' element={<SalesInvoice/>} />
+        <Route path='/create_sales' element={<CreateSales />} />
       </Routes>
 
       <ToastContainer
