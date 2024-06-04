@@ -43,6 +43,7 @@ function Login() {
             const permit = response.data?.data?.permissions;
             const isAdmin = response.data?.data?.user?.is_admin;
             const companyName = response.data?.data?.company_name;
+            const companyId = response.data?.data?.user?.company?.id;
             AsyncStorage.setItem('permissions', permit);
             AsyncStorage.setItem('admin', isAdmin);
             AsyncStorage.setItem('companyName', companyName);
@@ -52,6 +53,7 @@ function Login() {
             AsyncStorage.setItem('companyEmail', emails);
             AsyncStorage.setItem('companyPhone', phones);
             AsyncStorage.setItem('companyAddress', addresses);
+            AsyncStorage.setItem('companyId', companyId)
 
 
             if (location.state && location.state.from) {
