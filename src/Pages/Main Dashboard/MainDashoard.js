@@ -345,9 +345,9 @@ export default function MainDashboard() {
                                     <Card.Body className={classes.cardBody}>
                                         <Link to={'/general_ledger'}>General Ledger</Link><br/>
                                         <Link to={'/cashbook'}>Cashbook</Link><br/>
-                                        <Link to={'#'}>Trial Balance</Link><br/>
-                                        <Link to={'#'}>Income & Expenditure</Link><br/>
-                                        <Link to={'#'}>Monthly Income</Link><br/>
+                                        <Link to={'/trial_balance'}>Trial Balance</Link><br/>
+                                        <Link to={'/income_expenditure'}>Income & Expenditure</Link><br/>
+                                        <Link to={'monthly_income'}>Monthly Income</Link><br/>
                                         <Link to={'#'}>Balance Sheet</Link><br/>
                                         <Link to={'#'}>Inflow</Link>
                                     </Card.Body>

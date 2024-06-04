@@ -29,6 +29,9 @@ import CreateApproval from './Pages/Manae Approval Level/CreateApproval.js';
 import ManageUser from './Pages/Manage User/ManageUser.js';
 import ManageCategory from './Pages/Manage Category/ManageCategory.js';
 import Charts from './Pages/Charts of Account/Charts.js';
+import TrialBalance from './Pages/Trial balance/Trial_balance.js';
+import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure.js';
+import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
 
@@ -63,6 +66,9 @@ function App() {
         <Route path='/manage_category' element={<ManageCategory />} />
         <Route path='/charts_of_account' element={<Charts />} />
         <Route path='/create_approval_level' element={<CreateApproval/>} />
+        <Route path='/trial_balance' element={<TrialBalance/>} />
+        <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
+        <Route path='/monthly_income' element={<MonthlyIncome/>} />
       </Routes>
 
       <ToastContainer

@@ -252,8 +252,9 @@ function EditEmployeeMember() {
                                                             </div>
                                                             
 
-                                                            <div style={{justifyContent: "flex-start"}} class="modal-footer">
-                                                            <Button style={{borderRadius: 0, marginTop:15}} variant="success" onClick={updateBeneficiary}>
+                                                            <div style={{justifyContent: "flex-start",  marginTop:30, gap: 20}} class="modal-footer">
+                                                            <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
+                                                            <Button style={{borderRadius: 4,}} variant="success" onClick={updateBeneficiary}>
                     {load ? (
                       <>
                       <Spinner  size='sm' /> 
