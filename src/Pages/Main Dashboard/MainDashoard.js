@@ -231,12 +231,13 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="7" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/manage_role'}>Manage Roles</Link><br/>
-                                        <Link to={'/approval_level'}>Approval Levels</Link><br/>
-                                        <Link to={'#'}>Manage User</Link><br/>
-                                        <Link to={'#'}>Manage Category </Link><br/>
-                                        <Link to={'#'}>Charts of Account</Link><br/>
-                                        {/* <Link to={'#'}>Loan & Advances</Link> */}
+                                        <Link to={'/members'}>Manage Member</Link><br/>
+                                        <NavLink to={'/savings_account'}>Savings Account</NavLink><br/>
+                                        <NavLink to={'#'}>Loan Account</NavLink><br/>
+                                        <NavLink to={'#'}>Monthly Deduction</NavLink><br/>
+                                        <NavLink to={'#'}>Loan Repayment</NavLink><br/>
+                                        <NavLink to={'#'}>Loan Excel</NavLink><br/>
+                                        <NavLink to={'#'}>Savings Repayment</NavLink>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -437,7 +438,9 @@ export default function MainDashboard() {
                     </div> */}
                 </div>
                 <div className={classes.dFooter}>
-                    
+                    {/* <div className={classes.logoPic}>
+                        <img src={Logo} alt='Logo' className={classes.imgs}/>
+                    </div> */}
                     <Link>
                         <button className={classes.logout}>
                             <img src={Out} alt='Logo' style={{width:'20px', height:'20px'}}/>

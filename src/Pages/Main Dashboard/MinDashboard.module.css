@@ -254,7 +254,8 @@ p{
     /* background-color: green !important; */
 }
 .cardBody a{
-    padding: 20px  0 !important;
+    /* padding: 20px  0 !important; */
+    margin: 15px 0;
     overflow-y: auto;
     font-size: 14px;
 }

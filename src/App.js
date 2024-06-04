@@ -16,9 +16,13 @@ import MainDashboard from './Pages/Main Dashboard/MainDashoard.js';
 import Dashboard from './Pages/Dashboard/Dashboard.js';
 import ManageRole from './Pages/Manae Role/ManageRole.js';
 import ApprovalLevel from './Pages/Manae Approval Level/ApprovalLevel.js';
+import Members from './Pages/Manage Cooperatives/Manage Members/Members.js';
 import ManageRoles from './Pages/Manae Role/ManageRole.js';
 import CreateRole from './Pages/Manae Role/CreateRole.js';
 import { ToastContainer } from 'react-toastify';
+import EditMember from './Pages/Manage Cooperatives/Manage Members/EditMember.js';
+import SavingsAccounts from './Pages/Manage Cooperatives/Manage Savings Account/SavingAccount.js';
+import EditSavings from './Pages/Manage Cooperatives/Manage Savings Account/EditSavings.js';
 import Cashbook from './Pages/Cashbook/Cashbook.js';
 import EditRole from './Pages/Manae Role/EditRole.js';
 import CreateApproval from './Pages/Manae Approval Level/CreateApproval.js';
@@ -46,6 +50,10 @@ function App() {
         <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/edit_role' element={<EditRole/>} />
         <Route path='/approval_level' element={<ApprovalLevel/>} />
+        <Route path='/members' element={<Members/>} />
+        <Route path='/edit_member' element={<EditMember/>} />
+        <Route path='/savings_account' element={<SavingsAccounts/>} />
+        <Route path='/edit_savings' element={<EditSavings/>} />
         <Route path='/cashbook' element={<Cashbook/>} />
         <Route path='/manage_user' element={<ManageUser />} />
         <Route path='/manage_category' element={<ManageCategory />} />
