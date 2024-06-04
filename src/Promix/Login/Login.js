@@ -41,7 +41,7 @@ function Login() {
             const resultx = response.data?.data?.user?.email;
             const results = response.data?.data?.token;
             const permit = response.data?.data?.permissions;
-            const isAdmin = response.data?.data?.user?.is_admin === "1";
+            const isAdmin = response.data?.data?.user?.is_admin;
             const companyName = response.data?.data?.company_name;
             AsyncStorage.setItem('permissions', permit);
             AsyncStorage.setItem('admin', isAdmin);

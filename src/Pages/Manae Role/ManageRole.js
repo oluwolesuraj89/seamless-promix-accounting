@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classes from './ManageRole.module.css';
+import "../../assets/datatables/dataTables.bootstrap4.min.css";
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Spinner, Badge, Button, Modal, Form } from 'react-bootstrap';
 // import Folder from '../../Images/folder-2.svg';
@@ -37,18 +38,26 @@ export default function ManageRoles() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [permittedHeaders, setPermittedHeaders] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [admin, setAdmin] = useState("");
 
   const readData = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
       const value1 = await AsyncStorage.getItem('tobi');
+      const value2 = await AsyncStorage.getItem('permissions');
+      const value3 = await AsyncStorage.getItem('admin');
 
       if (value !== null) {
         setBearer(value);
       }
       if (value1 !== null) {
         setUser(value1);
+      }
+      if (value2 !== null) {
+        setPermissions(value2);
+      }
+      if (value3 !== null) {
+        setAdmin(value3);
       }
     } catch (e) {
       alert('Failed to fetch the input from storage');
@@ -278,6 +287,7 @@ export default function ManageRoles() {
                 </div>
               </div>
             </div>
+            <div className={classes.mainTable}>
             {roleLoading ? (
                         <p>Fetching Roles...</p>
                       ) : (
@@ -292,21 +302,21 @@ export default function ManageRoles() {
                               <th>Action</th>
                             </tr>
                           </thead>
-                          <tbody style={{ whiteSpace: 'nowrap' }}>
+                          <tbody style={{ whiteSpace: 'nowrap', }}>
                             {displayedData.map((item, index) => (
-                              <tr key={index}>
-                                <td>{index + 1}</td>
+                              <tr style={{height: 30}} key={index}>
+                                <td >{index + 1}</td>
                                 <td>{item.name}</td>
                                 <td>{formatDate(item.created_at)}</td>
                                 <td>
-                                {(isAdmin || permittedHeaders.includes('update-role')) && (
+                                {(admin === "1" || permissions.includes('update-role')) && (
                                   <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                    <i className="far fa-eye"></i>
+                                    <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
                                   </div>
 )}
-{(isAdmin || permittedHeaders.includes('delete-role')) && (
+{(admin === "1" || permissions.includes('delete-role')) && (
                                   <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                    <i className="far fa-trash-alt"></i>
+                                    <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 5, borderColor: "#dc35454d", borderRadius: 5}}></i>
                                   </div>
 )}
                                 </td>
@@ -316,7 +326,7 @@ export default function ManageRoles() {
                                 </table>
                               </div>
                             )}
-            
+            </div>
 
             <div className={classes.endded}>
               <p>

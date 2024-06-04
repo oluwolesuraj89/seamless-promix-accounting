@@ -24,7 +24,15 @@
   padding: 0 2rem 0 21rem;
   /* padding-right: 4rem; */
 
+
 }
+.mainTable table td{
+  /* padding: 15px 0 0 5px; */
+align-items: center;
+
+  /* display: none; */
+}
+
 
 .endded {
   display: flex;

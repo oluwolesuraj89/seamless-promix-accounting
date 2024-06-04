@@ -216,7 +216,7 @@ export default function CreateRole() {
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Role Name</Form.Label>
                                 <Form.Control type="text" 
-                               valuealue={role} onChange={(e) => setRole(e.target.value)} placeholder="Enter Role name"
+                               value={role} onChange={(e) => setRole(e.target.value)} placeholder="Enter Role name"
                                 />
                             </Form.Group>
                         </div>
