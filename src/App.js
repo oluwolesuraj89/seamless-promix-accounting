@@ -29,6 +29,11 @@ import CreateApproval from './Pages/Manae Approval Level/CreateApproval.js';
 import ManageUser from './Pages/Manage User/ManageUser.js';
 import ManageCategory from './Pages/Manage Category/ManageCategory.js';
 import Charts from './Pages/Charts of Account/Charts.js';
+import CreateSavings from './Pages/Manage Cooperatives/Manage Savings Account/CreateSavings.js';
+import LoanAccounts from './Pages/Manage Cooperatives/Manage Loan/LoanAccount.js';
+import CreateLoan from './Pages/Manage Cooperatives/Manage Loan/CreateLoan.js';
+import EditLoan from './Pages/Manage Cooperatives/Manage Loan/EditLoan.js';
+import Deduction from './Pages/Manage Cooperatives/Manage Deductions/Deduction.js';
 import TrialBalance from './Pages/Trial balance/Trial_balance.js';
 import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure.js';
 import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
@@ -36,6 +41,7 @@ import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
 // import BalanceSheetPrint from './Pages/Balance Sheet Print/BalanceSheetPrint.js';
+import LoanRepayment from './Pages/Manage Cooperatives/Loan Repayment/LoanRepayment.js';
 
 
 function App() {
@@ -63,17 +69,24 @@ function App() {
         <Route path='/edit_member' element={<EditMember/>} />
         <Route path='/savings_account' element={<SavingsAccounts/>} />
         <Route path='/edit_savings' element={<EditSavings/>} />
+        <Route path='/create_savings' element={<CreateSavings/>} />
         <Route path='/cashbook' element={<Cashbook/>} />
         <Route path='/manage_user' element={<ManageUser />} />
         <Route path='/manage_category' element={<ManageCategory />} />
         <Route path='/charts_of_account' element={<Charts />} />
         <Route path='/create_approval_level' element={<CreateApproval/>} />
+        <Route path='/create_approval_level' element={<CreateApproval/>} />
+        <Route path='/loan_account' element={<LoanAccounts/>} />
+        <Route path='/Create_loan' element={<CreateLoan/>} />
+        <Route path='/edit_loan' element={<EditLoan/>} />
+        <Route path='/deductions' element={<Deduction/>} />
         <Route path='/trial_balance' element={<TrialBalance/>} />
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
         <Route path='/balance_sheet' element={<BalanceSheet/>} />
         {/* <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/> */}
 
+        <Route path='/loan_repayment' element={<LoanRepayment/>} />
       </Routes>
 
       <ToastContainer

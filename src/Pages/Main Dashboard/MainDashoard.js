@@ -233,9 +233,9 @@ export default function MainDashboard() {
                                     <Card.Body className={classes.cardBody}>
                                         <Link to={'/members'}>Manage Member</Link><br/>
                                         <NavLink to={'/savings_account'}>Savings Account</NavLink><br/>
-                                        <NavLink to={'#'}>Loan Account</NavLink><br/>
-                                        <NavLink to={'#'}>Monthly Deduction</NavLink><br/>
-                                        <NavLink to={'#'}>Loan Repayment</NavLink><br/>
+                                        <NavLink to={'/loan_account'}>Loan Account</NavLink><br/>
+                                        <NavLink to={'/deductions'}>Monthly Deduction</NavLink><br/>
+                                        <NavLink to={'/loan_repayment'}>Loan Repayment</NavLink><br/>
                                         <NavLink to={'#'}>Loan Excel</NavLink><br/>
                                         <NavLink to={'#'}>Savings Repayment</NavLink>
                                     </Card.Body>

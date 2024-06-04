@@ -1,3 +1,8 @@
+.bookingId{
+    width: 100% !important;
+    background-color: transparent;
+    padding: 6px  0;
+}
 /* @font-face {
     font-family: Millik;
     src: url('../../LocalFont/Millik.ttf');
@@ -11,56 +16,18 @@
 @font-face {
     font-family: Nunito2;
     src: url('../../LocalFont/Nunito-VariableFont_wght.ttf');
-}
+} */
 
 * {
    
-} */
-.newWidth{
-    padding: 0 2rem 0 21rem;
 }
-.actionBtns button{
-    font-size: 14px;
-    /* width: 100%; */
-}
-.topPadding{
-    width: 100%;
-    padding-top: 1rem;
-  }
-  .mainTable table td{
-    padding: 5px 0 0 5px;
-  }
-  .formSecCont{
-    padding: 24px 32px;
-    background-color: var(--White);
-    /* border-radius: 12px; */
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .formSecCont h3{
-    color: #343A40;
-    font-size: 20px;
-    font-weight: 700;
-  }
-  .formSec input{
-    margin-top: 20px;
-    /* padding: 10px; */
-  }
-  .formSec label{
-   padding:30px 0 0 15px; 
-   text-align: left;
-  }
-  .contentCont{
-    border: none;
-    padding: 35px;
-  }
-.manageCust h1{
 
-}
 .entdiv {
     /* background-color: #F7FDFA; */
+}
+
+.newWidth{
+    padding: 0 2rem 0 21rem;
 }
 
 .mngded {
@@ -88,10 +55,6 @@ justify-content: space-around;
    
 }
 
-.favshi {
-    width: 21px;
-    height: 20.87px;
-}
 
 .dedp {
     font-size: 21px;
@@ -161,6 +124,43 @@ justify-content: space-around;
     width: 950px;
     height: 390px;
     margin-bottom: 45px;
+}
+
+.gnrtepayrl {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: 0 2px 6px 0 rgba(40, 167, 69, .5);
+    border-radius: 89px;
+    text-wrap: nowrap;
+    /* width: 167px;
+    height: 34px; */
+}
+
+.gnrtepaymnt {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: 0 2px 6px 0 rgba(77, 121, 246, .5);
+    /* width: 104px;
+    height: 34px; */
+    border-radius: 89px;
+    text-wrap: nowrap;
+}
+
+.gnrtedb {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+    box-shadow: 0 2px 6px 0 rgba(153, 153, 155, 0.5);
+    /* width: 104px;
+    height: 34px; */
+    border-radius: 89px;
+    text-wrap: nowrap;
+}
+
+.col-sm-4 {
+    max-width: 80% !important;
 }
 
 .cardheader {
@@ -239,7 +239,6 @@ justify-content: space-around;
     /* border-radius: 2px; */
     box-shadow: 0 2px 6px 0 rgba(40, 167, 69, .5);
     cursor: pointer;
-    border-radius: 0;
 }
 
 .diffbtn {
@@ -7670,6 +7669,11 @@ pre .arg {
     margin-top: -4.0625rem
 }
 
+.favshi {
+    width: 21px;
+    height: 20.87px;
+}
+
 .toll-free-box i {
     position: absolute;
     left: 0;
@@ -8387,25 +8391,30 @@ pre .arg {
 
 .prevbtn {
     border: none;
-    background-color: #f4f4f5;
+    background-color: gainsboro;
     border-radius: 3px;
     height: 2.5rem;
+    width: 100px;
     font-weight: 400;
     font-size: 14px;
+    font-weight: 500px;
     padding: 0.5rem;
     font-family: nunito;
     color: #000;
+    margin-right: 10px;
 }
 .nxtdbtn {
     border: none;
-    background-color: #f4f4f5;
+    background-color: gainsboro;
     border-radius: 3px;
     height: 2.5rem;
+    width: 100px;
     font-weight: 400;
     font-size: 14px;
     padding: 0.5rem;
     font-family: nunito;
     color: #000;
+    /* margin-right: 50px; */
 }
 
 .numbtn {
@@ -8456,3 +8465,151 @@ pre .arg {
     }
     
 }
+
+/* @font-face {
+    font-family: Nunito2;
+    src: url('../../LocalFont/Nunito-VariableFont_wght.ttf');
+}
+@font-face {
+    font-family: Millik;
+    src: url('../../LocalFont/Millik.ttf');
+} */
+
+
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: ; */
+    background-color: rgb(216, 211, 211);
+    font-family: Nunito2;
+}
+.a4{
+    width: 8.3in;
+    height: 11.7in;
+    background-color: white;
+    padding: 0.5in 0.5in 0.5in 0.5in;
+}
+.header{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.header p{
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+.header h3,
+.header span{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.header span{
+    font-weight: bold;
+    font-size: 20px;
+}
+.container,
+.container2{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    height: auto;
+    margin-bottom: 20px;
+}
+.container2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: auto;
+    margin-bottom: 40px;
+    gap: 3em;
+
+}
+.card1{
+    text-align: left;
+    /* background-color: gray; */
+}
+.container span,
+.container2 span {
+    display: flex;
+    /* justify-content: start; */
+    align-items: center;
+    width: 100%;
+}
+.main-content label{
+    width:30%;
+    color: rgb(94, 92, 92);
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+value{
+    width: 70%;
+    color: rgb(94, 92, 92);
+    font-size: 15px;
+    font-weight: bold;
+}
+.bold{
+    font-size: 17px ;
+    font-weight: bold;
+    color: black;
+}
+.tableSection{
+    width: 100%;
+    border-top: 2px solid rgb(124, 123, 123);
+    border-bottom: 2px solid rgb(124, 123, 123);
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+    gap: 2em;
+    margin-bottom: 5px;
+}
+.tableSection h4{
+    width: 100%;
+    text-align: center;
+    font-size: 17px ;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 0;
+}
+ tr, td{
+    /* border: 1px solid black; */
+ }
+ .tableSection td{
+    width: 250px;
+    color: rgb(94, 92, 92);
+    font-size: 15px;
+    font-weight: bold;
+ }
+ .tableSection td:nth-child(3){
+    text-align: right;
+ }
+ .summaryContainer{
+    width: 100%;
+    border-bottom: 2px solid rgb(124, 123, 123);
+    display: flex;
+    justify-content: flex-end;
+ }
+ .summary{
+    /* float: right; */
+ }
+ .summary h6{
+    margin-bottom: 0;
+ }
+ .summary h6,
+ .summary span{
+    font-weight: 700;
+    color: black;
+    font-size: 16px;
+ }
+ .underline{
+    border-bottom: 2px solid black;
+    width:50%;
+    margin-bottom: 1rem;
+ }
+ .mainSummary div{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+ }
+ .mainSummary div span{
+    margin-left: 6rem;
+ }
