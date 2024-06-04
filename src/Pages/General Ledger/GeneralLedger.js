@@ -113,7 +113,7 @@ export default function GeneralLedger() {
       const results = response.data?.data;
 
       setTableData(results);
-      // console.log(results);
+      console.log(results);
     } catch (error) {
       const errorStatus = error.response?.data?.message;
       console.log(errorStatus);
@@ -431,7 +431,7 @@ export default function GeneralLedger() {
                                                         ))}
                                                         {accounts.length > 0 && (
                                                             <>
-                                                                <td colSpan={2}>Total</td>
+                                                                <td colSpan={3}>Total</td>
                                                                 <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalDebit}</td>
                                                                 <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalCredit}</td>
                                                             </>

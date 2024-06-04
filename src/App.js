@@ -33,6 +33,8 @@ import TrialBalance from './Pages/Trial balance/Trial_balance.js';
 import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure.js';
 import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
+import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
+import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
 
 
 function App() {
@@ -55,6 +57,8 @@ function App() {
         <Route path='/edit_role' element={<EditRole/>} />
         <Route path='/approval_level' element={<ApprovalLevel/>} />
         <Route path='/members' element={<Members/>} />
+        <Route path='/employee' element={<EmployeeMembers/>} />
+        <Route path='/edit_employee' element={<EditEmployeeMember/>} />
         <Route path='/edit_member' element={<EditMember/>} />
         <Route path='/savings_account' element={<SavingsAccounts/>} />
         <Route path='/edit_savings' element={<EditSavings/>} />
