@@ -255,7 +255,7 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'#'}>Customer/Employee/Member</Link><br/>
+                                    <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
                                         <Link to={'#'}>Sales Invoices</Link><br/>
                                         <Link to={'#'}>Advance Bookin</Link><br/>
                                         <Link to={'#'}>Advance Booking Payments</Link><br/>
