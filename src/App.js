@@ -20,6 +20,9 @@ import ManageRoles from './Pages/Manae Role/ManageRole.js';
 import CreateRole from './Pages/Manae Role/CreateRole.js';
 import { ToastContainer } from 'react-toastify';
 import Cashbook from './Pages/Cashbook/Cashbook.js';
+import TrialBalance from './Pages/Trial balance/Trial_balance.js';
+import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure.js';
+import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 
 
 function App() {
@@ -41,6 +44,9 @@ function App() {
         <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/approval_level' element={<ApprovalLevel/>} />
         <Route path='/cashbook' element={<Cashbook/>} />
+        <Route path='/trial_balance' element={<TrialBalance/>} />
+        <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
+        <Route path='/monthly_income' element={<MonthlyIncome/>} />
       </Routes>
 
       <ToastContainer
