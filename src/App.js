@@ -35,6 +35,7 @@ import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
+// import BalanceSheetPrint from './Pages/Balance Sheet Print/BalanceSheetPrint.js';
 
 
 function App() {
@@ -71,6 +72,8 @@ function App() {
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
         <Route path='/balance_sheet' element={<BalanceSheet/>} />
+        {/* <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/> */}
+
       </Routes>
 
       <ToastContainer
