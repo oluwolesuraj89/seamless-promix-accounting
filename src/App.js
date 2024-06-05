@@ -57,6 +57,8 @@ import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.
 import Supplier from './Pages/Manage Payables/Manage Suppliers/Supplier.js';
 import SavingsRepayment from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
 import AdvanceBooking from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
+import EditSuppliers from './Pages/Manage Payables/Manage Suppliers/EditSuppliers.js';
+import PaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/PaymentVoucher.js';
 
 
 function App() {
@@ -121,6 +123,9 @@ function App() {
         <Route path='/saving_excel' element={<SavingExcel/>} />
         <Route path='/suppliers' element={<Supplier/>} />
         <Route path='/advance_booking_payment' element={<AdvanceBooking />} />
+        <Route path='/edit_supplier' element={<EditSuppliers/>} />
+        <Route path='/payment_voucher' element={<PaymentVoucher/>} />
+        <Route path='/create_payment_voucher' element={<CreatePaymentVoucher/>} />
       </Routes>
 
       <ToastContainer
