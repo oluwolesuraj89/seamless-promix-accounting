@@ -46,6 +46,7 @@ import LoanRepaymentExcel from './Pages/Manage Cooperatives/Loan Repayment Excel
 import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavings.js';
 import CreateSavingsApp from './Pages/Manage Cooperatives/Manage Savings/CreateSavingsApp.js';
 import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.js';
+import Supplier from './Pages/Manage Payables/Manage Suppliers/Supplier.js';
 
 
 function App() {
@@ -95,6 +96,7 @@ function App() {
         <Route path='/manage_savings' element={<ManageSavings/>} />
         <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
         <Route path='/saving_excel' element={<SavingExcel/>} />
+        <Route path='/suppliers' element={<Supplier/>} />
       </Routes>
 
       <ToastContainer

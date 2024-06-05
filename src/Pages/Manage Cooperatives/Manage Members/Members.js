@@ -197,20 +197,23 @@ function Members() {
     //   const response = await axios.get(`https://payroll.patna.ng/api/admin/users/destroy?id=${id}`, { headers });
       const response = await axios.post(`${BASE_URL}/admin/users/destroy?id=${id}`, { headers });
       fetchBeneficiaries();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
+      // toast.success(response.data.message);
       setTrashClicked(true);
+      toast.success(response.data.message);
     } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(errorStatus);
+      // const errorMessage = error.response?.data?.message;
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                toast.error(errorMessage)
+                console.log(errorMessage);
+              }
+          }
+      // console.log(errorStatus);
     }
   };
 

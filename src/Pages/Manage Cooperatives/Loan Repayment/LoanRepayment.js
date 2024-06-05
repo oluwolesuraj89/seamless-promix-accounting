@@ -20,6 +20,7 @@ import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
+import Arrow from '../../../assets/promix/dArrow-down.svg'
 // import classes from './LoanRepayment.module.css'
 // import favicon from '../../Images/faviconn.png'
 
@@ -294,21 +295,20 @@ function LoanRepayment() {
             //   navigate('/loan_account');
 
             // return
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: response.data.message,
-            });
-            console.log(response.data);
-
-        } catch (error) {
-            const errorStatus = error.response.data.message;
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: errorStatus,
-            });
-            console.log(error);
+            toast.success(response.data.message);
+    } catch (error) {
+      let errorMessage = error.response?.data?.message;
+      // let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                toast.error(errorMessage)
+                console.log("error", errorMessage);
+              }
+          }
         } finally {
 
             setRepaymentLoading(false);
@@ -404,6 +404,33 @@ function LoanRepayment() {
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
+
+                    <div className={classes.analysis}>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div className={classes.topPadding}>

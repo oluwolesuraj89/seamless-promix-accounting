@@ -17,6 +17,7 @@ import classes from '../Manage Members/ManageMember.module.css';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
+import Arrow from '../../../assets/promix/dArrow-down.svg'
 // import favicon from '../../Images/faviconn.png'
 
 function ManageSavings() {
@@ -289,6 +290,33 @@ function ManageSavings() {
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
+
+                    <div className={classes.analysis}>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
