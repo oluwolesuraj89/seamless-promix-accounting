@@ -397,7 +397,7 @@ function LoanRepayment() {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Loan</h3>
+                            <h3>Manage Loan Repayment</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>

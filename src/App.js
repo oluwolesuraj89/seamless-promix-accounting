@@ -55,6 +55,8 @@ import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavi
 import CreateSavingsApp from './Pages/Manage Cooperatives/Manage Savings/CreateSavingsApp.js';
 import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.js';
 import Supplier from './Pages/Manage Payables/Manage Suppliers/Supplier.js';
+import EditSuppliers from './Pages/Manage Payables/Manage Suppliers/EditSuppliers.js';
+import PaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/PaymentVoucher.js';
 
 
 function App() {
@@ -118,6 +120,9 @@ function App() {
         <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
         <Route path='/saving_excel' element={<SavingExcel/>} />
         <Route path='/suppliers' element={<Supplier/>} />
+        <Route path='/edit_supplier' element={<EditSuppliers/>} />
+        <Route path='/payment_voucher' element={<PaymentVoucher/>} />
+        <Route path='/create_payment_voucher' element={<CreatePaymentVoucher/>} />
       </Routes>
 
       <ToastContainer
