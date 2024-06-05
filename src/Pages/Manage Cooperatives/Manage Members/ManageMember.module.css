@@ -19,6 +19,45 @@
 .newWidth{
     padding: 0 2rem 0 21rem;
 }
+
+.analysis{
+    padding: 18px 100px 14px 32px;
+    background-color: var(--Deep-green);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    /* color: var(--White); */
+}
+.analysisCont h5,
+.analysisCont p{
+    color: var(--White);
+    margin: 0;
+}
+.perceCont{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+    padding-top: 10px;
+    /* color: var(--White); */
+}
+.percent{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    /* color: var(--White); */
+}
+
+.formSection{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1em;
+    row-gap: 2em;
+}
+
+
 .actionBtns button{
     font-size: 14px;
     /* width: 100%; */

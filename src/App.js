@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 // import Dashboard from './Pages/Dashboard.js';
 // import PromixLanding from './Pages/promixLanding.js';
 import LandingPage from './Pages/LandingPage.js';
@@ -47,9 +47,31 @@ import ProcessCashBook from './Pages/Process-CashBook/ProcessCashBook.js';
 import ProcessActivityReport from './Pages/Process-Activity-Report/ProcessActivityReport.js';
 import IncomeProcess from './Pages/Income & expend/IncomeProcess.js';
 import MonthlyIncomeProcess from './Pages/Monthly Income & Expend/MonthlyIncomeProcess.js';
+import SalesInvoice from './Pages/Receiveables/Sales Invoice/SalesInvoice.js';
+import CreateSales from './Pages/Receiveables/Sales Invoice/CreateSales.js';
+import EditInvoice from './Pages/Receiveables/Sales Invoice/EditInvoice.js';
+import Invoice from './Pages/Receiveables/Sales Invoice/Invoice.js';
+import ManageBooking from './Pages/Receiveables/Advance Booking/ManagingBooking.js';
+import CreateBooking from './Pages/Receiveables/Advance Booking/CreateBooking.js';
+import EditBooking from './Pages/Receiveables/Advance Booking/EditBooking.js';
+import BookingReceipt from './Pages/Receiveables/Advance Booking/BookingReceipt.js';
+import LoanRepaymentExcel from './Pages/Manage Cooperatives/Loan Repayment Excel/LoanRepaymentExcel.js';
+import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavings.js';
+import CreateSavingsApp from './Pages/Manage Cooperatives/Manage Savings/CreateSavingsApp.js';
+import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.js';
+import Supplier from './Pages/Manage Payables/Manage Suppliers/Supplier.js';
+import SavingsRepayment from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
+import AdvanceBooking from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
+import EditSuppliers from './Pages/Manage Payables/Manage Suppliers/EditSuppliers.js';
+import PaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/PaymentVoucher.js';
 
 
 function App() {
+  const location = useLocation();
+  useEffect(() => {
+    // Scroll to the top of the page when the route changes
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <>
     
@@ -100,6 +122,23 @@ function App() {
 
 
 
+        <Route path='/sales_invoice' element={<SalesInvoice/>} />
+        <Route path='/manage_booking' element={<ManageBooking/>} />
+        <Route path='/create_booking' element={<CreateBooking />} />
+        <Route path='/edit_booking' element={<EditBooking />} />
+        <Route path='/booking_receipt' element={<BookingReceipt />} />
+        <Route path='/create_sales' element={<CreateSales />} />
+        <Route path='/edit_sales' element={<EditInvoice />} />
+        <Route path='/official_invoice' element={<Invoice />} />
+        <Route path='/loan_repayment_excel' element={<LoanRepaymentExcel/>} />
+        <Route path='/manage_savings' element={<ManageSavings/>} />
+        <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
+        <Route path='/saving_excel' element={<SavingExcel/>} />
+        <Route path='/suppliers' element={<Supplier/>} />
+        <Route path='/advance_booking_payment' element={<AdvanceBooking />} />
+        <Route path='/edit_supplier' element={<EditSuppliers/>} />
+        <Route path='/payment_voucher' element={<PaymentVoucher/>} />
+        <Route path='/create_payment_voucher' element={<CreatePaymentVoucher/>} />
       </Routes>
 
       <ToastContainer

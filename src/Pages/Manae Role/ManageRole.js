@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classes from './ManageRole.module.css';
-import "../../assets/datatables/dataTables.bootstrap4.min.css";
+// import "../../assets/datatables/dataTables.bootstrap4.min.css";
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Spinner, Badge, Button, Modal, Form } from 'react-bootstrap';
 // import Folder from '../../Images/folder-2.svg';
