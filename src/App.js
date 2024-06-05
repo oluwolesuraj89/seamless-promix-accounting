@@ -55,6 +55,8 @@ import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavi
 import CreateSavingsApp from './Pages/Manage Cooperatives/Manage Savings/CreateSavingsApp.js';
 import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.js';
 import Supplier from './Pages/Manage Payables/Manage Suppliers/Supplier.js';
+import SavingsRepayment from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
+import AdvanceBooking from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
 
 
 function App() {
@@ -118,6 +120,7 @@ function App() {
         <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
         <Route path='/saving_excel' element={<SavingExcel/>} />
         <Route path='/suppliers' element={<Supplier/>} />
+        <Route path='/advance_booking_payment' element={<AdvanceBooking />} />
       </Routes>
 
       <ToastContainer

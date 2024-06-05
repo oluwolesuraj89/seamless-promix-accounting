@@ -21,6 +21,7 @@ import dChart7 from '../../assets/promix/dShart7.svg'
 import dChart8 from '../../assets/promix/dShart8.svg'
 import Arrow from '../../assets/promix/dArrow-down.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CoopDashboard from '../Cooperative Dashboard/CoopDashboard';
 
 const Dashboard = () => {
     const [bearer, setBearer] = useState('');
@@ -59,7 +60,7 @@ const Dashboard = () => {
     
     return (
         <div>
-            <MainDashboard/>
+            <CoopDashboard/>
             
             <div className={classes.formSection}>
                 <div className={classes.formSectionHeader}>

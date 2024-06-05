@@ -14,11 +14,13 @@ import Swal from 'sweetalert2';
 // import { InfoFooter } from '../../InfoFooter';
 // import { AdminHeaderNav } from '../AdminHeaderNav';
 import classes from './CreateBooking.module.css';
-import MainDashboard from '../../Main Dashboard/MainDashoard';
+// import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
+import MainDashboard from '../../Main Dashboard/MainDashoard';
+// import MainDashboard from '../../Main Dashboard/MainDashoard';
 // import classes from './LoanRepayment.module.css'
 // import favicon from '../../Images/faviconn.png'
 
@@ -377,7 +379,9 @@ function CreateBooking() {
         <div className="content-wrapper">
           <div className="main-content">
 
+         
           <MainDashboard/>
+          
             <div className='newBody'>
             <div className={classes.newWidth}>
 

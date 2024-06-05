@@ -215,7 +215,7 @@ export default function MainDashboard() {
                                     <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
                                         <Link to={'/sales_invoice'}>Sales Invoices</Link><br/>
                                         <Link to={'/manage_booking'}>Advance Booking</Link><br/>
-                                        <Link to={'#'}>Advance Booking Payments</Link><br/>
+                                        <Link to={'/advance_booking_payment'}>Advance Booking Payments</Link><br/>
                                         <Link to={'#'}>Sales Invoice Payments</Link><br/>
                                         <Link to={'#'}>Loan & Advances</Link>
                                     </Card.Body>
