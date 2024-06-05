@@ -407,3 +407,8 @@ p{
         
     }
 
+    @media print {
+        .sideNavBody{
+            display: none;
+        }
+    }

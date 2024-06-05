@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 // import Dashboard from './Pages/Dashboard.js';
 // import PromixLanding from './Pages/promixLanding.js';
 import LandingPage from './Pages/LandingPage.js';
@@ -29,16 +29,34 @@ import CreateApproval from './Pages/Manae Approval Level/CreateApproval.js';
 import ManageUser from './Pages/Manage User/ManageUser.js';
 import ManageCategory from './Pages/Manage Category/ManageCategory.js';
 import Charts from './Pages/Charts of Account/Charts.js';
+import CreateSavings from './Pages/Manage Cooperatives/Manage Savings Account/CreateSavings.js';
+import LoanAccounts from './Pages/Manage Cooperatives/Manage Loan/LoanAccount.js';
+import CreateLoan from './Pages/Manage Cooperatives/Manage Loan/CreateLoan.js';
+import EditLoan from './Pages/Manage Cooperatives/Manage Loan/EditLoan.js';
+import Deduction from './Pages/Manage Cooperatives/Manage Deductions/Deduction.js';
 import TrialBalance from './Pages/Trial balance/Trial_balance.js';
 import IncomeExpenditure from './Pages/Income and Expenditure/Income_Expenditure.js';
 import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
+import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
+import LoanRepayment from './Pages/Manage Cooperatives/Loan Repayment/LoanRepayment.js';
 import SalesInvoice from './Pages/Receiveables/Sales Invoice/SalesInvoice.js';
 import CreateSales from './Pages/Receiveables/Sales Invoice/CreateSales.js';
+import EditInvoice from './Pages/Receiveables/Sales Invoice/EditInvoice.js';
+import Invoice from './Pages/Receiveables/Sales Invoice/Invoice.js';
+import ManageBooking from './Pages/Receiveables/Advance Booking/ManagingBooking.js';
+import CreateBooking from './Pages/Receiveables/Advance Booking/CreateBooking.js';
+import EditBooking from './Pages/Receiveables/Advance Booking/EditBooking.js';
+import BookingReceipt from './Pages/Receiveables/Advance Booking/BookingReceipt.js';
 
 
 function App() {
+  const location = useLocation();
+  useEffect(() => {
+    // Scroll to the top of the page when the route changes
+    window.scrollTo(0, 0);
+  }, [location]);
   return (
     <>
     
@@ -63,16 +81,30 @@ function App() {
         <Route path='/edit_member' element={<EditMember/>} />
         <Route path='/savings_account' element={<SavingsAccounts/>} />
         <Route path='/edit_savings' element={<EditSavings/>} />
+        <Route path='/create_savings' element={<CreateSavings/>} />
         <Route path='/cashbook' element={<Cashbook/>} />
         <Route path='/manage_user' element={<ManageUser />} />
         <Route path='/manage_category' element={<ManageCategory />} />
         <Route path='/charts_of_account' element={<Charts />} />
         <Route path='/create_approval_level' element={<CreateApproval/>} />
+        <Route path='/create_approval_level' element={<CreateApproval/>} />
+        <Route path='/loan_account' element={<LoanAccounts/>} />
+        <Route path='/Create_loan' element={<CreateLoan/>} />
+        <Route path='/edit_loan' element={<EditLoan/>} />
+        <Route path='/deductions' element={<Deduction/>} />
         <Route path='/trial_balance' element={<TrialBalance/>} />
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
+        <Route path='/balance_sheet' element={<BalanceSheet/>} />
+        <Route path='/loan_repayment' element={<LoanRepayment/>} />
         <Route path='/sales_invoice' element={<SalesInvoice/>} />
+        <Route path='/manage_booking' element={<ManageBooking/>} />
+        <Route path='/create_booking' element={<CreateBooking />} />
+        <Route path='/edit_booking' element={<EditBooking />} />
+        <Route path='/booking_receipt' element={<BookingReceipt />} />
         <Route path='/create_sales' element={<CreateSales />} />
+        <Route path='/edit_sales' element={<EditInvoice />} />
+        <Route path='/official_invoice' element={<Invoice />} />
       </Routes>
 
       <ToastContainer

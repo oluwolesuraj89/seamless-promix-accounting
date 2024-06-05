@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import classes from './SalesInvoice.module.css';
+import classes from './ManageBooking.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Spinner, Badge, Button, Modal, Form } from 'react-bootstrap';
 // import Folder from '../../Images/folder-2.svg';
@@ -18,41 +18,18 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 
-export default function SalesInvoice() {
+export default function ManageBooking() {
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleClose1 = () => setShow1(false);
-  const handleShow = () => setShow(true);
-  const handleShow1 = () => setShow1(true);
   const [bearer, setBearer] = useState('');
   const [user, setUser] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [roleLoading, setRoleLoading] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [updateLoading, setUpdateLoading] = useState(false);
-  const [eyeClicked, setEyeClicked] = useState(false);
   const [tableData, setTableData] = useState([]);
   const [permissions, setPermissions] = useState([]);
-  const [trashClicked, setTrashClicked] = useState(false);
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [admin, setAdmin] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [fullName1, setFullName1] = useState("");
-  const [email, setEmail] = useState("");
-  const [email1, setEmail1] = useState("");
-  const [phone1, setPhone1] = useState("");
-  const [selectedRole1, setSelectedRole1] = useState("");
-  const [phone, setPhone] = useState("");
-  const [roless, setRoless] = useState([]);
-  const [address, setAddress] = useState("");
-  const [office_address, setOfficeAddress] = useState("");
-  const [selectedId, setSelectedId] = useState('');
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const readData = async () => {
     try {
@@ -90,33 +67,12 @@ export default function SalesInvoice() {
 
 
   const fetchData = async () => {
-    setRoleLoading(true);
+    setIsLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/fetch-sales-invoice`, { headers });
+      const response = await axios.get(`${BASE_URL}/booking`, { headers });
       const results = response.data?.data;
       // console.log(results);
       setTableData(results);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        // Redirect to login page if unauthorized
-        navigate('/login');
-      } else {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-        setTableData([]);
-      }
-    } finally {
-      setRoleLoading(false);
-    }
-  };
-
-  const fetchData1 = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`${BASE_URL}/role/get-roles`, { headers });
-      const roleList = response.data?.data;
-      // console.log(results);
-      setRoless(roleList);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Redirect to login page if unauthorized
@@ -131,57 +87,17 @@ export default function SalesInvoice() {
     }
   };
 
+  
+
 
 
   useEffect(() => {
     if (bearer) {
       fetchData();
-      fetchData1();
     }
   }, [bearer]);
 
-  const createUser = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/users/create-new`,
-        {
-          name: fullName,
-          email: email,
-          phone_no: phone,
-          role: selectedRole
-         
-        },
-        { headers }
-      );
-      console.log(response)
-      fetchData();
-      handleClose();
-      setFullName('');
-      setPhone('');
-      setEmail('');
-      setSelectedRole('');
-      // return
-    toast.success(response.data.message);
-      console.log(response.data);
-
-    } catch (error) {
-      let errorMessage = 'An error occurred. Please try again.';
-      if (error.response && error.response.data && error.response.data.message) {
-        if (typeof error.response.data.message === 'string') {
-            errorMessage = error.response.data.message;
-        } else if (Array.isArray(error.response.data.message)) {
-            errorMessage = error.response.data.message.join('; ');
-        } else if (typeof error.response.data.message === 'object') {
-            errorMessage = JSON.stringify(error.response.data.message);
-        }
-        toast.error(errorMessage);
-        console.log(error);
-    }
-    } finally {
-      setLoading(false);
-    }
-  };
+ 
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -194,7 +110,7 @@ export default function SalesInvoice() {
   }
 
 
-  const filteredData = tableData.filter(item => item.description.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredData = tableData.filter(item => item.particulars.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -214,57 +130,18 @@ export default function SalesInvoice() {
 
   const handleEyeClick = (id) => {
 
-    const foundInvoice = tableData.find(item => item.id === id);
-    //  console.log(foundInvoice);
-  navigate('/edit_sales', { state: { selectedInvoice: foundInvoice } });
-    setEyeClicked(true);
+    const foundBooking = tableData.find(item => item.id === id);
+    navigate('/edit_booking', { state: { selectedBooking: foundBooking } });
   };
 
 
-const editUser = async (id) => {
-  setUpdateLoading(true);
 
-  try {
-    const response = await axios.post(
-      `${BASE_URL}/users/update-user`,
-      {
-        name: fullName1,
-        id: selectedId, 
-        email: email1,
-        phone_no: phone1,
-        role: selectedRole1,
-        user_id: selectedUser
-      },
-      { headers }
-    );
-
-    fetchData();
-handleClose1();
-    toast.success(response.data.message);
-    // console.log(response.data);
-  } catch (error) {
-    let errorMessage = 'An error occurred. Please try again.';
-            if (error.response && error.response.data && error.response.data.message) {
-                if (typeof error.response.data.message === 'string') {
-                    errorMessage = error.response.data.message;
-                } else if (Array.isArray(error.response.data.message)) {
-                    errorMessage = error.response.data.message.join('; ');
-                } else if (typeof error.response.data.message === 'object') {
-                    errorMessage = JSON.stringify(error.response.data.message);
-                }
-                toast.error(errorMessage);
-                console.log(error);
-            }
-  } finally {
-    setUpdateLoading(false);
-  }
-};
 
 
   const handleTrashClick = async (id) => {
     const confirmed = await Swal.fire({
       title: 'Are you sure?',
-      text: 'You are about to delete this role.',
+      text: 'You are about to delete this booking.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -278,10 +155,10 @@ handleClose1();
     }
 
     try {
-      const response = await axios.get(`${BASE_URL}/role/delete-role?role_id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
       fetchData();
      toast.success(response.data.message);
-      setTrashClicked(true);
+  
     } catch (error) {
       let errorMessage = 'An error occurred. Please try again.';
           if (error.response && error.response.data && error.response.data.message) {
@@ -299,14 +176,14 @@ handleClose1();
   };
 
   const handleCreate = () => {
-    navigate('/create_sales');
+    navigate('/create_booking');
   };
 
   const handlePrintInvoice = (id) => {
-    const selectedInvoice = tableData.find(item => item.id === id);
+    const selectedBooking = tableData.find(item => item.id === id);
   
   
-    navigate('/official_invoice', { state: { selectedInvoice } });
+    navigate('/booking_receipt', { state: { selectedBooking } });
   };
 
   return (
@@ -317,7 +194,7 @@ handleClose1();
         <div className={classes.topPadding}>
           <div className={`${classes.formSecCont}`}>
             <div className={classes.formSectionHeader}>
-              <h3>Sales Invoice</h3>
+              <h3>Manage Booking</h3>
             </div>
             <div className={classes.formSectionHeader}>
               <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
@@ -361,7 +238,7 @@ handleClose1();
               <div className={classes.formLabel}>
               </div>
               <div className={classes.formIntBtn}>
-                <Button variant="success" onClick={handleCreate} className={classes.btn2}> Add New Invoice</Button>
+                <Button variant="success" onClick={handleCreate} className={classes.btn2}> Add New Booking</Button>
               </div>
             </div>
            
@@ -416,8 +293,8 @@ handleClose1();
               </div>
             </div>
             <div className={classes.mainTable}>
-            {roleLoading ? (
-                              <p>Fetching invoices...</p>
+            {isLoading ? (
+                              <p>Fetching bookings...</p>
                             ) : (
                               <div className="table-responsive">
                                 <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
@@ -425,32 +302,40 @@ handleClose1();
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                             <tr>
                             <th>S/N</th>
-                                      <th>Invoice Number</th>
-                                      <th>Description</th>
-                                      <th>Customer</th>
-                                      <th>Amount</th>
-                                      <th>Action</th>
+                                  <th>Particulars</th>
+                                  <th>Booking Order</th>
+                                  <th>Event Date</th>
+                                  <th>Start Time</th>
+                                  <th>End Time</th>
+                                  <th>Amount</th>
+                                  <th>Booked Date</th>
+                                  <th>Status</th>
+                                  <th>Action</th>
                             </tr>
                           </thead>
                           <tbody style={{ whiteSpace: 'nowrap', }}>
                             {displayedData.map((item, index) => (
                              <tr key={index}>
-                             <td>{index + 1}</td>
-                                        <td>{item.invoice_number}</td>
-                                        <td style={{textAlign: "left"}}>{item.description}</td>
-                                        <td>{item.customer?.name}</td>
-                                        <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
-                                          minimumIntegerDigits: 1,
-                                          minimumFractionDigits: 2,
-                                          maximumFractionDigits: 2
-                                        })}</td>
+                            <td>{index + 1}</td>
+                                    <td>{item.particulars}</td>
+                                    <td style={{textAlign: "left"}}>{item.booking_order}</td>
+                                    <td>{item.event_date}</td>
+                                    <td>{item.start_hour}</td>
+                                    <td style={{textAlign: "left"}}>{item.end_hour}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "left"}}>{formatDate(item.created_at)}</td>
+                                    <td style={{textAlign: "left"}}>{item.status}</td>
                                 <td>
-                                {(admin === "1" || permissions.includes('update-user')) && (
+                                {(admin === "1" || permissions.includes('view-advance-booking')) && (
                                   <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
                                     <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
                                   </div>
 )}
-{(admin === "1" || permissions.includes('delete-user')) && (
+{(admin === "1" || permissions.includes('delete-advance-booking')) && (
                                   <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
                                     <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 5, borderColor: "#dc35454d", borderRadius: 5}}></i>
                                   </div>

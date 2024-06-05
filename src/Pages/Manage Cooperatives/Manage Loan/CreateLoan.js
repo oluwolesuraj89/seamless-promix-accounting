@@ -22,11 +22,12 @@ import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import CurrencyInput from 'react-currency-input-field';
 
-function CreateSavings() {
+function CreateLoan() {
 
-    const [subCat2, setSubcat2] = useState([]);
-  const [savingsCode, setSavingsCode] = useState('');
-  const [savingsDescription, setSavingsDescription] = useState('');
+  const [subCat2, setSubcat2] = useState([]);
+  const [loanCode, setLoanCode] = useState('');
+  const [interest, setInterest] = useState('');
+  const [loanDescription, setLoanDescription] = useState('');
   const [balance, setBalance] = useState('');
   const [selectedReport, setSelectedReport] = useState('');
   const [loading, setLoading] = useState(false);
@@ -45,7 +46,7 @@ function CreateSavings() {
   const fetchCharts = async () => {
     setChartsLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/get-account-by-class-id?class_id=${2}`, { headers });
+      const response = await axios.get(`${BASE_URL}/get-account-by-class-id?class_id=${1}`, { headers });
       const results = response.data?.data;
      
       setSubcat2(results);
@@ -95,25 +96,26 @@ function CreateSavings() {
   
 
 
-  const createSavings = async () => {
+  const createBooking = async () => {
 
     setLoading(true);
     try {
-      // console.log(savingsCode, savingsDescription, balance, selectedReport, 1);
-      const response = await axios.post(`${BASE_URL}/account/create-savings-account`,
+      
+      const response = await axios.post(`${BASE_URL}/account/create-loan-account`,
         {
-          code: savingsCode,
-          description: savingsDescription,
+          code: loanCode,
+          description: loanDescription,
           opening_balance: balance,
           report_to: selectedReport,
-          type: 1
+          interest: interest,
+          type: 2
 
         },
         { headers }
       );
       console.log(response.data.message)
       
-      navigate('/savings_account');
+      navigate('/loan_account');
 
       // return
       Swal.fire({
@@ -134,16 +136,17 @@ function CreateSavings() {
           errorMessage = JSON.stringify(error.response.data.message);
         }
       }
+    
       Swal.fire({
         icon: 'error',
         title: 'Failed',
         text: errorMessage,
       });
       console.log(error);
-    } finally {
+      } finally {
       setLoading(false);
     }
-  };
+  }
 
 
   const handleValueChange = (value, name, values) => {
@@ -152,20 +155,30 @@ function CreateSavings() {
   };
 
 
+
     return (
         <div>
             <MainDashboard/>
             <div className='newBody'>
             <div className={classes.newWidth}>
                 <div className={classes.topPadding}>
-                    {/* <div className={`${classes.formSecCont}`}>
-                        <div className={classes.formSectionHeader}>
+                    <div className={`${classes.formSecCont}`}>
+                    {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}> */}
+                        <div>
+                            <h4 className="font-weight-bold">Create Loan Account </h4>
+                            {/* <small>Complete the respective fields ....</small> */}
+                        </div>
+                        <div >
+                            <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
+                        </div>
+                    {/* </div> */}
+                        {/* <div className={classes.formSectionHeader}>
                             <h3>View Members</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>user</h3>
-                        </div>
-                    </div> */}
+                        </div> */}
+                    </div>
                 </div>
                     <div className="wrapper">
                         
@@ -184,15 +197,15 @@ function CreateSavings() {
                                     <div className="col-sm-12 header-title p-0">
                                         <div className={classes.actionBtns}>
                                             {/* <div className="header-icon text-success mr-3"><i className=""><img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i></div> */}
-                                            <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
+                                            {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
                                                 <div>
                                                     <h4 className="font-weight-bold">Create Savings Account </h4>
-                                                    {/* <small>Complete the respective fields ....</small> */}
+                                                    <small>Complete the respective fields ....</small>
                                                 </div>
                                                 <div style={{ marginBottom: 30 }}>
                                                     <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                         </div>
 
@@ -221,20 +234,28 @@ function CreateSavings() {
                                                                 <div className="row">
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Savings Code</label>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Code</label>
+                                                                          <div className="col-sm-9">
+                                                                            <input className="form-control" required="" type="text" value={loanCode} onChange={(e) => setLoanCode(e.target.value)} name="loan-code" />
+                                                                          </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="col-md-6">
+                                                                        <div className="form-group row">
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" style={{paddingTop: 15}}>Loan Description</label>
                                                                             <div className="col-sm-9">
-                                                                                <input className="form-control" required="" type="text" value={savingsCode} onChange={(e) => setSavingsCode(e.target.value)} name="savings-code" />
+                                                                              <input className="form-control" required="" type="text" value={loanDescription} onChange={(e) => setLoanDescription(e.target.value)} name="loan-description" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" style={{paddingTop:'15px'}}>Savings Description</label>
-                                                                            <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={savingsDescription} onChange={(e) => setSavingsDescription(e.target.value)} name="savings-description" />
-                                                                            </div>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Interest</label>
+                                                                          <div className="col-sm-9">
+                                                                            <input className="form-control" required="" type="text" value={interest} onChange={(e) => setInterest(e.target.value)} name="loan-code" />
+                                                                          </div>
                                                                         </div>
-                                                                    </div>
+                                                                      </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
                                                                             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance</label>
@@ -269,35 +290,19 @@ function CreateSavings() {
                                                                     </div>
                                                                     </div>
                                                                 </div>
-                                                                {/* <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Report To</label>
-                                                                        <div className="col-sm-9">
-                                                                        <Form.Select name="customer" className="form-control" required="" value={selectedReport} onChange={handleReportChange}>
-                                                                            <option value="">Choose Report To</option>
-                                                                            {subCat2.map((item) => (
-                                                                            <option key={item.id} value={item.id}>
-                                                                                {item.gl_name}
-                                                                            </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> */}
-                                                                                                
-                                                                {/* </div> */}
+                                                                
                                                             </div>
                                                             
                                                             
                                                             <div class="modal-footer" style={{justifyContent:'left', marginTop:'20px'}}>
-                                                                <Button variant="success" onClick={createSavings}>
+                                                              <Button style={{borderRadius: 0}} variant="success" onClick={createBooking}>
                                                                 {loading ? (
                                                                     <>
                                                                     <Spinner size='sm' />
-                                                                    <span style={{ marginLeft: '5px' }}>Updating your savings account, Please wait...</span>
+                                                                    <span style={{ marginLeft: '5px' }}>Creating your loan account, Please wait...</span>
                                                                     </>
                                                                 ) : (
-                                                                    "Create your savings account"
+                                                                    "Create your loan account"
                                                                 )}
                                                                 </Button>
                                                             
@@ -323,4 +328,4 @@ function CreateSavings() {
     )
 }
 
-export default CreateSavings;
+export default CreateLoan;

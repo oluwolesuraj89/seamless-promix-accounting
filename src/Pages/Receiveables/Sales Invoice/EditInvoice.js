@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 // import "../assets/plugins/themify-icons/themify-icons.min.css";
 // import "../assets/plugins/datatables/dataTables.bootstrap4.min.css";
 // import "../style.css";
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'react-bootstrap';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,23 +22,33 @@ import Select from 'react-select';
 // import classes from './LoanRepayment.module.css'
 // import favicon from '../../Images/faviconn.png'
 
-function CreateSales() {
+function EditInvoice() {
+  const location = useLocation();
+    const { selectedInvoice } = location.state || {};
+    const [load, setLoad] = useState(false);
+    const [selectedBank, setSelectedBank] = useState('');
+    const [loan, setLoan] = useState([]);
+    const [amount1, setAmount1] = useState("");
+    const [transactionDate1, setTransactionDate1] = useState("");
+    const [selectedBankbank1, setSelectedBankbank1] = useState("");
+    const [selectedCustomer1, setSelectedCustomer1] = useState("");
     const [user, setUser] = useState("");
-    const [debitGl, setDebitGl] = useState('');
+    const [tableData, setTableData] = useState([]);
+    const [debitGl, setDebitGl] = useState(selectedInvoice?.debit_gl_code || '');
     const [selectedGlCode, setSelectedGlCode] = useState('');
     const [glMethod, setGlMethod] = useState([]);
-    const [sICode, setSICode] = useState('');
+    const [sICode, setSICode] = useState(selectedInvoice?.invoice_number || '');
     const [invoiceData, setInvoiceData] = useState('');
     const [selectedAccountName, setSelectedAccountName] = useState('');
     const [accountName, setAccountName] = useState([]);
     const [customerList, setCustomerList] = useState([]);
     const [invoice, setInvoice] = useState('');
-    const [description, setDescription] = useState('');
+    const [description, setDescription] = useState(selectedInvoice?.description || '');
     const [debitCode, setDebitCode] = useState('');
-    const [debitAmount, setDebitAmount] = useState('');
+    const [debitAmount, setDebitAmount] = useState(selectedInvoice?.amount || '');
     const [selectedDebitAccount, setSelectedDebitAccount] = useState('');
     const [selectedAccount, setSelectedAccount] = useState('');
-    const [selectedCustomer, setSelectedCustomer] = useState('');
+    const [selectedCustomer, setSelectedCustomer] = useState(selectedInvoice?.customer_id || '');
     const [loading, setLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [createLoading, setCreateLoading] = useState(false);
@@ -230,38 +240,7 @@ function CreateSales() {
       }
     }, [bearer]);
     
-  const fetchInvoiceCode = async () => {
-      setLoading(true);
   
-  
-      try {
-        const response = await axios.get(
-          `${BASE_URL}/generate-sales-invoice-code`,
-          {
-            headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${bearer}`
-            }
-          }
-        );
-        const resultss = response.data?.data;
-      //   console.log(resultss);
-        setSICode(resultss);
-          // console.log(invoiceData)
-      //   console.log(results, "NI");
-      } catch (error) {
-        const errorStatus = error.response.data.message;
-        console.error(errorStatus);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    useEffect(() => {
-      if (bearer) {
-          fetchInvoiceCode();
-      }
-    }, [bearer]);
 
   
     
@@ -371,7 +350,7 @@ function CreateSales() {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Create Sales Invoice</h3>
+                            <h3>Update Sales Invoice</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -578,7 +557,7 @@ className="form-control"
                 <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
             </>
         ) : (
-            "Create Sales Invoice"
+            "Update Sales Invoice"
         )}
     </Button>
 
@@ -617,4 +596,4 @@ className="form-control"
   );
 }
 
-export default CreateSales;
+export default EditInvoice;

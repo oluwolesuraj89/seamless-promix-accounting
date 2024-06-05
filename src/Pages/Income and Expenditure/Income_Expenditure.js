@@ -16,6 +16,7 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import styled from 'styled-components';
 
 
 export default function IncomeExpenditure() {
@@ -27,6 +28,7 @@ export default function IncomeExpenditure() {
     const [isLoading, setIsLoading] = useState(false);
     const [bearer, setBearer] = useState('');
     const navigate = useNavigate();
+    const [user, setUser] = useState('');
     const [selectedBank, setSelectedBank] = useState('');
     const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
@@ -35,6 +37,7 @@ export default function IncomeExpenditure() {
     const [inputss, setInputss] = useState([]);
     const [totalDebit, setTotalDebit] = useState('');
     const [totalCredit, setTotalCredit] = useState('');
+
 
 
 
@@ -114,8 +117,12 @@ export default function IncomeExpenditure() {
     const readData = async () => {
         try {
             const value = await AsyncStorage.getItem('userToken');
+            const value1 = await AsyncStorage.getItem('tobi');
             if (value !== null) {
                 setBearer(value);
+            }
+            if (value1 !== null) {
+                setUser(value1);
             }
         } catch (e) {
             alert('Failed to fetch the input from storage');
@@ -134,6 +141,14 @@ export default function IncomeExpenditure() {
     const totalAmount = displayedData.reduce((total, item) => total + parseFloat(item.amount), 0);
 
 
+    const Row = styled.div`
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    gap: 1%
+  `;
+
 
     return (
         <div>
@@ -146,9 +161,61 @@ export default function IncomeExpenditure() {
                             <h3>Income & Expenditure</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            {/* <h3 style={{ color: '#2D995F' }}>{user}</h3> */}
+                            <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
+                </div>
+                <div className={classes.topPadding}>
+                    <div className={`${classes.formSecCont}`}>
+                        <div className="card" style={{width: '100%'}}>
+                            <div className="card-body" >
+                                <div className='row' style={{ marginTop: 30 }}>
+                                    <Row>
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
+                                                    Start Date:
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
+                                                    End Date:
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Row>
+                                </div>
+                            </div>
+                            <div className="row justify-content-center" style={{ marginTop: '10px', paddingBottom: '20px', paddingTop: '-25px' }}>
+                        <div className="col-md-4 text-center" >
+                            <div className="form-group row">
+                                <Button variant='success' onClick={fetchAccounts}>
+                                    {load ? (
+                                        <>
+                                            <Spinner size='sm' />
+                                            <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
+                                        </>
+                                    ) : (
+                                        "Process"
+                                    )}
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+
+
+
+                    </div>
+                   
                 </div>
 
 
@@ -158,127 +225,8 @@ export default function IncomeExpenditure() {
 
                         <div className="content-wrapper">
 
-
-
-                            <div className="main-content">
-
-
-                                <div className="content-header row align-items-center m-0">
-
-                                    <div className="col-sm-8 header-title p-0" >
-                                        <div className="media">
-                                            <div className="header-icon text-success mr-3">
-                                                {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
-                                            </div>
-                                            <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
-                                                <div>
-                                                    <h1 className="font-weight-bold">Income & Expenditure </h1>
-                                                    <small>Complete the respective fields ....</small>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="body-content">
-                                <div className="col-lg-12">
-                                    <div className="card">
-                                        <div className="create-new-staff-card-header">
-                                            <div className="d-flex justify-content-between align-items-center">
-
-                                            </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-lg-12">
-                                                <div className="card">
-
-
-
-
-                                                    <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
-                                                        <div className="row">
-                                                            <div className="col-md-12">
-                                                                {/* <div className="form-group row">
-                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
-                                                                    <div className="col-sm-12">
-                                                                        <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
-                                                                            <option value="">Choose Bank</option>
-                                                                            {tableData.map((item) => (
-                                                                                <option key={item.id} value={item.id}>
-                                                                                    {item.gl_name}
-                                                                                </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                    </div>
-                                                                </div> */}
-                                                            </div>
-
-                                                            <div className="row" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            Start Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            End Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row justify-content-center" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-4 text-center" >
-                                                                    <div className="form-group row">
-                                                                        <Button variant='success' onClick={fetchAccounts}>
-                                                                            {load ? (
-                                                                                <>
-                                                                                    <Spinner size='sm' />
-                                                                                    <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
-                                                                                </>
-                                                                            ) : (
-                                                                                "Process"
-                                                                            )}
-                                                                        </Button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="card-header">
-                                        <div className="d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <h6 className="fs-17 font-weight-600 mb-0"></h6>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                     <div className="table-resposive">
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>

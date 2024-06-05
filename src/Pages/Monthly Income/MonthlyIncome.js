@@ -36,6 +36,7 @@ export default function MonthlyIncome() {
     const [tableData1, setTableData1] = useState([]);
     const [tableData2, setTableData2] = useState([]);
     const [accounts, setAccounts] = useState([]);
+    const [user, setUser] = useState('');
     const [inputss, setInputss] = useState([]);
     const [totalDebit, setTotalDebit] = useState('');
     const [totalCredit, setTotalCredit] = useState('');
@@ -141,9 +142,12 @@ export default function MonthlyIncome() {
     const readData = async () => {
         try {
             const value = await AsyncStorage.getItem('userToken');
-
+            const value1 = await AsyncStorage.getItem('tobi');
             if (value !== null) {
                 setBearer(value);
+            }
+            if (value1 !== null) {
+                setUser(value1);
             }
         } catch (e) {
             alert('Failed to fetch the input from storage');
@@ -173,7 +177,7 @@ export default function MonthlyIncome() {
                             <h3>Monthly Income</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            {/* <h3 style={{ color: '#2D995F' }}>{user}</h3> */}
+                            <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
                 </div>
@@ -197,13 +201,13 @@ export default function MonthlyIncome() {
                                             <div className="header-icon text-success mr-3">
                                                 {/* <i className=""> <img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i> */}
                                             </div>
-                                            <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
+                                            {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center", minWidth: '900px', }}>
                                                 <div>
                                                     <h1 className="font-weight-bold">Monthly Income </h1>
                                                     <small>Complete the respective fields ....</small>
                                                 </div>
 
-                                            </div>
+                                            </div> */}
 
                                         </div>
 

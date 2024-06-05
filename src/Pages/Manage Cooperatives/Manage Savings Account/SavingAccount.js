@@ -235,7 +235,7 @@ const navigate = useNavigate();
                 <div className="media">
                   {/* <div className="header-icon text-success mr-3"><i className=""><img src={favicon} className={classes.favshi} alt="favicon" /></i></div> */}
                   <div className="media-body">
-                    <h4 className="font-weight-bold">Savings Account</h4>
+                    {/* <h4 className="font-weight-bold">Savings Account</h4> */}
                     <small>Create and view your Savings Accounts...</small>
                   </div>
                 </div>
