@@ -41,7 +41,7 @@ export default function IncomeExpenditure() {
 
 
 
-    const filteredData = accounts ? accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+    const filteredData = inputss.filter(item => item.account_name.toLowerCase().includes(searchTerm.toLowerCase()));
     const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
     const handleDateChange1 = (event) => {
@@ -78,14 +78,14 @@ export default function IncomeExpenditure() {
                     'Authorization': `Bearer ${bearer}`
                 }
             });
-            const resultsss = response.data?.data?.journal || [];
+            const resultsss = response.data?.data;
             setAccounts(resultsss);
 
-            const resultssx = response.data?.data?.input || [];
-            setInputss(resultssx);
+            const resultssx = response.data?.data?.journals;
+      setInputss(resultssx);
         } catch (error) {
             const errorStatus = error.response?.data?.message;
-            console.error(errorStatus);
+            console.log(errorStatus);
         } finally {
             setLoad(false);
         }
@@ -93,7 +93,7 @@ export default function IncomeExpenditure() {
 
     useEffect(() => {
         fetchAccounts();
-    }, [bearer, selectedDate, selectedEndDate]);
+    }, [bearer]);
 
     const fetchBankss = async () => {
         setIsLoading(true);
@@ -231,7 +231,7 @@ export default function IncomeExpenditure() {
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
-                                                    {accounts.length > 0 && (
+                                                    {inputss.length > 0 && (
                                                         <button onClick={() => navigate('/income_print', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>

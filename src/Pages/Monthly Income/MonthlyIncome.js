@@ -45,7 +45,7 @@ export default function MonthlyIncome() {
 
 
 
-    const filteredData = accounts ? accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+    const filteredData = tableData1.filter(item => item.account_name.toLowerCase().includes(searchTerm.toLowerCase()));
     const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
     const handleDateChange1 = (event) => {
@@ -77,9 +77,9 @@ export default function MonthlyIncome() {
         setIsLoading(true);
         try {
             const response = await axios.get(`${BASE_URL}/get-company-months`, { headers });
-            const results = response.data?.data?.journal || [];
+            const results = response.data?.data;
             setTableData(results);
-            console.log(results, "hereee");
+            // console.log(results, "hereee");
 
         } catch (error) {
             const errorStatus = error.response?.data?.message;
@@ -108,7 +108,7 @@ export default function MonthlyIncome() {
             const ordinaryResult = response.data?.data;
             const totalCurr = response.data?.data?.totalIncome;
             const totalYearly = response.data?.data?.totalYearlyIncome;
-console.log(journalResult, ordinaryResult, totalCurr, totalYearly);
+// console.log(journalResult, ordinaryResult, totalCurr, totalYearly);
             setTableData1(journalResult);
             setTableData2(ordinaryResult);
             setTotalCurrent(totalCurr);

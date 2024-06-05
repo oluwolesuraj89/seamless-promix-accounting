@@ -16,6 +16,7 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import styled from 'styled-components';
 
 
 export default function GeneralLedger() {
@@ -206,6 +207,19 @@ export default function GeneralLedger() {
     }
 
 
+    const Row = styled.div`
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    gap: 5%;
+    align-items: center;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  `;
+
 
     return (
         <div>
@@ -226,46 +240,48 @@ export default function GeneralLedger() {
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className="card" style={{ width: '100%' }}>
-                            <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
+                            <div className="card-body" style={{ padding: '1.5rem 0.5rem 1.5rem 2.5rem', }}>
                                 <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group row">
-                                            <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Accounts:</label>
-                                            <div className="col-sm-12">
-                                                <Form.Select name="account" className="form-control" required="" value={selectedAccount} onChange={handleAccountChange}>
-                                                    <option value="">Choose Account</option>
-                                                    {tableData.map((item) => (
-                                                        <option key={item.id} value={item.id}>
-                                                            {item.gl_name}
-                                                        </option>
-                                                    ))}
-                                                </Form.Select>
+                                    <Row>
+                                        <div className="col-md-4">
+                                            <div className="form-group row">
+                                                <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Accounts:</label>
+                                                <div className="col-sm-12">
+                                                    <Form.Select name="account" className="form-control" required="" value={selectedAccount} onChange={handleAccountChange}>
+                                                        <option value="">Choose Account</option>
+                                                        {tableData.map((item) => (
+                                                            <option key={item.id} value={item.id}>
+                                                                {item.gl_name}
+                                                            </option>
+                                                        ))}
+                                                    </Form.Select>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className="row" style={{ marginTop: 30 }}>
-                                        <div className="col-md-6">
-                                            <div className="form-group row">
-                                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                    Start Date:
-                                                </label>
-                                                <div className="col-sm-9">
-                                                    <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
+                                        <div className="row" style={{  }}>
+                                            <div className="col-md-6">
+                                                <div className="form-group row">
+                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">
+                                                        Start Date:
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group row">
+                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">
+                                                        End Date:
+                                                    </label>
+                                                    <div className="col-sm-9">
+                                                        <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group row">
-                                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                    End Date:
-                                                </label>
-                                                <div className="col-sm-9">
-                                                    <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </Row>
                                     <div className="row justify-content-center" style={{ marginTop: 30 }}>
                                         <div className="col-md-4 text-center" >
                                             <div className="form-group row">

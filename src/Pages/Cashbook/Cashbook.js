@@ -16,149 +16,152 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import styled from 'styled-components';
 
 
 export default function Cashbook() {
     const [entriesPerPage, setEntriesPerPage] = useState(100);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [load, setLoad] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [bearer, setBearer] = useState('');
-  const navigate = useNavigate();
-  const [user, setUser] = useState('');
-  const [selectedBank, setSelectedBank] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [load, setLoad] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [bearer, setBearer] = useState('');
+    const navigate = useNavigate();
+    const [user, setUser] = useState('');
+    const [selectedBank, setSelectedBank] = useState('');
     const [selectedEndDate, setSelectedEndDate] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [tableData, setTableData] = useState([]);
     const [accounts, setAccounts] = useState([]);
     const [inputss, setInputss] = useState([]);
     const [totalDebit, setTotalDebit] = useState('');
-  const [totalCredit, setTotalCredit] = useState('');
-
-   
-
-  const filteredData = accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase()));
-
-  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+    const [totalCredit, setTotalCredit] = useState('');
 
 
-  const fetchBankss = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`${BASE_URL}/get-account-by-sub-category-id?sub_category_id=${1}`, { headers });
-      const results = response.data?.data;
 
-      setTableData(results);
-      // console.log(results);
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
+    const filteredData = accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase()));
 
-        navigate('/login');
-      } else {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-        setTableData([]);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
 
-  const handleDateChange1 = (event) => {
-    setSelectedEndDate(event.target.value);
-  };
-
-  const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
-  };
-
-
-  const handlePrevPage = () => {
-    setCurrentPage(Math.max(currentPage - 1, 1));
-  };
-
-  const handleNextPage = () => {
-    setCurrentPage(Math.min(currentPage + 1, totalPages));
-  };
-
-  const totalEntries = filteredData.length;
-  const startIndexx = (currentPage - 1) * entriesPerPage + 1;
-  const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-  const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
-
-
-  useEffect(() => {
-    if (accounts) {
-      const debitTotal = accounts.reduce((total, item) => total + parseFloat(item.debit), 0);
-      const creditTotal = accounts.reduce((total, item) => total + parseFloat(item.credit), 0);
-  
-      // Format the numbers with commas and two decimal places
-      const formattedDebitTotal = debitTotal.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-      const formattedCreditTotal = creditTotal.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-  
-      setTotalDebit(formattedDebitTotal);
-      setTotalCredit(formattedCreditTotal);
-    }
-  }, [accounts]);
-
-
-  const fetchAccounts = async () => {
-    setLoad(true);
+    const fetchBankss = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.get(`${BASE_URL}/reports/general-ledger-filter`, { params: {
-                gl_code: selectedBank,
-                      start_date: selectedDate,
-                      end_date: selectedEndDate
-              },
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${bearer}`
-              } });
-              const resultsss = response.data?.data?.journal;
-              setAccounts(resultsss);
-        
-              const resultssx = response.data?.data?.input;
-              setInputss(resultssx);
+            const response = await axios.get(`${BASE_URL}/get-account-by-sub-category-id?sub_category_id=${1}`, { headers });
+            const results = response.data?.data;
+
+            setTableData(results);
+            // console.log(results);
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+
+                navigate('/login');
+            } else {
+                const errorStatus = error.response?.data?.message;
+                console.log(errorStatus);
+                setTableData([]);
+            }
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+
+    const handleDateChange1 = (event) => {
+        setSelectedEndDate(event.target.value);
+    };
+
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
+
+
+    const handlePrevPage = () => {
+        setCurrentPage(Math.max(currentPage - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage(Math.min(currentPage + 1, totalPages));
+    };
+
+    const totalEntries = filteredData.length;
+    const startIndexx = (currentPage - 1) * entriesPerPage + 1;
+    const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
+    const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
+
+
+    useEffect(() => {
+        if (accounts) {
+            const debitTotal = accounts.reduce((total, item) => total + parseFloat(item.debit), 0);
+            const creditTotal = accounts.reduce((total, item) => total + parseFloat(item.credit), 0);
+
+            // Format the numbers with commas and two decimal places
+            const formattedDebitTotal = debitTotal.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            const formattedCreditTotal = creditTotal.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            setTotalDebit(formattedDebitTotal);
+            setTotalCredit(formattedCreditTotal);
+        }
+    }, [accounts]);
+
+
+    const fetchAccounts = async () => {
+        setLoad(true);
+        try {
+            const response = await axios.get(`${BASE_URL}/reports/general-ledger-filter`, {
+                params: {
+                    gl_code: selectedBank,
+                    start_date: selectedDate,
+                    end_date: selectedEndDate
+                },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${bearer}`
+                }
+            });
+            const resultsss = response.data?.data?.journal;
+            setAccounts(resultsss);
+
+            const resultssx = response.data?.data?.input;
+            setInputss(resultssx);
 
 
         } catch (error) {
-          const errorStatus = error.response.data.message;
-          console.error(errorStatus);
-      } finally {
-          setLoad(false);
-      }
-  };
+            const errorStatus = error.response.data.message;
+            console.error(errorStatus);
+        } finally {
+            setLoad(false);
+        }
+    };
 
-  useEffect(() => {
-    if (bearer) {
-      fetchBankss();
-        
-    }
-}, [bearer]);
+    useEffect(() => {
+        if (bearer) {
+            fetchBankss();
 
-
-const handleBank = (event) => {
-    setSelectedBank(event.target.value);
-    const currentDate = new Date();
-const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-setSelectedDate(firstDayOfMonth.toISOString().split('T')[0]);
-
-setSelectedEndDate(currentDate.toISOString().split('T')[0]);
-
-fetchAccounts();
-  };
+        }
+    }, [bearer]);
 
 
-   const readData = async () => {
+    const handleBank = (event) => {
+        setSelectedBank(event.target.value);
+        const currentDate = new Date();
+        const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        setSelectedDate(firstDayOfMonth.toISOString().split('T')[0]);
+
+        setSelectedEndDate(currentDate.toISOString().split('T')[0]);
+
+        fetchAccounts();
+    };
+
+
+    const readData = async () => {
         try {
             const value = await AsyncStorage.getItem('userToken');
             const value1 = await AsyncStorage.getItem('tobi');
@@ -184,19 +187,34 @@ fetchAccounts();
         'Authorization': `Bearer ${bearer}`
     };
 
-  
+
 
     function formatDate(dateString) {
-      const date = new Date(dateString);
-      const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
-      return formattedDate;
-    }
-  
-    function padZero(num) {
-      return num < 10 ? `0${num}` : num;
+        const date = new Date(dateString);
+        const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+        return formattedDate;
     }
 
-  
+    function padZero(num) {
+        return num < 10 ? `0${num}` : num;
+    }
+
+
+    const Row = styled.div`
+    
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    display: flex !important;
+    // justify-content: space-between !important;
+    // gap: 5%;
+    // align-items: center;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-bottom: 40px;
+  `;
+
 
     return (
         <div>
@@ -218,74 +236,81 @@ fetchAccounts();
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className="card" style={{ width: '100%' }}>
-                            <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
+                            <div className="card-body" style={{ padding: '1.5rem 0.5rem 1.5rem 1.5rem', }}>
                                 <div className="row">
+                                
+                                    <div className="">
+                                        <Row>
+                                        <div className="form-group row">
+                                            <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
+                                            <div className="col-sm-9">
+                                                <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
+                                                    <option value="">Choose Bank</option>
+                                                    {tableData.map((item) => (
+                                                        <option key={item.id} value={item.id}>
+                                                            {item.gl_name}
+                                                        </option>
+                                                    ))}
+                                                </Form.Select>
 
-                                                            <div className="col-md-12">
-                                                                <div className="form-group row">
-                                                                    <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">Bank Account:</label>
-                                                                    <div className="col-sm-12">
-                                                                        <Form.Select name="account" className="form-control" required="" value={selectedBank} onChange={handleBank}>
-                                                                            <option value="">Choose Bank</option>
-                                                                            {tableData.map((item) => (
-                                                                                <option key={item.id} value={item.id}>
-                                                                                    {item.gl_name}
-                                                                                </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                  
-                                                            </div>
-
-                                                            <div className="row" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            Start Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            End Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row justify-content-center" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-4 text-center" >
-                                                                    <div className="form-group row">
-                                                                        <Button variant='success' onClick={fetchAccounts}>
-                                                                            {load ? (
-                                                                                <>
-                                                                                    <Spinner size='sm' />
-                                                                                    <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
-                                                                                </>
-                                                                            ) : (
-                                                                                "Process"
-                                                                            )}
-                                                                        </Button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                            </div>
+                                            </div>
+                                            <div className="form-group row">
+                                            <div className="row" style={{ }}>
+                                                <div className="col-md-6">
+                                                    <div className="form-group row">
+                                                        <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">
+                                                            Start Date:
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group row">
+                                                        <label for="example-text-input" className="col-sm-12 col-form-label font-weight-400 text-align-center">
+                                                            End Date:
+                                                        </label>
+                                                        <div className="col-sm-9">
+                                                            <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            
+                                            </Row>
+                                            <div className="form-group row">
+                                            <div className="row justify-content-center" style={{ }}>
+                                                <div className="col-md-4 text-center" >
+                                                    <div className="form-group row">
+                                                        <Button variant='success' onClick={fetchAccounts}>
+                                                            {load ? (
+                                                                <>
+                                                                    <Spinner size='sm' />
+                                                                    <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
+                                                                </>
+                                                            ) : (
+                                                                "Process"
+                                                            )}
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
-                                </div>
-                                </div>
-                                </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div className={classes.mainform}>
 
                     <div className={classes.loandgrantcards}>
-                      
+
                         <div className="content-wrapper">
 
 
@@ -352,47 +377,47 @@ fetchAccounts();
                                             <div className="table-responsive">
                                                 <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
-<thead style={{ whiteSpace: 'nowrap' }}>
-  <tr>
-    <th>Post Date</th>
-    <th>Value Date</th>
-    <th>Particular</th>
-    <th>Detail</th>
-    <th>Debit</th>
-    <th>Credit</th>
-    
-  </tr>
-</thead>
-<tbody style={{ whiteSpace: 'nowrap' }}>
-  {displayedData.map((item, index) => (
-    <tr key={index}>
-      <td>{formatDate(item.created_at)}</td>
-      <td>{item.transaction_date}</td>
-      <td>{item.account?.gl_name}</td>
-      <td>{item.details}</td>
-      <td style={{textAlign: "right"}}>{parseFloat(item.debit).toLocaleString('en-US', {
-      minimumIntegerDigits: 1,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })}</td>
-     <td style={{textAlign: "right"}}>{parseFloat(item.credit).toLocaleString('en-US', {
-      minimumIntegerDigits: 1,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    })}</td>
-    
-    </tr>
-  ))}
-  {accounts.length > 0 && (
-<>
-<td colSpan={3}>Total</td>
-<td style={{textAlign: 'right', fontWeight: "bold"}}>{totalDebit}</td>
-<td style={{textAlign: 'right', fontWeight: "bold"}}>{totalCredit}</td>
+                                                    <thead style={{ whiteSpace: 'nowrap' }}>
+                                                        <tr>
+                                                            <th>Post Date</th>
+                                                            <th>Value Date</th>
+                                                            <th>Particular</th>
+                                                            <th>Detail</th>
+                                                            <th>Debit</th>
+                                                            <th>Credit</th>
 
-</>
-)}
-</tbody>
-</table>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody style={{ whiteSpace: 'nowrap' }}>
+                                                        {displayedData.map((item, index) => (
+                                                            <tr key={index}>
+                                                                <td>{formatDate(item.created_at)}</td>
+                                                                <td>{item.transaction_date}</td>
+                                                                <td>{item.account?.gl_name}</td>
+                                                                <td>{item.details}</td>
+                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.debit).toLocaleString('en-US', {
+                                                                    minimumIntegerDigits: 1,
+                                                                    minimumFractionDigits: 2,
+                                                                    maximumFractionDigits: 2
+                                                                })}</td>
+                                                                <td style={{ textAlign: "right" }}>{parseFloat(item.credit).toLocaleString('en-US', {
+                                                                    minimumIntegerDigits: 1,
+                                                                    minimumFractionDigits: 2,
+                                                                    maximumFractionDigits: 2
+                                                                })}</td>
+
+                                                            </tr>
+                                                        ))}
+                                                        {accounts.length > 0 && (
+                                                            <>
+                                                                <td colSpan={3}>Total</td>
+                                                                <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalDebit}</td>
+                                                                <td style={{ textAlign: 'right', fontWeight: "bold" }}>{totalCredit}</td>
+
+                                                            </>
+                                                        )}
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         )}
                                         <div className={classes.endded}>
@@ -453,13 +478,13 @@ fetchAccounts();
 
                             </div>
                         </div>
-                        
-                        
+
+
 
                     </div>
-                    </div>
-                    </div>
-
                 </div>
-                )
+            </div>
+
+        </div>
+    )
 }

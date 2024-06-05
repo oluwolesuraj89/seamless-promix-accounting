@@ -39,7 +39,7 @@ export default function TrialBalance() {
 
 
 
-    const filteredData = accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filteredData = inputss.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -91,9 +91,14 @@ export default function TrialBalance() {
 
 
     useEffect(() => {
-        if (accounts) {
-            const debitTotal = accounts.reduce((total, item) => total + parseFloat(item.debit), 0);
-            const creditTotal = accounts.reduce((total, item) => total + parseFloat(item.credit), 0);
+        if (inputss) {
+            const creditTotal = inputss
+            .filter((item) => !isNaN(item.nCredit) && item.nCredit !== "")
+            .reduce((total, item) => total + parseFloat(item.nCredit), 0);
+
+        const debitTotal = inputss
+            .filter((item) => !isNaN(item.nDebit) && item.nDebit !== "")
+            .reduce((total, item) => total + parseFloat(item.nDebit), 0);
 
             // Format the numbers with commas and two decimal places
             const formattedDebitTotal = debitTotal.toLocaleString('en-US', {
@@ -108,7 +113,7 @@ export default function TrialBalance() {
             setTotalDebit(formattedDebitTotal);
             setTotalCredit(formattedCreditTotal);
         }
-    }, [accounts]);
+    }, [inputss]);
 
 
     const fetchAccounts = async () => {
@@ -125,10 +130,10 @@ export default function TrialBalance() {
                     'Authorization': `Bearer ${bearer}`
                 }
             });
-            const resultsss = response.data?.data?.journal;
+            const resultsss = response.data?.data;
             setAccounts(resultsss);
 
-            const resultssx = response.data?.data?.input;
+            const resultssx = response.data?.data?.values;
             setInputss(resultssx);
 
 
@@ -139,6 +144,10 @@ export default function TrialBalance() {
             setLoad(false);
         }
     };
+
+    useEffect(() => {
+        fetchAccounts();
+    }, [bearer]);
 
 
     useEffect(() => {
@@ -227,53 +236,53 @@ export default function TrialBalance() {
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className="card" style={{ width: '100%' }}>
-                            <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
-                            <div className="row">
-                                                            
+                            <div className="card-body" style={{ padding: '1.5rem 0.5rem 1.5rem 2.5rem',}}>
+                                <div className="row">
 
-                                                            <div className="row" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            Start Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
-                                                                            End Date:
-                                                                        </label>
-                                                                        <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row justify-content-center" style={{ marginTop: 30 }}>
-                                                                <div className="col-md-4 text-center" >
-                                                                    <div className="form-group row">
-                                                                        <Button variant='success' onClick={fetchAccounts}>
-                                                                            {load ? (
-                                                                                <>
-                                                                                    <Spinner size='sm' />
-                                                                                    <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
-                                                                                </>
-                                                                            ) : (
-                                                                                "Process"
-                                                                            )}
-                                                                        </Button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
+                                    <div className="row" style={{ marginTop: 30 }}>
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
+                                                    Start Date:
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <input className="form-control" required="" type="date" onChange={handleDateChange} name="start" value={selectedDate} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">
+                                                    End Date:
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <input className="form-control" required="" type="date" onChange={handleDateChange1} name="end" value={selectedEndDate} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row justify-content-center" style={{ marginTop: 30 }}>
+                                        <div className="col-md-4 text-center" >
+                                            <div className="form-group row">
+                                                <Button variant='success' onClick={fetchAccounts}>
+                                                    {load ? (
+                                                        <>
+                                                            <Spinner size='sm' />
+                                                            <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
+                                                        </>
+                                                    ) : (
+                                                        "Process"
+                                                    )}
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                </div>
-                                </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
                 <div className={classes.mainform}>
@@ -284,9 +293,9 @@ export default function TrialBalance() {
 
 
 
-                            
 
-                      
+
+
 
 
 
@@ -305,8 +314,8 @@ export default function TrialBalance() {
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
-                                                    {accounts.length > 0 && (
-                                                        <button onClick={() => navigate('/process_cash_book', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                    {inputss.length > 0 && (
+                                                        <button onClick={() => navigate('/process_ctivity_report', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>
@@ -356,11 +365,11 @@ export default function TrialBalance() {
 
                                                     <thead style={{ whiteSpace: 'nowrap' }}>
                                                         <tr>
-                                                        <th>Account Number</th>
-                                    <th>Account Name</th>
-                                    <th>Debit</th>
-                                    <th>Credit</th>
-                                   
+                                                            <th>Account Number</th>
+                                                            <th>Account Name</th>
+                                                            <th>Debit</th>
+                                                            <th>Credit</th>
+
                                                         </tr>
                                                     </thead>
                                                     <tbody style={{ whiteSpace: 'nowrap' }}>

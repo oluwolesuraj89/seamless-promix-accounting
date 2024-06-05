@@ -40,8 +40,13 @@ import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
-// import BalanceSheetPrint from './Pages/Balance Sheet Print/BalanceSheetPrint.js';
+import BalanceSheetPrint from './Pages/Balance Sheet Print/BalanceSheetPrint.js';
 import LoanRepayment from './Pages/Manage Cooperatives/Loan Repayment/LoanRepayment.js';
+import ProcessGeneral from './Pages/Process-General-ledger/ProcessGeneral.js';
+import ProcessCashBook from './Pages/Process-CashBook/ProcessCashBook.js';
+import ProcessActivityReport from './Pages/Process-Activity-Report/ProcessActivityReport.js';
+import IncomeProcess from './Pages/Income & expend/IncomeProcess.js';
+import MonthlyIncomeProcess from './Pages/Monthly Income & Expend/MonthlyIncomeProcess.js';
 
 
 function App() {
@@ -84,9 +89,17 @@ function App() {
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
         <Route path='/balance_sheet' element={<BalanceSheet/>} />
-        {/* <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/> */}
-
+        <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/>
+        <Route path='/process_general'element={<ProcessGeneral/>}/>
         <Route path='/loan_repayment' element={<LoanRepayment/>} />
+        <Route path='/process_cash_book'element={<ProcessCashBook/>}/>
+        <Route path='/process_ctivity_report'element={<ProcessActivityReport/>}/>
+        <Route path='/income_print'element={<IncomeProcess/>}/>
+        <Route path='/monthly_income_process'element={<MonthlyIncomeProcess/>}/>
+
+
+
+
       </Routes>
 
       <ToastContainer
