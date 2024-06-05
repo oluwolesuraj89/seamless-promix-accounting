@@ -40,6 +40,7 @@ import MonthlyIncome from './Pages/Monthly Income/MonthlyIncome.js';
 import BalanceSheet from './Pages/Balance Sheet/BalanceSheet.js';
 import EmployeeMembers from './Pages/Receiveables/Manage Members/Members.js';
 import EditEmployeeMember from './Pages/Receiveables/Manage Members/EditMember.js';
+// import BalanceSheetPrint from './Pages/Balance Sheet Print/BalanceSheetPrint.js';
 import LoanRepayment from './Pages/Manage Cooperatives/Loan Repayment/LoanRepayment.js';
 import SalesInvoice from './Pages/Receiveables/Sales Invoice/SalesInvoice.js';
 import CreateSales from './Pages/Receiveables/Sales Invoice/CreateSales.js';
@@ -49,6 +50,11 @@ import ManageBooking from './Pages/Receiveables/Advance Booking/ManagingBooking.
 import CreateBooking from './Pages/Receiveables/Advance Booking/CreateBooking.js';
 import EditBooking from './Pages/Receiveables/Advance Booking/EditBooking.js';
 import BookingReceipt from './Pages/Receiveables/Advance Booking/BookingReceipt.js';
+import LoanRepaymentExcel from './Pages/Manage Cooperatives/Loan Repayment Excel/LoanRepaymentExcel.js';
+import ManageSavings from './Pages/Manage Cooperatives/Manage Savings/ManageSavings.js';
+import CreateSavingsApp from './Pages/Manage Cooperatives/Manage Savings/CreateSavingsApp.js';
+import SavingExcel from './Pages/Manage Cooperatives/Manage Savings/SavingExcel.js';
+import Supplier from './Pages/Manage Payables/Manage Suppliers/Supplier.js';
 
 
 function App() {
@@ -96,6 +102,8 @@ function App() {
         <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
         <Route path='/monthly_income' element={<MonthlyIncome/>} />
         <Route path='/balance_sheet' element={<BalanceSheet/>} />
+        {/* <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/> */}
+
         <Route path='/loan_repayment' element={<LoanRepayment/>} />
         <Route path='/sales_invoice' element={<SalesInvoice/>} />
         <Route path='/manage_booking' element={<ManageBooking/>} />
@@ -105,6 +113,11 @@ function App() {
         <Route path='/create_sales' element={<CreateSales />} />
         <Route path='/edit_sales' element={<EditInvoice />} />
         <Route path='/official_invoice' element={<Invoice />} />
+        <Route path='/loan_repayment_excel' element={<LoanRepaymentExcel/>} />
+        <Route path='/manage_savings' element={<ManageSavings/>} />
+        <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
+        <Route path='/saving_excel' element={<SavingExcel/>} />
+        <Route path='/suppliers' element={<Supplier/>} />
       </Routes>
 
       <ToastContainer

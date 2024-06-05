@@ -17,6 +17,7 @@ import classes from '../Manage Members/ManageMember.module.css';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
+import Arrow from '../../../assets/promix/dArrow-down.svg'
 // import favicon from '../../Images/faviconn.png'
 
 function SavingsAccounts() {
@@ -134,20 +135,20 @@ const navigate = useNavigate();
     try {
       const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
       fetchBooking();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
+      toast.success(response.data.message);
       setTrashClicked(true);
     } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(errorStatus);
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                toast.error(errorMessage)
+                console.log(errorMessage);
+              }
+          }
     }
   };
 
@@ -208,7 +209,34 @@ const navigate = useNavigate();
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
+
+                  <div className={classes.analysis}>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
+                    <div className={classes.analysisCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
+                        <h5>N232,096,635.05</h5>
+                        <div className={classes.perceCont}>
+                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
 
             {/* <!--Content Header (Page header)--> */}
             <div className="content-header row align-items-center m-0">

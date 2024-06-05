@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
 // import favicon from '../../Images/faviconn.png'
 
-function Deduction() {
+function ManageSavings() {
     const [show, setShow] = useState(false);
     const [show1, setShow1] = useState(false);
     const [bearer, setBearer] = useState('');
@@ -33,7 +33,7 @@ function Deduction() {
     const handleClose1 = () => setShow1(false);
     const handleShow = () => setShow(true);
     const handleShow1 = () => setShow1(true);
-    const [companyId, setCompanyId] = useState('');
+  
     const [eyeClicked, setEyeClicked] = useState(false);
     const [trashClicked, setTrashClicked] = useState(false);
     const [fullName, setFullName] = useState("");
@@ -43,333 +43,226 @@ function Deduction() {
     const [phone1, setPhone1] = useState("");
     const [phone, setPhone] = useState("");
     const [roles, setRoles] = useState([]);
-    const [description, setDescription] = useState('');
-    const [selectedDate, setSelectedDate] = useState('');
     const [selectedRole, setSelectedRole] = useState('');
     const [selectedRoleId, setSelectedRoleId] = useState(null);
     const [entriesPerPage, setEntriesPerPage] = useState(100);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
-    const [uploadLoading, setUploadLoading] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [selectedSavings, setSelectedSavings] = useState('');
-    const [savings, setSavings] = useState([]);
-    const [totalEntries, setTotalEntries] = useState("");
-    const [user, setUser] = useState("");
-    const [totalPages, setTotalPages] = useState(1);
+    const [user, setUser] = useState('');
   
+
     const readData = async () => {
-      try {
-        const value = await AsyncStorage.getItem('userToken');
-        const value2 = await AsyncStorage.getItem('companyId');
-        const value1 = await AsyncStorage.getItem('tobi');
-  
-        if (value !== null) {
-          setBearer(value);
-          // setAuthenticated(true);
-        }
-        if (value1 !== null) {
+        try {
+          const value = await AsyncStorage.getItem('userToken');
+          const value1 = await AsyncStorage.getItem('tobi');
+    
+          if (value !== null) {
+            setBearer(value);
+          }
+          if (value1 !== null) {
             setUser(value1);
           }
-        if (value2 !== null) {
-          setCompanyId(value2);
+        } catch (e) {
+          alert('Failed to fetch the input from storage');
         }
-  
-      } catch (e) {
-        alert('Failed to fetch the input from storage');
-      }
-    };
-  
-    useEffect(() => {
-      readData();
-    }, []);
-  
-    // console.log("CompanyId:", companyId)
+      };    
 
-    const handleFileChange = (event) => {
-      const files = event.target.files;
-      const fileList = Array.from(files);
-      setSelectedFile(fileList);
-      
-    };
-  
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${bearer}`
-    };
-  
-    const fetchSavings = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(`${BASE_URL}/account/fetch-savings`, { headers });
-        const results = response.data?.data;
-    
-        setSavings(results);
-        // setSelectOptions(options);
-      } catch (error) {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-        setSavings([]);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    useEffect(() => {
-      if (bearer) {
-          fetchSavings();
-      }
-    }, [bearer]);
-  
-    const handleSavingsChange = (event) => {
-      setSelectedSavings(event.target.value);
-    };
-  
-    const uploadExcel = async () => {
-      setUploadLoading(true);
-      try {
-        const formData = new FormData();
-        formData.append('file', selectedFile[0]);
-        formData.append('transaction_date', selectedDate);
-        formData.append('description', description);
-        formData.append('type', selectedSavings);
-  
-        const response = await axios.post(`${BASE_URL}/import-monthly-deduction-template`,
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Authorization': `Bearer ${bearer}`,
-            },
-          }
-);
-    
-        handleClose();
-        fetchSaving();
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: response.data.message,
-        });
-    
-        console.log(response.data.message);
-      } catch (error) {
-        let errorMessage = 'An error occurred. Please try again.';
-          
-          if (error.response?.data?.message) {
-            if (typeof error.response.data.message === 'string') {
-              errorMessage = error.response.data.message;
-            } else if (Array.isArray(error.response.data.message)) {
-              errorMessage = error.response.data.message.join('; ');
-            } else if (typeof error.response.data.message === 'object') {
-              errorMessage = JSON.stringify(error.response.data.message);
-            }
-          }
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed',
-          text: errorMessage,
-        });
-    
-        console.error(error);
-      } finally {
-        setUploadLoading(false);
-      }
-    };
-    
-  
-    const fetchSaving = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get(`${BASE_URL}/get-monthly-deduction?page=${currentPage}`, { headers });
-        const results = response.data?.data?.data;
-          const resultx = response.data?.data?.total;
-          setTotalEntries(resultx);
-          setTableData(results);
-          const total = response.data?.data?.last_page || 1;
-          setTotalPages(total);
-        console.log(response);
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          // Redirect to login page if unauthorized
-          navigate('/login');
-        } else {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-        setTableData([]);
-      }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-  
-  
-  
-    useEffect(() => {
-      if (bearer) {
-        fetchSaving();
-  
-      }
-    }, [bearer, currentPage]);
-  
-    const createUser = async () => {
-      setLoading(true);
-  
-      try {
-        const response = await axios.post(`${BASE_URL}/create`,
-          {
-            name: fullName,
-            email: email,
-            phone_no: phone,
-            role: selectedRole
-          },
-          { headers }
-        );
-        fetchSaving();
-        handleClose();
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: response.data.message,
-        });
-        console.log(response.data);
-  
-      } catch (error) {
-        const errorStatus = error.response.name;
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed',
-          text: error.response.name,
-        });
-        console.error(errorStatus);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
-      return formattedDate;
+  useEffect(() => {
+    readData();
+  }, []);
+
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${bearer}`
+  };
+
+  const fetchSaving = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/account/fetch-staff-savings`, { headers });
+      const results = response.data?.data;
+      setTableData(results);
+      console.log(results);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        // Redirect to login page if unauthorized
+        navigate('/login');
+      } else {
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setTableData([]);
     }
-  
-    function padZero(num) {
-      return num < 10 ? `0${num}` : num;
+    } finally {
+      setIsLoading(false);
     }
+  };
+
+
+
+  useEffect(() => {
+    if (bearer) {
+      fetchSaving();
+
+    }
+  }, [bearer]);
+
+  const createUser = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${BASE_URL}/create`,
+        {
+          name: fullName,
+          email: email,
+          phone_no: phone,
+          role: selectedRole
+        },
+        { headers }
+      );
+      fetchSaving();
+      handleClose();
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+      console.log(response.data);
+
+    } catch (error) {
+      const errorStatus = error.response.name;
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: error.response.name,
+      });
+      console.error(errorStatus);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+    return formattedDate;
+  }
+
+  function padZero(num) {
+    return num < 10 ? `0${num}` : num;
+  }
+
+
+  const handleEyeClick = (id) => {
+
+    const foundUser = tableData.find(item => item.id === id);
+
+
+    const { name, email, phone_no, roles } = foundUser;
+
+
+    setFullName1(name || '');
+    setEmail1(email || '');
+    setPhone1(phone_no || '');
+
+    const selectedRole = roles.length > 0 ? roles[0].id : '';
+    setSelectedRole(selectedRole);
+
+    setShow1(true);
+    setEyeClicked(true);
+  };
+
+
+  const handleTrashClick = async (id) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
+      fetchSaving();
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+      setTrashClicked(true);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message;
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+      console.log(errorStatus);
+    }
+  };
+
+  const editUser = async () => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(`${BASE_URL}/update`,
+        {
+          name: fullName1,
+          // id: deptId, 
+          email: email1,
+          phone_no: phone1,
+          role: selectedRole
+        },
+        { headers }
+      );
+
+      fetchSaving();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+
+      // console.log(response.data);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message || 'An error occurred';
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const filteredData = tableData.filter(item => item.amount.toLowerCase().includes(searchTerm.toLowerCase()));
+
+  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+
+  const handlePrevPage = () => {
+    setCurrentPage(Math.max(currentPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage(Math.min(currentPage + 1, totalPages));
+  };
+
+  const totalEntries = filteredData.length;
+  const startIndexx = (currentPage - 1) * entriesPerPage + 1;
+  const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
+  const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
+
+  const handleRoleChange = (e) => {
+    setSelectedRole(e.target.value);
+  };
+
+  const handleCreate = () => {
+    navigate('/create_savings_app');
+  };
+
+  const handleUpload = () => {
+    navigate('/saving_excel');
+  };
   
-  
-    const handleEyeClick = (id) => {
-  
-      const foundUser = tableData.find(item => item.id === id);
-  
-  
-      const { name, email, phone_no, roles } = foundUser;
-  
-  
-      setFullName1(name || '');
-      setEmail1(email || '');
-      setPhone1(phone_no || '');
-  
-      const selectedRole = roles.length > 0 ? roles[0].id : '';
-      setSelectedRole(selectedRole);
-  
-      setShow1(true);
-      setEyeClicked(true);
-    };
-  
-  
-    const handleTrashClick = async (id) => {
-      try {
-        const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
-        fetchSaving();
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: response.data.message,
-        });
-        setTrashClicked(true);
-      } catch (error) {
-        const errorStatus = error.response?.data?.message;
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed',
-          text: errorStatus,
-        });
-        console.log(errorStatus);
-      }
-    };
-  
-    const editUser = async () => {
-      setLoading(true);
-  
-      try {
-        const response = await axios.post(`${BASE_URL}/update`,
-          {
-            name: fullName1,
-            // id: deptId, 
-            email: email1,
-            phone_no: phone1,
-            role: selectedRole
-          },
-          { headers }
-        );
-  
-        fetchSaving();
-  
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: response.data.message,
-        });
-  
-        // console.log(response.data);
-      } catch (error) {
-        const errorStatus = error.response?.data?.message || 'An error occurred';
-  
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed',
-          text: errorStatus,
-        });
-  
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-  
-    const filteredData = tableData.filter(item => item.amount.toLowerCase().includes(searchTerm.toLowerCase()));
-  
-    // const totalPages = Math.ceil(filteredData.length / entriesPerPage);
-  
-    const handlePrevPage = () => {
-      setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
-    };
-    
-    const handleNextPage = () => {
-      setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
-    };
-  
-    // const totalEntries = filteredData.length;
-    const startIndexx = (currentPage - 1) * entriesPerPage + 1;
-    const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-    // const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
-  
-    const handleRoleChange = (e) => {
-      setSelectedRole(e.target.value);
-    };
-  
-    const handleCreate = () => {
-      navigate('/create_savings_deduction');
-    };
-  
-    const handleUpload = () => {
-      navigate('/savings_deduction_excel');
-    };
-    
-    const downloadUrl = `${BASE_URL}/download-template?company_id=${companyId}`;
-    
 
   return (
 
@@ -390,8 +283,8 @@ function Deduction() {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Monthly Savings Deduction</h3>
-                            {/* <small>Create and view your monthly savings deductions...</small> */}
+                            <h3>My Savings</h3>
+                            {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
@@ -429,8 +322,8 @@ function Deduction() {
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
               {/* <!--Content Header (Page header)--> */}
               <div className="content-header row align-items-center m-0">
-              {/* {(isAdmin || permittedHeaders.includes('create-savings-account')) && (
-                <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+              {/* {(isAdmin || permittedHeaders.includes('create-savings-account')) && ( */}
+                {/* <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
                   <div
                     style={{
                       marginTop: 20,
@@ -447,8 +340,8 @@ function Deduction() {
                   </div>
 
                 </nav> */}
-                <nav aria-label="breadcrumb" className=" order-sm-last mb-3 mb-sm-0 p-0 ">
-                {/* <div
+                 <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+                <div
                   style={{
                     marginTop: 20,
                     marginBottom: 20,
@@ -456,31 +349,15 @@ function Deduction() {
                     display: "flex",
                     marginLeft: "auto",
                   }}
-                  className={classes.actionBtns}
-                > */}
-                 <div
-                      style={{
-                        marginTop: 20,
-                        marginBottom: 20,
-                        justifyContent: "flex-end",
-                        display: "flex",
-                        marginLeft: "auto",
-                        width:'100%',
-                        gap:'10px'
-                      }}
-                      className={classes.actionBtns}
-                    >
-                      <Button variant="success" onClick={handleShow}>
-                        Upload Excel Savings
-                      </Button>
+                >
+                  <Button variant="success" onClick={handleCreate}>
+                    Add New
+                  </Button>
 
-                      <a href={downloadUrl} download>
-                    <Button variant="secondary">
-                      Download Excel Template
-                    </Button>
-                    </a>
-                    </div>
-                {/* </div> */}
+                  <Button style={{marginLeft: 10}} variant="secondary" onClick={handleUpload}>
+                  Upload Savings
+                  </Button>
+                </div>
 
               </nav>
               {/* )} */}
@@ -604,23 +481,23 @@ function Deduction() {
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
                                   <th>S/N</th>
-                                  <th>Transaction Date</th>
-                                  <th>Description</th>
-                                  <th>Employee Number</th>
-                                  <th>Employee Name</th>
+                                  <th>Date</th>
+                                  <th>Staff Name</th>
                                   <th>Savings Name</th>
+                                  <th>Mode of Savings</th>
+                                  <th>Debit Account</th>
                                   <th>Amount</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
-                                {tableData.map((item, index) => (
+                                {displayedData.map((item, index) => (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{item.transaction_date}</td>
-                                    <td >{item.description}</td>
-                                    <td>{item.employee?.employee_no}</td>
-                                    <td>{item.employee?.name}</td>
-                                    <td style={{textAlign: "left"}}>{item?.account?.description}</td>
+                                    <td >{item.membername?.name}</td>
+                                    <td>{item.saving_type?.description}</td>
+                                    <td>{item.mode_of_savings?.name}</td>
+                                    <td style={{textAlign: "left"}}>{item.debit_account?.gl_name}</td>
                                     <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
@@ -692,74 +569,6 @@ function Deduction() {
                 </div>
               </div>
               {/* <!--/.body content--> */}
-
-
-              <Modal show={show} onHide={handleClose} animation={false}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Upload Deduction Savings</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Form style={{ marginTop: 20 }}>
-                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                            <Form.Label>Savings Type</Form.Label>
-                            <Form.Select
-      className="form-control"
-      as="select"
-      value={selectedSavings}
-      onChange={handleSavingsChange}
-    >
-      <option value="" disabled>Select Savings</option>
-      {savings.map((item) => (
-        <option key={item.id} value={item.id}>
-          {item.description}
-        </option>
-      ))}
-    </Form.Select>
-    <div style={{marginTop:'10px'}}/>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control
-                              type="text"
-                              placeholder="Enter Description"
-                              // autoFocus
-                              value={description}
-                              onChange={(e) => setDescription(e.target.value)}
-                            />
-                            <div style={{marginTop:'10px'}}/>
-                            <Form.Label>Transaction Date</Form.Label>
-                            <Form.Control
-                              type="date"
-                            value={selectedDate}
-                            onChange={(e) => setSelectedDate(e.target.value)}
-                            />
-                            <div style={{marginTop:'10px'}}/>
-                            <Form.Label>Upload Excel File</Form.Label>
-                            <Form.Control
-                              type="file"
-                              accept=".xlsx, .xls, .csv" 
-                              onChange={handleFileChange}
-                            />
-                           
-                          </Form.Group>
-                        </Form>
-                      </Modal.Body>
-
-
-                      <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>
-                          Go back
-                        </Button>
-                        <Button variant="success" onClick={uploadExcel}>
-                    {uploadLoading ? (
-                      <>
-                      <Spinner  size='sm' /> 
-                      <span style={{ marginLeft: '5px' }}>Uploading, Please wait...</span>
-    </>
-  ) : (
-                "Upload Saving"
-                      )}
-                    </Button>
-                      </Modal.Footer>
-                    </Modal>
             </div>
           </div>
           {/* <!--/.main content--> */}
@@ -778,4 +587,4 @@ function Deduction() {
   );
 }
 
-export default Deduction;
+export default ManageSavings;

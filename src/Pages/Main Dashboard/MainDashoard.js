@@ -193,8 +193,8 @@ export default function MainDashboard() {
                                         <NavLink to={'/loan_account'}>Loan Account</NavLink><br/>
                                         <NavLink to={'/deductions'}>Monthly Deduction</NavLink><br/>
                                         <NavLink to={'/loan_repayment'}>Loan Repayment</NavLink><br/>
-                                        <NavLink to={'#'}>Loan Excel</NavLink><br/>
-                                        <NavLink to={'#'}>Savings Repayment</NavLink>
+                                        <NavLink to={'/loan_repayment_excel'}>Loan Excel</NavLink><br/>
+                                        <NavLink to={'/manage_savings'}>Savings Repayment</NavLink>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -233,7 +233,8 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="1" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/>
+                                        {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
+                                        <Link to={'/suppliers'}>Suppliers/Beneficiaries</Link><br/>
                                         <Link to={'#'}>General Payment Voucher</Link><br/>
                                         <Link to={'#'}>Pending Payment Voucher</Link><br/>
                                         <Link to={'#'}>Completed Payment Voucher</Link><br/>

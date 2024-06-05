@@ -13,34 +13,55 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
 // import { InfoFooter } from '../../InfoFooter';
 // import { AdminHeaderNav } from '../AdminHeaderNav';
-import classes from '../Manage Members/ManageMember.module.css';
+// import classes from '../Manage Members/ManageMember.module.css';
+import classes from '../../Manage Cooperatives/Manage Members/ManageMember.module.css'
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
 // import favicon from '../../Images/faviconn.png'
 
-function LoanAccounts() {
+function Supplier() {
+    const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [bearer, setBearer] = useState('');
-  
   const [isLoading, setIsLoading] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [role, setRole] = useState("");
+  const [role1, setRole1] = useState("");
+  const [checkAll, setCheckAll] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(false);
-const navigate = useNavigate();
+  const [permittedHeaders, setPermittedHeaders] = useState([]);
+  const [department, setDepartment] = useState("");
+  const [department1, setDepartment1] = useState("");
+  const [deptId, setDeptId] = useState("");
   const handleClose = () => setShow(false);
   const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
   const handleShow1 = () => setShow1(true);
+
   const [eyeClicked, setEyeClicked] = useState(false);
   const [trashClicked, setTrashClicked] = useState(false);
+  const [perm, setPerm] = useState([]);
+  const [permId, setPermId] = useState([]);
+  const [fullName, setFullName] = useState("");
+  const [fullName1, setFullName1] = useState("");
+  const [email, setEmail] = useState("");
+  const [email1, setEmail1] = useState("");
+  const [phone1, setPhone1] = useState("");
+  const [phone, setPhone] = useState("");
+  const [roles, setRoles] = useState([]);
+  const [address, setAddress] = useState([]);
+
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [user, setUser] = useState("");
-  const [permittedHeaders, setPermittedHeaders] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [beneficiaries, setBeneficiaries] = useState('');
+  const [user, setUser] = useState('');
 
   const readData = async () => {
     try {
@@ -56,43 +77,26 @@ const navigate = useNavigate();
     } catch (e) {
       alert('Failed to fetch the input from storage');
     }
-  };
+  };    
 
-  useEffect(() => {
-    readData();
-  }, []);
+useEffect(() => {
+readData();
+}, []);
 
 
+  // specify header
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${bearer}`
   };
 
-  useEffect(() => {
-    const retrieveAdminStatus = async () => {
-      try {
-        const permitted = await AsyncStorage.getItem('permissions');
-        if (permitted) {
-          setPermittedHeaders(permitted);
-        }
-        const adminStatus = await AsyncStorage.getItem('admin');
-          setIsAdmin(adminStatus === 'true');
-     
-        
-  
-        
-      } catch (error) {
-        console.error('Error retrieving admin status:', error);
-      }
-    };
-
-    retrieveAdminStatus();
-  }, []);
-
-  const fetchBooking = async () => {
+  //fetch records
+  const fetchBeneficiaries = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/account/fetch-loans`, { headers });
+      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/beneficiary', { headers });
+
+
       const results = response.data?.data;
       setTableData(results);
       console.log(results);
@@ -114,12 +118,50 @@ const navigate = useNavigate();
 
   useEffect(() => {
     if (bearer) {
-      fetchBooking();
+      fetchBeneficiaries();
 
     }
   }, [bearer]);
 
- 
+  //create beneficiary
+  const createBeneficiary = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(
+        'https://api-sme.promixaccounting.com/api/v1/beneficiary/add',
+        {
+          name: fullName,
+          email: email,
+          phone_number: phone,
+          address: address
+        },
+        { headers }
+      );
+      console.log(response.data.message)
+      fetchBeneficiaries();
+      handleClose();
+      // return
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+      console.log(response.data.message);
+
+    } catch (error) {
+      const errorStatus = error.response.data.message;
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //format date
   function formatDate(dateString) {
     const date = new Date(dateString);
     const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
@@ -131,13 +173,19 @@ const navigate = useNavigate();
   }
 
 
- 
+  //view records
+  const handleEyeClick = (id) => {
+    const foundCustomer = tableData.find(item => item.id === id);
+    navigate('/edit_user', { state: { selectedCustomer: foundCustomer } });
+    setEyeClicked(true);
+  };
 
 
+  //delete function
   const handleTrashClick = async (id) => {
     try {
-      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
-      fetchBooking();
+      const response = await axios.get(`https://payroll.patna.ng/api/admin/users/destroy?id=${id}`, { headers });
+      fetchBeneficiaries();
       Swal.fire({
         icon: 'success',
         title: 'Success',
@@ -155,9 +203,50 @@ const navigate = useNavigate();
     }
   };
 
-  
+  //update function
+  const editUser = async () => {
+    setLoading(true);
 
-  const filteredData = tableData.filter(item => item.description.toLowerCase().includes(searchTerm.toLowerCase()));
+    try {
+      const response = await axios.post(
+        'https://payroll.patna.ng/api/admin/users/update',
+        {
+          name: fullName1,
+          // id: deptId, 
+          email: email1,
+          phone_number: phone1,
+          // role: selectedRole
+        },
+        { headers }
+      );
+
+      fetchBeneficiaries();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+
+      // console.log(response.data);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message || 'An error occurred';
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  //filter function
+  const filteredData = tableData.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -174,17 +263,21 @@ const navigate = useNavigate();
   const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
   const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
 
- 
+  useEffect(() => {
+    const retrieveAdminStatus = async () => {
+      try {
+        const permitted = await AsyncStorage.getItem('permissions');
+        if (permitted) {
+          setPermittedHeaders(permitted);
+         
+        }
+      } catch (error) {
+        console.error('Error retrieving admin status:', error);
+      }
+    };
 
-  const handleCreate = () => {
-    navigate('/Create_loan');
-  };
-
-  const handleEyeClick = (id) => {
-    const foundLoans = tableData.find(item => item.id === id);
-        navigate('/edit_loan', { state: { selectedLoan: foundLoans } });
-        setEyeClicked(true);
-      };
+    retrieveAdminStatus();
+  }, []);
   
 
   return (
@@ -206,47 +299,20 @@ const navigate = useNavigate();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Loan</h3>
+                            <h3>Beneficiaries</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
                         </div>
                     </div>
-
-                    <div className={classes.analysis}>
-                    <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
-                        </div>
-                    </div>
-                    <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
-                        </div>
-                    </div>
-                    <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
               {/* <!--Content Header (Page header)--> */}
               <div className="content-header row align-items-center m-0">
-              {(isAdmin || permittedHeaders.includes('create-savings-account')) && (
-                <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+              {/* {(isAdmin || permittedHeaders.includes('create-savings-account')) && ( */}
+                {/* <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
                   <div
                     style={{
                       marginTop: 20,
@@ -262,8 +328,23 @@ const navigate = useNavigate();
                     </Button>
                   </div>
 
-                </nav>
-              )}
+                </nav> */}
+                <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+                    <div
+                      style={{
+                        marginTop: 20,
+                        marginBottom: 20,
+                        justifyContent: "flex-end",
+                        display: "flex",
+                        marginLeft: "auto",
+                      }}
+                    >
+                      <Button variant="success" onClick={handleShow}>
+                        Add New Beneficiaries
+                      </Button>
+                    </div>
+                  </nav>
+              {/* )} */}
               
                 <div className="col-sm-8 header-title p-0">
                   <div className="media">
@@ -278,52 +359,73 @@ const navigate = useNavigate();
 
               {/* <!--/.Content Header (Page header)--> */}
               <div className="body-content">
-                <div className="row">
-
-                  <div className="col-lg-12 col-xl-6">
-                    <div className="row">
-
-                      <div className="col-md-6 col-lg-6">
-
-                        {/* <!--Feedback--> */}
-
-                      </div>
-                      <div className="col-md-6 col-lg-6">
-
-                        {/* <!--Balance indicator--> */}
-
-                      </div>
-                      <div className="col-md-6 col-lg-6">
-
-                        {/* <!--Time on site indicator--> */}
-
-                      </div>
-                      <div className="col-md-6 col-lg-6">
-
-                        {/* <!--Top Referrals--> */}
-
-                      </div>
-                      <div className="col-md-6 col-lg-6">
-
-                        {/* <!--Sessions by device--> */}
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  {/* <div className="col-md-12 col-lg-12 col-xl-3 mb-4">
-                    <div className="card">
-
-
-                    </div>
-                  </div> */}
-
-
-
-
                 
+              <Modal show={show} onHide={handleClose} animation={false}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Add New Beneficiaries</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form style={{ marginTop: 20 }}>
+                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Full Name"
+                              // autoFocus
+                              value={fullName}
+                              onChange={(e) => setFullName(e.target.value)}
+                            />
+                            <div style={{ marginTop: 10 }} />
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Email Address"
+                              // autoFocus
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <div style={{ marginTop: 10 }} />
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control
+                              type="number"
+                              placeholder="Enter Phone Number"
+                              // autoFocus
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <div style={{ marginTop: 10 }} />
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Input Address"
+                              // autoFocus
+                              value={address}
+                              onChange={(e) => setAddress(e.target.value)}
+                            />
 
+                          </Form.Group>
+                        </Form>
+                      </Modal.Body>
+
+                      <Modal.Footer>
+                        <Button variant="danger" onClick={handleClose}>
+                          Go back
+                        </Button>
+                        <Button variant="success" onClick={createBeneficiary}>
+                          {loading ? (
+                            <>
+                              <Spinner size='sm' />
+                              <span style={{ marginLeft: '5px' }}>Creating Beneficiary, Please wait...</span>
+                            </>
+                          ) : (
+                            "Create Beneficiary"
+                          )}
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+                
+                <div className="row">
+                  
                   <div className="col-lg-12">
                     <div className="card">
                       <div className="card-body">
@@ -376,7 +478,7 @@ const navigate = useNavigate();
 
 
                           {isLoading ? (
-                            <p>Fetching accounts...</p>
+                            <p>Fetching Users...</p>
                           ) : (
                             <div className="table-responsive">
                               <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
@@ -384,43 +486,31 @@ const navigate = useNavigate();
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
                                   <th>S/N</th>
-                                  <th>Code</th>
-                                  <th>Description</th>
-                                  <th>Interest Rate</th>
-                                  <th>Opening Balance</th>
-                                  <th>Report To</th>
-                                  <th>Created By</th>
-                                  <th>Created Date</th>
-                                  <th>Action</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Created at</th>
+                                    <th>Updated by</th>
+                                    <th>Action</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                 {displayedData.map((item, index) => (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td style={{textAlign: "left"}}>{item.code}</td>
-                                    <td>{item.description}</td>
-                                    <td style={{textAlign: "left"}}>{item.interest}</td>
-                                    <td style={{textAlign: "right"}}>{parseFloat(item.opening_balance).toLocaleString('en-US', {
-                                      minimumIntegerDigits: 1,
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2
-                                    })}</td>
-                                    <td>{item.report?.gl_name}</td>
-                                    <td>{item.user?.name}</td>
-                                    <td>{formatDate(item.created_at)}</td>
-                                    <td>
-                                    {(isAdmin || permittedHeaders.includes('update-loan-account')) && (
-                                      <div onClick={() => handleEyeClick(item.id)}  className="btn btn-success-soft btn-sm mr-1">
-                                        <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
-                                      </div>
-                                    )}
-                                    {(isAdmin || permittedHeaders.includes('delete-loan-account')) && (
-                                      <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                        <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
-                                      </div>
-                                    )}
-                                    </td>
+                                        <td>{item.name}</td>
+                                        <td>{item.email}</td>
+                                        <td>{item.phone_number}</td>
+                                        <td>{formatDate(item.created_at)}</td>
+                                        <td>{formatDate(item.updated_at)}</td>
+                                        <td style={{textAlign: "left"}}>
+                                        <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                            <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
+                                        </div>
+                                        <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                            <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
+                                        </div>
+                                        </td>
                                   </tr>
                                 ))}
                               </tbody>
@@ -478,6 +568,58 @@ const navigate = useNavigate();
                             </div>
                           </div>
 
+                          <Modal show={show1} onHide={handleClose1} animation={false}>
+                              <Modal.Header closeButton>
+                                <Modal.Title>Edit User</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <Form style={{ marginTop: 20 }}>
+                                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Label>Full Name</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Enter Full Name"
+                                      // autoFocus
+                                      value={fullName1}
+                                      onChange={(e) => setFullName1(e.target.value)}
+                                    />
+                                    <div style={{ marginTop: 10 }} />
+                                    <Form.Label>Email Address</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Enter Email Address"
+                                      // autoFocus
+                                      value={email1}
+                                      onChange={(e) => setEmail1(e.target.value)}
+                                    />
+                                    <div style={{ marginTop: 10 }} />
+                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Enter Phone Number"
+                                      // autoFocus
+                                      value={phone1}
+                                      onChange={(e) => setPhone1(e.target.value)}
+                                    />
+
+                                  </Form.Group>
+                                </Form>
+                              </Modal.Body>
+
+
+
+
+
+
+                              <Modal.Footer>
+                                <Button variant="danger" onClick={handleClose1}>
+                                  Go back
+                                </Button>
+                                <Button variant="success" onClick={editUser}>
+                                  {loading ? <Spinner id="loader" animation="border" variant="warning" /> : 'Save Changes'}
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
                           
 
                         </div>
@@ -505,4 +647,4 @@ const navigate = useNavigate();
   );
 }
 
-export default LoanAccounts;
+export default Supplier;
