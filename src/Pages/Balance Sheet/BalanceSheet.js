@@ -41,7 +41,7 @@ export default function BalanceSheet() {
 
 
 
-    const filteredData = accounts ? accounts.filter(item => item.details.toLowerCase().includes(searchTerm.toLowerCase())) : [];
+    const filteredData = accounts ? accounts.filter(item => item.description.toLowerCase().includes(searchTerm.toLowerCase())) : [];
     const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
     const handleDateChange1 = (event) => {
@@ -69,14 +69,13 @@ export default function BalanceSheet() {
         setLoad(true);
         try {
             const response = await axios.get(`${BASE_URL}/reports/balance-sheet`, {
-                params: {
-                },
+                params: {},
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${bearer}`
                 }
             });
-            const resultsss = response.data?.data?.journal || [];
+            const resultsss = response.data?.data;
             setAccounts(resultsss);
 
            
