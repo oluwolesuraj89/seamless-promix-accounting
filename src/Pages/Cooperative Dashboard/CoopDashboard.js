@@ -141,7 +141,7 @@ export default function CoopDashboard() {
 
                     <div className={`${classes.regMenu} ${isMenuOpen ? '' : classes.menuOpen}`}>
                         <Link
-                            to={'/coop/dashboard'}
+                            to={'/coop_dashboard'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p>
