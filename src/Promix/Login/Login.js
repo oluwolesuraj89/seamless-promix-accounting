@@ -59,7 +59,7 @@ function Login() {
             if (location.state && location.state.from) {
                 navigate(location.state.from);
             } else {
-                navigate('/coop/dashboard');
+                navigate('dashboard');
             }
 
         } catch (error) {
