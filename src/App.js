@@ -66,13 +66,20 @@ function App() {
   useEffect(() => {
     // Scroll to the top of the page when the route changes
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [location]);
   return (
     <>
     
       <Routes>
         <Route path='/' element={<LandingPage/>} />
-        <Route path='/main_dashboard' element={<Dashboard />} />
+        <Route path='/coop/dashboard' element={<Dashboard />} />
+        <Route path='/coop/manage_roles' element={<ManageRoles/>} />
+    <Route path='/coop/loan_account' element={<LoanAccounts/>} />
+        <Route path='/coop/approval_level' element={<ApprovalLevel/>} />
+        <Route path='/coop/manage_user' element={<ManageUser />} />
+        <Route path='/coop/members' element={<Members/>} />
+        <Route path='/coop/manage_savings' element={<ManageSavings/>} />
+        <Route path='/coop/savings_account' element={<SavingsAccounts/>} />
         <Route path='/general_payment_voucher' element={<GeneralPaymentVoucher/>} />
         <Route path='/payment_voucher_form' element={<PaymentVoucherForm/>} />
         <Route path='/general_ledger' element={<GeneralLedger/>} />
@@ -81,24 +88,18 @@ function App() {
         <Route path='/sales_receipt' element={<SalesReceipt/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
-        <Route path='/manage_roles' element={<ManageRoles/>} />
         <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/edit_role' element={<EditRole/>} />
-        <Route path='/approval_level' element={<ApprovalLevel/>} />
-        <Route path='/members' element={<Members/>} />
         <Route path='/employee' element={<EmployeeMembers/>} />
         <Route path='/edit_employee' element={<EditEmployeeMember/>} />
         <Route path='/edit_member' element={<EditMember/>} />
-        <Route path='/savings_account' element={<SavingsAccounts/>} />
         <Route path='/edit_savings' element={<EditSavings/>} />
         <Route path='/create_savings' element={<CreateSavings/>} />
         <Route path='/cashbook' element={<Cashbook/>} />
-        <Route path='/manage_user' element={<ManageUser />} />
         <Route path='/manage_category' element={<ManageCategory />} />
         <Route path='/charts_of_account' element={<Charts />} />
         <Route path='/create_approval_level' element={<CreateApproval/>} />
         <Route path='/create_approval_level' element={<CreateApproval/>} />
-        <Route path='/loan_account' element={<LoanAccounts/>} />
         <Route path='/Create_loan' element={<CreateLoan/>} />
         <Route path='/edit_loan' element={<EditLoan/>} />
         <Route path='/deductions' element={<Deduction/>} />
@@ -118,7 +119,6 @@ function App() {
         <Route path='/edit_sales' element={<EditInvoice />} />
         <Route path='/official_invoice' element={<Invoice />} />
         <Route path='/loan_repayment_excel' element={<LoanRepaymentExcel/>} />
-        <Route path='/manage_savings' element={<ManageSavings/>} />
         <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
         <Route path='/saving_excel' element={<SavingExcel/>} />
         <Route path='/suppliers' element={<Supplier/>} />

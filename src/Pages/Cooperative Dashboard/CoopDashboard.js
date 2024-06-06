@@ -141,7 +141,7 @@ export default function CoopDashboard() {
 
                     <div className={`${classes.regMenu} ${isMenuOpen ? '' : classes.menuOpen}`}>
                         <Link
-                            to={'/main_dashboard'}
+                            to={'/coop/dashboard'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p>
@@ -165,9 +165,9 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <NavLink to={'/manage_roles'} >Manage Roles</NavLink><br/>
-                                        <NavLink to={'/approval_level'}>Approval Levels</NavLink><br/>
-                                        <NavLink to={'/manage_user'}>Manage User</NavLink><br/>
+                                        <NavLink to={'/coop/manage_roles'} >Manage Roles</NavLink><br/>
+                                        <NavLink to={'/coop/approval_level'}>Approval Levels</NavLink><br/>
+                                        <NavLink to={'/coop/manage_user'}>Manage User</NavLink><br/>
                                         {/* <NavLink to={'/manage_category'}>Manage Category </NavLink><br/> */}
                                         {/* <NavLink to={'/charts_of_account'}>Charts of Account</NavLink><br/> */}
                                         {/* <Link to={'#'}>Loan & Advances</Link> */}
@@ -176,7 +176,7 @@ export default function CoopDashboard() {
                                 </Accordion.Collapse>
                             </Card>
                             <Link
-                            to={'/member'}
+                            to={'/coop/members'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p style={{marginTop: 10, }}>
@@ -198,8 +198,8 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'/employee'}>Manage Savings Product</Link><br/>
-                                        <Link to={'/sales_invoice'}>Manage Member Savings</Link><br/>
+                                    <Link to={'/coop/savings_account'}>Manage Savings Product</Link><br/>
+                                        <Link to={'/coop/manage_savings'}>Manage Member Savings</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -216,7 +216,7 @@ export default function CoopDashboard() {
                                 <Accordion.Collapse eventKey="1" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                         {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
-                                        <Link to={'/suppliers'}>Manage Loan Products</Link><br/>
+                                        <Link to={'/coop/loan_account'}>Manage Loan Products</Link><br/>
                                         <Link to={'#'}>Manage Member Loans</Link><br/>
                                         <Link to={'#'}>Pending Payment Voucher</Link><br/>
                                     </Card.Body>
