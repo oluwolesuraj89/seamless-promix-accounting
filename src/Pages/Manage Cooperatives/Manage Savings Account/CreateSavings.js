@@ -21,6 +21,7 @@ import { useReactToPrint } from 'react-to-print';
 import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import CurrencyInput from 'react-currency-input-field';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 
 function CreateSavings() {
 
@@ -33,6 +34,7 @@ function CreateSavings() {
   const [chartsLoading, setChartsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
+  const [user, setUser] = useState('');
   const navigate = useNavigate();
   
  
@@ -65,12 +67,16 @@ function CreateSavings() {
   }, [bearer]);
 
   const readData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('userToken');
-
-      if (value !== null) {
-        setBearer(value);
-      }
+      try {
+        const value = await AsyncStorage.getItem('userToken');
+        const value1 = await AsyncStorage.getItem('tobi');
+  
+        if (value !== null) {
+          setBearer(value);
+        }
+        if (value1 !== null) {
+          setUser(value1);
+        }
     } catch (e) {
       alert('Failed to fetch the input from storage');
     }
@@ -154,18 +160,18 @@ function CreateSavings() {
 
     return (
         <div>
-            <MainDashboard/>
+            <CoopDashboard />
             <div className='newBody'>
             <div className={classes.newWidth}>
                 <div className={classes.topPadding}>
-                    {/* <div className={`${classes.formSecCont}`}>
+                <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>View Members</h3>
+                            <h3>Create Savings Products</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
-                            <h3 style={{color:'#2D995F'}}>user</h3>
+                            <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
                     <div className="wrapper">
                         
@@ -186,11 +192,11 @@ function CreateSavings() {
                                             {/* <div className="header-icon text-success mr-3"><i className=""><img src={favicon} style={{ height: 30, width: 30 }} alt="favicon" /></i></div> */}
                                             <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}>
                                                 <div>
-                                                    <h4 className="font-weight-bold">Create Savings Account </h4>
+                                                    {/* <h4 className="font-weight-bold">Create Savings Account </h4> */}
                                                     {/* <small>Complete the respective fields ....</small> */}
                                                 </div>
                                                 <div style={{ marginBottom: 30 }}>
-                                                    <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
+                                                    {/* <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button> */}
                                                 </div>
                                             </div>
 
@@ -221,29 +227,30 @@ function CreateSavings() {
                                                                 <div className="row">
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Savings Code</label>
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Savings Code:</label>
                                                                             <div className="col-sm-9">
-                                                                                <input className="form-control" required="" type="text" value={savingsCode} onChange={(e) => setSavingsCode(e.target.value)} name="savings-code" />
+                                                                                <input placeholder='Enter Savings Code' className="form-control" required="" type="text" value={savingsCode} onChange={(e) => setSavingsCode(e.target.value)} name="savings-code" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" style={{paddingTop:'15px'}}>Savings Description</label>
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Description:</label>
                                                                             <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={savingsDescription} onChange={(e) => setSavingsDescription(e.target.value)} name="savings-description" />
+                                                                            <input placeholder='Enter Savings Description' className="form-control" required="" type="text" value={savingsDescription} onChange={(e) => setSavingsDescription(e.target.value)} name="savings-description" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance</label>
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance:</label>
                                                                             <div className="col-sm-9">
                                                                             {/* <div className="form-control" > */}
                                                                             <CurrencyInput
 
                                                                                 name="balance"
                                                                                 decimalsLimit={2}
+                                                                                // placeholder='Enter Balance'
                                                                                 className="form-control"
                                                                                 value={balance} // Set the value to the balance state
                                                                                 onValueChange={handleValueChange}
@@ -255,10 +262,10 @@ function CreateSavings() {
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                     <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Report To</label>
+                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">GL Account:</label>
                                                                         <div className="col-sm-9">
                                                                         <Form.Select name="customer" className="form-control" required="" value={selectedReport} onChange={handleReportChange} style={{marginTop:20}}>
-                                                                            <option value="">Choose Report To</option>
+                                                                            <option value="">Select Report To</option>
                                                                             {subCat2.map((item) => (
                                                                             <option key={item.id} value={item.id}>
                                                                                 {item.gl_name}
@@ -288,8 +295,9 @@ function CreateSavings() {
                                                                 {/* </div> */}
                                                             </div>
                                                             
-                                                            
-                                                            <div class="modal-footer" style={{justifyContent:'left', marginTop:'20px'}}>
+                                                            <div style={{marginTop: 20}}/>
+                                                            <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
+                <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
                                                                 <Button variant="success" onClick={createSavings}>
                                                                 {loading ? (
                                                                     <>

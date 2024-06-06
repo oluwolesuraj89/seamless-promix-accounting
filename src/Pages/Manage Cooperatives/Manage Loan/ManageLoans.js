@@ -21,7 +21,7 @@ import Arrow from '../../../assets/promix/dArrow-down.svg'
 import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 // import favicon from '../../Images/faviconn.png'
 
-function LoanAccounts() {
+function ManageLoans() {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [bearer, setBearer] = useState('');
@@ -93,7 +93,7 @@ const navigate = useNavigate();
   const fetchBooking = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/account/fetch-loans`, { headers });
+      const response = await axios.get(`${BASE_URL}/account/fetch-staff-loan`, { headers });
       const results = response.data?.data;
       setTableData(results);
       console.log(results);
@@ -158,7 +158,7 @@ const navigate = useNavigate();
 
   
 
-  const filteredData = tableData.filter(item => item.description.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredData = tableData.filter(item => item.principal_amount.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -178,12 +178,12 @@ const navigate = useNavigate();
  
 
   const handleCreate = () => {
-    navigate('/Create_loan');
+    navigate('/coop_disburse_loan');
   };
 
   const handleEyeClick = (id) => {
     const foundLoans = tableData.find(item => item.id === id);
-        navigate('/edit_loan', { state: { selectedLoan: foundLoans } });
+        navigate('/coop_update_disburse_loan', { state: { selectedLoan: foundLoans } });
         setEyeClicked(true);
       };
   
@@ -207,7 +207,7 @@ const navigate = useNavigate();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Loan Products</h3>
+                            <h3>Manage Member Loans</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -259,7 +259,7 @@ const navigate = useNavigate();
                     className={classes.actionBtns}
                   >
                     <Button variant="success" onClick={handleCreate}>
-                      Create New Accounts
+                      Disburse New Loan
                     </Button>
                   </div>
 
@@ -385,42 +385,73 @@ const navigate = useNavigate();
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
                                   <th>S/N</th>
-                                  <th>Code</th>
-                                  <th>Description</th>
-                                  <th>Interest Rate</th>
-                                  <th>Opening Balance</th>
-                                  <th>Report To</th>
-                                  <th>Created By</th>
-                                  <th>Created Date</th>
+                                  <th>Date</th>
+                                  <th>Staff Name</th>
+                                  <th>Loan Name</th>
+                                  <th>Loan Prefix</th>
+                                  <th>Duration</th>
+                                  <th>Principal Amount</th>
+                                  <th>Interest Amount</th>
+                                  <th>Total Loan</th>
+                                  <th>Monthly Deduction</th>
+                                  <th>Total Repayment</th>
+                                  <th>Balance</th>
+                                  <th>Approval Status</th>
                                   <th>Action</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                 {displayedData.map((item, index) => (
                                   <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td style={{textAlign: "left"}}>{item.code}</td>
-                                    <td>{item.description}</td>
-                                    <td style={{textAlign: "left"}}>{item.interest}</td>
-                                    <td style={{textAlign: "right"}}>{parseFloat(item.opening_balance).toLocaleString('en-US', {
+                                     <td>{index + 1}</td>
+                                    <td>{item.transaction_date}</td>
+                                    <td>{item.beneficiary?.name}</td>
+                                    <td>{item.loan?.description}</td>
+                                    <td>{item.prefix}</td>
+                                    <td>{item.duration}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.principal_amount).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
                                       maximumFractionDigits: 2
                                     })}</td>
-                                    <td>{item.report?.gl_name}</td>
-                                    <td>{item.user?.name}</td>
-                                    <td>{formatDate(item.created_at)}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.interest_amount).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.total_repayment).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.monthly_deduction).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.total_repayment).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.balance).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                 
+                                    <td><Badge bg={item.approved === "0" ? "warning" : item.approved === "1" ? "success" : item.approved === "2" ? "danger" : "null"}>{item.approved === "0" ? "Pending" : item.approved === "1" ? "Approved" : item.approved === "2" ? "Disapproved" : "null"}</Badge></td>
                                     <td>
-                                    {(isAdmin || permittedHeaders.includes('update-loan-account')) && (
+                                    
                                       <div onClick={() => handleEyeClick(item.id)}  className="btn btn-success-soft btn-sm mr-1">
                                         <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
                                       </div>
-                                    )}
-                                    {(isAdmin || permittedHeaders.includes('delete-loan-account')) && (
+                               
+                                    
                                       <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
                                         <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
                                       </div>
-                                    )}
+                                    
                                     </td>
                                   </tr>
                                 ))}
@@ -506,4 +537,4 @@ const navigate = useNavigate();
   );
 }
 
-export default LoanAccounts;
+export default ManageLoans;

@@ -216,9 +216,8 @@ export default function CoopDashboard() {
                                 <Accordion.Collapse eventKey="1" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                         {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
-                                        <Link to={'/coop/loan_account'}>Manage Loan Products</Link><br/>
-                                        <Link to={'#'}>Manage Member Loans</Link><br/>
-                                        <Link to={'#'}>Pending Payment Voucher</Link><br/>
+                                        <Link to={'/coop_loan_account'}>Manage Loan Products</Link><br/>
+                                        <Link to={'/coop_loan_advances'}>Manage Member Loans</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -236,7 +235,7 @@ export default function CoopDashboard() {
                                     <Card.Body className={classes.cardBody}>
                                         <Link to={'#'}>Teller Entries Savings</Link><br/>
                                         <Link to={'#'}>Teller Entries Loans</Link><br/>
-                                        <Link to={'#'}>Savings Withdrawal</Link><br/>
+                                        <Link to={'/coop_savings_withdrawals'}>Savings Withdrawal</Link><br/>
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>

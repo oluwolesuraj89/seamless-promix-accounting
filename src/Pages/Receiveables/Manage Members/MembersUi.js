@@ -80,7 +80,7 @@ function MembersUi({
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Customer/Employee/Members</h3>
+                            <h3>Manage Members</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>

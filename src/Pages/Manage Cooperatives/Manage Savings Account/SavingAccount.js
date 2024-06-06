@@ -204,7 +204,7 @@ const navigate = useNavigate();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Savings</h3>
+                            <h3>Manage Savings Products</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
@@ -213,7 +213,7 @@ const navigate = useNavigate();
 
                   <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                        <p style={{paddingBottom:'5px'}}>TOTAL SAVINGS</p>
                         <h5>N232,096,635.05</h5>
                         <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>

@@ -101,7 +101,7 @@ function CreateSavingsApp() {
       const fetchSupplierss = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/customer', { headers });
+          const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/customer/no-pagination', { headers });
           const results = response.data?.data;
     
           const options = results.map((item) => ({
@@ -250,7 +250,7 @@ function CreateSavingsApp() {
         );
         console.log(response.data.message)
         
-        navigate('/manage_savings')
+        navigate(-1);
     
         // return
         Swal.fire({
@@ -326,7 +326,7 @@ function CreateSavingsApp() {
 
                         <div className="col-md-6">
                             <div className="form-group row">
-                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Customer / Employee / Member</label>
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Members</label>
                             <div className="col-sm-9">
                                 <Select
                                 value={selectedCustomer}
@@ -488,7 +488,8 @@ function CreateSavingsApp() {
                 <div style={{ marginTop: 20 }} />
 
 
-                <div style={{justifyContent: "flex-start"}} class="modal-footer">
+                <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
+                <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
                     <Button style={{borderRadius: 0}} variant="success" onClick={createSavings}>
                         {createLoading ? (
                         <>

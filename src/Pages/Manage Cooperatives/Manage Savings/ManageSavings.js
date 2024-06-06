@@ -11,6 +11,7 @@ import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'r
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
+import Select from 'react-select';
 // import { InfoFooter } from '../../InfoFooter';
 // import { AdminHeaderNav } from '../AdminHeaderNav';
 import classes from '../Manage Members/ManageMember.module.css';
@@ -30,11 +31,13 @@ function ManageSavings() {
     const [tableData, setTableData] = useState([]);
     const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [description, setDescription] = useState('');
+  const [selectedDate, setSelectedDate] = useState('');
     const handleClose = () => setShow(false);
     const handleClose1 = () => setShow1(false);
     const handleShow = () => setShow(true);
     const handleShow1 = () => setShow1(true);
-  
+    const [selectedFile, setSelectedFile] = useState(null);
     const [eyeClicked, setEyeClicked] = useState(false);
     const [trashClicked, setTrashClicked] = useState(false);
     const [fullName, setFullName] = useState("");
@@ -50,18 +53,30 @@ function ManageSavings() {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [user, setUser] = useState('');
-  
+    const [companyId, setCompanyId] = useState('');
+    const [uploadLoading, setUploadLoading] = useState(false);
+
+    const handleFileChange = (event) => {
+      const files = event.target.files;
+      const fileList = Array.from(files);
+      setSelectedFile(fileList);
+      
+    };
 
     const readData = async () => {
         try {
           const value = await AsyncStorage.getItem('userToken');
           const value1 = await AsyncStorage.getItem('tobi');
+          const value2 = await AsyncStorage.getItem('companyId');
     
           if (value !== null) {
             setBearer(value);
           }
           if (value1 !== null) {
             setUser(value1);
+          }
+          if (value2 !== null) {
+            setCompanyId(value2);
           }
         } catch (e) {
           alert('Failed to fetch the input from storage');
@@ -263,7 +278,125 @@ function ManageSavings() {
   const handleUpload = () => {
     navigate('/saving_excel');
   };
+
+  const downloadUrl = `https://api-sme.promixaccounting.com/api/v1/download-template?company_id=${companyId}`;
   
+  const fetchBanks = async () => {
+    setBankLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/get-account-by-class-id?class_id=${1}`, { headers });
+      const results = response.data?.data;
+
+      const options1 = results.map((item) => ({
+        label: item.gl_name,
+        value: item.id,
+      }));
+      setBanks(options1);
+      // setSelectOptions(options);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setBanks([]);
+    } finally {
+      setBankLoading(false);
+    }
+  };
+
+  
+  
+  const fetchSavingType = async () => {
+    setSavingsLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/account/fetch-savings`, { headers });
+      const results = response.data?.data;
+
+      const options1 = results.map((item) => ({
+        label: item.description,
+        value: item.id,
+      }));
+      setSavingType(options1);
+      // setSelectOptions(options);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setSavingType([]);
+    } finally {
+      setSavingsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (bearer) {
+      fetchBanks();
+      fetchSavingType();
+    }
+  }, [bearer]);
+
+  const [selectedSavings, setSelectedSavings] = useState('');
+  const [selectedBank, setSelectedBank] = useState('');
+
+  const handleSavingsChange = (selectedOption) => {
+    setSelectedSavings(selectedOption);
+  }
+
+  const handleBankChange = (selectedOption) => {
+    setSelectedBank(selectedOption);
+  }
+
+  const [savingType, setSavingType] = useState([]);
+  const [banks, setBanks] = useState([]);
+
+  const [bankLoading, setBankLoading] = useState(false);
+  const [savingsLoading, setSavingsLoading] = useState(false);
+
+
+  const uploadExcel = async () => {
+    setUploadLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', selectedFile[0]);
+      formData.append('description', description);
+      formData.append('transaction_date', selectedDate);
+      formData.append('bank', selectedBank.value);
+      formData.append('type', selectedSavings.value);
+      console.log(selectedBank, selectedSavings.value);
+      const response = await axios.post(
+        `${BASE_URL}/import-monthly-deduction-template`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${bearer}`,
+          },
+        }
+      );
+  
+      handleClose();
+      fetchSaving();
+      toast.success(response.data.message);
+  
+      console.log(response.data.message);
+    } catch (error) {
+      let errorMessage = 'An error occurred. Please try again.';
+        
+        if (error.response?.data?.message) {
+          if (typeof error.response.data.message === 'string') {
+            errorMessage = error.response.data.message;
+          } else if (Array.isArray(error.response.data.message)) {
+            errorMessage = error.response.data.message.join('; ');
+          } else if (typeof error.response.data.message === 'object') {
+            errorMessage = JSON.stringify(error.response.data.message);
+          }
+        }
+      toast.error(errorMessage);
+  
+      console.error(error);
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
+ 
 
   return (
 
@@ -284,7 +417,7 @@ function ManageSavings() {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>My Savings</h3>
+                            <h3>My Savings </h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -349,19 +482,114 @@ function ManageSavings() {
                     justifyContent: "flex-end",
                     display: "flex",
                     marginLeft: "auto",
+                    whiteSpace: 'nowrap'
                   }}
                 >
                   <Button variant="success" onClick={handleCreate}>
                     Add New
                   </Button>
 
-                  <Button style={{marginLeft: 10}} variant="secondary" onClick={handleUpload}>
+                  <Button style={{marginLeft: 10, whiteSpace: "nowrap"}} variant="primary" onClick={handleShow}>
                   Upload Savings
                   </Button>
+
+                  <a href={downloadUrl} download>
+                  <Button style={{marginLeft: 10, whiteSpace: "nowrap"}} variant="secondary">
+                  Download Excel Template
+                  </Button>
+                  </a>
                 </div>
 
               </nav>
               {/* )} */}
+
+              <Modal show={show} onHide={handleClose} animation={false}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Upload Savings</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form style={{ marginTop: 20 }}>
+                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                          <div style={{marginTop:'10px'}}/>
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Description"
+                              // autoFocus
+                              value={description}
+                              onChange={(e) => setDescription(e.target.value)}
+                            />
+                            <Form.Label>Transaction Date</Form.Label>
+                            <Form.Control
+                              type="date"
+                              value={selectedDate}
+                              onChange={(e) => setSelectedDate(e.target.value)}
+                            />
+                            <div style={{marginTop:'10px'}}/>
+                            <Form.Label>Savings Account</Form.Label>
+                            <Select
+                                        value={selectedSavings}
+                                        onChange={(selectedOption) => handleSavingsChange(selectedOption)}
+                                        options={savingType}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                            <div style={{marginTop:'10px'}}/>
+                            <Form.Label>Bank</Form.Label>
+                            <Select
+                                        value={selectedBank}
+                                        onChange={(selectedOption) => handleBankChange(selectedOption)}
+                                        options={banks}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                            <div style={{marginTop:'10px'}}/>
+                            <Form.Label>Upload Excel File</Form.Label>
+                            <Form.Control
+                              type="file"
+                              accept=".xlsx, .xls, .csv" 
+                              onChange={handleFileChange}
+                            />
+                           
+                          </Form.Group>
+                        </Form>
+                      </Modal.Body>
+
+
+
+
+
+
+                      <Modal.Footer>
+                        <Button variant="danger" onClick={handleClose}>
+                          Go back
+                        </Button>
+                        <Button variant="success" onClick={uploadExcel}>
+                    {uploadLoading ? (
+                      <>
+                      <Spinner  size='sm' /> 
+                      <span style={{ marginLeft: '5px' }}>Uploading, Please wait...</span>
+    </>
+  ) : (
+                "Upload Saving"
+                      )}
+                    </Button>
+                      </Modal.Footer>
+                    </Modal>
               
                 <div className="col-sm-8 header-title p-0">
                   <div className="media">

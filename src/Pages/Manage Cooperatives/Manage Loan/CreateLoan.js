@@ -21,6 +21,7 @@ import { useReactToPrint } from 'react-to-print';
 import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import CurrencyInput from 'react-currency-input-field';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 
 function CreateLoan() {
 
@@ -34,6 +35,7 @@ function CreateLoan() {
   const [chartsLoading, setChartsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
+  const [user, setUser] = useState('');
   const navigate = useNavigate();
   
  
@@ -68,9 +70,13 @@ function CreateLoan() {
   const readData = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
+      const value1 = await AsyncStorage.getItem('tobi');
 
       if (value !== null) {
         setBearer(value);
+      }
+      if (value1 !== null) {
+        setUser(value1);
       }
     } catch (e) {
       alert('Failed to fetch the input from storage');
@@ -158,26 +164,18 @@ function CreateLoan() {
 
     return (
         <div>
-            <MainDashboard/>
+            <CoopDashboard/>
             <div className='newBody'>
             <div className={classes.newWidth}>
                 <div className={classes.topPadding}>
-                    <div className={`${classes.formSecCont}`}>
-                    {/* <div className="media-body" style={{ display: 'flex', justifyContent: "space-between", alignItems: "center" }}> */}
-                        <div>
-                            <h4 className="font-weight-bold">Create Loan Account </h4>
-                            {/* <small>Complete the respective fields ....</small> */}
-                        </div>
-                        <div >
-                            <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
-                        </div>
-                    {/* </div> */}
-                        {/* <div className={classes.formSectionHeader}>
-                            <h3>View Members</h3>
+                <div className={`${classes.formSecCont}`}>
+                        <div className={classes.formSectionHeader}>
+                            <h3>Create New Loan Product</h3>
+                            {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
-                            <h3 style={{color:'#2D995F'}}>user</h3>
-                        </div> */}
+                            <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
+                        </div>
                     </div>
                 </div>
                     <div className="wrapper">
@@ -234,31 +232,31 @@ function CreateLoan() {
                                                                 <div className="row">
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Code</label>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Code:</label>
                                                                           <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={loanCode} onChange={(e) => setLoanCode(e.target.value)} name="loan-code" />
+                                                                            <input placeholder='Enter Loan Code' className="form-control" required="" type="text" value={loanCode} onChange={(e) => setLoanCode(e.target.value)} name="loan-code" />
                                                                           </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" style={{paddingTop: 15}}>Loan Description</label>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Description:</label>
                                                                             <div className="col-sm-9">
-                                                                              <input className="form-control" required="" type="text" value={loanDescription} onChange={(e) => setLoanDescription(e.target.value)} name="loan-description" />
+                                                                              <input placeholder='Enter Loan Description' className="form-control" required="" type="text" value={loanDescription} onChange={(e) => setLoanDescription(e.target.value)} name="loan-description" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Interest</label>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Interest:</label>
                                                                           <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={interest} onChange={(e) => setInterest(e.target.value)} name="loan-code" />
+                                                                            <input placeholder='Enter Loan Interest' className="form-control" required="" type="text" value={interest} onChange={(e) => setInterest(e.target.value)} name="loan-code" />
                                                                           </div>
                                                                         </div>
                                                                       </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance</label>
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance:</label>
                                                                             <div className="col-sm-9">
                                                                             {/* <div className="form-control" > */}
                                                                             <CurrencyInput
@@ -293,8 +291,9 @@ function CreateLoan() {
                                                                 
                                                             </div>
                                                             
-                                                            
-                                                            <div class="modal-footer" style={{justifyContent:'left', marginTop:'20px'}}>
+                                                            <div style={{marginTop: 20}} />
+                                                            <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
+                <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
                                                               <Button style={{borderRadius: 0}} variant="success" onClick={createBooking}>
                                                                 {loading ? (
                                                                     <>

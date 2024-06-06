@@ -64,6 +64,10 @@ import SavingsRepayment from './Pages/Receiveables/Advance Booking Pyaments/Adva
 import AdvanceBooking from './Pages/Receiveables/Advance Booking Pyaments/AdvanceBooking.js';
 import EditSuppliers from './Pages/Manage Payables/Manage Suppliers/EditSuppliers.js';
 import PaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/PaymentVoucher.js';
+import ManageLoans from './Pages/Manage Cooperatives/Manage Loan/ManageLoans.js';
+import DisburseLoan from './Pages/Manage Cooperatives/Manage Loan/DisburseLoan.js';
+import EditDisburseLoan from './Pages/Manage Cooperatives/Manage Loan/EditDisburse.js';
+import SavingsWithdrawals from './Pages/Manage Cooperatives/Manage Savings/SavingsWithdrawals/SavingsWithdrawals.js';
 
 
 function App() {
@@ -80,9 +84,12 @@ function App() {
         <Route path='/coop_dashboard' element={<Dashboard />} />
         <Route path='/coop_manage_roles' element={<ManageRoles/>} />
     <Route path='/coop_loan_account' element={<LoanAccounts/>} />
+    <Route path='/coop_loan_advances' element={<ManageLoans/>} />
+    <Route path='/coop_disburse_loan' element={<DisburseLoan />} />
+    <Route path='/coop_savings_withdrawals' element={<SavingsWithdrawals />} />
+    <Route path='/coop_update_disburse_loan' element={<EditDisburseLoan />} />
         <Route path='/coop_approval_level' element={<ApprovalLevel/>} />
         <Route path='/coop_manage_user' element={<ManageUser />} />
-        <Route path='/coop_members' element={<Members/>} />
         <Route path='/coop_manage_savings' element={<ManageSavings/>} />
         <Route path='/coop_savings_account' element={<SavingsAccounts/>} />
         <Route path='/general_payment_voucher' element={<GeneralPaymentVoucher/>} />
@@ -95,6 +102,7 @@ function App() {
         <Route path='/signup' element={<SignUp/>} />
         <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/edit_role' element={<EditRole/>} />
+        <Route path='/members' element={<Members/>} />
         <Route path='/coop_member' element={<EmployeeMembers/>} />
         <Route path='/edit_coop_member' element={<EditEmployeeMember/>} />
         <Route path='/edit_member' element={<EditMember/>} />

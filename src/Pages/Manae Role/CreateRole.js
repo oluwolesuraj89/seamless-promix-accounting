@@ -152,7 +152,7 @@ export default function CreateRole() {
     
           
             
-            navigate('/manage_roles');
+            navigate(-1);
     
            toast.success(response.data.message)
     
