@@ -20,6 +20,7 @@ import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 // import classes from './LoanRepayment.module.css'
 // import favicon from '../../Images/faviconn.png'
 
@@ -292,7 +293,7 @@ function CreateSavingsApp() {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <CoopDashboard />
             <div className='newBody'>
             <div className={classes.newWidth}>
 

@@ -165,9 +165,9 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <NavLink to={'/coop/manage_roles'} >Manage Roles</NavLink><br/>
-                                        <NavLink to={'/coop/approval_level'}>Approval Levels</NavLink><br/>
-                                        <NavLink to={'/coop/manage_user'}>Manage User</NavLink><br/>
+                                        <NavLink to={'/coop_manage_roles'} >Manage Roles</NavLink><br/>
+                                        <NavLink to={'/coop_approval_level'}>Approval Levels</NavLink><br/>
+                                        <NavLink to={'/coop_manage_user'}>Manage User</NavLink><br/>
                                         {/* <NavLink to={'/manage_category'}>Manage Category </NavLink><br/> */}
                                         {/* <NavLink to={'/charts_of_account'}>Charts of Account</NavLink><br/> */}
                                         {/* <Link to={'#'}>Loan & Advances</Link> */}
@@ -176,7 +176,7 @@ export default function CoopDashboard() {
                                 </Accordion.Collapse>
                             </Card>
                             <Link
-                            to={'/coop/members'}
+                            to={'/coop_member'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p style={{marginTop: 10, }}>
@@ -198,8 +198,8 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'/coop/savings_account'}>Manage Savings Product</Link><br/>
-                                        <Link to={'/coop/manage_savings'}>Manage Member Savings</Link><br/>
+                                    <Link to={'/coop_savings_account'}>Manage Savings Product</Link><br/>
+                                        <Link to={'/coop_manage_savings'}>Manage Member Savings</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>

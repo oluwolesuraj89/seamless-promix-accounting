@@ -186,7 +186,7 @@ function EmployeeMembers() {
   //view records
   const handleEyeClick = (id) => {
     const foundCustomer = tableData.find(item => item.id === id);
-        navigate('/edit_employee', { state: { selectedCustomer: foundCustomer } });
+        navigate('/edit_coop_member', { state: { selectedCustomer: foundCustomer } });
         console.log(foundCustomer, "hdfhds");
         setEyeClicked(true);
       };

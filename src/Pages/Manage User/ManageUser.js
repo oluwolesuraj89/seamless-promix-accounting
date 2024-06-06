@@ -16,6 +16,7 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import CoopDashboard from '../Cooperative Dashboard/CoopDashboard';
 
 
 export default function ManageUser() {
@@ -328,7 +329,7 @@ handleClose1();
 
   return (
     <div>
-      <MainDashoard />
+      <CoopDashboard />
 
       <div className={classes.finishedbodyCont}>
         <div className={classes.topPadding}>

@@ -18,6 +18,7 @@ import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 // import favicon from '../../Images/faviconn.png'
 
 function LoanAccounts() {
@@ -199,7 +200,7 @@ const navigate = useNavigate();
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <CoopDashboard />
             <div className='newBody'>
             <div className={classes.newWidth}>
 

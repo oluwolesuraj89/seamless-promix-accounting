@@ -18,6 +18,7 @@ import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 // import favicon from '../../Images/faviconn.png'
 
 function SavingsAccounts() {
@@ -174,12 +175,12 @@ const navigate = useNavigate();
  
 
   const handleCreate = () => {
-    navigate('/create_savings');
+    navigate('/coop_create_savings');
   };
 
   const handleEyeClick = (id) => {
     const foundSavings = tableData.find(item => item.id === id);
-        navigate('/edit_savings', { state: { selectedSavings: foundSavings } });
+        navigate('/coop_edit_savings', { state: { selectedSavings: foundSavings } });
         setEyeClicked(true);
       };
   
@@ -196,7 +197,7 @@ const navigate = useNavigate();
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <CoopDashboard />
             <div className='newBody'>
             <div className={classes.newWidth}>
 
@@ -264,7 +265,7 @@ const navigate = useNavigate();
                   {/* <div className="header-icon text-success mr-3"><i className=""><img src={favicon} className={classes.favshi} alt="favicon" /></i></div> */}
                   <div className="media-body">
                     {/* <h4 className="font-weight-bold">Savings Account</h4> */}
-                    <small>Create and view your Savings Accounts...</small>
+                    {/* <small>Create and view your Savings Accounts...</small> */}
                   </div>
                 </div>
               </div>

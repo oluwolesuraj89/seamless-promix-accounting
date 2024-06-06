@@ -78,13 +78,13 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage/>} />
         <Route path='/coop_dashboard' element={<Dashboard />} />
-        <Route path='/coop/manage_roles' element={<ManageRoles/>} />
-    <Route path='/coop/loan_account' element={<LoanAccounts/>} />
-        <Route path='/coop/approval_level' element={<ApprovalLevel/>} />
-        <Route path='/coop/manage_user' element={<ManageUser />} />
-        <Route path='/coop/members' element={<Members/>} />
-        <Route path='/coop/manage_savings' element={<ManageSavings/>} />
-        <Route path='/coop/savings_account' element={<SavingsAccounts/>} />
+        <Route path='/coop_manage_roles' element={<ManageRoles/>} />
+    <Route path='/coop_loan_account' element={<LoanAccounts/>} />
+        <Route path='/coop_approval_level' element={<ApprovalLevel/>} />
+        <Route path='/coop_manage_user' element={<ManageUser />} />
+        <Route path='/coop_members' element={<Members/>} />
+        <Route path='/coop_manage_savings' element={<ManageSavings/>} />
+        <Route path='/coop_savings_account' element={<SavingsAccounts/>} />
         <Route path='/general_payment_voucher' element={<GeneralPaymentVoucher/>} />
         <Route path='/payment_voucher_form' element={<PaymentVoucherForm/>} />
         <Route path='/general_ledger' element={<GeneralLedger/>} />
@@ -95,11 +95,11 @@ function App() {
         <Route path='/signup' element={<SignUp/>} />
         <Route path='/create_role' element={<CreateRole/>} />
         <Route path='/edit_role' element={<EditRole/>} />
-        <Route path='/employee' element={<EmployeeMembers/>} />
-        <Route path='/edit_employee' element={<EditEmployeeMember/>} />
+        <Route path='/coop_member' element={<EmployeeMembers/>} />
+        <Route path='/edit_coop_member' element={<EditEmployeeMember/>} />
         <Route path='/edit_member' element={<EditMember/>} />
-        <Route path='/edit_savings' element={<EditSavings/>} />
-        <Route path='/create_savings' element={<CreateSavings/>} />
+        <Route path='/coop_edit_savings' element={<EditSavings/>} />
+        <Route path='/coop_create_savings' element={<CreateSavings/>} />
         <Route path='/cashbook' element={<Cashbook/>} />
         <Route path='/manage_category' element={<ManageCategory />} />
         <Route path='/charts_of_account' element={<Charts />} />
