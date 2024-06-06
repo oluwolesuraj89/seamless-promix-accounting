@@ -35,7 +35,7 @@ function LandingPage() {
     setIsLoading(true);
     try {
       const responses = await axios.get(
-        `${BASE_URL}/get-all-plans`
+      `${BASE_URL}/get-all-plans`
       );
       const planss = responses.data?.data;
       setPlans(planss);
