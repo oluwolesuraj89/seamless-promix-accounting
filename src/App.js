@@ -77,9 +77,9 @@ function App() {
     
       <Routes>
         <Route path='/' element={<LandingPage/>} />
-        <Route path='/coop_dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/coop/manage_roles' element={<ManageRoles/>} />
-    <Route path='/coop/loan_account' element={<LoanAccounts/>} />
+        <Route path='/coop/loan_account' element={<LoanAccounts/>} />
         <Route path='/coop/approval_level' element={<ApprovalLevel/>} />
         <Route path='/coop/manage_user' element={<ManageUser />} />
         <Route path='/coop/members' element={<Members/>} />
