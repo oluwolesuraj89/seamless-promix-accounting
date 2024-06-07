@@ -19,7 +19,7 @@ import Arrow from '../../../assets/promix/dArrow-down.svg'
 
 
 
-function PaymentVoucher() {
+function CompletedPaymentVoucher() {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [bearer, setBearer] = useState('');
@@ -32,7 +32,7 @@ const navigate = useNavigate();
   const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
   const handleShow1 = () => setShow1(true);
-
+  const [selectedRows, setSelectedRows] = useState([]);
   const [eyeClicked, setEyeClicked] = useState(false);
   const [trashClicked, setTrashClicked] = useState(false);
   const [fullName, setFullName] = useState("");
@@ -69,56 +69,30 @@ useEffect(() => {
 readData();
 }, []);
 
+
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${bearer}`
   };
 
-  // const fetchPayment = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/payment_voucher/pending_payment_list`, { headers });
-  //     const results = response.data?.data;
-  //     setTableData(results);
-  //     // console.log(results);
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       // Redirect to login page if unauthorized
-  //       navigate('/login');
-  //     } else {
-  //     const errorStatus = error.response?.data?.message;
-  //     console.log(errorStatus);
-  //     setTableData([]);
-  //     }
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+  
 
-
-
-  // useEffect(() => {
-  //   if (bearer) {
-  //     fetchPayment();
-
-  //   }
-  // }, [bearer]);
 
   const fetchPayment = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/payment_voucher/pending_payment_list', { headers });
+      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/payment_voucher/approved_payment_list', { headers });
       const results = response.data?.data?.payments;
       setTableData(results);
-      // console.log(results);
+      console.log(results);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Redirect to login page if unauthorized
         navigate('/login');
       } else {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-        setTableData([]);
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setTableData([]);
       }
     } finally {
       setIsLoading(false);
@@ -130,11 +104,9 @@ readData();
   useEffect(() => {
     if (bearer) {
       fetchPayment();
-      // fetchBankss();
 
     }
   }, [bearer]);
-
 
 
 
@@ -171,7 +143,7 @@ readData();
 
   const handleTrashClick = async (id) => {
     try {
-      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
+      const response = await axios.get(`https://api-sme.promixaccounting.com/api/v1/destroy?id=${id}`, { headers });
   
       Swal.fire({
         icon: 'success',
@@ -194,7 +166,8 @@ readData();
     setLoading(true);
 
     try {
-      const response = await axios.post(`${BASE_URL}/update`,
+      const response = await axios.post(
+        'https://api-sme.promixaccounting.com/api/v1/update',
         {
           name: fullName1,
           // id: deptId, 
@@ -242,23 +215,17 @@ readData();
     setCurrentPage(Math.min(currentPage + 1, totalPages));
   };
 
-  // const totalEntries = filteredData.length;
-  // const startIndexx = (currentPage - 1) * entriesPerPage + 1;
-  // const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-  // const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
-
   const totalEntries = filteredData.length;
   const startIndexx = (currentPage - 1) * entriesPerPage + 1;
   const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
   const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
-
 
   const handleRoleChange = (e) => {
     setSelectedRole(e.target.value);
   };
 
   const handleCreate = () => {
-    navigate('/accounting/payables/payment_voucher/create_payment_voucher');
+    navigate('/create_paymentvoucher');
   };
 
   const handlePrintInvoice = (id) => {
@@ -272,8 +239,9 @@ readData();
     const selectedVoucher = tableData.find(item => item.id === id);
   
   
-    navigate('/accounting/payables/payment_voucher/view_pending_payment_voucher', { state: { selectedVoucher } });
+    navigate('/accounting/payables/payment_voucher/view_completed_pending_payment_voucher', { state: { selectedVoucher } });
   };
+  
   
 
   return (
@@ -295,7 +263,7 @@ readData();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>My Payment Voucher</h3>
+                            <h3>My Completed Payment Voucher</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -325,7 +293,7 @@ readData();
                   </div>
 
                 </nav> */}
-                <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+                {/* <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
                 <div
                   style={{
                     marginTop: 20,
@@ -340,7 +308,7 @@ readData();
                   </Button>
                 </div>
 
-              </nav>
+              </nav> */}
               {/* )} */}
               
                 <div className="col-sm-8 header-title p-0">
@@ -413,48 +381,46 @@ readData();
 
                           <div className={classes.table}>
                             {isLoading ? (
-                              <p>Fetching Users...</p>
+                              <p>Fetching vouchers...</p>
                             ) : (
                               <div className="table-responsive">
                                 <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
                                   <thead style={{ whiteSpace: 'nowrap' }}>
-                                    <tr>
-                                    <th>S/N</th>
-                                      <th>Beneficiary</th>
+                                  <tr>
+     
+                                      <th>S/N</th>
+                                      <th>Description</th>
                                       <th>PV Number</th>
                                       <th>Date</th>
-                                      {/* <th>Status</th> */}
+                                      {/* <th>Status</th>
+                                      <th>Approval Status</th> */}
                                       <th>Total Amount</th>
                                       <th>Contract Amount</th>
-                                      <th>Total Tax Amount</th>
-                                    <th>Action</th>
+                                      {/* <th>Total Tax Amount</th> */}
+                                      <th>Action</th>
                                     </tr>
                                   </thead>
                                   <tbody style={{ whiteSpace: 'nowrap' }}>
                                   {displayedData.map((item, index) => (
                                     <tr key={index}>
                                       <td>{index + 1}</td>
-                                      <td>{item.beneficiary === null ? item.description : item.beneficiary?.name}</td>
+                                        <td>{item.description}</td>
                                         <td>{item.pvnumber}</td>
                                         <td>{item.date}</td>
-                                      {/* <td><Badge bg={item.payment_status === "0" ? "warning" : "success"}>{item.payment_status === "0" ? "Pending" : "Paid"}</Badge></td> */}
-                                      {/* <td><Badge bg={item.approval_status === "0" ? "warning" : item.approval_status === "1" ? "success" : item.approval_status === "2" ? "danger" : "null"}>{item.approval_status === "0" ? "Pending" : item.approval_status === "1" ? "Approved" : item.approval_status === "2" ? "Disapproved" : "null"}</Badge></td> */}
-                                      <td style={{ textAlign: "right" }}>{parseFloat(item.total_amount).toLocaleString('en-US', {
+                                        {/* <td>{item.payment_status === "0" ? "Pending" : "Paid"}</td>
+                                        <td>{item.approval_status === "0" ? "Pending" : item.approval_status === "1" ? "Approved" : item.approval_status === "2" ? "Disapproved" : "null"}</td> */}
+                                        <td style={{textAlign: "right"}}>{parseFloat(item.total_amount).toLocaleString('en-US', {
                                           minimumIntegerDigits: 1,
                                           minimumFractionDigits: 2,
                                           maximumFractionDigits: 2
                                         })}</td>
-                                        <td style={{ textAlign: "right" }}>{parseFloat(item.contract_amount).toLocaleString('en-US', {
+                                        <td style={{textAlign: "right"}}>{parseFloat(item.contract_amount).toLocaleString('en-US', {
                                           minimumIntegerDigits: 1,
                                           minimumFractionDigits: 2,
                                           maximumFractionDigits: 2
                                         })}</td>
-                                        <td style={{ textAlign: "right" }}>{parseFloat(item.total_tax_amount).toLocaleString('en-US', {
-                                          minimumIntegerDigits: 1,
-                                          minimumFractionDigits: 2,
-                                          maximumFractionDigits: 2
-                                        })}</td>
+
                                         <td style={{textAlign: "left"}}>
                                           <div onClick={() => handleViewVoucher(item.id)} className="btn btn-success-soft btn-sm mr-1">
                                               <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
@@ -552,4 +518,4 @@ readData();
   );
 }
 
-export default PaymentVoucher;
+export default CompletedPaymentVoucher;

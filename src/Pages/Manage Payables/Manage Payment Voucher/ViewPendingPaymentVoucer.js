@@ -25,7 +25,7 @@ import Select from 'react-select';
 // import classes from './LoanRepayment.module.css'
 // import favicon from '../../Images/faviconn.png'
 
-function ViewPaymentVoucher() {
+function ViewPendingPaymentVoucher() {
     const location = useLocation();
   const { selectedVoucher } = location.state || {};
   const [isLoading, setIsLoading] = useState(false);
@@ -384,7 +384,7 @@ const calculateTotal = () => {
 };
 
     const  rows = location.state;
-    const parsedSelectedBank = JSON.parse(selectedBank);
+    // const parsedSelectedBank = JSON.parse(selectedBank);
 
 useEffect(() => {
     const { rows } = location.state;
@@ -796,4 +796,4 @@ const handlePayments = async () => {
   );
 }
 
-export default ViewPaymentVoucher;
+export default ViewPendingPaymentVoucher;
