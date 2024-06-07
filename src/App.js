@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 // import Dashboard from './Pages/Dashboard.js';
 // import PromixLanding from './Pages/promixLanding.js';
@@ -68,6 +68,13 @@ import ManageLoans from './Pages/Manage Cooperatives/Manage Loan/ManageLoans.js'
 import DisburseLoan from './Pages/Manage Cooperatives/Manage Loan/DisburseLoan.js';
 import EditDisburseLoan from './Pages/Manage Cooperatives/Manage Loan/EditDisburse.js';
 import SavingsWithdrawals from './Pages/Manage Cooperatives/Manage Savings/SavingsWithdrawals/SavingsWithdrawals.js';
+import SavingsDeduction from './Pages/Manage Cooperatives/Manage Savings/SavingsDeduction.js';
+import LoanDeduction from './Pages/Manage Cooperatives/Manage Savings/LoanDeduction.js';
+import SavingsLedger from './Pages/Manage Cooperatives/Manage Savings Account/SavingsLedger.js';
+import LoanLedger from './Pages/Manage Cooperatives/Manage Loan/LoanLedger.js';
+import ReportLedger from './Pages/Manage Cooperatives/Manage Loan/Report/Report.js';
+import Welcome from './Pages/Welcome.js';
+import Forbidden from './Pages/Forbidden.js';
 
 
 function App() {
@@ -75,91 +82,56 @@ function App() {
   useEffect(() => {
     // Scroll to the top of the page when the route changes
     window.scrollTo(0, 0);
-  }, [location]);
+  }, [location]);
   return (
     <>
-    
+
       <Routes>
-        <Route path='/' element={<LandingPage/>} />
-        <Route path='/coop_dashboard' element={<Dashboard />} />
-        <Route path='/coop_manage_roles' element={<ManageRoles/>} />
-    <Route path='/coop_loan_account' element={<LoanAccounts/>} />
-    <Route path='/coop_loan_advances' element={<ManageLoans/>} />
-    <Route path='/coop_disburse_loan' element={<DisburseLoan />} />
-    <Route path='/coop_savings_withdrawals' element={<SavingsWithdrawals />} />
-    <Route path='/coop_update_disburse_loan' element={<EditDisburseLoan />} />
-        <Route path='/coop_approval_level' element={<ApprovalLevel/>} />
-        <Route path='/coop_manage_user' element={<ManageUser />} />
-        <Route path='/coop_manage_savings' element={<ManageSavings/>} />
-        <Route path='/coop_savings_account' element={<SavingsAccounts/>} />
-        <Route path='/general_payment_voucher' element={<GeneralPaymentVoucher/>} />
-        <Route path='/payment_voucher_form' element={<PaymentVoucherForm/>} />
-        <Route path='/general_ledger' element={<GeneralLedger/>} />
-        <Route path='/general_ledger_table' element={<GeneralLedgerTable/>} />
-        <Route path='/creat_payment_voucher' element={<CreatePaymentVoucher/>} />
-        <Route path='/sales_receipt' element={<SalesReceipt/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<SignUp/>} />
-        <Route path='/create_role' element={<CreateRole/>} />
-        <Route path='/edit_role' element={<EditRole/>} />
-        <Route path='/members' element={<Members/>} />
-        <Route path='/coop_member' element={<EmployeeMembers/>} />
-        <Route path='/edit_coop_member' element={<EditEmployeeMember/>} />
-        <Route path='/edit_member' element={<EditMember/>} />
-        <Route path='/coop_edit_savings' element={<EditSavings/>} />
-        <Route path='/coop_create_savings' element={<CreateSavings/>} />
-        <Route path='/cashbook' element={<Cashbook/>} />
-        <Route path='/manage_category' element={<ManageCategory />} />
-        <Route path='/charts_of_account' element={<Charts />} />
-        <Route path='/create_approval_level' element={<CreateApproval/>} />
-        <Route path='/create_approval_level' element={<CreateApproval/>} />
-        <Route path='/Create_loan' element={<CreateLoan/>} />
-        <Route path='/edit_loan' element={<EditLoan/>} />
-        <Route path='/deductions' element={<Deduction/>} />
-        <Route path='/trial_balance' element={<TrialBalance/>} />
-        <Route path='/income_expenditure' element={<IncomeExpenditure/>} />
-        <Route path='/monthly_income' element={<MonthlyIncome/>} />
-        <Route path='/balance_sheet' element={<BalanceSheet/>} />
-        <Route path='/balance_sheet_print'element={<BalanceSheetPrint/>}/>
-        <Route path='/process_general'element={<ProcessGeneral/>}/>
-        <Route path='/loan_repayment' element={<LoanRepayment/>} />
-        <Route path='/process_cash_book'element={<ProcessCashBook/>}/>
-        <Route path='/process_ctivity_report'element={<ProcessActivityReport/>}/>
-        <Route path='/income_print'element={<IncomeProcess/>}/>
-        <Route path='/monthly_income_process'element={<MonthlyIncomeProcess/>}/>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/welcome_screen' element={<Welcome />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/cooperative' element={<Dashboard />} />
+        <Route path='/cooperative/manage_roles' element={<ManageRoles />} />
+        <Route path='/cooperative/loan_account' element={<LoanAccounts />} />
+        <Route path='/cooperative/loan_advances' element={<ManageLoans />} />
+        <Route path='/cooperative/disburse_loan' element={<DisburseLoan />} />
+        <Route path='/cooperative/savings_withdrawals' element={<SavingsWithdrawals />} />
+        <Route path='/cooperative/savings_individual_ledger' element={<SavingsLedger />} />
+        <Route path='/cooperative/loan_individual_ledger' element={<LoanLedger />} />
+        <Route path='/cooperative/report_ledger' element={<ReportLedger />} />
+        <Route path='/cooperative/savings_deduction' element={<SavingsDeduction />} />
+        <Route path='/cooperative/loan_deduction' element={<LoanDeduction />} />
+        <Route path='/cooperative/update_disburse_loan' element={<EditDisburseLoan />} />
+        <Route path='/cooperative/approval_level' element={<ApprovalLevel />} />
+        <Route path='/cooperative/manage_user' element={<ManageUser />} />
+        <Route path='/cooperative/manage_savings' element={<ManageSavings />} />
+        <Route path='/cooperative/savings_account' element={<SavingsAccounts />} />
+        <Route path='/cooperative/create_approval' element={<CreateApproval />} />
+        <Route path='/cooperative/create_role' element={<CreateRole />} />
+        <Route path='/cooperative/edit_role' element={<EditRole />} />
+        <Route path='/cooperative/members' element={<EmployeeMembers />} />
+        <Route path='/cooperative/edit_member' element={<EditEmployeeMember />} />
+        <Route path='/cooperative/edit_savings' element={<EditSavings />} />
+        <Route path='/cooperative/create_savings' element={<CreateSavings />} />
+        <Route path='/cooperative/create_loan' element={<CreateLoan />} />
+        <Route path='/cooperative/edit_loan' element={<EditLoan />} />
+        <Route path='/cooperative/create_savings_application' element={<CreateSavingsApp />} />
+        <Route path='/forbidden' element={<Forbidden />} />
 
-
-
-
-        <Route path='/sales_invoice' element={<SalesInvoice/>} />
-        <Route path='/manage_booking' element={<ManageBooking/>} />
-        <Route path='/create_booking' element={<CreateBooking />} />
-        <Route path='/edit_booking' element={<EditBooking />} />
-        <Route path='/booking_receipt' element={<BookingReceipt />} />
-        <Route path='/create_sales' element={<CreateSales />} />
-        <Route path='/edit_sales' element={<EditInvoice />} />
-        <Route path='/official_invoice' element={<Invoice />} />
-        <Route path='/loan_repayment_excel' element={<LoanRepaymentExcel/>} />
-        <Route path='/create_savings_app' element={<CreateSavingsApp/>} />
-        <Route path='/saving_excel' element={<SavingExcel/>} />
-        <Route path='/suppliers' element={<Supplier/>} />
-        <Route path='/advance_booking_payment' element={<AdvanceBooking />} />
-        <Route path='/edit_supplier' element={<EditSuppliers/>} />
-        <Route path='/payment_voucher' element={<PaymentVoucher/>} />
-        <Route path='/create_payment_voucher' element={<CreatePaymentVoucher/>} />
       </Routes>
 
       <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

@@ -178,12 +178,12 @@ const navigate = useNavigate();
  
 
   const handleCreate = () => {
-    navigate('/coop_disburse_loan');
+    navigate('/cooperative/disburse_loan');
   };
 
   const handleEyeClick = (id) => {
     const foundLoans = tableData.find(item => item.id === id);
-        navigate('/coop_update_disburse_loan', { state: { selectedLoan: foundLoans } });
+        navigate('/cooperative/update_disburse_loan', { state: { selectedLoan: foundLoans } });
         setEyeClicked(true);
       };
   

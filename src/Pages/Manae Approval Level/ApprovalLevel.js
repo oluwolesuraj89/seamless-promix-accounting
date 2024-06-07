@@ -174,7 +174,7 @@ export default function ApprovalLevel() {
   };
 
   const handleCreate = () => {
-    navigate('/create_approval_level');
+    navigate('/cooperative/create_approval');
   };
 
   const handleTrashClick = async (id) => {

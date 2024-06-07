@@ -272,7 +272,7 @@ function ManageSavings() {
   };
 
   const handleCreate = () => {
-    navigate('/create_savings_app');
+    navigate('/cooperative/create_savings_application');
   };
 
   const handleUpload = () => {
@@ -417,7 +417,7 @@ function ManageSavings() {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>My Savings </h3>
+                            <h3>Manage Member Savings </h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -427,27 +427,27 @@ function ManageSavings() {
 
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                        <h5>N232,096,635.05</h5>
+                        <p style={{paddingBottom:'5px'}}>TOTAL SAVINGS</p>
+                        <h5>N0</h5>
                         <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
+                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p> */}
                         </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
+                        <h5>N0</h5>
                         <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
+                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p> */}
                         </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
+                        <h5>N0</h5>
                         <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
+                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p> */}
                         </div>
                     </div>
                 </div>
@@ -489,7 +489,7 @@ function ManageSavings() {
                     Add New
                   </Button>
 
-                  <Button style={{marginLeft: 10, whiteSpace: "nowrap"}} variant="primary" onClick={handleShow}>
+                  {/* <Button style={{marginLeft: 10, whiteSpace: "nowrap"}} variant="primary" onClick={handleShow}>
                   Upload Savings
                   </Button>
 
@@ -497,7 +497,7 @@ function ManageSavings() {
                   <Button style={{marginLeft: 10, whiteSpace: "nowrap"}} variant="secondary">
                   Download Excel Template
                   </Button>
-                  </a>
+                  </a> */}
                 </div>
 
               </nav>
@@ -711,7 +711,7 @@ function ManageSavings() {
                                   <tr>
                                   <th>S/N</th>
                                   <th>Date</th>
-                                  <th>Staff Name</th>
+                                  <th>Member Name</th>
                                   <th>Savings Name</th>
                                   <th>Mode of Savings</th>
                                   <th>Debit Account</th>

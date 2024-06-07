@@ -5,11 +5,11 @@ import Form from 'react-bootstrap/Form';
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button, Spinner } from "react-bootstrap";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BASE_URL } from "../api/api";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import crossedEyeIcon from '../../assets/promix/eye-slash.png';
+import { BASE_URL } from "../../Pages/api/api";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -55,12 +55,7 @@ function Login() {
             AsyncStorage.setItem('companyAddress', addresses);
             AsyncStorage.setItem('companyId', companyId)
 
-
-            if (location.state && location.state.from) {
-                navigate(location.state.from);
-            } else {
-                navigate('/coop_dashboard');
-            }
+                navigate('/welcome_screen');
 
         } catch (error) {
             let errorMessage = error.response?.data?.message || 'An error occurred';

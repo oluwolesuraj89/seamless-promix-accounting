@@ -143,7 +143,7 @@ export default function ManageRoles() {
       const permissionRoles = roless.permissions.map(item => item.id);
       console.log(permissionRoles, "permission roles");
       setPerm(permissionRoles);
-      navigate('/edit_role', { state: { selectedPermission: permissionRoles, selectedRoles: roless } });
+      navigate('/cooperative/edit_role', { state: { selectedPermission: permissionRoles, selectedRoles: roless } });
       setEyeClicked(true);
 
 
@@ -171,7 +171,7 @@ export default function ManageRoles() {
   };
 
   const handleCreate = () => {
-    navigate('/create_role');
+    navigate('/cooperative/create_role');
   };
 
   const handleTrashClick = async (id) => {

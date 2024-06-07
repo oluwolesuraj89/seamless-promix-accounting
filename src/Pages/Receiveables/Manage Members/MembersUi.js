@@ -102,10 +102,10 @@ function MembersUi({
                       className={classes.actionBtns}
                     >
                       <Button variant="success" onClick={handleShow} >
-                        Add New Customer
+                        Add New Member
                       </Button>
                       <Button variant="secondary"  onClick={handleShow56}>
-                        Upload Customer
+                        Upload Member
                       </Button>
                     </div>
 
@@ -126,7 +126,7 @@ function MembersUi({
                   <div className="row">
                   <Modal show={show56} onHide={handleClose56} animation={false}>
                       <Modal.Header closeButton>
-                        <Modal.Title>Upload Employee</Modal.Title>
+                        <Modal.Title>Upload Member</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
   <Form style={{ marginTop: 20 }}>
@@ -166,7 +166,7 @@ function MembersUi({
                     
                     <Modal show={show} onHide={handleClose} animation={false}>
                       <Modal.Header closeButton>
-                        <Modal.Title>Add Customer</Modal.Title>
+                        <Modal.Title>Add Member</Modal.Title>
                       </Modal.Header>
                       <Modal.Body>
                         <Form style={{ marginTop: 20 }}>
@@ -232,10 +232,10 @@ function MembersUi({
                     {loading ? (
                       <>
                       <Spinner  size='sm' /> 
-                      <span style={{ marginLeft: '5px' }}>Creating Customer, Please wait...</span>
+                      <span style={{ marginLeft: '5px' }}>Creating Member, Please wait...</span>
     </>
   ) : (
-                "Create Customer"
+                "Create Member"
                       )}
                     </Button>
                       </Modal.Footer>
@@ -296,7 +296,7 @@ function MembersUi({
                             
                                 <div className={classes.mainTable}>
                                 {benLoading ? (
-                              <p>Fetching customers...</p>
+                              <p>Fetching members...</p>
                             ) : (
                                     <div className="table-responsive">
                                         <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
@@ -304,7 +304,7 @@ function MembersUi({
                                         <thead style={{ whiteSpace: 'nowrap' }}>
                                             <tr>
                                             <th>ID</th>
-                                            <th>Employee Number</th>
+                                            <th>Member Number</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone Number</th>

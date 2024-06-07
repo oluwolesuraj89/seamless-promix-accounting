@@ -178,12 +178,12 @@ const navigate = useNavigate();
  
 
   const handleCreate = () => {
-    navigate('/Create_loan');
+    navigate('/cooperative/create_loan');
   };
 
   const handleEyeClick = (id) => {
     const foundLoans = tableData.find(item => item.id === id);
-        navigate('/edit_loan', { state: { selectedLoan: foundLoans } });
+        navigate('/cooperative/edit_loan', { state: { selectedLoan: foundLoans } });
         setEyeClicked(true);
       };
   
@@ -218,26 +218,26 @@ const navigate = useNavigate();
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LOANS</p>
-                        <h5>N232,096,635.05</h5>
+                        <h5>N0</h5>
                         <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
+                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p> */}
                         </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
+                        <h5>N0</h5>
                         <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
+                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p> */}
                         </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
+                        <h5>N0</h5>
                         <div className={classes.perceCont}>
-                            <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p>
+                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                            <p>vs average</p> */}
                         </div>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ const navigate = useNavigate();
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
               {/* <!--Content Header (Page header)--> */}
               <div className="content-header row align-items-center m-0">
-              {(isAdmin || permittedHeaders.includes('create-savings-account')) && (
+              
                 <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
                   <div
                     style={{
@@ -264,7 +264,7 @@ const navigate = useNavigate();
                   </div>
 
                 </nav>
-              )}
+              
               
                 <div className="col-sm-8 header-title p-0">
                   <div className="media">

@@ -22,6 +22,10 @@ import Card from 'react-bootstrap/Card';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { Button } from 'bootstrap';
+import { BASE_URL } from '../api/api';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import LogoutIcon from '../../assets/welcome/log.png'
 
 
 
@@ -125,6 +129,42 @@ export default function CoopDashboard() {
     }, []);
 
 
+    const handleLogout = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.post(
+            `${BASE_URL}/logout`,
+            {},
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearer}`
+              }
+            }
+          );
+      
+          navigate('/login');
+      
+          toast.success(response.data.message);
+      
+          // console.log(response.data);
+        } catch (error) {
+            let errorMessage = 'An error occurred. Please try again.';
+            if (error.response && error.response.data && error.response.data.message) {
+                if (typeof error.response.data.message === 'string') {
+                    errorMessage = error.response.data.message;
+                } else if (Array.isArray(error.response.data.message)) {
+                    errorMessage = error.response.data.message.join('; ');
+                } else if (typeof error.response.data.message === 'object') {
+                    errorMessage = JSON.stringify(error.response.data.message);
+                }
+                toast.error(errorMessage)
+                console.log(errorMessage);
+            }
+        } finally {
+          setLoading(false);
+        }
+      };
 
     return (
         <div className={classes.sideNavBody}>
@@ -141,13 +181,13 @@ export default function CoopDashboard() {
 
                     <div className={`${classes.regMenu} ${isMenuOpen ? '' : classes.menuOpen}`}>
                         <Link
-                            to={'/coop_dashboard'}
+                            to={'/cooperative'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p>
                                 <span><img src={dashIcon} alt='icon' className={classes.webshow} />
                                 <img src={dashIcon} alt='icon' className={classes.mobileshow} />
-                                Home </span>
+                                Dashboard </span>
                             </p>
                         </Link>
                         <Accordion>
@@ -165,9 +205,9 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <NavLink to={'/coop_manage_roles'} >Manage Roles</NavLink><br/>
-                                        <NavLink to={'/coop_approval_level'}>Approval Levels</NavLink><br/>
-                                        <NavLink to={'/coop_manage_user'}>Manage User</NavLink><br/>
+                                        <NavLink to={'/cooperative/manage_roles'} >Manage Roles</NavLink><br/>
+                                        <NavLink to={'/cooperative/approval_level'}>Approval Levels</NavLink><br/>
+                                        <NavLink to={'/cooperative/manage_user'}>Manage User</NavLink><br/>
                                         {/* <NavLink to={'/manage_category'}>Manage Category </NavLink><br/> */}
                                         {/* <NavLink to={'/charts_of_account'}>Charts of Account</NavLink><br/> */}
                                         {/* <Link to={'#'}>Loan & Advances</Link> */}
@@ -176,7 +216,7 @@ export default function CoopDashboard() {
                                 </Accordion.Collapse>
                             </Card>
                             <Link
-                            to={'/coop_member'}
+                            to={'/cooperative/members'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p style={{marginTop: 10, }}>
@@ -198,8 +238,10 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'/coop_savings_account'}>Manage Savings Product</Link><br/>
-                                        <Link to={'/coop_manage_savings'}>Manage Member Savings</Link><br/>
+                                    <Link to={'/cooperative/savings_account'}>Manage Savings Product</Link><br/>
+                                        <Link to={'/cooperative/manage_savings'}>Manage Member Savings</Link><br/>
+                                        <Link to={'/cooperative/savings_deduction'}>Manage Savings Deduction</Link><br/>
+                                        <Link to={'/cooperative/savings_individual_ledger'}>Savings Ledger</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -216,8 +258,10 @@ export default function CoopDashboard() {
                                 <Accordion.Collapse eventKey="1" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                         {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
-                                        <Link to={'/coop_loan_account'}>Manage Loan Products</Link><br/>
-                                        <Link to={'/coop_loan_advances'}>Manage Member Loans</Link><br/>
+                                        <Link to={'/cooperative/loan_account'}>Manage Loan Products</Link><br/>
+                                        <Link to={'/cooperative/loan_advances'}>Manage Member Loans</Link><br/>
+                                        <Link to={'/cooperative/loan_deduction'}>Manage Loan Deductions</Link><br/>
+                                        <Link to={'/cooperative/loan_individual_ledger'}>Loan Ledger</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -240,7 +284,7 @@ export default function CoopDashboard() {
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
-                            <Card className={classes.accordionCard}>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu3}>
                                     <ContextAwareToggle eventKey="3">
                                         <p> 
@@ -255,23 +299,23 @@ export default function CoopDashboard() {
                                         <Link to={'#'}>Loan Deductions</Link><br/>
                                     </Card.Body>
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                           
                             <Card className={classes.accordionCard}>
-                                <Card.Header className={classes.cardHeader} onClick={toggleMenu5}>
+                                {/* <Card.Header className={classes.cardHeader} onClick={toggleMenu5}>
                                     <ContextAwareToggle eventKey="5">
                                         <p> 
                                             <span><img src={dIcon6} alt='icon' /> Profile</span>
                                             {isMenuOpen5? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
                                         </p>
                                     </ContextAwareToggle>
-                                </Card.Header>
+                                </Card.Header> */}
                                 <Accordion.Collapse eventKey="5" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                     {/* <Link to={'#'}>My Profile</Link><br/> */}
                                     {/* <Link to={'#'}>Edit Profile</Link><br/> */}
                                     {/* <Link to={'#'}>Manage User</Link><br/> */}
-                                    <Link to={'#'}>Change Password</Link><br/>
+                                    {/* <Link to={'#'}>Change Password</Link><br/> */}
                                     {/* <Link to={'#'}>Sign Out</Link> */}
                                     </Card.Body>
                                 </Accordion.Collapse>
@@ -346,9 +390,9 @@ export default function CoopDashboard() {
                         <img src={Logo} alt='Logo' className={classes.imgs}/>
                     </div> */}
                     <Link>
-                        <button className={classes.logout}>
-                            <img src={Out} alt='Logo' style={{width:'20px', height:'20px'}}/>
-                            Logout
+                        <button onClick={() => handleLogout()} className={classes.logout}>
+                            <img src={LogoutIcon} alt='Logo' style={{width:'40px', height:'40px'}}/>
+                            {loading ? "Logging out...." : "Log out"}
                         </button>
                     </Link>
                 </div>

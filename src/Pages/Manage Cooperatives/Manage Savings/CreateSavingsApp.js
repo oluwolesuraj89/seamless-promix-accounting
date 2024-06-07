@@ -252,12 +252,7 @@ function CreateSavingsApp() {
         
         navigate(-1);
     
-        // return
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: response.data.message,
-        });
+        toast.success(response.data.message);
         console.log(response.data);
     
       } catch (error) {

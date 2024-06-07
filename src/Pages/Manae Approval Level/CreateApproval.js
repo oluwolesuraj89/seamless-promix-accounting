@@ -157,7 +157,7 @@ export default function CreateApproval() {
     
           
             
-            navigate('/approval_level');
+            navigate(-1);
     
            toast.success(response.data.message)
     

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BASE_URL } from './api';
 import LandingPage from '../../Pages/LandingPage';
+import { BASE_URL } from '../../Pages/api/api';
 
 function Pricing() {
     const [plans, setPlans] = useState([]);
