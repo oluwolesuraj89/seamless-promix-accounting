@@ -284,6 +284,22 @@ export default function CoopDashboard() {
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
+                            <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
+                                    <ContextAwareToggle eventKey="8">
+                                        <p> 
+                                            <span><img src={dIcon4} alt='icon' /> Utility</span>
+                                            {isMenuOpen2 ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="8" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                        <Link to={'/welcome_screen'}>Switch Account</Link><br/>
+                                        
+                                    </Card.Body>
+                                </Accordion.Collapse>
+                            </Card>
                             {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu3}>
                                     <ContextAwareToggle eventKey="3">
