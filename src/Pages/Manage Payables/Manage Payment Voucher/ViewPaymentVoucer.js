@@ -392,12 +392,12 @@ useEffect(() => {
     if (rows) {
      
       const total = rows.reduce((acc, item) => acc + parseFloat(item.total_amount), 0);
-      setTotalNetPay(total);
+    //   setTotalNetPay(total);
 
-      const totalInWords = convertToWords(total);
-      setTotalNetPayInWords(totalInWords);
+    //   const totalInWords = convertToWords(total);
+    //   setTotalNetPayInWords(totalInWords);
 
-      setPaymentInstruction(rows);
+    //   setPaymentInstruction(rows);
 
     } else {
       console.error('No selected item data found in location state.');

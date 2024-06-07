@@ -424,7 +424,7 @@ readData();
                                       <th>Beneficiary</th>
                                       <th>PV Number</th>
                                       <th>Date</th>
-                                      <th>Status</th>
+                                      {/* <th>Status</th> */}
                                       <th>Total Amount</th>
                                       <th>Contract Amount</th>
                                       <th>Total Tax Amount</th>
@@ -438,7 +438,7 @@ readData();
                                       <td>{item.beneficiary === null ? item.description : item.beneficiary?.name}</td>
                                         <td>{item.pvnumber}</td>
                                         <td>{item.date}</td>
-                                      <td><Badge bg={item.payment_status === "0" ? "warning" : "success"}>{item.payment_status === "0" ? "Pending" : "Paid"}</Badge></td>
+                                      {/* <td><Badge bg={item.payment_status === "0" ? "warning" : "success"}>{item.payment_status === "0" ? "Pending" : "Paid"}</Badge></td> */}
                                       {/* <td><Badge bg={item.approval_status === "0" ? "warning" : item.approval_status === "1" ? "success" : item.approval_status === "2" ? "danger" : "null"}>{item.approval_status === "0" ? "Pending" : item.approval_status === "1" ? "Approved" : item.approval_status === "2" ? "Disapproved" : "null"}</Badge></td> */}
                                       <td style={{ textAlign: "right" }}>{parseFloat(item.total_amount).toLocaleString('en-US', {
                                           minimumIntegerDigits: 1,
