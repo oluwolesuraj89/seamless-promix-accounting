@@ -123,88 +123,203 @@ export default function ReportLedger() {
     return num < 10 ? `0${num}` : num;
   }
 
+
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
-    <div style={{ marginTop: '1rem', }}>
-      {/* <AdminHeaderNav /> */}
-      <div className='newBody'>
-        <div className='newWidth'>
-          <div className="wrapper">
-            <div className={classes.a4}>
-              <div className={classes.header}>
-                <p style={{ width: "100%", fontSize: 25, fontWeight: 900, color: "#000" }}>{company}</p>
-                {/* <h4>Account Activity Period, 01 - 01 (September - September) 2017/2018</h4> */}
-                <h6 style={{ fontSize: 20, fontWeight: 500 }}>INDIVIDUAL {type} LEDGER REPORT</h6>
-                <h6 style={{ fontSize: 20, fontWeight: 500 }}>{saving?.label.toUpperCase()}</h6>
-              </div>
-              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", marginBottom: 20, }}>
-                <p style={{ marginTop: 30, color: "#000", fontSize: 16 }}>COOP. MEMBER NAME: </p>
-                <p style={{ marginTop: 30, color: "#000", fontSize: 16, fontWeight: 700, marginLeft: 10 }}> {customer?.label.toUpperCase()} </p>
-                <div style={{ display: "flex", justifyContent: "flex-end", flex: 1 }}>
-                  <p style={{ marginTop: 30, color: "#000", fontSize: 16, marginRight: 10 }}>{currentDateTime} </p>
-                </div>
-              </div>
-              <table className={classes.table}>
-                <thead>
-                  <tr style={{ borderTop: "2px solid black" }}>
-                    <th style={{ width: '200px' }}>Transaction Date</th>
-                    <th style={{ width: '200px' }}>Description</th>
-                    {/* <th style={{ width: '200px' }}>Particulars</th>
-    <th style={{ width: '500px' }}>Details</th> */}
-
-                    <th style={{ textAlign: "right", width: '200px' }}>Debit</th>
-                    <th style={{ textAlign: "right", width: '200px' }}>Credit</th>
-                    <th style={{ textAlign: "right", width: '200px' }}>Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {document && document.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.transaction_date}</td>
-                      <td>{item.description}</td>
-                      {/* <td>{item.account?.gl_name}</td>
-        <td>{item.details}</td> */}
-                      {/* <td></td> */}
-                      {/* <td></td> */}
-                      {/* <td></td> */}
-                      <td style={{ textAlign: "right", }}>{parseFloat(item.debit).toLocaleString('en-US', {
-                        minimumIntegerDigits: 1,
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })}</td>
-                      <td style={{ textAlign: "right" }}>{parseFloat(item.credit).toLocaleString('en-US', {
-                        minimumIntegerDigits: 1,
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })}</td>
-                      <td style={{ textAlign: "right" }}>{parseFloat(item.balance).toLocaleString('en-US', {
-                        minimumIntegerDigits: 1,
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                      })}</td>
-
-
-                    </tr>
-                  ))}
-                  <tr>
-                    <td colSpan="12" style={{ borderBottom: "1px solid #c4c4c4" }}></td>
-                  </tr>
-                  <tr>
-                    <td colSpan="2">Total</td>
-                    <td style={{ textAlign: "right", fontWeight: "bold" }}>{totalDebit}</td>
-                    <td style={{ textAlign: "right", fontWeight: "bold" }}>{totalCredit}</td>
-                    <td style={{ textAlign: "right", fontWeight: "bold" }}>{totalBalance}</td>
-
-                  </tr>
-                  <tr>
-                    <td colSpan="12" style={{ borderBottom: "2px solid #000" }}></td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
-          </div>
+    <div>
+    <div className={classes.container}>
+    <div className={classes.title}>
+        {/* <img src={arleft} className={classes.arrow} /> */}
+        <div className={classes.heading}>
+            <h1>UNIVERSITY OF IBADAN</h1>
+            <h2>BOARD OF TRUSTEES SSANU COOPERATIVE</h2>
+            <h4>Address: Alabata Road, Abeokuta, Ogun State.</h4>
+            <p>Email: funis2004@yahoo.co.uk | Tel: 08055108853, 08162955615</p>
         </div>
-      </div>
+    </div>
+    <hr />
+    <div className={classes.smallheader}>INDIVIDUAL MEMBERS PERSONAL LEDGER</div>
+    <div className={classes.nameheader}>
+        <div className={classes.namespace}>
+            <div className={classes.questionname}>
+                <p>STUDENT:</p>
+                <p>ADMISSION NO:</p>
+                <p>SEX:</p>
+                <p>CLASS:</p>
+            </div>
+            <div className={classes.details}>
+                <h2>ABDULSALAM, NIFEMI</h2>
+                <h3>US/22/1654</h3>
+                <h3>F</h3>
+                <h3>JS2 GOLD</h3>
+            </div>
+        </div>
+        <div className={classes.passport}>
+            {/* <img src={arleft} className={classes.arrow} /> */}
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>S/N</th>
+            <th>TRANSACTION DATE</th>
+            <th className={classes.longth}>DESCRIPTION</th>
+            <th>DEBITS</th>
+            <th>CREDITS</th>
+            <th>BALANCE</th>
+        </tr>            
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>24-03-2024</td>
+            <td className={classes.left111}>Excellence and Integrity Deduction</td>
+            <td className={classes.right111}>#10,000,000</td>
+            <td className={classes.right111}>#1,000,000</td>
+            <td className={classes.right111}>#9,000,000</td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <h3 className={classes.footer}>Excellence and Integrity</h3>
+    <button onClick={handlePrint} className={classes.printbutton}>Print Report</button>
+    </div>
     </div>
   )
 }
