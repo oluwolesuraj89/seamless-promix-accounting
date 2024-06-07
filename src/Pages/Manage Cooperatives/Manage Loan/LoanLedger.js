@@ -153,8 +153,9 @@ function LoanLedger() {
   const handleSupplierChange = (selectedOption) => {
     setSelectedCustomer(selectedOption.value);
     setSelectedCustomerName(selectedOption);
-    setSelectedSavingsType("");
+    setSelectedSavingsType(null);
     fetchCustomerSavings(selectedOption.value); 
+    setPaidBooking([]);
   };
 
 
@@ -261,7 +262,7 @@ const handleSavingsChange = (selectedOption) => {
                                     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                                     menu: (provided) => ({
                                     ...provided,
-                                    maxHeight: '200px',
+                                    maxHeight: '300px',
                                     overflowY: 'auto',
                                     }),
                                 }}
@@ -315,7 +316,9 @@ styles={{
 
 
 <div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-    <Button style={{ borderRadius: 0 }} variant='success' onClick={fetchPaidBookings}>
+    <Button
+     disabled={!selectedSavingsType}
+    style={{ borderRadius: 0 }} variant='success' onClick={fetchPaidBookings}>
     {ledgerLoading ? (
                                                                         <>
                                                                             <Spinner size='sm' />
