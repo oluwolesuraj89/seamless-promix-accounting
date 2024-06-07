@@ -72,7 +72,7 @@ function MembersUi({
           <div className="main-content">
 
             
-            <MainDashboard />
+            <CoopDashboard />
             <div className='newBody'>
               <div className={classes.newWidth}>
 

@@ -375,9 +375,9 @@ function SavingsDeduction() {
         }
       );
   
+      toast.success(response.data.message);
       handleClose();
       fetchSaving();
-      toast.success(response.data.message);
   
       console.log(response.data.message);
     } catch (error) {

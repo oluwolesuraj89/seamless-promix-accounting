@@ -710,24 +710,28 @@ function ManageSavings() {
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
                                   <th>S/N</th>
-                                  <th>Date</th>
+                                  <th>Coop Number</th>
                                   <th>Member Name</th>
                                   <th>Savings Name</th>
-                                  <th>Mode of Savings</th>
-                                  <th>Debit Account</th>
-                                  <th>Amount</th>
+                                  {/* <th>Mode of Savings</th>
+                                  <th>Debit Account</th> */}
+                                  <th>MDED</th>
+                                  <th>Balance</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                 {displayedData.map((item, index) => (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td>{item.transaction_date}</td>
+                                    <td>{item.member_id}</td>
                                     <td >{item.membername?.name}</td>
                                     <td>{item.saving_type?.description}</td>
-                                    <td>{item.mode_of_savings?.name}</td>
-                                    <td style={{textAlign: "left"}}>{item.debit_account?.gl_name}</td>
                                     <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.balance).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
                                       maximumFractionDigits: 2

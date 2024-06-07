@@ -54,7 +54,7 @@ function Supplier() {
   const [phone, setPhone] = useState("");
   const [roles, setRoles] = useState([]);
   const [address, setAddress] = useState([]);
-
+  const [selectedUser, setSelectedUser] = useState(null);
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -172,10 +172,24 @@ readData();
 
   //view records
   const handleEyeClick = (id) => {
-    const foundCustomer = tableData.find(item => item.id === id);
-    navigate('/edit_supplier', { state: { selectedCustomer: foundCustomer } });
-    setEyeClicked(true);
-  };
+    const foundUser = tableData.find(item => item.id === id);
+
+    if (foundUser) {
+        const { name, email, phone_number,  } = foundUser;
+        setSelectedUser(id);
+        setFullName1(name || '');
+        setEmail1(email || '');
+        setPhone1(phone_number || '');
+        setAddress(address || '');
+
+        
+       
+        setShow1(true);
+        setEyeClicked(true);
+    } else {
+        console.error(`User with id ${id} not found`);
+    }
+};
 
 
   //delete function
