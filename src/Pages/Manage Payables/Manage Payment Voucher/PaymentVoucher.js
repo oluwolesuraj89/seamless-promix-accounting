@@ -463,7 +463,7 @@ readData();
                                               <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
                                           </div>
                                           <div className="btn btn-sm printbtninv" onClick={() => handlePrintInvoice(item.id)}>
-                                            <i className="fa fa-print dawg"></i>
+                                            <i className="fa fa-print dawg" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
                                             </div>
                                         </td>
                                     </tr>
