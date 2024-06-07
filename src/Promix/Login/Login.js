@@ -26,6 +26,7 @@ function Login() {
 
     const handleLogin = async () => {
         setLoading(true);
+        console.log("done");
         try {
             const response = await axios.post(`${BASE_URL}/login`,
                 {
@@ -112,7 +113,7 @@ function Login() {
                                 {showPassword ? (
                                     <img src={crossedEyeIcon} alt="Hide Password" style={{ height: "20px", width: "20px" }} />
                                 ) : (
-                                    '👁️'
+                                    '👁'
                                 )}
                             </button>
                         </Form.Group>

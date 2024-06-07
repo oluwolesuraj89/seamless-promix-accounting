@@ -20,6 +20,13 @@
     padding: 0 2rem 0 21rem;
 }
 
+.table div table tbody td{
+    padding: 5px 0 0 5px !important;
+    /* display: flex; */
+    /* justify-content: flex-start; */
+    /* align-items: center; */
+}
+
 .analysis{
     padding: 18px 100px 14px 32px;
     background-color: var(--Deep-green);
@@ -8474,6 +8481,17 @@ pre .arg {
     padding: 0.5rem;
     border: none;
     width: 40px;
+}
+
+
+.header2{
+    margin-top: 30px;
+}
+.header2 .formCont{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:2em;
+    /* background-color: rebeccapurple; */
 }
 
 @media(max-width:800px){ 

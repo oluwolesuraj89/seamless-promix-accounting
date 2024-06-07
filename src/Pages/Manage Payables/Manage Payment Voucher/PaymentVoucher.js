@@ -74,11 +74,41 @@ readData();
     'Authorization': `Bearer ${bearer}`
   };
 
+  // const fetchPayment = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/payment_voucher/pending_payment_list`, { headers });
+  //     const results = response.data?.data;
+  //     setTableData(results);
+  //     // console.log(results);
+  //   } catch (error) {
+  //     if (error.response && error.response.status === 401) {
+  //       // Redirect to login page if unauthorized
+  //       navigate('/login');
+  //     } else {
+  //     const errorStatus = error.response?.data?.message;
+  //     console.log(errorStatus);
+  //     setTableData([]);
+  //     }
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
+
+
+  // useEffect(() => {
+  //   if (bearer) {
+  //     fetchPayment();
+
+  //   }
+  // }, [bearer]);
+
   const fetchPayment = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/payment_voucher/fetch-all', { headers });
-      const results = response.data?.data;
+      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/payment_voucher/pending_payment_list', { headers });
+      const results = response.data?.data?.payments;
       setTableData(results);
       // console.log(results);
     } catch (error) {
@@ -86,9 +116,9 @@ readData();
         // Redirect to login page if unauthorized
         navigate('/login');
       } else {
-      const errorStatus = error.response?.data?.message;
-      console.log(errorStatus);
-      setTableData([]);
+        const errorStatus = error.response?.data?.message;
+        console.log(errorStatus);
+        setTableData([]);
       }
     } finally {
       setIsLoading(false);
@@ -100,9 +130,11 @@ readData();
   useEffect(() => {
     if (bearer) {
       fetchPayment();
+      // fetchBankss();
 
     }
   }, [bearer]);
+
 
 
 
@@ -139,7 +171,7 @@ readData();
 
   const handleTrashClick = async (id) => {
     try {
-      const response = await axios.get(`https://api-sme.promixaccounting.com/api/v1/destroy?id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
   
       Swal.fire({
         icon: 'success',
@@ -162,8 +194,7 @@ readData();
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        'https://api-sme.promixaccounting.com/api/v1/update',
+      const response = await axios.post(`${BASE_URL}/update`,
         {
           name: fullName1,
           // id: deptId, 
@@ -211,31 +242,37 @@ readData();
     setCurrentPage(Math.min(currentPage + 1, totalPages));
   };
 
+  // const totalEntries = filteredData.length;
+  // const startIndexx = (currentPage - 1) * entriesPerPage + 1;
+  // const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
+  // const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
+
   const totalEntries = filteredData.length;
   const startIndexx = (currentPage - 1) * entriesPerPage + 1;
   const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
   const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
+
 
   const handleRoleChange = (e) => {
     setSelectedRole(e.target.value);
   };
 
   const handleCreate = () => {
-    navigate('/create_payment_voucher');
+    navigate('/accounting/payables/payment_voucher/create_payment_voucher');
   };
 
   const handlePrintInvoice = (id) => {
     const selectedVoucher = tableData.find(item => item.id === id);
   
   
-    navigate('/print_voucher', { state: { selectedVoucher } });
+    navigate('/print_payment', { state: { selectedVoucher } });
   };
 
   const handleViewVoucher = (id) => {
     const selectedVoucher = tableData.find(item => item.id === id);
   
   
-    navigate('/view_payment', { state: { selectedVoucher } });
+    navigate('/accounting/payables/payment_voucher/view_payment_voucher', { state: { selectedVoucher } });
   };
   
 
@@ -374,63 +411,68 @@ readData();
                             </div>
                           </div>
 
+                          <div className={classes.table}>
+                            {isLoading ? (
+                              <p>Fetching Users...</p>
+                            ) : (
+                              <div className="table-responsive">
+                                <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
-                          {isLoading ? (
-                            <p>Fetching Users...</p>
-                          ) : (
-                            <div className="table-responsive">
-                              <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
-
-                                <thead style={{ whiteSpace: 'nowrap' }}>
-                                  <tr>
-                                  <th>S/N</th>
-                                  <th>Description</th>
-                                  <th>PV Number</th>
-                                  <th>Date</th>
-                                  <th>Payment Status</th>
-                                  <th>Approval Status</th>
-                                  <th>Total Amount</th>
-                                  <th>Contract Amount</th>
-                                  {/* <th>Total Tax Amount</th> */}
-                                  <th>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody style={{ whiteSpace: 'nowrap' }}>
-                                {displayedData.map((item, index) => (
-                                  <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td style={{ whiteSpace: 'nowrap' }}>{item.description}</td>
-                                    <td>{item.pvnumber}</td>
-                                    <td style={{ whiteSpace: 'nowrap' }}>{item.date}</td>
-                                    <td><Badge bg={item.payment_status === "0" ? "warning" : "success"}>{item.payment_status === "0" ? "Pending" : "Paid"}</Badge></td>
-                                    <td><Badge bg={item.approval_status === "0" ? "warning" : item.approval_status === "1" ? "success" : item.approval_status === "2" ? "danger" : "null"}>{item.approval_status === "0" ? "Pending" : item.approval_status === "1" ? "Approved" : item.approval_status === "2" ? "Disapproved" : "null"}</Badge></td>
-                                    <td style={{textAlign: "right", whiteSpace: 'nowrap'}}>{parseFloat(item.total_amount).toLocaleString('en-US', {
-                                      minimumIntegerDigits: 1,
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2
-                                    })}</td>
-                                    <td style={{textAlign: "right", whiteSpace: 'nowrap'}}>{parseFloat(item.contract_amount).toLocaleString('en-US', {
-                                      minimumIntegerDigits: 1,
-                                      minimumFractionDigits: 2,
-                                      maximumFractionDigits: 2
-                                    })}</td>
-                                      <td style={{textAlign: "left"}}>
-                                        <div onClick={() => handleViewVoucher(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                            <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
-                                        </div>
-                                        <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                            <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
-                                        </div>
-                                        <div className="btn btn-sm printbtninv" onClick={() => handlePrintInvoice(item.id)}>
-                                           <i className="fa fa-print dawg"></i>
+                                  <thead style={{ whiteSpace: 'nowrap' }}>
+                                    <tr>
+                                    <th>S/N</th>
+                                      <th>Beneficiary</th>
+                                      <th>PV Number</th>
+                                      <th>Date</th>
+                                      {/* <th>Status</th> */}
+                                      <th>Total Amount</th>
+                                      <th>Contract Amount</th>
+                                      <th>Total Tax Amount</th>
+                                    <th>Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody style={{ whiteSpace: 'nowrap' }}>
+                                  {displayedData.map((item, index) => (
+                                    <tr key={index}>
+                                      <td>{index + 1}</td>
+                                      <td>{item.beneficiary === null ? item.description : item.beneficiary?.name}</td>
+                                        <td>{item.pvnumber}</td>
+                                        <td>{item.date}</td>
+                                      {/* <td><Badge bg={item.payment_status === "0" ? "warning" : "success"}>{item.payment_status === "0" ? "Pending" : "Paid"}</Badge></td> */}
+                                      {/* <td><Badge bg={item.approval_status === "0" ? "warning" : item.approval_status === "1" ? "success" : item.approval_status === "2" ? "danger" : "null"}>{item.approval_status === "0" ? "Pending" : item.approval_status === "1" ? "Approved" : item.approval_status === "2" ? "Disapproved" : "null"}</Badge></td> */}
+                                      <td style={{ textAlign: "right" }}>{parseFloat(item.total_amount).toLocaleString('en-US', {
+                                          minimumIntegerDigits: 1,
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2
+                                        })}</td>
+                                        <td style={{ textAlign: "right" }}>{parseFloat(item.contract_amount).toLocaleString('en-US', {
+                                          minimumIntegerDigits: 1,
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2
+                                        })}</td>
+                                        <td style={{ textAlign: "right" }}>{parseFloat(item.total_tax_amount).toLocaleString('en-US', {
+                                          minimumIntegerDigits: 1,
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2
+                                        })}</td>
+                                        <td style={{textAlign: "left"}}>
+                                          <div onClick={() => handleViewVoucher(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                              <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
                                           </div>
-                                      </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                              </table>
-                            </div>
-                          )}
+                                          <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                              <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
+                                          </div>
+                                          <div className="btn btn-sm printbtninv" onClick={() => handlePrintInvoice(item.id)}>
+                                            <i className="fa fa-print dawg" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                                </table>
+                              </div>
+                            )}
+                          </div>
                           <div className={classes.endded}>
                             <p>
                               Showing {startIndexx} to {endIndexx} of {totalEntries} entries

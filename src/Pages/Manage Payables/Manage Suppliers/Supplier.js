@@ -183,22 +183,29 @@ readData();
     try {
       const response = await axios.get(`${BASE_URL}/admin/users/destroy?id=${id}`, { headers });
       fetchBeneficiaries();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
+      // Swal.fire({
+      //   icon: 'success',
+      //   title: 'Success',
+      //   text: response.data.message,
+      // });
+      toast.success(response.data.message);
+
       setTrashClicked(true);
     } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(errorStatus);
-    }
-  };
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
+        }};
+  // };
 
   //update function
   const editUser = async () => {
@@ -218,23 +225,21 @@ readData();
 
       fetchBeneficiaries();
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
-
+      toast.success(response.data.message);
       // console.log(response.data);
     } catch (error) {
-      const errorStatus = error.response?.data?.message || 'An error occurred';
-
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-
-      console.error(error);
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
     } finally {
       setLoading(false);
     }

@@ -27,8 +27,10 @@
 
 }
 .mainTable table td{
-  /* padding: 15px 0 0 5px; */
+  padding:  0 ;
 align-items: center;
+/* display: none !important; */
+/* background-color: red !important; */
 
   /* display: none; */
 }

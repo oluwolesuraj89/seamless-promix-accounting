@@ -75,6 +75,9 @@ import LoanLedger from './Pages/Manage Cooperatives/Manage Loan/LoanLedger.js';
 import ReportLedger from './Pages/Manage Cooperatives/Manage Loan/Report/Report.js';
 import Welcome from './Pages/Welcome.js';
 import Forbidden from './Pages/Forbidden.js';
+import ViewPaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/ViewPaymentVoucer.js';
+import PrintVoucher from './Pages/Manage Payables/Manage Payment Voucher/PrintVoucher.js';
+import AccountingDashboard from './Pages/Dashboard/AccountingDashboard.js';
 
 
 function App() {
@@ -118,6 +121,15 @@ function App() {
         <Route path='/cooperative/edit_loan' element={<EditLoan />} />
         <Route path='/cooperative/create_savings_application' element={<CreateSavingsApp />} />
         <Route path='/forbidden' element={<Forbidden />} />
+
+        <Route path='/accounting' element={<AccountingDashboard />} />
+        <Route path='/accounting/chart_of_accounting/manage_category' element={<ManageCategory />} />
+        <Route path='/accounting/charts_of_account/account' element={<Charts />} />
+        <Route path='accounting/payables/suppliers' element={<Supplier/>} />
+        <Route path='/accounting/payables/payment_voucher' element={<PaymentVoucher/>} />
+        <Route path='/accounting/payables/payment_voucher/create_payment_voucher' element={<CreatePaymentVoucher/>} />
+        <Route path='/accounting/payables/payment_voucher/view_payment_voucher' element={<ViewPaymentVoucher/>} />
+        <Route path='/print_payment' element={<PrintVoucher/>} />
 
       </Routes>
 

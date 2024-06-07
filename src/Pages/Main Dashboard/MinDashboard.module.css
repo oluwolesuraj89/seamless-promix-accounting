@@ -96,7 +96,8 @@ p{
 .regMenu{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    /* gap: 10px; */
+    margin-top: 40px;
 }
 .regMenu a{
     text-decoration: none;
@@ -187,8 +188,8 @@ p{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin-top: 2rem;
+    /* gap: 10px; */
+    margin-top: 5rem;
     width: 100%;
 }
 .dFooter a {
@@ -207,7 +208,7 @@ p{
     /* font-weight: 600; */
     font-size: 16px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
     padding: 5px 0 !important;
     gap: 20px;
