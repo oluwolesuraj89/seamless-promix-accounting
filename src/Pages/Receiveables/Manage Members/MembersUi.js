@@ -5,6 +5,7 @@ import { Button, Modal, Form, Spinner } from 'react-bootstrap';
 import classes from './ManageMember.module.css';
 // import favicon from '../../Images/faviconn.png';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 
 function MembersUi({
   show,
@@ -71,7 +72,7 @@ function MembersUi({
           <div className="main-content">
 
             
-            <MainDashboard/>
+            <MainDashboard />
             <div className='newBody'>
               <div className={classes.newWidth}>
 
@@ -79,7 +80,7 @@ function MembersUi({
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Customer/Employee/Members</h3>
+                            <h3>Manage Members</h3>
                         </div>
                         <div className={classes.formSectionHeader}>
                             <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>

@@ -16,6 +16,7 @@ import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import ToggleSlider from './ToggleSlider';
+import CoopDashboard from '../Cooperative Dashboard/CoopDashboard';
 
 
 export default function CreateRole() {
@@ -151,7 +152,7 @@ export default function CreateRole() {
     
           
             
-            navigate('/manage_roles');
+            navigate(-1);
     
            toast.success(response.data.message)
     
@@ -177,7 +178,7 @@ export default function CreateRole() {
 
     return (
         <div>
-        <MainDashoard />
+        <CoopDashboard />
 
         <div className={classes.finishedbodyCont}>
             <div className={classes.topPadding}>

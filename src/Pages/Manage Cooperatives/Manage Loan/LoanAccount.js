@@ -18,6 +18,7 @@ import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 // import favicon from '../../Images/faviconn.png'
 
 function LoanAccounts() {
@@ -199,14 +200,14 @@ const navigate = useNavigate();
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <CoopDashboard />
             <div className='newBody'>
             <div className={classes.newWidth}>
 
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Manage Loan</h3>
+                            <h3>Manage Loan Products</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -216,7 +217,7 @@ const navigate = useNavigate();
 
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                        <p style={{paddingBottom:'5px'}}>TOTAL LOANS</p>
                         <h5>N232,096,635.05</h5>
                         <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>

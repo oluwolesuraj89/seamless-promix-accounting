@@ -21,6 +21,7 @@ import { useReactToPrint } from 'react-to-print';
 import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import CurrencyInput from 'react-currency-input-field';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 
 function EditLoan() {
 
@@ -33,6 +34,7 @@ function EditLoan() {
   const [chartsLoading, setChartsLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
+  const [user, setUser] = useState('');
   const navigate = useNavigate();
   
   const location = useLocation();
@@ -77,9 +79,13 @@ function EditLoan() {
   const readData = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
+      const value1 = await AsyncStorage.getItem('tobi');
 
       if (value !== null) {
         setBearer(value);
+      }
+      if (value1 !== null) {
+        setUser(value1);
       }
     } catch (e) {
       alert('Failed to fetch the input from storage');
@@ -155,24 +161,18 @@ function EditLoan() {
 
     return (
         <div>
-            <MainDashboard/>
+            <CoopDashboard/>
             <div className='newBody'>
             <div className={classes.newWidth}>
                 <div className={classes.topPadding}>
-                    <div className={`${classes.formSecCont}`}>
-                    <div>
-                        <h4 className="font-weight-bold">Update Loan Account </h4>
-                        <small>Complete the respective fields ....</small>
-                    </div>
-                    <div >
-                        <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
-                    </div>
-                        {/* <div className={classes.formSectionHeader}>
-                            <h3>View Members</h3>
+                <div className={`${classes.formSecCont}`}>
+                        <div className={classes.formSectionHeader}>
+                            <h3>Update Loan Product</h3>
+                            {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
-                            <h3 style={{color:'#2D995F'}}>user</h3>
-                        </div> */}
+                            <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3>
+                        </div>
                     </div>
                 </div>
                     <div className="wrapper">
@@ -214,11 +214,7 @@ function EditLoan() {
 
                                 <div className="col-lg-12">
                                     <div className="card" style={{border:'none'}}>
-                                        <div  className={classes.contentCont}>
-                                            <div>
-                                                <h5 style={{marginLeft: 20}}>Personal Details</h5>
-                                            </div>
-                                        </div>
+                                      
                                         <div className="row">
                                             <div className="col-lg-12">
                                                 <div className="card" style={{borderLeft:'none', borderRight:'none', borderBottom:'none', borderRadius:'0'}}>
@@ -229,15 +225,15 @@ function EditLoan() {
                                                                 <div className="row">
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Code</label>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Code:</label>
                                                                           <div className="col-sm-9">
-                                                                            <input className="form-control" required="" type="text" value={loanCode} onChange={(e) => setLoanCode(e.target.value)} name="loan-code" />
+                                                                            <input placeholder='Enter Loan Code' className="form-control" required="" type="text" value={loanCode} onChange={(e) => setLoanCode(e.target.value)} name="loan-code" />
                                                                           </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Description</label>
+                                                                          <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Description:</label>
                                                                           <div className="col-sm-9">
                                                                             <input className="form-control" required="" type="text" value={loanDescription} onChange={(e) => setLoanDescription(e.target.value)} name="loan-description" />
                                                                           </div>
@@ -245,7 +241,7 @@ function EditLoan() {
                                                                     </div>
                                                                     <div className="col-md-6">
                                                                         <div className="form-group row">
-                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance</label>
+                                                                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance:</label>
                                                                             <div className="col-sm-9">
                                                                             {/* <div className="form-control" > */}
                                                                             <CurrencyInput
@@ -264,7 +260,7 @@ function EditLoan() {
 
                                                                     <div className="col-md-6">
                                                                       <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Report To</label>
+                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Report To:</label>
                                                                         <div className="col-sm-9">
                                                                         <Form.Select name="customer" className="form-control" required="" value={selectedReport} onChange={handleReportChange} style={{marginTop:20}}>
                                                                             <option value="">Choose Report To</option>
@@ -278,27 +274,12 @@ function EditLoan() {
                                                                       </div>
                                                                     </div>
                                                                 </div>
-                                                                {/* <div className="col-md-6">
-                                                                    <div className="form-group row">
-                                                                        <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Report To</label>
-                                                                        <div className="col-sm-9">
-                                                                        <Form.Select name="customer" className="form-control" required="" value={selectedReport} onChange={handleReportChange}>
-                                                                            <option value="">Choose Report To</option>
-                                                                            {subCat2.map((item) => (
-                                                                            <option key={item.id} value={item.id}>
-                                                                                {item.gl_name}
-                                                                            </option>
-                                                                            ))}
-                                                                        </Form.Select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div> */}
-                                                                                                
-                                                                {/* </div> */}
+                                                                
                                                             </div>
                                                             
-                                                            
-                                                            <div class="modal-footer" style={{marginTop: 20}}>
+                                                            <div style={{marginTop: 20}}/>
+                                                            <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
+                <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
                                     <Button variant="success" onClick={editLoan}>
                                     {loading ? (
                                         <>
@@ -306,7 +287,7 @@ function EditLoan() {
                                         <span style={{ marginLeft: '5px' }}>Updating your loan account, Please wait...</span>
                                         </>
                                     ) : (
-                                        "Update your savings account"
+                                        "Update your loan account"
                                     )}
                                     </Button>
                                 

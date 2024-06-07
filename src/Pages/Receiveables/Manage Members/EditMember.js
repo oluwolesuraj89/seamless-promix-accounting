@@ -21,6 +21,7 @@ import { useReactToPrint } from 'react-to-print';
 import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import TableToPrint from './TableToPrint';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 
 function EditEmployeeMember() {
 
@@ -159,7 +160,7 @@ function EditEmployeeMember() {
 
     return (
         <div>
-            <MainDashboard/>
+            <CoopDashboard/>
             <div className='newBody'>
             <div className={classes.newWidth}>
                 <div className={classes.topPadding}>

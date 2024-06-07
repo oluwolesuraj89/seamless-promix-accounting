@@ -16,6 +16,7 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import CoopDashboard from '../Cooperative Dashboard/CoopDashboard';
 
 
 export default function ApprovalLevel() {
@@ -215,7 +216,7 @@ export default function ApprovalLevel() {
 
   return (
     <div>
-      <MainDashoard />
+      <CoopDashboard />
 
       <div className={classes.finishedbodyCont}>
         <div className={classes.topPadding}>

@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'react-bootstrap';
 import axios from 'axios';
+import Select from 'react-select';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
 // import { InfoFooter } from '../../InfoFooter';
@@ -17,12 +18,15 @@ import classes from '../Manage Members/ManageMember.module.css';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
+import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
 // import favicon from '../../Images/faviconn.png'
 
 function SavingExcel() {
     const navigate = useNavigate();
   const [bearer, setBearer] = useState('');
   const [tableData, setTableData] = useState([]);
+  const [savingType, setSavingType] = useState([]);
+  const [banks, setBanks] = useState([]);
   const [tableData1, setTableData1] = useState([]);
   const [tableData2, setTableData2] = useState([]);
   const [postData, setPostData] = useState([]);
@@ -35,6 +39,8 @@ function SavingExcel() {
   const [totalAmountCredit, setTotalAmountCredit] = useState('');
   const [totalAmountDebit, setTotalAmountDebit] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [bankLoading, setBankLoading] = useState(false);
+  const [savingsLoading, setSavingsLoading] = useState(false);
   const [load, setLoad] = useState(false);
   const [loadd, setLoadd] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
@@ -44,7 +50,16 @@ function SavingExcel() {
   const handleShow = () => setShow(true);
   const [selectedFile, setSelectedFile] = useState(null);
   const [user, setUser] = useState("");
-  
+  const [selectedSavings, setSelectedSavings] = useState('');
+  const [selectedBank, setSelectedBank] = useState('');
+
+  const handleSavingsChange = (selectedOption) => {
+    setSelectedSavings(selectedOption);
+  }
+
+  const handleBankChange = (selectedOption) => {
+    setSelectedBank(selectedOption);
+  }
 
     const readData = async () => {
         try {
@@ -332,7 +347,57 @@ function SavingExcel() {
     setSelectedFile(fileList);
     
   };
+
+  const fetchBanks = async () => {
+    setBankLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/get-account-by-class-id?class_id=${1}`, { headers });
+      const results = response.data?.data;
+
+      const options1 = results.map((item) => ({
+        label: item.gl_name,
+        value: item.id,
+      }));
+      setBanks(options1);
+      // setSelectOptions(options);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setBanks([]);
+    } finally {
+      setBankLoading(false);
+    }
+  };
+
   
+  
+  const fetchSavingType = async () => {
+    setSavingsLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/account/fetch-savings`, { headers });
+      const results = response.data?.data;
+
+      const options1 = results.map((item) => ({
+        label: item.description,
+        value: item.id,
+      }));
+      setSavingType(options1);
+      // setSelectOptions(options);
+    } catch (error) {
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setSavingType([]);
+    } finally {
+      setSavingsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (bearer) {
+      fetchBanks();
+      fetchSavingType();
+    }
+  }, [bearer]);
   
 
   return (
@@ -347,7 +412,7 @@ function SavingExcel() {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <CoopDashboard/>
             <div className='newBody'>
             <div className={classes.newWidth}>
 
@@ -420,6 +485,38 @@ function SavingExcel() {
                             //   accept=".xlsx, .xls, .csv" 
                             //   onChange={handleFileChange}
                             />
+                            <div style={{marginTop:'10px'}}/>
+                            <Form.Label>Savings Account</Form.Label>
+                            <Select
+                                        value={selectedSavings}
+                                        onChange={(selectedOption) => handleSavingsChange(selectedOption)}
+                                        options={savingType}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                            <div style={{marginTop:'10px'}}/>
+                            <Form.Label>Bank</Form.Label>
+                            <Select
+                                        value={selectedBank}
+                                        onChange={(selectedOption) => handleBankChange(selectedOption)}
+                                        options={banks}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
                             <div style={{marginTop:'10px'}}/>
                             <Form.Label>Upload Excel File</Form.Label>
                             <Form.Control
