@@ -276,8 +276,8 @@ export default function MainDashboard() {
                                         {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
                                         <Link to={'/accounting/payables/suppliers'}>Suppliers/Beneficiaries</Link><br/>
                                         <Link to={'/accounting/payables/payment_voucher'}>General Payment Voucher</Link><br/>
-                                        <Link to={'#'}>Pending Payment Voucher</Link><br/>
-                                        <Link to={'#'}>Completed Payment Voucher</Link><br/>
+                                        <Link to={'/accounting/payables/completed_payment_voucher'}>Completed Payment Voucher</Link><br/>
+                                        {/* <Link to={'#'}>Pending Payment Voucher</Link><br/> */}
                                         <Link to={'#'}>Bulk Payment Excel</Link><br/>
                                         <Link to={'#'}>Bulk Payment</Link><br/>
                                         <Link to={'#'}>Schedule of Payables</Link><br/>
