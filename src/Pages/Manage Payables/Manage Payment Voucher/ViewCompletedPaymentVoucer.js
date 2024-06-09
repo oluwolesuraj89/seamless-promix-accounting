@@ -184,9 +184,9 @@ function ViewCompletedPaymentVoucher() {
                             {/* <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3> */}
                         </div>
                     </div>
-                    <div style={{ marginBottom: 30 }}>
+                    {/* <div style={{ marginBottom: 30 }}>
                           <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
-                    </div>
+                    </div> */}
             </div>
 
             <div className={classes.topPadding}>
@@ -260,14 +260,14 @@ function ViewCompletedPaymentVoucher() {
         <td style={{fontWeight: "bold"}}>Beneficiary Account Number</td>
         <td>{selectedVoucher.beneficiaries_account?.bank_account}</td>
       </tr>
-      <tr>
+      {/* <tr>
         <td style={{fontWeight: "bold"}}>Payment Status</td>
         <td><Badge bg={selectedVoucher.payment_status === "0" ? "warning" : "success"}>{selectedVoucher.payment_status === "0" ? "Pending" : "Paid"}</Badge></td>
-      </tr>
-      <tr>
+      </tr> */}
+      {/* <tr>
         <td style={{fontWeight: "bold"}}>Aproval Status</td>
         <td><Badge bg={selectedVoucher.approval_status === "0" ? "warning" : selectedVoucher.approval_status === "1" ? "success" : selectedVoucher.approval_status === "2" ? "danger" : "null"}>{selectedVoucher.approval_status === "0" ? "Pending" : selectedVoucher.approval_status === "1" ? "Approved" : selectedVoucher.approval_status === "2" ? "Disapproved" : "null"}</Badge></td>
-      </tr>
+      </tr> */}
       <tr>
         <td style={{fontWeight: "bold"}}>Prepared By</td>
         <td>{selectedVoucher.preparer_detail?.name}</td>

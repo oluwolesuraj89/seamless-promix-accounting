@@ -107,10 +107,10 @@ readData();
   const fetchPayment = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/payment_voucher/pending_payment_list', { headers });
+      const response = await axios.get(`${BASE_URL}/payment_voucher/pending_payment_list`, { headers });
       const results = response.data?.data?.payments;
       setTableData(results);
-      // console.log(results);
+      console.log(results);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Redirect to login page if unauthorized
@@ -295,7 +295,7 @@ readData();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>My Payment Voucher</h3>
+                            <h3>Payment Voucher</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -426,8 +426,8 @@ readData();
                                       <th>Date</th>
                                       {/* <th>Status</th> */}
                                       <th>Total Amount</th>
-                                      <th>Contract Amount</th>
-                                      <th>Total Tax Amount</th>
+                                      <th>Amount Paid</th>
+                                      <th>Balance</th>
                                     <th>Action</th>
                                     </tr>
                                   </thead>
@@ -445,12 +445,12 @@ readData();
                                           minimumFractionDigits: 2,
                                           maximumFractionDigits: 2
                                         })}</td>
-                                        <td style={{ textAlign: "right" }}>{parseFloat(item.contract_amount).toLocaleString('en-US', {
+                                        <td style={{ textAlign: "right" }}>{parseFloat(item.amount_paid).toLocaleString('en-US', {
                                           minimumIntegerDigits: 1,
                                           minimumFractionDigits: 2,
                                           maximumFractionDigits: 2
                                         })}</td>
-                                        <td style={{ textAlign: "right" }}>{parseFloat(item.total_tax_amount).toLocaleString('en-US', {
+                                        <td style={{ textAlign: "right" }}>{parseFloat(item.balance).toLocaleString('en-US', {
                                           minimumIntegerDigits: 1,
                                           minimumFractionDigits: 2,
                                           maximumFractionDigits: 2
