@@ -14,6 +14,12 @@ import CoopDashboard from '../../../Cooperative Dashboard/CoopDashboard';
 
 
 function SavingsWithdrawals() {
+  const [balance, setBalance] = useState(0);
+  const [selectedCustomer, setSelectedCustomer] = useState('');
+  const [selectedMode, setSelectedMode] = useState('');
+  const [selectedBank, setSelectedBank] = useState('');
+  const [selectedSavings, setSelectedSavings] = useState('');
+  const [chequeNo, setChequeNo] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
   const [description, setDescription] = useState('');
   const [selectedDebitAccount, setSelectedDebitAccount] = useState('');
@@ -24,8 +30,10 @@ function SavingsWithdrawals() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
+  const [modeLoading, setModeLoading] = useState(false);
   const [load, setLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [createloading, setCreateLoading] = useState(false);
     const [bearer, setBearer] = useState('');
     const navigate = useNavigate();
     const [amount, setAmount] = useState('');
@@ -33,10 +41,12 @@ function SavingsWithdrawals() {
     const [totalAmount, setTotalAmount] = useState('');
     const [outstanding, setOutstanding] = useState('');
     const [bookingId, setBookingId] = useState([]);
-    const [paidBooking, setPaidBooking] = useState([]);
-    const [creditAcc, setCreditAcc] = useState([]);
-    const [debitAcc, setDebitAcc] = useState([]);
+    const [customers, setCustomers] = useState([]);
+    const [banks, setBanks] = useState([]);
+    const [mode, setMode] = useState([]);
+    const [savings, setSavings] = useState([]);
     const [user, setUser] = useState("");
+    const [tableData, setTableData] = useState([]);
   ;
     const readData = async () => {
         try {
@@ -69,7 +79,7 @@ function SavingsWithdrawals() {
         navigate(-1);
     }
 
-    const filteredData = paidBooking.filter(item => item.booking?.particulars.toLowerCase().includes(searchTerm.toLowerCase()));
+    const filteredData = tableData.filter(item => item.customer?.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -85,18 +95,26 @@ function SavingsWithdrawals() {
         setSelectedDate(event.target.value);
       };
 
+      const handleModeChange = (selectedOption) => {
+        setSelectedMode(selectedOption);
+      }
+
+      const handleBankChange = (selectedOption) => {
+        setSelectedBank(selectedOption.value);
+      }
+
     const totalEntries = filteredData.length;
     const startIndexx = (currentPage - 1) * entriesPerPage + 1;
     const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
     const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
 
 
-    const fetchBookings = async () => {
+    const fetchSavingsWithdrawal = async () => {
       setLoading(true);
 
       try {
           const response = await axios.get(
-              `${BASE_URL}/booking/pending-payment`,
+              `${BASE_URL}/customer/fetch-savings-withdrawal`,
               {
 
                   headers: {
@@ -106,7 +124,7 @@ function SavingsWithdrawals() {
               }
           );
           const resultsss = response.data?.data;
-          setBookingId(resultsss);
+          setTableData(resultsss);
 
           
       } catch (error) {
@@ -117,12 +135,12 @@ function SavingsWithdrawals() {
       }
   };
 
-  const fetchPaidBookings = async () => {
+  const fetchMembers = async () => {
       setIsLoading(true);
 
       try {
           const response = await axios.get(
-              `${BASE_URL}/booking/get-payments`,
+              `${BASE_URL}/customer/no-pagination`,
               {
 
                   headers: {
@@ -132,7 +150,12 @@ function SavingsWithdrawals() {
               }
           );
           const resultssx = response.data?.data;
-          setPaidBooking(resultssx);
+
+          const options = resultssx.map((item) => ({
+            label: item.name,
+            value: item.id,
+          }));
+          setCustomers(options);
 
           //   console.log(resultsss, "NI");
       } catch (error) {
@@ -145,19 +168,26 @@ function SavingsWithdrawals() {
 
   useEffect(() => {
       if (bearer) {
-          fetchBookings();
-          fetchDebit();
-          fetchCredit();
-          fetchPaidBookings();
+          fetchSavingsWithdrawal();
+          fetchBank();
+          fetchMembers();
+          fetchMode();
       }
   }, [bearer]);
 
-  const fetchDebit = async () => {
+         
+  useEffect(() => {
+    if (bearer && selectedCustomer) {
+      fetchSavings(selectedCustomer);
+    }
+  }, [bearer, selectedCustomer]);
+
+  const fetchSavings = async (selectedCustomer) => {
       setLoading(true);
 
       try {
           const response = await axios.get(
-              `${BASE_URL}/get-cash-and-banks`,
+              `${BASE_URL}/customer/savings?customer_id=${selectedCustomer}`,
               {
 
                   headers: {
@@ -168,10 +198,13 @@ function SavingsWithdrawals() {
           );
           const cred2 = response.data?.data;
 
+          const options1 = cred2.map((item) => ({
+            label: item.prefix,
+            value: item.id,
+          }));
+          setSavings(options1);
 
-          setDebitAcc(cred2);
-
-          //   console.log(cred2, "NIGERIA");
+            console.log(options1, "NIGERIA");
       } catch (error) {
           const errorStatus = error.response.data.message;
           console.error(errorStatus);
@@ -181,12 +214,12 @@ function SavingsWithdrawals() {
   };
 
 
-  const fetchCredit = async () => {
+  const fetchBank = async () => {
       setLoading(true);
 
       try {
           const response = await axios.get(
-              `${BASE_URL}/get-account-by-sub-category-id?sub_category_id=${1}`,
+              `${BASE_URL}/get-account-by-class-id?class_id=${1}`,
               {
 
                   headers: {
@@ -196,7 +229,11 @@ function SavingsWithdrawals() {
               }
           );
           const cred1 = response.data?.data;
-          setCreditAcc(cred1);
+          const options1 = cred1.map((item) => ({
+            label: item.gl_name,
+            value: item.id,
+          }));
+          setBanks(options1);
 
           //   console.log(results, "NI");
       } catch (error) {
@@ -207,64 +244,85 @@ function SavingsWithdrawals() {
       }
   };
 
-  const createPayment = async () => {
-      setLoad(true);
+  const fetchMode = async () => {
+      setModeLoading(true);
 
       try {
-          
-          const response = await axios.post(
-              `${BASE_URL}/booking/make-payment`,
+          const response = await axios.get(
+              `${BASE_URL}/income/get-payment-method`,
               {
-                  id: selectedBookingId,
-                  amount: amountToPay,
-                  debit: selectedCreditAccount2,
-                  credit: selectedCreditAccount1
 
-              },
-              { headers }
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Authorization': `Bearer ${bearer}`
+                  }
+              }
           );
+          const cred2 = response.data?.data;
+          const paymentMethh = cred2.map((item) => ({
+            label: item.name,
+            value: item.id,
+          }));
+          setMode(paymentMethh);
 
-          Swal.fire({
-              icon: 'success',
-              title: 'Success',
-              text: response.data.message,
-          });
-          fetchBookings();
-          fetchPaidBookings();
-          setSelectedBookingId('');
-          setAmountToPay('');
-          setSelectedCreditAccount1('');
-          setSelectedCreditAccount2('');
-          setDescription('');
-          setAmount('');
-          setTotalAmount('');
-          setOutstanding('');
-
+          //   console.log(results, "NI");
       } catch (error) {
-          const errorStatus = error.response?.data?.message || error.message || 'Failed to make payment';
-          Swal.fire({
-              icon: 'error',
-              title: 'Failed',
-              text: errorStatus,
-          });
+          const errorStatus = error.response.data.message;
           console.error(errorStatus);
       } finally {
-          setLoad(false);
+          setModeLoading(false);
       }
   };
 
+  const createSavings = async () => {
+    setCreateLoading(true);
+    try {
+      console.log(selectedCustomer, amountToPay, selectedDate, selectedSavings, selectedBank, chequeNo)
+      const response = await axios.post(
+        `${BASE_URL}/customer/savings-withdrawal`,
+        {
+          customer_id: selectedCustomer,
+          amount: amountToPay,
+          transaction_date: selectedDate,
+          account_id: selectedSavings,
+          bank: selectedBank,
+          cheque_number: chequeNo
 
-  const handleBookingChange = (event) => {
-      const selectedId = event.target.value;
-      setSelectedBookingId(selectedId);
-      //CONVERT THE selectedId to integer
-      const intselectedId = parseInt(selectedId);
-      const selectedBooking = bookingId.find(item => item.id === intselectedId);
-      setDescription(selectedBooking?.description || '');
-      setAmount(selectedBooking?.amount || '');
-      setTotalAmount(selectedBooking?.paid || '');
-      setOutstanding(selectedBooking?.balance || '');
+        },
+        { headers }
+      );
+      // console.log(response.data.message)
+
+      navigate('/savings')
+
+      // return
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+      // console.log(response.data);
+
+    } catch (error) {
+      const errorStatus = error.response.data.message;
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+      console.log(error);
+    } finally {
+      setCreateLoading(false);
+    }
   };
+
+
+
+  const handleSupplierChange = (selectedOption) => {
+    setSelectedCustomer(selectedOption.value);
+    setBalance('');
+    setSelectedSavings('');
+  }
 
   const handleValueChange = (value, name, values) => {
       setAmountToPay(value); // Update the balance state
@@ -272,14 +330,12 @@ function SavingsWithdrawals() {
   };
 
 
-  const handleDebitChange = (event) => {
-      setSelectedDebitAccount(event.target.value);
-  };
-  const handleAccountChange1 = (event) => {
-      setSelectedCreditAccount1(event.target.value);
-  };
-  const handleAccountChange2 = (event) => {
-      setSelectedCreditAccount2(event.target.value);
+  const handleSavingsChange = (selectedOption) => {
+    setSelectedSavings(selectedOption.value);
+    const selectedSavingsData = savings.find((savings) => savings.id === selectedOption.value);
+    setBalance(selectedSavingsData?.balance);
+    console.log(selectedSavingsData);
+
   };
 
 
@@ -302,7 +358,7 @@ const formattedOutstanding = isNaN(parseFloat(outstanding)) ? '0.00' : parseFloa
 });
 
 const handlePrintInvoice = (id) => {
-    const selectedBook = paidBooking.find(item => item.id === id);
+    const selectedBook = tableData.find(item => item.id === id);
   
   
     navigate('/print_payment', { state: { selectedBook } });
@@ -339,27 +395,27 @@ const handlePrintInvoice = (id) => {
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL SAVINGS WITHDRAWALS</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -381,87 +437,131 @@ const handlePrintInvoice = (id) => {
 
                         <div className="col-md-6">
                             <div className="form-group row">
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Booking ID:</label>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Member:</label>
                                 <div className="col-sm-9">
-                                <Form.Select name="account" className="form-control" required="" value={selectedBookingId} onChange={handleBookingChange}>
-                                                                                <option value="">Choose bookings</option>
-                                                                                {bookingId.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.booking_order} - {item.particulars}
-                                                                                    </option>
-                                                                                ))}
-                                                                            </Form.Select>
+                                <Select
+                                onChange={(selectedOption) => handleSupplierChange(selectedOption)}
+                                options={customers}
+                                menuPortalTarget={document.body}
+                                styles={{
+                                    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                    menu: (provided) => ({
+                                    ...provided,
+                                    maxHeight: '300px',
+                                    overflowY: 'auto',
+                                    }),
+                                }}
+                                />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-6">
                             <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Description:</label>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Savings Type:</label>
                                 <div className="col-sm-9">
-                                <textarea
-                                                                                className="form-control"
-                                                                                required=""
-                                                                                value={description}
-                                                                                onChange={(e) => setDescription(e.target.value)}
-                                                                                name="description"
-                                                                                readOnly
-                                                                            />
+                                <Select
+                                        
+                                        onChange={handleSavingsChange}
+                                        options={savings}
+                                        // menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '300px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-6">
                             <div className="form-group row" style={{marginBottom:"10px", desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Total Amount:</label>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance:</label>
                                 <div className="col-sm-9">
-                                <input
-                                                                                className="form-control"
-                                                                                required=""
-                                                                                readOnly
-                                                                                type="text"
-                                                                                value={formattedAmount}
-                                                                                onChange={(e) => setAmount(e.target.value)}
-                                                                                name="amount"
-                                                                                style={{ textAlign: "right" }}
-                                                                            />
+                                <CurrencyInput
+                                        style={{ width: '330px', height: '38px', textAlign: 'right', padding: '10px' }}
+                                        value={balance}
+                                        // onChange={(selectedOption) => handleBankChange(selectedOption)}
+
+                                        menuPortalTarget={document.body}
+                                        disabled
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+
+
+                                          }),
+                                        }}
+                                      />
+                                </div>
+                            </div>
+                        </div>
+                       
+<div style={{marginTop: 20}}/>
+                        <div className="col-md-6">
+                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Mode of Savings:</label>
+                                <div className="col-sm-9">
+                                <Select
+                                        value={selectedMode}
+                                        onChange={(selectedOption) => handleModeChange(selectedOption)}
+                                        options={mode}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+
                                 </div>
                             </div>
                         </div>
 
-                        <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount Paid:</label>
-                                <div className="col-sm-9">
-                                <input className="form-control" required="" readOnly type="text" value={formattedTotalAmount} onChange={(e) => setTotalAmount(e.target.value)} name="total-amount" style={{ textAlign: "right" }} />
-
-                                </div>
-                            </div>
-                        </div>
-
 
                         <div className="col-md-6">
                             <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Outstanding:</label>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Bank:</label>
                                 <div className="col-sm-9">
-                                <input className="form-control" readOnly required="" type="email" value={formattedOutstanding} onChange={(e) => setOutstanding(e.target.value)} name="amount" style={{ textAlign: "right" }} />
+                                <Select
+                                        onChange={handleBankChange}
+                                        options={banks}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '300px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-6">
                             <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount:</label>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount To Withdraw:</label>
                                 <div className="col-sm-9" >
                                 <CurrencyInput
-                                                                                //   
-                                                                                name="amount-to-pay"
-                                                                                decimalsLimit={2}
-                                                                                className="form-control"
-                                                                                value={amountToPay} // Set the value to the balance state
-                                                                                onValueChange={handleValueChange}
-                                                                                style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                                                                            />
+                                        name="principal amount"
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={amountToPay}
+                                        onValueChange={handleValueChange}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
                                 </div>
                             </div>
                         </div>
@@ -479,49 +579,33 @@ const handlePrintInvoice = (id) => {
 
     <div className="col-md-6">
         <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Debit Account:</label>
+            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Cheque No:</label>
             <div className="col-sm-9" >
-            <Form.Select name="account" className="form-control" required="" value={selectedCreditAccount2} onChange={handleAccountChange2}>
-                                                                                <option value="">Choose Debit Account</option>
-                                                                                {creditAcc.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.gl_name}
-                                                                                    </option>
-                                                                                ))}
-                                                                            </Form.Select>
+            <input className="form-control" required="" type="text" 
+                                       name="cheque-no"
+                                       
+                                       value={chequeNo} // Set the value to the balance state
+                                       onChange={(e) => setChequeNo(e.target.value)}
+                                       
+                                      
+                                      />
             </div>
         </div>
     </div>
-    <div className="col-md-6">
-        <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Credit Account:</label>
-            <div className="col-sm-9" >
-            <Form.Select name="account" className="form-control" required="" value={selectedCreditAccount1} onChange={handleAccountChange1}>
-                                                                                <option value="">Choose Credit Account</option>
-                                                                                {creditAcc.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.gl_name}
-                                                                                    </option>
-                                                                                ))}
-                                                                            </Form.Select>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <div style={{ marginTop: 20 }} />
 
 
 <div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-    <Button style={{ borderRadius: 0 }} variant='success' onClick={createPayment}>
-    {load ? (
+    <Button style={{ borderRadius: 0 }} variant='success' onClick={createSavings}>
+    {createloading ? (
                                                                         <>
                                                                             <Spinner size='sm' />
-                                                                            <span style={{ marginLeft: '5px' }}>Creating your payment, Please wait...</span>
+                                                                            <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
                                                                         </>
                                                                     ) : (
-                                                                        "Make Payment"
+                                                                        "Create Savings Withdrawal"
                                                                     )}
     </Button>
 
@@ -683,28 +767,23 @@ const handlePrintInvoice = (id) => {
 
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
-                                  <th>S/N</th>
-                                                            <th>Particulars</th>
-                                                            <th>Event Date</th>
-                                                            <th>Total Amount</th>
-                                                            <th>Amount Paid</th>
-                                                            <th>Outstanding</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
+                                  <th>Date</th>
+                            <th>Customer</th>
+                            <th>Withdrawal Type</th>
+                            <th>Amount withdrawn</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                     {displayedData.map((item, index) => (
                                         <tr key={index}>
                                             <td>{item.transaction_date}</td>
-                                            <td>{item?.customer?.name}</td>
-                                            <td>{item?.loan_account?.loan?.description}</td>
-                                            <td style={{ textAlign: "right" }}>{parseFloat(item.amount).toLocaleString('en-US', {
-                                                minimumIntegerDigits: 1,
-                                                minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2
-                                            })}
-                                            </td>
+                                <td>{item?.customer?.name}</td>
+                                <td>{item?.savings_account?.saving_type?.description}</td>
+                                <td style={{ textAlign: "right" }}>{parseFloat(item.amount).toLocaleString('en-US', {
+                                    minimumIntegerDigits: 1,
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                })}</td>
 
                                             {/* <td> */}
                                             {/* <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
