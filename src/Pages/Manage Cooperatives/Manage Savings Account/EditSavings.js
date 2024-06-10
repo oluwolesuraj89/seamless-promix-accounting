@@ -22,6 +22,7 @@ import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import CurrencyInput from 'react-currency-input-field';
 import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
+import { toast } from 'react-toastify';
 
 function EditSavings() {
 
@@ -118,37 +119,36 @@ function EditSavings() {
     setLoading(true);
     try {
       
-      const response = await axios.post(`${BASE_URL}/account/create-loan-account`,
+      const response = await axios.post(`${BASE_URL}/account/update-account`,
         {
           code: savingsCode,
           description: savingsDescription,
           opening_balance: balance,
           report_to: selectedReport,
-          type: 1
+          type: 1,
+          id: selectedSavings?.id
 
         },
         { headers }
       );
-      console.log(response.data.message)
+      console.log(response.data.message);
       
-      navigate('/loan_account');
+      navigate(-1);
 
-      // return
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
-      console.log(response.data);
-
+      toast.success(response.data.message);
     } catch (error) {
-      const errorStatus = error.response.data.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(error);
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
     } finally {
       setLoading(false);
     }

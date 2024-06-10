@@ -218,27 +218,27 @@ const navigate = useNavigate();
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LOANS</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -397,7 +397,7 @@ const navigate = useNavigate();
                                   <th>Total Repayment</th>
                                   <th>Balance</th>
                                   {/* <th>Approval Status</th> */}
-                                  <th>Action</th>
+                                  {/* <th>Action</th> */}
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
@@ -441,7 +441,7 @@ const navigate = useNavigate();
                                     })}</td>
                                  
                                     {/* <td><Badge bg={item.approved === "0" ? "warning" : item.approved === "1" ? "success" : item.approved === "2" ? "danger" : "null"}>{item.approved === "0" ? "Pending" : item.approved === "1" ? "Approved" : item.approved === "2" ? "Disapproved" : "null"}</Badge></td> */}
-                                    <td>
+                                    {/* <td>
                                     
                                       <div onClick={() => handleEyeClick(item.id)}  className="btn btn-success-soft btn-sm mr-1">
                                         <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
@@ -452,7 +452,7 @@ const navigate = useNavigate();
                                         <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
                                       </div>
                                     
-                                    </td>
+                                    </td> */}
                                   </tr>
                                 ))}
                               </tbody>

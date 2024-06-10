@@ -133,10 +133,25 @@ const navigate = useNavigate();
 
 
   const handleTrashClick = async (id) => {
+    const confirmed = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this account.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+    });
+
+    if (!confirmed.isConfirmed) {
+      return; // User canceled, do nothing
+    }
+
     try {
-      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/account/delete-savings?id=${id}`, { headers });
       fetchBooking();
-      toast.success(response.data.message);
+     toast.success(response.data.message);
       setTrashClicked(true);
     } catch (error) {
       let errorMessage = 'An error occurred. Please try again.';
@@ -146,13 +161,13 @@ const navigate = useNavigate();
               } else if (Array.isArray(error.response.data.message)) {
                   errorMessage = error.response.data.message.join('; ');
               } else if (typeof error.response.data.message === 'object') {
-                toast.error(errorMessage)
-                console.log(errorMessage);
+                  errorMessage = JSON.stringify(error.response.data.message);
               }
+              toast.error(errorMessage)
+              console.log(errorMessage);
           }
     }
   };
-
   
 
   const filteredData = tableData.filter(item => item.description.toLowerCase().includes(searchTerm.toLowerCase()));
