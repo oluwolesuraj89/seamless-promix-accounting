@@ -161,7 +161,7 @@ export default function ReportLedger() {
             {/* <img src={arleft} className={classes.arrow} /> */}
         </div>
     </div>
-    <table>
+    <table className={classes.reportTable}>
         <tr>
             <th>S/N</th>
             <th>TRANSACTION DATE</th>

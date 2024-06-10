@@ -100,7 +100,7 @@ hr {
     background-color: none;
 }
 
-.magnify111, th {
+.magnify111, .reportTable th {
     border: 1px solid black;
     padding: 5px;
     background-color: none;
@@ -108,7 +108,7 @@ hr {
     color: rgb(0, 0, 0);
 }
 
-.magnify111, td {
+.magnify111, .reportTable td {
     border: 1px solid black;
     padding: 5px;
     background-color: none;
@@ -116,7 +116,7 @@ hr {
     color: black;
 }
 
-td:nth-child(2) {
+.reportTable td:nth-child(2) {
     text-align: left;
     padding-left: 10px;
 }
@@ -154,7 +154,7 @@ td:nth-child(2) {
     margin-bottom: 5px;
 }
 
-.gradetable .magnify111 td:nth-child(3) {
+.reportTable td:nth-child(3) {
     text-align: left;
 }
 
@@ -173,7 +173,7 @@ td:nth-child(2) {
     border-collapse: collapse;
 }
 
-.keytable .magnify111 th {
+.reportTable th {
     text-align: left;
     padding: 5px;
 }
@@ -251,7 +251,7 @@ td:nth-child(2) {
         font-size: 12px;
         background-color: white;
     }
-    .magnify111 th, td, tr {
+    .reportTable th, td, tr {
         background-color: white;
         color: black;
     }
