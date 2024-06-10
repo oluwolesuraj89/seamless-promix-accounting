@@ -145,16 +145,16 @@ export default function ReportLedger() {
     <div className={classes.nameheader}>
         <div className={classes.namespace}>
             <div className={classes.questionname}>
-                <p>STUDENT:</p>
-                <p>ADMISSION NO:</p>
+                <h5>Member:</h5>
+                {/* <p>ADMISSION NO:</p>
                 <p>SEX:</p>
-                <p>CLASS:</p>
+                <p>CLASS:</p> */}
             </div>
             <div className={classes.details}>
-                <h2>ABDULSALAM, NIFEMI</h2>
-                <h3>US/22/1654</h3>
+                <h6>ABDULSALAM NIFEMI</h6>
+                {/* <h3>US/22/1654</h3>
                 <h3>F</h3>
-                <h3>JS2 GOLD</h3>
+                <h3>JS2 GOLD</h3> */}
             </div>
         </div>
         <div className={classes.passport}>

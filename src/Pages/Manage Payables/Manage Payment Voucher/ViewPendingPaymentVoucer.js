@@ -427,7 +427,7 @@ const handlePayments = async () => {
           },
           { headers }
         );
-        navigate('/accounting/payables/payment_voucher')
+          navigate('/accounting/payables/payment_voucher')
         // Log the response for debugging
         console.log('API Response:', response);
 
