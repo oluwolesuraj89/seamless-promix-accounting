@@ -158,7 +158,7 @@ const navigate = useNavigate();
 
   
 
-  const filteredData = tableData.filter(item => item.principal_amount.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredData = tableData.filter(item => item.beneficiary?.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -396,7 +396,7 @@ const navigate = useNavigate();
                                   <th>Monthly Deduction</th>
                                   <th>Total Repayment</th>
                                   <th>Balance</th>
-                                  <th>Approval Status</th>
+                                  {/* <th>Approval Status</th> */}
                                   <th>Action</th>
                                   </tr>
                                 </thead>
@@ -440,7 +440,7 @@ const navigate = useNavigate();
                                       maximumFractionDigits: 2
                                     })}</td>
                                  
-                                    <td><Badge bg={item.approved === "0" ? "warning" : item.approved === "1" ? "success" : item.approved === "2" ? "danger" : "null"}>{item.approved === "0" ? "Pending" : item.approved === "1" ? "Approved" : item.approved === "2" ? "Disapproved" : "null"}</Badge></td>
+                                    {/* <td><Badge bg={item.approved === "0" ? "warning" : item.approved === "1" ? "success" : item.approved === "2" ? "danger" : "null"}>{item.approved === "0" ? "Pending" : item.approved === "1" ? "Approved" : item.approved === "2" ? "Disapproved" : "null"}</Badge></td> */}
                                     <td>
                                     
                                       <div onClick={() => handleEyeClick(item.id)}  className="btn btn-success-soft btn-sm mr-1">

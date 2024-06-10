@@ -25,6 +25,7 @@ function EmployeeMembers() {
   const [role1, setRole1] = useState("");
   const [checkAll, setCheckAll] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [tableData1, setTableData1] = useState([]);
   const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +43,7 @@ function EmployeeMembers() {
   const [eyeClicked, setEyeClicked] = useState(false);
   const [trashClicked, setTrashClicked] = useState(false);
   const [perm, setPerm] = useState([]);
-  const [permId, setPermId] = useState([]);
+  const [searchedResult, setSearchedResult] = useState([]);
   const [fullName, setFullName] = useState("");
   const [fullName1, setFullName1] = useState("");
   const [email, setEmail] = useState("");
@@ -58,6 +59,7 @@ function EmployeeMembers() {
   const [customers, setCustomers] = useState('');
   const [user, setUser] = useState('');
   const [uploadLoading, setUploadLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -133,6 +135,42 @@ function EmployeeMembers() {
     }
   }, [bearer, currentPage]);
 
+
+  const fetchSearch = async (searchTerm) => {
+    setSearchLoading(true);
+    try {
+        let res;
+        if (searchTerm.trim() === "") {
+            res = tableData1;
+        } else {
+            const response = await axios.get(`${BASE_URL}/customer/search`, {
+                params: { variable: searchTerm },
+                headers
+            });
+            res = response.data?.data;
+        }
+        setSearchedResult(res);
+       
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            navigate('/login');
+        } else {
+          let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+          }
+          setSearchedResult([]);
+        }
+    } finally {
+        setSearchLoading(false);
+    }
+  };
   //create beneficiary
   const createCustomer = async () => {
     setLoading(true);
@@ -191,28 +229,42 @@ function EmployeeMembers() {
         setEyeClicked(true);
       };
 
-  //delete function
-  const handleTrashClick = async (id) => {
-    try {
-    //   const response = await axios.get(`https://payroll.patna.ng/api/admin/users/destroy?id=${id}`, { headers });
-      const response = await axios.post(`${BASE_URL}/admin/users/destroy?id=${id}`, { headers });
-      fetchBeneficiaries();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
-      setTrashClicked(true);
-    } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(errorStatus);
-    }
-  };
+      const handleTrashClick = async (id) => {
+        const confirmed = await Swal.fire({
+          title: 'Are you sure?',
+          text: 'You are about to delete this member.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel',
+        });
+    
+        if (!confirmed.isConfirmed) {
+          return; // User canceled, do nothing
+        }
+    
+        try {
+          const response = await axios.get(`${BASE_URL}/customer/delete?id=${id}`, { headers });
+          fetchBeneficiaries();
+         toast.success(response.data.message);
+          setTrashClicked(true);
+        } catch (error) {
+          let errorMessage = 'An error occurred. Please try again.';
+              if (error.response && error.response.data && error.response.data.message) {
+                  if (typeof error.response.data.message === 'string') {
+                      errorMessage = error.response.data.message;
+                  } else if (Array.isArray(error.response.data.message)) {
+                      errorMessage = error.response.data.message.join('; ');
+                  } else if (typeof error.response.data.message === 'object') {
+                      errorMessage = JSON.stringify(error.response.data.message);
+                  }
+                  toast.error(errorMessage)
+                  console.log(errorMessage);
+              }
+        }
+      };
 
   //update function
   const editCustomer = async () => {
@@ -222,7 +274,7 @@ function EmployeeMembers() {
         const response = await axios.post(`${BASE_URL}/admin/users/update`,
         {
           name: fullName1,
-          // id: deptId, 
+          id: deptId, 
           email: email1,
           phone: phone1,
           
@@ -379,6 +431,10 @@ function EmployeeMembers() {
       uploadLoading={uploadLoading}
       benLoading={benLoading}
       user = {user}
+      fetchSearch = {fetchSearch}
+      setSearchedResult = {setSearchedResult}
+      searchedResult = {searchedResult}
+      searchLoading = {searchLoading}
     />
   )
 }

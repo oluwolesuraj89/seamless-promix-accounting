@@ -83,7 +83,7 @@ export default function ApprovalLevel() {
       const response = await axios.get(`${BASE_URL}/approval_level`, { headers });
       const results = response.data?.data?.modules;
       const resultsssss = response.data?.data;
-      // console.log(results);
+      console.log(results);
       setTableData1(results);
       setTableData(resultsssss);
     } catch (error) {
@@ -280,8 +280,10 @@ export default function ApprovalLevel() {
                       className="form-control form-control-sm"
                       placeholder=""
                       aria-controls="DataTables_Table_0"
-                    // onChange={(e) => {
-                    // setSearchTerm(e.target.value);
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        // setCurrentPage(1);
+                      }}
 
 
                     // }}

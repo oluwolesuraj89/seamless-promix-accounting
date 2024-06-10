@@ -277,8 +277,10 @@ export default function ManageRoles() {
                       className="form-control form-control-sm"
                       placeholder=""
                       aria-controls="DataTables_Table_0"
-                    // onChange={(e) => {
-                    // setSearchTerm(e.target.value);
+                      onChange={(e) => {
+                        setSearchTerm(e.target.value);
+                        // setCurrentPage(1);
+                      }}
 
 
                     // }}

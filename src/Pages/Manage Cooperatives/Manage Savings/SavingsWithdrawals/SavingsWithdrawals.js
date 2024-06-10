@@ -21,15 +21,11 @@ function SavingsWithdrawals() {
   const [selectedSavings, setSelectedSavings] = useState('');
   const [chequeNo, setChequeNo] = useState('');
   const [selectedDate, setSelectedDate] = useState('');
-  const [description, setDescription] = useState('');
-  const [selectedDebitAccount, setSelectedDebitAccount] = useState('');
-  const [selectedCreditAccount1, setSelectedCreditAccount1] = useState('');
-  const [selectedCreditAccount2, setSelectedCreditAccount2] = useState('');
-  const [selectedBookingId, setSelectedBookingId] = useState('');
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
+  const [customerLoading, setCustomerLoading] = useState(false);
   const [modeLoading, setModeLoading] = useState(false);
   const [load, setLoad] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +36,7 @@ function SavingsWithdrawals() {
     const [amountToPay, setAmountToPay] = useState('');
     const [totalAmount, setTotalAmount] = useState('');
     const [outstanding, setOutstanding] = useState('');
+    const [customerSavings, setCustomerSavings] = useState('');
     const [bookingId, setBookingId] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [banks, setBanks] = useState([]);
@@ -183,7 +180,7 @@ function SavingsWithdrawals() {
   }, [bearer, selectedCustomer]);
 
   const fetchSavings = async (selectedCustomer) => {
-      setLoading(true);
+      setCustomerLoading(true);
 
       try {
           const response = await axios.get(
@@ -197,6 +194,7 @@ function SavingsWithdrawals() {
               }
           );
           const cred2 = response.data?.data;
+          setCustomerSavings(cred2);
 
           const options1 = cred2.map((item) => ({
             label: item.prefix,
@@ -209,7 +207,7 @@ function SavingsWithdrawals() {
           const errorStatus = error.response.data.message;
           console.error(errorStatus);
       } finally {
-          setLoading(false);
+          setCustomerLoading(false);
       }
   };
 
@@ -291,26 +289,38 @@ function SavingsWithdrawals() {
         },
         { headers }
       );
-      // console.log(response.data.message)
+      fetchSavingsWithdrawal();
 
-      navigate('/savings')
+      toast.success(response.data.message);
 
-      // return
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
+      setSelectedDate('');
+      setSelectedCustomer('');
+      setSelectedSavings('');
+      setBalance('');
+      setMode('');
+      setSelectedBank('');
+      setAmountToPay("");
+      chequeNo("");
+
+      
+
+      
+     
       // console.log(response.data);
 
     } catch (error) {
-      const errorStatus = error.response.data.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(error);
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
     } finally {
       setCreateLoading(false);
     }
@@ -332,30 +342,14 @@ function SavingsWithdrawals() {
 
   const handleSavingsChange = (selectedOption) => {
     setSelectedSavings(selectedOption.value);
-    const selectedSavingsData = savings.find((savings) => savings.id === selectedOption.value);
+    const selectedSavingsData = customerSavings.find((savings) => savings.id === selectedOption.value);
     setBalance(selectedSavingsData?.balance);
     console.log(selectedSavingsData);
 
   };
 
 
-  const formattedAmount = isNaN(parseFloat(amount)) ? '0.00' : parseFloat(amount).toLocaleString('en-US', {
-    minimumIntegerDigits: 1,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-});
-
-const formattedTotalAmount = isNaN(parseFloat(totalAmount)) ? '0.00' : parseFloat(totalAmount).toLocaleString('en-US', {
-    minimumIntegerDigits: 1,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-});
-
-const formattedOutstanding = isNaN(parseFloat(outstanding)) ? '0.00' : parseFloat(outstanding).toLocaleString('en-US', {
-    minimumIntegerDigits: 1,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-});
+  
 
 const handlePrintInvoice = (id) => {
     const selectedBook = tableData.find(item => item.id === id);
@@ -760,7 +754,7 @@ const handlePrintInvoice = (id) => {
 
 
                           {loading ? (
-                                <p>Fetching loans paid...</p>
+                                <p>Fetching data...</p>
                             ) : (
                             <div className="table-responsive">
                               <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">

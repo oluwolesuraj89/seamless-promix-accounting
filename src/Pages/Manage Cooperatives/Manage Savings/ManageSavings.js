@@ -250,7 +250,7 @@ function ManageSavings() {
   };
 
 
-  const filteredData = tableData.filter(item => item.amount.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredData = tableData.filter(item => item.membername?.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
