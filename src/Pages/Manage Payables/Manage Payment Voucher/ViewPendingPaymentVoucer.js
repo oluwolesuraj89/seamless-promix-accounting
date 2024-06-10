@@ -34,9 +34,15 @@ function ViewPendingPaymentVoucher() {
   const [bearer, setBearer] = useState('');
   const [description, setDescription] = useState('');
   const [user, setUser] = useState('');
+  const [amount, setAmount] = useState('');
+  const [expense, setExpense] = useState('');
+  const [tellerNumber, setTellerNumber] = useState('');
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  // expense,
+              // teller_number: tellerNumber
 //   const navigate = useNavigate();
 //   const [selectedBeneficiary, setSelectedBeneficiary] = useState(null);
 //     const [selectedDebitAccount, setSelectedDebitAccount] = useState(null);
@@ -72,6 +78,7 @@ function ViewPendingPaymentVoucher() {
     const [contractAmount, setContractAmount] = useState('');
     const [totalAmount, setTotalAmount] = useState("");
     const [totalTax, setTotalTax] = useState("");
+    const [transactionDate, setTransactionDate] = useState("");
     const navigate = useNavigate();
     const [selectedBeneficiary, setSelectedBeneficiary] = useState(null);
     const [selectedDebitAccount, setSelectedDebitAccount] = useState(null);
@@ -240,27 +247,7 @@ function ViewPendingPaymentVoucher() {
         setBenBank([]);
     };
 
-    const handleBankChange = (event) => {
-        setSelectedBank(event.target.value);
-    };
-
-    const handleCredit = (event) => {
-        setSelectedCreditAccount(event.target.value);
-    };
-
-    const handleDebit = (event) => {
-        setSelectedDebitAccount(event.target.value);
-    };
-
-    const handleValueChange = (value, name, values) => {
-        setContractAmount(value); // Update the balance state
-
-    };
-
-    const handleValueChange2 = (value, name, values) => {
-        setTotalAmount(value); // Update the balance state
-
-    };
+    
 
 
 
@@ -305,8 +292,7 @@ function ViewPendingPaymentVoucher() {
   
     setLoading(true);
     try {
-      const response = await axios.get(
-        `https://api-sme.promixaccounting.com/api/v1/payment_voucher/approve_voucher?id=${selectedVoucher.id}`,
+      const response = await axios.get(`${BASE_URL}/payment_voucher/approve_voucher?id=${selectedVoucher.id}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -337,132 +323,168 @@ function ViewPendingPaymentVoucher() {
     }
   };
 
-  const handleDisApprove = async () => {
+  // const handleDisApprove = async () => {
  
-    setIsLoading(true);
-    try {
-      const response = await axios.get(
-        `https://api-sme.promixaccounting.com/api/v1/payment_voucher/disapprove_voucher?id=${selectedVoucher.id}&description=${description}`,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${bearer}`,
-          },
-        }
-      );
-      // console.log(response.data.message)
-      navigate('/payment_voucher')
-      // return
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
-      console.log(response.data);
+  //   setIsLoading(true);
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/payment_voucher/disapprove_voucher?id=${selectedVoucher.id}&description=${description}`,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           Authorization: `Bearer ${bearer}`,
+  //         },
+  //       }
+  //     );
+  //     // console.log(response.data.message)
+  //     navigate('/payment_voucher')
+  //     // return
+  //     Swal.fire({
+  //       icon: 'success',
+  //       title: 'Success',
+  //       text: response.data.message,
+  //     });
+  //     console.log(response.data);
   
-    } catch (error) {
-      const errorStatus = error.response.data.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //   } catch (error) {
+  //     const errorStatus = error.response.data.message;
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Failed',
+  //       text: errorStatus,
+  //     });
+  //     console.log(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const calculateTotalAmount = () => {
     const total = formData.reduce((accumulator, row) => accumulator + parseFloat(row.amount || 0), 0);
     return total.toFixed(2);
 };
 
-const calculateTotal = () => {
-    const totalResult = (parseFloat(contractAmount || 0) - parseFloat(totalTax)).toFixed(2);
-    return totalResult.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-};
+// const calculateTotal = () => {
+//     const totalResult = (parseFloat(contractAmount || 0) - parseFloat(totalTax)).toFixed(2);
+//     return totalResult.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+// };
 
-    const  rows = location.state;
-    // const parsedSelectedBank = JSON.parse(selectedBank);
+//     const  rows = location.state;
+//     // const parsedSelectedBank = JSON.parse(selectedBank);
 
-useEffect(() => {
-    const { rows } = location.state;
+// useEffect(() => {
+//     const { rows } = location.state;
 
-    if (rows) {
+//     if (rows) {
      
-      const total = rows.reduce((acc, item) => acc + parseFloat(item.total_amount), 0);
-    //   setTotalNetPay(total);
+//       const total = rows.reduce((acc, item) => acc + parseFloat(item.total_amount), 0);
+//     //   setTotalNetPay(total);
 
-    //   const totalInWords = convertToWords(total);
-    //   setTotalNetPayInWords(totalInWords);
+//     //   const totalInWords = convertToWords(total);
+//     //   setTotalNetPayInWords(totalInWords);
 
-    //   setPaymentInstruction(rows);
+//     //   setPaymentInstruction(rows);
 
-    } else {
-      console.error('No selected item data found in location state.');
-    }
-  }, [location.state]);
+//     } else {
+//       console.error('No selected item data found in location state.');
+//     }
+//   }, [location.state]);
 
 
-useEffect(() => {
-    const totalTaxValue = calculateTotalAmount();
-    setTotalTax(totalTaxValue);
+// useEffect(() => {
+//     const totalTaxValue = calculateTotalAmount();
+//     setTotalTax(totalTaxValue);
 
-    const totalAmountValue = calculateTotal();
-    setTotalAmount(totalAmountValue);
+//     const totalAmountValue = calculateTotal();
+//     setTotalAmount(totalAmountValue);
 
-}, [formData, contractAmount, totalTax]);
+// }, [formData, contractAmount, totalTax]);
 
 
 
 const handlePayments = async () => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'This action will generate a payment instruction. Do you want to proceed?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, proceed!',
+    cancelButtonText: 'No, cancel'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      setInstructionLoading(true);
+      try {
+          console.log(totalAmount, selectedDebitAccount, tellerNumber, " API Parameters")
+        const response = await axios.post(
+          `${BASE_URL}/payment_voucher/make-voucher-payment`,
+          {
+            id: selectedVoucher.id,
+            amount: totalAmount,
+            expense: selectedDebitAccount,
+            teller_number: tellerNumber, 
+            transaction_date: date
+          },
+          { headers }
+        );
+          navigate('/accounting/payables/payment_voucher')
+        // Log the response for debugging
+        console.log('API Response:', response);
 
-    const formData = new FormData();
-            formData.append('date', date);
-            formData.append('total_amount', totalAmount);
-            // formData.append('total_tax_amount', totalTax);
-            formData.append('gl_account', selectedCreditAccount);
-            formData.append('beneficiary_account_id', selectedBank);
-            formData.append('beneficiary_id', selectedBeneficiary);
-            formData.append('description', description);
-            formData.append('contract_amount', contractAmount);
-            formData.append('account', selectedCreditAccount); 
-            formData.append('document', selectedFiles[0]);
-    // Display a confirmation dialog using Swal
-    Swal.fire({ 
-      title: 'Are you sure?', 
-      text: 'This action will generate a payment instruction. Do you want to proceed?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, proceed!',
-      cancelButtonText: 'No, cancel'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        setInstructionLoading(true);
-        try {
-          const ids = rows.map(row => row.id);
-        
-          const response = await axios.post(`https://api-sme.promixaccounting.com/api/v1/payment_voucher/make-voucher-payment`,
-            // {
-            //   id: ids,
-            //   bank: parsedSelectedBank.id,
-            //   gateway: "instruction"
-            // },
-            { headers });
-            window.print();
-        } catch (error) {
-          const errorStatus = error.response?.data?.message;
-          console.log(errorStatus);
-
-        } finally {
-          setInstructionLoading(false);
+        if (response && response.data && response.data.message) {
+          toast.success(response.data.message);
+        } else {
+          // throw new Error('Unexpected response structure.');
         }
+      } catch (error) {
+        let errorMessage = 'An error occurred. Please try again.';
+        if (error.response && error.response.data && error.response.data.message) {
+          if (typeof error.response.data.message === 'string') {
+            errorMessage = error.response.data.message;
+          } else if (Array.isArray(error.response.data.message)) {
+            errorMessage = error.response.data.message.join('; ');
+          } else if (typeof error.response.data.message === 'object') {
+            errorMessage = JSON.stringify(error.response.data.message);
+          }
+        }
+        toast.error(errorMessage);
+        console.log('Error:', errorMessage);
+      } finally {
+        setInstructionLoading(false);
       }
-    });
-  };
+    }
+  });
+};
+
+
+const handleBankChange = (event) => {
+  setSelectedBank(event.target.value);
+};
+
+const handleCredit = (event) => {
+  setSelectedCreditAccount(event.target.value);
+};
+
+const handleDebit = (event) => {
+  setSelectedDebitAccount(event.target.value);
+};
+const handleTellerChange = (event) => {
+  setTellerNumber(event.target.value);
+};
+
+const handleValueChange = (value, name, values) => {
+  setContractAmount(value); // Update the balance state
+
+};
+
+const handleValueChange2 = (value, name, values) => {
+    setTotalAmount(value); // Update the balance state
+
+};
+// const handleValueChange2 = (event) => {
+//   setTotalAmount(event.target.value); // Update the balance state
+
+// };
   
 
   return (
@@ -491,9 +513,9 @@ const handlePayments = async () => {
                             {/* <h3 style={{color:'#2D995F'}}>{user.toLocaleUpperCase()}</h3> */}
                         </div>
                     </div>
-                    <div style={{ marginBottom: 30 }}>
+                    {/* <div style={{ marginBottom: 30 }}>
                           <Button variant='success' onClick={goBack}><i className="fa-solid fa-arrow-left"></i> Go Back</Button>
-                    </div>
+                    </div> */}
             </div>
 
             <div className={classes.topPadding}>
@@ -513,19 +535,19 @@ const handlePayments = async () => {
                         <tbody>
                         <tr>
                             <td style={{width: 300, fontWeight: "bold"}}>Description</td>
-                            <td>{selectedVoucher.description}</td>
+                            <td>{selectedVoucher?.description}</td>
                         </tr>
                         {/* <tr>
                             <td style={{fontWeight: "bold"}}>Particular</td>
-                            <td>{selectedVoucher.particular}</td>
+                            <td>{selectedVoucher?.particular}</td>
                         </tr> */}
                         <tr>
                             <td style={{fontWeight: "bold"}}>Date</td>
-                            <td>{selectedVoucher.date}</td>
+                            <td>{selectedVoucher?.date}</td>
                         </tr>
                         <tr>
-                            <td style={{fontWeight: "bold"}}>Total Tax Amount</td>
-                            <td>{parseFloat(selectedVoucher.total_tax_amount).toLocaleString('en-US', {
+                            <td style={{fontWeight: "bold"}}>Amount Paid</td>
+                            <td>{parseFloat(selectedVoucher?.amount_paid).toLocaleString('en-US', {
                                                         minimumIntegerDigits: 1,
                                                         minimumFractionDigits: 2,
                                                         maximumFractionDigits: 2
@@ -533,7 +555,15 @@ const handlePayments = async () => {
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Total Amount</td>
-                            <td>{parseFloat(selectedVoucher.total_amount).toLocaleString('en-US', {
+                            <td>{parseFloat(selectedVoucher?.total_amount).toLocaleString('en-US', {
+                                                        minimumIntegerDigits: 1,
+                                                        minimumFractionDigits: 2,
+                                                        maximumFractionDigits: 2
+                                                        })}</td>
+                        </tr>
+                        <tr>
+                            <td style={{fontWeight: "bold"}}>Balance</td>
+                            <td>{parseFloat(selectedVoucher?.balance).toLocaleString('en-US', {
                                                         minimumIntegerDigits: 1,
                                                         minimumFractionDigits: 2,
                                                         maximumFractionDigits: 2
@@ -541,7 +571,7 @@ const handlePayments = async () => {
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Contract Amount</td>
-                            <td>{parseFloat(selectedVoucher.contract_amount).toLocaleString('en-US', {
+                            <td>{parseFloat(selectedVoucher?.contract_amount).toLocaleString('en-US', {
                                                         minimumIntegerDigits: 1,
                                                         minimumFractionDigits: 2,
                                                         maximumFractionDigits: 2
@@ -549,39 +579,39 @@ const handlePayments = async () => {
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>PV Number</td>
-                            <td>{selectedVoucher.pvnumber}</td>
+                            <td>{selectedVoucher?.pvnumber}</td>
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Beneficiary</td>
-                            <td>{selectedVoucher.beneficiary?.name}</td>
+                            <td>{selectedVoucher?.beneficiary?.name}</td>
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Beneficiary Bank</td>
-                            <td>{selectedVoucher.beneficiaries_account?.bank_name}</td>
+                            <td>{selectedVoucher?.beneficiaries_account?.bank_name}</td>
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Beneficiary Account Name</td>
-                            <td>{selectedVoucher.beneficiaries_account?.account_name}</td>
+                            <td>{selectedVoucher?.beneficiaries_account?.account_name}</td>
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Beneficiary Account Number</td>
-                            <td>{selectedVoucher.beneficiaries_account?.bank_account}</td>
-                        </tr>
-                        <tr>
-                            <td style={{fontWeight: "bold"}}>Payment Status</td>
-                            <td><Badge bg={selectedVoucher.payment_status === "0" ? "warning" : "success"}>{selectedVoucher.payment_status === "0" ? "Pending" : "Paid"}</Badge></td>
+                            <td>{selectedVoucher?.beneficiaries_account?.bank_account}</td>
                         </tr>
                         {/* <tr>
+                            <td style={{fontWeight: "bold"}}>Payment Status</td>
+                            <td><Badge bg={selectedVoucher?.payment_status === "0" ? "warning" : "success"}>{selectedVoucher?.payment_status === "0" ? "Pending" : "Paid"}</Badge></td>
+                        </tr> */}
+                        {/* <tr>
                             <td style={{fontWeight: "bold"}}>Aproval Status</td>
-                            <td><Badge bg={selectedVoucher.approval_status === "0" ? "warning" : selectedVoucher.approval_status === "1" ? "success" : selectedVoucher.approval_status === "2" ? "danger" : "null"}>{selectedVoucher.approval_status === "0" ? "Pending" : selectedVoucher.approval_status === "1" ? "Approved" : selectedVoucher.approval_status === "2" ? "Disapproved" : "null"}</Badge></td>
+                            <td><Badge bg={selectedVoucher?.approval_status === "0" ? "warning" : selectedVoucher?.approval_status === "1" ? "success" : selectedVoucher?.approval_status === "2" ? "danger" : "null"}>{selectedVoucher?.approval_status === "0" ? "Pending" : selectedVoucher?.approval_status === "1" ? "Approved" : selectedVoucher?.approval_status === "2" ? "Disapproved" : "null"}</Badge></td>
                         </tr> */}
                         <tr>
                             <td style={{fontWeight: "bold"}}>Prepared By</td>
-                            <td>{selectedVoucher.preparer_detail?.name}</td>
+                            <td>{selectedVoucher?.preparer_detail?.name}</td>
                         </tr>
                         <tr>
                             <td style={{fontWeight: "bold"}}>Approved By</td>
-                            <td>{selectedVoucher.approver?.name}</td>
+                            <td>{selectedVoucher?.approver?.name}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -591,15 +621,15 @@ const handlePayments = async () => {
         <Accordion.Item eventKey="1">
             <Accordion.Header>Uploaded Document</Accordion.Header>
             <Accordion.Body>
-            {selectedVoucher && selectedVoucher.document ? (
-                selectedVoucher.document.endsWith('.pdf') ? (
+            {selectedVoucher && selectedVoucher?.document ? (
+                selectedVoucher?.document.endsWith('.pdf') ? (
                     <iframe
                     title="PDF Viewer"
-                    src={selectedVoucher.document}
+                    src={selectedVoucher?.document}
                     style={{ width: '100%', height: '500px', border: 'none' }}
                     />
                 ) : (
-                    <img src={selectedVoucher.document}  style={{ width: '100%', height: '500px', border: 'none' }}  alt="Uploaded Document" />
+                    <img src={selectedVoucher?.document}  style={{ width: '100%', height: '500px', border: 'none' }}  alt="Uploaded Document" />
                 )
                 ) : (
                 <p>No document available</p>
@@ -629,7 +659,7 @@ const handlePayments = async () => {
                     <CurrencyInput
                         name="contract-amount" // Provide a unique name for each CurrencyInput
                         decimalsLimit={2}
-                        value={parseFloat(selectedVoucher.total_tax_amount).toLocaleString('en-US', {
+                        value={parseFloat(selectedVoucher?.total_amount).toLocaleString('en-US', {
                         minimumIntegerDigits: 1,
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
@@ -649,9 +679,10 @@ const handlePayments = async () => {
                         decimalsLimit={2}
                         value={totalAmount}
                         className="form-control"
+                        // onValueChange={handleValueChange2}
                         onValueChange={(value) => handleValueChange2(value)}
                         style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
-                        readOnly
+                        // readOnly
                     />
                     </Form.Group>
 
@@ -667,14 +698,10 @@ const handlePayments = async () => {
 
                     <Form.Group className={classes.formGroup}>
                     <Form.Label  >Cheque Number </Form.Label>
-                    <CurrencyInput
-                        name="contract-amount" // Provide a unique name for each CurrencyInput
-                        decimalsLimit={2}
-                        value={contractAmount}
-                        className="form-control"
-                        onValueChange={(value) => handleValueChange(value)}
-                        style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
-                    />
+                    <Form.Control type='text' id="text" 
+                      value={tellerNumber}
+                      onChange={handleTellerChange}
+                      />
                   </Form.Group>
 
                           
@@ -716,12 +743,25 @@ const handlePayments = async () => {
             </Form>
           </div>
 
-            <div class="modal-footer" style={{display:"flex", justifyContent:"flex-start", alignItems:"center"}}>
-                <Button variant="success" 
+            <div class="modal-footer" style={{display:"flex", justifyContent:"flex-start", alignItems:"center", marginTop: 20}}>
+                {/* <Button variant="success" 
                 onClick={handlePayments} 
                 style={{marginTop:'20px'}}>
                     Make Payment
-                </Button>
+                </Button> */}
+
+                <Button variant="success" onClick={handlePayments} >
+                                      {instructionLoading ? (
+                                        <>
+                                          <Spinner size='sm' />
+                                          <span style={{ marginLeft: '5px' }}>Making Payment, Please wait...</span>
+                                        </>
+                                      ) : (
+                                        "Make Payment"
+                                      )}
+                                    </Button>
+
+                
             </div>
 
             </Accordion.Body>
@@ -736,8 +776,8 @@ const handlePayments = async () => {
 
 
                 <div class="modal-footer" >
-                                {/* Conditionally rendering buttons based on selectedVoucher value */}
-                                {selectedVoucher.approval_status === "0" && (
+                                {/* Conditionally rendering buttons based on selectedVoucher? value */}
+                                {selectedVoucher?.approval_status === "0" && (
                                   <>
                                     <Button variant="success" onClick={handleApprove}>
                                       {loading ? (

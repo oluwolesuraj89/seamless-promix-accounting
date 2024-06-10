@@ -263,7 +263,7 @@ readData();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>My Completed Payment Voucher</h3>
+                            <h3>Completed Payment Voucher</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
