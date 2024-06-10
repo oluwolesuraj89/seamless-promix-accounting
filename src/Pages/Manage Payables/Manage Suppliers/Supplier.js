@@ -171,31 +171,36 @@ readData();
 
 
   //view records
-  const handleEyeClick = (id) => {
-    const foundUser = tableData.find(item => item.id === id);
+//   const handleEyeClick = (id) => {
+//     const foundUser = tableData.find(item => item.id === id);
 
-    if (foundUser) {
-        const { name, email, phone_number,  } = foundUser;
-        setSelectedUser(id);
-        setFullName1(name || '');
-        setEmail1(email || '');
-        setPhone1(phone_number || '');
-        setAddress(address || '');
+//     if (foundUser) {
+//         const { name, email, phone_number,  } = foundUser;
+//         setSelectedUser(id);
+//         setFullName1(name || '');
+//         setEmail1(email || '');
+//         setPhone1(phone_number || '');
+//         setAddress(address || '');
 
         
        
-        setShow1(true);
-        setEyeClicked(true);
-    } else {
-        console.error(`User with id ${id} not found`);
-    }
+//         setShow1(true);
+//         setEyeClicked(true);
+//     } else {
+//         console.error(`User with id ${id} not found`);
+//     }
+// };
+const handleEyeClick = (id) => {
+  const foundCustomer = tableData.find(item => item.id === id);
+  navigate('/accounting/payables/suppliers/edit_supplier', { state: { selectedCustomer: foundCustomer } });
+  setEyeClicked(true);
 };
 
 
   //delete function
   const handleTrashClick = async (id) => {
     try {
-      const response = await axios.get(`${BASE_URL}/admin/users/destroy?id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/beneficiary/delete?id=${id}`, { headers });
       fetchBeneficiaries();
       // Swal.fire({
       //   icon: 'success',
@@ -504,8 +509,8 @@ readData();
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone Number</th>
-                                    <th>Created at</th>
-                                    <th>Updated by</th>
+                                    {/* <th>Created at</th>
+                                    <th>Updated by</th> */}
                                     <th>Action</th>
                                   </tr>
                                 </thead>
@@ -516,14 +521,14 @@ readData();
                                         <td>{item.name}</td>
                                         <td>{item.email}</td>
                                         <td>{item.phone_number}</td>
-                                        <td>{formatDate(item.created_at)}</td>
-                                        <td>{formatDate(item.updated_at)}</td>
+                                        {/* <td>{formatDate(item.created_at)}</td>
+                                        <td>{formatDate(item.updated_at)}</td> */}
                                         <td style={{textAlign: "left"}}>
                                         <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                            <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
+                                        <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
                                         </div>
                                         <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                            <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
+                                        <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
                                         </div>
                                         </td>
                                   </tr>

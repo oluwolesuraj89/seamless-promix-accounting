@@ -85,6 +85,7 @@ function ViewPendingPaymentVoucher() {
     const [formData, setFormData] = useState([{ sn: 1, tax: '', percentage: '', amount: '' }]);
 
 
+    console.log("selectedVoucher", selectedVoucher)
 
     const fetchBenAcct = async (selectedBeneficiary) => {
         setLoading(true);
@@ -655,8 +656,12 @@ const handleValueChange2 = (value, name, values) => {
 
                   <Form.Group className={classes.formGroup}>
                     <Form.Label  >Total Amount</Form.Label>
+                    <Form.Control type='text' id='text'
+                      value={selectedVoucher?.total_amount}
+                      style={{textAlign:'right'}}
+                    />
                     
-                    <CurrencyInput
+                    {/* <CurrencyInput
                         name="contract-amount" // Provide a unique name for each CurrencyInput
                         decimalsLimit={2}
                         value={parseFloat(selectedVoucher?.total_amount).toLocaleString('en-US', {
@@ -668,7 +673,7 @@ const handleValueChange2 = (value, name, values) => {
                         // onValueChange={(value) => handleValueChange2(value)}
                         style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
                         readOnly
-                    />
+                    /> */}
 
                   </Form.Group>  
 

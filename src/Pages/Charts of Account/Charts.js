@@ -323,7 +323,7 @@ handleClose1();
     }
 
     try {
-      const response = await axios.post(`${BASE_URL}/account/add?id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/account/delete?id=${id}`, { headers });
       fetchData();
      toast.success(response.data.message);
       setTrashClicked(true);
@@ -602,21 +602,20 @@ handleClose1();
               </div>
               <div className="text-right modal-effect ">
                 <div id="DataTables_Table_0_filter" className="dataTables_filter">
-                  <div className="d-flex justify-content-start align-items-center">
-                    <div className="mr-2">Search:</div>
-                    <input
-                      type="search"
-                      // value={searchTerm}
-                      className="form-control form-control-sm"
-                      placeholder=""
-                      aria-controls="DataTables_Table_0"
-                    // onChange={(e) => {
-                    // setSearchTerm(e.target.value);
-
-
-                    // }}
-                    />
-                  </div>
+                <div className="d-flex justify-content-start align-items-center">
+                  <div className="mr-2">Search:</div>
+                  <input
+                    type="search"
+                    value={searchTerm}
+                    className="form-control form-control-sm"
+                    placeholder=""
+                    aria-controls="DataTables_Table_0"
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                      // setCurrentPage(1);
+                    }}
+                  />
+                </div>
 
                 </div>
               </div>

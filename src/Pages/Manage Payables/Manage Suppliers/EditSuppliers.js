@@ -131,7 +131,7 @@ function EditSuppliers() {
           { headers }
         );
         console.log(response.data.message)
-        navigate('/suppliers')  
+        navigate('/accounting/payables/suppliers')  
         // return
         // Swal.fire({
         //   icon: 'success',

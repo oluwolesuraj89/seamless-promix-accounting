@@ -31,6 +31,7 @@ export default function CreatePaymentVoucher() {
     const [creditAccount, setCreditAccount] = useState([]);
     const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
     const [selectedBank, setSelectedBank] = useState("");
+    const [selectedMode, setSelectedMode] = useState("");
     const [ben, setBen] = useState([]);
     const [benBank, setBenBank] = useState([]);
     const [debitAccount, setDebitAccounts] = useState([]);
@@ -38,10 +39,12 @@ export default function CreatePaymentVoucher() {
     const [isLoading, setIsLoading] = useState(false);
     const [loading, setLoading] = useState(false);
     const [load, setLoad] = useState(false);
+    const [payLoading, setPayLoading] = useState(false);
     const [bearer, setBearer] = useState('');
     const [contractAmount, setContractAmount] = useState('');
     const [totalAmount, setTotalAmount] = useState("");
     const [totalTax, setTotalTax] = useState("");
+    const [payMode, setPayMod] = useState([]);
     const navigate = useNavigate();
     const [selectedBeneficiary, setSelectedBeneficiary] = useState(null);
     const [selectedDebitAccount, setSelectedDebitAccount] = useState(null);
@@ -186,6 +189,24 @@ export default function CreatePaymentVoucher() {
         }
     };
 
+    const paymentMode = async () => {
+        setPayLoading(true);
+        try {
+            const response = await axios.get(`${BASE_URL}/income/get-payment-method`, { headers });
+
+
+            const reply = response.data?.data;
+            setPayMod(reply);
+            console.log("reply", reply);
+        } catch (error) {
+            const errorStatus = error.response?.data?.message;
+            console.log(errorStatus);
+            setPayMod([]);
+        } finally {
+            setPayLoading(false);
+        }
+    };
+    
     const fetchTax = async () => {
         setIsLoading(true);
         try {
@@ -237,6 +258,9 @@ export default function CreatePaymentVoucher() {
 
     const handleBankChange = (event) => {
         setSelectedBank(event.target.value);
+    };
+    const handleModeChange = (event) => {
+        setSelectedMode(event.target.value);
     };
 
     const handleCredit = (event) => {
@@ -342,6 +366,7 @@ export default function CreatePaymentVoucher() {
             fetchBeneficiaries();
             fetchTax();
             fetchdebitAccounts();
+            paymentMode();
         }
     }, [bearer]);
 
@@ -561,11 +586,16 @@ export default function CreatePaymentVoucher() {
                   </Form.Group>
                   <Form.Group className={classes.formGroup}>
                       <Form.Label >Mode</Form.Label>
-                      <Form.Select id="disabledSelect">
+                      <Form.Select id="disabledSelect"
+                        value={selectedMode}
+                        onChange={handleModeChange}
+                      >
                         <option value="">Select Mode</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
+                        {payMode.map((mode)=>(
+                            <option value={mode.id} key={mode.id}>
+                                {mode.name}
+                            </option>
+                        ))}
                       </Form.Select>
                   </Form.Group>
                   <Form.Group className={classes.formGroup}>
