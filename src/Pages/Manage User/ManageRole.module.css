@@ -191,7 +191,7 @@ font-weight: normal;
   border: none !important;
 }
 .loanResponsive table > td, th{
-  border: none;
+  /* border: none; */
   /* font-size: 12px; */
 }
  .loanResponsive .edit{

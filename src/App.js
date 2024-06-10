@@ -80,6 +80,9 @@ import PrintVoucher from './Pages/Manage Payables/Manage Payment Voucher/PrintVo
 import AccountingDashboard from './Pages/Dashboard/AccountingDashboard.js';
 import CompletedPaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/CompletedPaymentVoucher.js';
 import ViewCompletedPaymentVoucher from './Pages/Manage Payables/Manage Payment Voucher/ViewCompletedPaymentVoucer.js';
+import BulkPaymentExcel from './Pages/Manage Payables/Manage Payment Excel/BulkPaymentExcel.js';
+import BulkEntries from './Pages/Manage Payables/Manage Payment Excel/BulkEntries.js';
+import Schedule from './Pages/Manage Payables/Schedule of payment/Schedule.js';
 
 
 function App() {
@@ -133,6 +136,11 @@ function App() {
         <Route path='/accounting/payables/payment_voucher/create_payment_voucher' element={<CreatePaymentVoucher/>} />
         <Route path='/accounting/payables/payment_voucher/view_pending_payment_voucher' element={<ViewPaymentVoucher/>} />
         <Route path='/accounting/payables/payment_voucher/view_completed_pending_payment_voucher' element={<ViewCompletedPaymentVoucher/>} />
+        <Route path='/accounting/payables/suppliers/edit_supplier' element={<EditSuppliers/>} />
+        <Route path='/accounting/payables/bulk_payment_excel' element={<BulkPaymentExcel/>} />
+        <Route path='/accounting/payables/bulk_payment' element={<BulkEntries/>} />
+        <Route path='/accounting/payables/schedule_of_payment' element={<Schedule/>} />
+        
         <Route path='/print_payment' element={<PrintVoucher/>} />
 
       </Routes>
