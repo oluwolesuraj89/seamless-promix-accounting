@@ -62,7 +62,8 @@ function MembersUi({
   fetchSearch,
       setSearchedResult,
       searchedResult,
-      searchLoading
+      searchLoading,
+      handleEyeClick1
 }) {
   const formattedTotalEntries = totalEntries.toLocaleString();
   return (
@@ -333,7 +334,7 @@ function MembersUi({
                                                 <td>{item.phone}</td>
                                                 <td>{formatDate(item.created_at)}</td>
                                                 <td style={{textAlign: "left"}}>
-                                                <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                                <div onClick={() => handleEyeClick1(item.id)} className="btn btn-success-soft btn-sm mr-1">
                                                     <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
                                                 </div>
                                                 <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">

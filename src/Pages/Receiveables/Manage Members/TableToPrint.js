@@ -14,7 +14,7 @@ const TableToPrint = React.forwardRef(({ customerLedgers, formatDate }, ref) => 
                 </tr>
             </thead>
             <tbody>
-                {customerLedgers.map((item, index) => (
+                {customerLedgers?.map((item, index) => (
                     <tr key={index}>
                         <td>{formatDate(item.created_at)}</td>
                         <td>{item.description}</td>

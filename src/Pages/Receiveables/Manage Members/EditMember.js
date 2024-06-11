@@ -42,6 +42,7 @@ function EditEmployeeMember() {
     const location = useLocation();
     const { selectedCustomer } = location.state || {};
     const customerLedgers = selectedCustomer?.ledgers;
+    console.log(customerLedgers);
 
     useEffect(() => {
       if (selectedCustomer) {

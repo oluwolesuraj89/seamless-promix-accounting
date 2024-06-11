@@ -102,7 +102,7 @@ function EmployeeMembers() {
         setTableData(results);
         const total = response.data?.data?.last_page || 1;
         setTotalPages(total);
-        console.log(total);
+        // console.log(results);
         // toast.success(response.data.message);
     } catch (error) {
         if (error.response && error.response.status === 401) {
@@ -225,7 +225,14 @@ function EmployeeMembers() {
   const handleEyeClick = (id) => {
     const foundCustomer = tableData.find(item => item.id === id);
         navigate('/cooperative/edit_member', { state: { selectedCustomer: foundCustomer } });
-        console.log(foundCustomer, "hdfhds");
+        console.log(foundCustomer, "table");
+        setEyeClicked(true);
+      };
+
+  const handleEyeClick1 = (id) => {
+    const foundCustomer = searchedResult.find(item => item.id === id);
+        navigate('/cooperative/edit_member', { state: { selectedCustomer: foundCustomer } });
+        console.log(foundCustomer, "searched");
         setEyeClicked(true);
       };
 
@@ -407,6 +414,7 @@ function EmployeeMembers() {
       handlePrevPage={handlePrevPage}
       handleNextPage={handleNextPage}
       handleEyeClick={handleEyeClick}
+      handleEyeClick1={handleEyeClick1}
       handleTrashClick={handleTrashClick}
       fullName={fullName}
       setFullName={setFullName}
