@@ -44,48 +44,34 @@ const [totalPages, setTotalPages] = useState(1);
 
 
 
-// const fetchLedgers = async () => {
-//   setLedgLoading(true);
-//   try {
-//     const response = await axios.get(`${BASE_URL}/ledger-postings`, { headers });
-//     const ledgers= response.data?.data;
-//     setLedgTableData(ledgers);
-//     console.log('ledgers', ledgers);
-//     toast.success(response.data.message);
-//   } catch (error) {
-//     // if (error.response && error.response.status === 401) {
-//     //   navigate('/login');
-//       let errorMessage = 'An error occurred. Please try again.';
-//           if (error.response && error.response.data && error.response.data.message) {
-//               if (typeof error.response.data.message === 'string') {
-//                   errorMessage = error.response.data.message;
-//               } else if (Array.isArray(error.response.data.message)) {
-//                   errorMessage = error.response.data.message.join('; ');
-//               } else if (typeof error.response.data.message === 'object') {
-//                   errorMessage = JSON.stringify(error.response.data.message);
-//               }
-//               toast.error(errorMessage)
-//               console.log(errorMessage);
-//         // }
-//     } else {
-//     const errorStatus = error.response?.data?.message;
-//     console.log(errorStatus);
-//     setLedgLoading([]);
-//   }
-//   } finally {
-//     setIsLoading(false);
-//   }
-// };
 
-// useEffect(() => {
-//   if (bearer) {
-//     fetchLedgers();
+const readData = async () => {
+  try {
+    const value = await AsyncStorage.getItem('userToken');
+    const value1 = await AsyncStorage.getItem('tobi');
 
-//   }
-// }, [bearer]);
+    if (value !== null) {
+      setBearer(value);
+    }
+    if (value1 !== null) {
+      setUser(value1);
+    }
+  } catch (e) {
+    alert('Failed to fetch the input from storage');
+  }
+};    
+
+useEffect(() => {
+readData();
+}, []);
+
+const headers = {
+  'Content-Type': 'application/json',
+  'Authorization': `Bearer ${bearer}`
+};
 
 const fetchLedgers = async () => {
-  setLedgLoading(true);
+  setLoad(true);
   try {
       const response = await axios.get(`${BASE_URL}/ledger-postings?page=${currentPage}`, { headers });
       const results = response.data?.data?.data;
@@ -114,7 +100,7 @@ const fetchLedgers = async () => {
           setTableData([]);
       }
   } finally {
-    setLedgLoading(false);
+    setLoad(false);
   }
 };
 
@@ -141,7 +127,7 @@ useEffect(() => {
     setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
   };
 
-  // const filteredData = tableData.filter(item => item.name.includes(searchTerm));
+  // const filteredData = ledgTableData.filter(item => item.name.includes(searchTerm));
   const startIndexx = (currentPage - 1) * entriesPerPage + 1;
   const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
   // const displayedData = filteredData.slice(currentPage - 1, totalEntries);
@@ -180,8 +166,7 @@ useEffect(() => {
     setLoad(true);
 
     try {
-        const response = await axios.get(
-            'https://api-sme.promixaccounting.com/api/v1/reports/general-ledger-filter',
+        const response = await axios.get(`${BASE_URL}/reports/general-ledger-filter`,
             {
                 params: {
                     gl_code: selectedAccount,
@@ -202,14 +187,28 @@ useEffect(() => {
         setInputss(resultssx);
 
         // console.log(resultssx, 'NI');
+        toast.success(response.data.message);
+          setSelectedAccount("");
+          setSelectedDate("");
+          setSelectedEndDate("");
       } catch (error) {
         if (error.response && error.response.status === 401) {
           
           navigate('/login');
         } else {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-      }
+          let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+            }}
+      
     } finally {
         setLoad(false);
     }
@@ -219,7 +218,7 @@ useEffect(() => {
   const fetchCharts = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/account', { headers });
+      const response = await axios.get(`${BASE_URL}/account`, { headers });
       const results = response.data?.data;
      
       setTableData(results);
@@ -236,7 +235,6 @@ useEffect(() => {
   useEffect(() => {
       if (bearer) {
         fetchCharts();
-         
       }
   }, [bearer]);
 
@@ -252,31 +250,7 @@ useEffect(() => {
     fetchAccounts();
   };
 
-
-
-
-
-  const readData = async () => {
-      try {
-          const value = await AsyncStorage.getItem('userToken');
-
-          if (value !== null) {
-              setBearer(value);
-          }
-      } catch (e) {
-          alert('Failed to fetch the input from storage');
-      }
-  };
-
-  useEffect(() => {
-      readData();
-
-  }, []);
-
-  const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${bearer}`
-  };
+  
 
   useEffect(() => {
     if (accounts) {
@@ -308,6 +282,12 @@ useEffect(() => {
   function padZero(num) {
     return num < 10 ? `0${num}` : num;
   }
+
+  const filteredData = ledgTableData.filter(item => {
+    const searchFields = [item.details, item.transaction_date, formatDate(item.created_at)];
+    return searchFields.some(field => field.toLowerCase().includes(searchTerm.toLowerCase()));
+  });
+
   
   const formattedTotalEntries = totalEntries.toLocaleString();
   return (
@@ -359,7 +339,7 @@ useEffect(() => {
                   </div>
 
                 </nav> */}
-                <nav aria-label="breadcrumb" style={{display:'flex', justifyContent:'flex-start', alignItems:'center', gap:'20px', marginBottom:'20px'}} >
+                <nav aria-label="breadcrumb" style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'20px'}} >
                     
                     <div className="form-group row col-md-4">
                       <div className="">
@@ -405,6 +385,21 @@ useEffect(() => {
                       </Button> */}
                     {/* </div> */}
                 </nav>
+
+                <div className="form-group row" style={{display:'flex', justifyContent:'flex-end', marginBottom:'20px'}}>
+                  {/* <div > */}
+                    <Button variant='success' onClick={fetchAccounts} style={{width:'30%'}}>
+                      {load ? (
+                        <>
+                          <Spinner size='sm'/>
+                          <span >Processing, Please wait...</span>
+                        </>
+                      ) : (
+                        "Process"
+                      )}
+                    </Button>
+                  {/* </div> */}
+                </div>
               {/* )} */}
               
                 <div className="col-sm-8 header-title p-0">
@@ -459,16 +454,13 @@ useEffect(() => {
                                 <div className="d-flex justify-content-start align-items-center">
                                   <div className="mr-2">Search:</div>
                                   <input
-                                    type="search"
+                                    className="form-control"
+                                    type="text"
                                     value={searchTerm}
-                                    className="form-control form-control-sm"
-                                    placeholder=""
-                                    aria-controls="DataTables_Table_0"
-                                    onChange={(e) => {
-                                      setSearchTerm(e.target.value);
-                                      // setCurrentPage(1);
-                                    }}
+                                    onChange={e => setSearchTerm(e.target.value)}
+                                    placeholder="Search..."
                                   />
+                                  
                                 </div>
 
                               </div>
@@ -476,7 +468,7 @@ useEffect(() => {
                           </div>
 
 
-                          {load ? (
+                          {load  ? (
                             <p>Fetching data...</p>
                           ) : (
                             <div className="table-responsive">
@@ -492,8 +484,8 @@ useEffect(() => {
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
-                                {ledgTableData.map((item, index) => (
-                                    <tr key={index}>
+                                {filteredData.map((item, index) => (
+                                     <tr key={item.id}>
                                       <td>{formatDate(item.created_at)}</td>
                                       <td>{item.transaction_date}</td>
                                       <td>{item.details}</td>
@@ -511,7 +503,7 @@ useEffect(() => {
                                   ))}
                                  {accounts.length > 0 && (
                                   <>
-                                    <td colSpan={2}>Total</td>
+                                    <td colSpan={3}>Total</td>
                                     <td style={{textAlign: 'right', fontWeight: "bold"}}>{totalDebit}</td>
                                     <td style={{textAlign: 'right', fontWeight: "bold"}}>{totalCredit}</td>
                                   </>
