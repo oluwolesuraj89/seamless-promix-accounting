@@ -83,6 +83,11 @@ import ViewCompletedPaymentVoucher from './Pages/Manage Payables/Manage Payment 
 import BulkPaymentExcel from './Pages/Manage Payables/Manage Payment Excel/BulkPaymentExcel.js';
 import BulkEntries from './Pages/Manage Payables/Manage Payment Excel/BulkEntries.js';
 import Schedule from './Pages/Manage Payables/Schedule of payment/Schedule.js';
+import CreateSavingsWithdrawals from './Pages/Manage Cooperatives/Manage Savings/SavingsWithdrawals/CreateSavingsWithdrawals.js';
+import CreateLoanRepayment from './Pages/Loan Payment/CreateLoanRepayment.js';
+import LoanRepay from './Pages/Loan Payment/LoanRepay.js';
+import SavingsPayment from './Pages/Savings Payment/SavingsPayment.js';
+import CreateSavingsPayment from './Pages/Savings Payment/CreateSavingsPayment.js';
 
 
 function App() {
@@ -105,6 +110,7 @@ function App() {
         <Route path='/cooperative/loan_advances' element={<ManageLoans />} />
         <Route path='/cooperative/disburse_loan' element={<DisburseLoan />} />
         <Route path='/cooperative/savings_withdrawals' element={<SavingsWithdrawals />} />
+        <Route path='/cooperative/create_savings_withdrawals' element={<CreateSavingsWithdrawals />} />
         <Route path='/cooperative/savings_individual_ledger' element={<SavingsLedger />} />
         <Route path='/cooperative/loan_individual_ledger' element={<LoanLedger />} />
         <Route path='/cooperative/report_ledger' element={<ReportLedger />} />
@@ -125,6 +131,10 @@ function App() {
         <Route path='/cooperative/create_loan' element={<CreateLoan />} />
         <Route path='/cooperative/edit_loan' element={<EditLoan />} />
         <Route path='/cooperative/create_savings_application' element={<CreateSavingsApp />} />
+        <Route path='/cooperative/loan_repayment' element={<LoanRepay />} />
+        <Route path='/cooperative/savings_payment' element={<SavingsPayment />} />
+        <Route path='/cooperative/create_loan_repayment' element={<CreateLoanRepayment />} />
+        <Route path='/cooperative/create_savings_payment' element={<CreateSavingsPayment />} />
         <Route path='/forbidden' element={<Forbidden />} />
 
         <Route path='/accounting' element={<AccountingDashboard />} />

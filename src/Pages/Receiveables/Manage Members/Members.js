@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,  } from 'react';
 // import ManageCustomerUI from './ManageCustomerUI';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -141,7 +141,7 @@ function EmployeeMembers() {
     try {
         let res;
         if (searchTerm.trim() === "") {
-            res = tableData1;
+            res = tableData;
         } else {
             const response = await axios.get(`${BASE_URL}/customer/search`, {
                 params: { variable: searchTerm },
@@ -150,6 +150,7 @@ function EmployeeMembers() {
             res = response.data?.data;
         }
         setSearchedResult(res);
+        console.log(res, "searched");
        
     } catch (error) {
         if (error.response && error.response.status === 401) {

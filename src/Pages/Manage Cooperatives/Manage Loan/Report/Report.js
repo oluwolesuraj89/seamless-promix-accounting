@@ -166,21 +166,21 @@ export default function ReportLedger() {
     <table className={classes.reportTable}>
       <thead>
         <tr >
-            <th style={{textAlign: "center",  whiteSpace: "nowrap"}}>S/N</th>
-            <th style={{textAlign: "center",  }}>TRANSACTION DATE</th>
-            <th className={classes.longth}>DESCRIPTION</th>
-            <th style={{textAlign: "center",  whiteSpace: "nowrap"}}>DEBITS</th>
-            <th style={{textAlign: "center",  whiteSpace: "nowrap"}}>CREDITS</th>
-            <th style={{textAlign: "center",  whiteSpace: "nowrap"}}>BALANCE</th>
+            {/* <th style={{textAlign: "center",  whiteSpace: "nowrap"}}>S/N</th> */}
+            <th style={{ whiteSpace: "nowrap", fontSize: 12 }}>Tx Date</th>
+            <th className={classes.longth}>Description</th>
+            <th style={{  whiteSpace: "nowrap", fontSize: 12, textAlign: "right"}}>Debits</th>
+            <th style={{  whiteSpace: "nowrap", fontSize: 12, textAlign: "right"}}>Credits</th>
+            <th style={{  whiteSpace: "nowrap", fontSize: 12, textAlign: "right"}}>Balance</th>
         </tr>  
         </thead>
         <tbody>
         {document.map((item, index) => (
        <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{item.transaction_date}</td>
+            {/* <td>{index + 1}</td> */}
+            <td style={{whiteSpace: "nowrap", }}>{item.transaction_date}</td>
             <td className={classes.left111}>{item.description}</td>
-            <td className={classes.right111}>{parseFloat(item.debit).toLocaleString('en-US', {
+            <td className={classes.right111} style={{color: "red"}}>{parseFloat(item.debit).toLocaleString('en-US', {
                     minimumIntegerDigits: 1,
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2

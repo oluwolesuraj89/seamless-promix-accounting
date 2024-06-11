@@ -113,7 +113,7 @@ function Login() {
                                 {showPassword ? (
                                     <img src={crossedEyeIcon} alt="Hide Password" style={{ height: "20px", width: "20px" }} />
                                 ) : (
-                                    '👁'
+                                    '👁️'
                                 )}
                             </button>
                         </Form.Group>

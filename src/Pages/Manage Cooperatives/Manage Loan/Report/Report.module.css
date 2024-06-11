@@ -131,15 +131,18 @@ hr {
 
 .longth {
     width: 400px;
-    text-align: center !important;
+    text-align: left !important;
+    font-size: 12px !important;
 }
 
 .left111 {
-    text-align: left;
+    text-align: left !important;
 }
 
 .right111 {
-    text-align: right;
+    text-align: right !important;
+    width: 120px !important;
+    
 }
 
 
@@ -199,12 +202,18 @@ hr {
 
 .printbutton {
     justify-content: center;
-    background-color: rgb(1, 63, 1);
+    background-color: #198754;
     color: white;
     align-items: center;
     height: 40px;
     width: 100px;
     border-radius: 4px;
+}
+
+.printbutton:hover {
+    
+    background-color: #14422d;
+    
 }
 .footer {
     text-align: center;

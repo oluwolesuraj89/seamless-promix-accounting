@@ -122,7 +122,7 @@ function SavingsWithdrawals() {
           );
           const resultsss = response.data?.data;
           setTableData(resultsss);
-
+console.log(resultsss);
           
       } catch (error) {
           const errorStatus = error.response.data.message;
@@ -351,11 +351,8 @@ function SavingsWithdrawals() {
 
   
 
-const handlePrintInvoice = (id) => {
-    const selectedBook = tableData.find(item => item.id === id);
-  
-  
-    navigate('/print_payment', { state: { selectedBook } });
+const handleCreate = () => {
+    navigate('/cooperative/create_savings_withdrawals');
   };
     
 
@@ -414,201 +411,7 @@ const handlePrintInvoice = (id) => {
                 </div>
             </div>
 
-            <div className={classes.topPadding}>
-                    <div className={`${classes.formSecCont}`}>
-                    <div className="card-body" style={{border:'none'}}>
-
-
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group row">
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Transaction Date:</label>
-                                <div className="col-sm-9">
-                                <input className="form-control" required="" type="date" onChange={handleDateChange} name="date" value={selectedDate} />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6">
-                            <div className="form-group row">
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Member:</label>
-                                <div className="col-sm-9">
-                                <Select
-                                onChange={(selectedOption) => handleSupplierChange(selectedOption)}
-                                options={customers}
-                                menuPortalTarget={document.body}
-                                styles={{
-                                    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                    menu: (provided) => ({
-                                    ...provided,
-                                    maxHeight: '300px',
-                                    overflowY: 'auto',
-                                    }),
-                                }}
-                                />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Savings Type:</label>
-                                <div className="col-sm-9">
-                                <Select
-                                        
-                                        onChange={handleSavingsChange}
-                                        options={savings}
-                                        // menuPortalTarget={document.body}
-                                        styles={{
-                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                          menu: (provided) => ({
-                                            ...provided,
-                                            maxHeight: '300px',
-                                            overflowY: 'auto',
-                                          }),
-                                        }}
-                                      />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6">
-                            <div className="form-group row" style={{marginBottom:"10px", desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance:</label>
-                                <div className="col-sm-9">
-                                <CurrencyInput
-                                        style={{ width: '330px', height: '38px', textAlign: 'right', padding: '10px' }}
-                                        value={balance}
-                                        // onChange={(selectedOption) => handleBankChange(selectedOption)}
-
-                                        menuPortalTarget={document.body}
-                                        disabled
-                                        styles={{
-                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                          menu: (provided) => ({
-                                            ...provided,
-                                            maxHeight: '200px',
-                                            overflowY: 'auto',
-
-
-                                          }),
-                                        }}
-                                      />
-                                </div>
-                            </div>
-                        </div>
-                       
-<div style={{marginTop: 20}}/>
-                        <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Mode of Savings:</label>
-                                <div className="col-sm-9">
-                                <Select
-                                        value={selectedMode}
-                                        onChange={(selectedOption) => handleModeChange(selectedOption)}
-                                        options={mode}
-                                        menuPortalTarget={document.body}
-                                        styles={{
-                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                          menu: (provided) => ({
-                                            ...provided,
-                                            maxHeight: '200px',
-                                            overflowY: 'auto',
-                                          }),
-                                        }}
-                                      />
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Bank:</label>
-                                <div className="col-sm-9">
-                                <Select
-                                        onChange={handleBankChange}
-                                        options={banks}
-                                        menuPortalTarget={document.body}
-                                        styles={{
-                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                          menu: (provided) => ({
-                                            ...provided,
-                                            maxHeight: '300px',
-                                            overflowY: 'auto',
-                                          }),
-                                        }}
-                                      />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-6">
-                            <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount To Withdraw:</label>
-                                <div className="col-sm-9" >
-                                <CurrencyInput
-                                        name="principal amount"
-                                        decimalsLimit={2}
-                                        className="form-control"
-                                        value={amountToPay}
-                                        onValueChange={handleValueChange}
-                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                                      />
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-    <div className="col-md-6">
-        <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
-            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Cheque No:</label>
-            <div className="col-sm-9" >
-            <input className="form-control" required="" type="text" 
-                                       name="cheque-no"
-                                       
-                                       value={chequeNo} // Set the value to the balance state
-                                       onChange={(e) => setChequeNo(e.target.value)}
-                                       
-                                      
-                                      />
-            </div>
-        </div>
-    </div>
-</div>
-
-<div style={{ marginTop: 20 }} />
-
-
-<div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start' }}>
-    <Button style={{ borderRadius: 0 }} variant='success' onClick={createSavings}>
-    {createloading ? (
-                                                                        <>
-                                                                            <Spinner size='sm' />
-                                                                            <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
-                                                                        </>
-                                                                    ) : (
-                                                                        "Create Savings Withdrawal"
-                                                                    )}
-    </Button>
-
-</div>
-
-</div>
-                                            </div>
-            </div>
-
+           
 
 
 
@@ -620,11 +423,11 @@ const handlePrintInvoice = (id) => {
 
 
 
-            <div style={{backgroundColor:'white', padding:'10px 20px'}}>
+            <div style={{backgroundColor:'white', padding:'10px 20px', marginTop: 20}}>
               {/* <!--Content Header (Page header)--> */}
               <div className="content-header row align-items-center m-0">
               {/* {(isAdmin || permittedHeaders.includes('create-savings-account')) && ( */}
-                {/* <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+                <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
                   <div
                     style={{
                       marginTop: 20,
@@ -636,11 +439,11 @@ const handlePrintInvoice = (id) => {
                     className={classes.actionBtns}
                   >
                     <Button variant="success" onClick={handleCreate}>
-                      Create New Accounts
+                      Create Savings Withdrawal
                     </Button>
                   </div>
 
-                </nav> */}
+                </nav>
               {/* )} */}
               
                 <div className="col-sm-8 header-title p-0">
