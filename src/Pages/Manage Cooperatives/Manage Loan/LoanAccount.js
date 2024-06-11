@@ -136,23 +136,39 @@ const navigate = useNavigate();
 
 
   const handleTrashClick = async (id) => {
+    const confirmed = await Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this account.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel',
+    });
+
+    if (!confirmed.isConfirmed) {
+      return; // User canceled, do nothing
+    }
+
     try {
-      const response = await axios.get(`${BASE_URL}/destroy?id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/account/delete-savings?id=${id}`, { headers });
       fetchBooking();
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
+     toast.success(response.data.message);
       setTrashClicked(true);
     } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(errorStatus);
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
     }
   };
 

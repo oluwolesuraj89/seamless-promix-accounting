@@ -31,11 +31,14 @@ export default function ManageUser() {
   const [user, setUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [roleLoading, setRoleLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [updateLoading, setUpdateLoading] = useState(false);
   const [eyeClicked, setEyeClicked] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [tableData1, setTableData1] = useState([]);
   const [permissions, setPermissions] = useState([]);
+  const [searchedResult, setSearchedResult] = useState([]);
   const [trashClicked, setTrashClicked] = useState(false);
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
@@ -108,6 +111,44 @@ export default function ManageUser() {
       }
     } finally {
       setRoleLoading(false);
+    }
+  };
+
+
+
+  const fetchSearch = async (searchTerm) => {
+    setSearchLoading(true);
+    try {
+        let res;
+        if (searchTerm.trim() === "") {
+            res = tableData1;
+        } else {
+            const response = await axios.get(`${BASE_URL}/users/search`, {
+                params: { variable: searchTerm },
+                headers
+            });
+            res = response.data?.data;
+        }
+        setSearchedResult(res);
+       
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            navigate('/login');
+        } else {
+          let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+          }
+          setSearchedResult([]);
+        }
+    } finally {
+        setSearchLoading(false);
     }
   };
 
@@ -285,7 +326,7 @@ handleClose1();
   const handleTrashClick = async (id) => {
     const confirmed = await Swal.fire({
       title: 'Are you sure?',
-      text: 'You are about to delete this role.',
+      text: 'You are about to delete this user.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -299,7 +340,7 @@ handleClose1();
     }
 
     try {
-      const response = await axios.get(`${BASE_URL}/role/delete-role?role_id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/users/delete?id=${id}`, { headers });
       fetchData();
      toast.success(response.data.message);
       setTrashClicked(true);
@@ -536,18 +577,25 @@ handleClose1();
                   <div className="d-flex justify-content-start align-items-center">
                     <div className="mr-2">Search:</div>
                     <input
-                      type="search"
-                      // value={searchTerm}
-                      className="form-control form-control-sm"
-                      placeholder=""
-                      aria-controls="DataTables_Table_0"
-                    // onChange={(e) => {
-                    // setSearchTerm(e.target.value);
-
-
-                    // }}
-                    />
+    type="search"
+    value={searchTerm}
+    className="form-control form-control-sm"
+    placeholder=""
+    aria-controls="DataTables_Table_0"
+    onChange={(e) => setSearchTerm(e.target.value)}
+/>
+                    <Button style={{marginLeft: 10}} variant="success" onClick= {() => fetchSearch(searchTerm)}>
+                  {searchLoading ? (
+                      <>
+                      <Spinner  size='sm' /> 
+                     
+    </>
+  ) : (
+                "Search"
+              )}
+                  </Button>
                   </div>
+                  
 
                 </div>
               </div>
@@ -570,7 +618,32 @@ handleClose1();
                             </tr>
                           </thead>
                           <tbody style={{ whiteSpace: 'nowrap', }}>
-                            {displayedData.map((item, index) => (
+                            {searchedResult.map((item, index) => (
+                             <tr key={index}>
+                             <td>{index + 1}</td>
+                             <td>{item.name}</td>
+                             <td>{item.email}</td>
+                             <td>{item.phone_no}</td>
+                             <td>
+  {item.roles?.map((role, index) => (
+    <span key={index}>{role.name}</span>
+  ))}
+</td>
+                                <td>
+                                {(admin === "1" || permissions.includes('update-user')) && (
+                                  <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                    <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
+                                  </div>
+)}
+{(admin === "1" || permissions.includes('delete-user')) && (
+                                  <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                    <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 5, borderColor: "#dc35454d", borderRadius: 5}}></i>
+                                  </div>
+)}
+                                </td>
+                              </tr>
+                            ))}
+                            {tableData.map((item, index) => (
                              <tr key={index}>
                              <td>{index + 1}</td>
                              <td>{item.name}</td>

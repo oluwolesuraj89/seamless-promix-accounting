@@ -22,6 +22,7 @@ import { BASE_URL } from '../../api/api';
 import MainDashboard from '../../Main Dashboard/MainDashoard';
 import TableToPrint from './TableToPrint';
 import CoopDashboard from '../../Cooperative Dashboard/CoopDashboard';
+import { toast } from 'react-toastify';
 
 function EditEmployeeMember() {
 
@@ -32,6 +33,7 @@ function EditEmployeeMember() {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [memberLoading, setMemberLoading] = useState(false);
     const [load, setLoad] = useState(false);
     const [bearer, setBearer] = useState('');
     const [user, setUser] = useState('');
@@ -40,6 +42,7 @@ function EditEmployeeMember() {
     const location = useLocation();
     const { selectedCustomer } = location.state || {};
     const customerLedgers = selectedCustomer?.ledgers;
+    console.log(customerLedgers);
 
     useEffect(() => {
       if (selectedCustomer) {
@@ -150,7 +153,41 @@ function EditEmployeeMember() {
    
 
 
-
+    const updateMember = async () => {
+        setMemberLoading(true);
+        try {
+          const response = await axios.post(`${BASE_URL}/customer/update`,
+            {
+              name: name,
+              email: email,
+              phone: phone,
+              address: address,
+              id:  selectedCustomer.id
+            },
+            { headers }
+          );
+          console.log(response.data.message)
+          navigate(-1);
+          toast.success(response.data.message);
+          console.log(response.data);
+    
+        } catch (error) {
+            let errorMessage = 'An error occurred. Please try again.';
+            if (error.response && error.response.data && error.response.data.message) {
+                if (typeof error.response.data.message === 'string') {
+                    errorMessage = error.response.data.message;
+                } else if (Array.isArray(error.response.data.message)) {
+                    errorMessage = error.response.data.message.join('; ');
+                } else if (typeof error.response.data.message === 'object') {
+                    errorMessage = JSON.stringify(error.response.data.message);
+                }
+                toast.error(errorMessage)
+                console.log(errorMessage);
+            }
+        } finally {
+          setMemberLoading(false);
+        }
+      };
  
 
      
@@ -255,8 +292,8 @@ function EditEmployeeMember() {
 
                                                             <div style={{justifyContent: "flex-start",  marginTop:30, gap: 20}} class="modal-footer">
                                                             <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
-                                                            <Button style={{borderRadius: 4,}} variant="success" onClick={updateBeneficiary}>
-                    {load ? (
+                                                            <Button style={{borderRadius: 4,}} variant="success" onClick={updateMember}>
+                    {memberLoading ? (
                       <>
                       <Spinner  size='sm' /> 
                       <span style={{ marginLeft: '5px' }}>Updating records, Please wait...</span>

@@ -58,7 +58,12 @@ function MembersUi({
   tableData,
   formatDate,
   handleFileChange,
-  uploadExcel
+  uploadExcel,
+  fetchSearch,
+      setSearchedResult,
+      searchedResult,
+      searchLoading,
+      handleEyeClick1
 }) {
   const formattedTotalEntries = totalEntries.toLocaleString();
   return (
@@ -276,16 +281,23 @@ function MembersUi({
                                   <div className="d-flex justify-content-start align-items-center">
                                     <div className="mr-2">Search:</div>
                                     <input
-                                      type="search"
-                                      value={searchTerm}
-                                      className="form-control form-control-sm"
-                                      placeholder=""
-                                      aria-controls="DataTables_Table_0"
-                                      onChange={(e) => {
-                                        setSearchTerm(e.target.value);
-                                        // setCurrentPage(1);
-                                      }}
-                                    />
+    type="search"
+    value={searchTerm}
+    className="form-control form-control-sm"
+    placeholder=""
+    aria-controls="DataTables_Table_0"
+    onChange={(e) => setSearchTerm(e.target.value)}
+/>
+<Button style={{marginLeft: 10}} variant="success" onClick= {() => fetchSearch(searchTerm)}>
+                  {searchLoading ? (
+                      <>
+                      <Spinner  size='sm' /> 
+                     
+    </>
+  ) : (
+                "Search"
+              )}
+               </Button>
                                   </div>
 
                                 </div>
@@ -313,6 +325,24 @@ function MembersUi({
                                             </tr>
                                         </thead>
                                         <tbody style={{ whiteSpace: 'nowrap' }}>
+                                            {searchedResult.map((item, index) => (
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{item.employee_no}</td>
+                                                <td>{item.name}</td>
+                                                <td style={{textAlign: "left"}}>{item.email}</td>
+                                                <td>{item.phone}</td>
+                                                <td>{formatDate(item.created_at)}</td>
+                                                <td style={{textAlign: "left"}}>
+                                                <div onClick={() => handleEyeClick1(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                                    <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
+                                                </div>
+                                                <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                                    <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
+                                                </div>
+                                                </td>
+                                            </tr>
+                                            ))}
                                             {tableData.map((item, index) => (
                                             <tr key={index}>
                                                 <td>{index + 1}</td>

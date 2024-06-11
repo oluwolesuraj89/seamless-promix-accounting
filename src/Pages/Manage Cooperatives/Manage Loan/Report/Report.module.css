@@ -38,6 +38,9 @@ body {
     flex-grow: 1;
     font-weight: 700;
 }
+.heading h2{
+   font-weight: 900;
+}
 
 .heading h1, .heading h3, .heading h4, .heading h2, .heading p {
     margin: 0;
@@ -80,9 +83,14 @@ hr {
     padding: 0;
     font-size: 10px;
 }
+.questionname h5 {
+    font-size: 14px;
+  
+}
 
-.details {
-    margin-left: 20px;
+.details h6{
+    font-weight: 700;
+    /* margin-left: 5px; */
     /* text-decoration: underline; */
 }
 
@@ -123,6 +131,7 @@ hr {
 
 .longth {
     width: 400px;
+    text-align: center !important;
 }
 
 .left111 {

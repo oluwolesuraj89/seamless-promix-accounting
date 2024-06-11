@@ -507,11 +507,11 @@ style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none
                               {/* </div> */}
 
                               <div style={{ marginTop: 20 }} />
-                              <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
+                              {/* <div className={`${classes.formIntBtn} ${classes.formIntBtn2}`}>
                                 <Button variant="success" className={classes.btn1}> Approve Loan</Button>
                                 <Button variant="danger" className={classes.btn2}> Disapprove Loan</Button>
 
-                              </div>
+                              </div> */}
 
 
 

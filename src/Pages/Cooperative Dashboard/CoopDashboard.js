@@ -145,7 +145,7 @@ export default function CoopDashboard() {
       
           navigate('/login');
       
-          toast.success(response.data.message);
+        //   toast.success(response.data.message);
       
           // console.log(response.data);
         } catch (error) {
@@ -279,7 +279,7 @@ export default function CoopDashboard() {
                                     <Card.Body className={classes.cardBody}>
                                         <Link to={'#'}>Teller Entries Savings</Link><br/>
                                         <Link to={'#'}>Teller Entries Loans</Link><br/>
-                                        <Link to={'/coop_savings_withdrawals'}>Savings Withdrawal</Link><br/>
+                                        <Link to={'/cooperative/savings_withdrawals'}>Savings Withdrawal</Link><br/>
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>
