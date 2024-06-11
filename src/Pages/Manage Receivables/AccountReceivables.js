@@ -11,23 +11,32 @@ import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'r
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
-import classes from '../../Manage Cooperatives/Manage Members/ManageMember.module.css'
-import MainDashboard from '../../Main Dashboard/MainDashoard';
-import { BASE_URL } from '../../api/api';
+import classes from '../Manage Cooperatives/Manage Members/ManageMember.module.css'
+import MainDashboard from '../Main Dashboard/MainDashoard';
+import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
-import Arrow from '../../../assets/promix/dArrow-down.svg'
+import Arrow from '../../assets/promix/dArrow-down.svg'
 
 
 
-function PaymentVoucher() {
+function AccountReceivables() {
+    const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [bearer, setBearer] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [role, setRole] = useState("");
+  const [role1, setRole1] = useState("");
+  const [checkAll, setCheckAll] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(false);
-const navigate = useNavigate();
+  const [permittedHeaders, setPermittedHeaders] = useState([]);
+  const [department, setDepartment] = useState("");
+  const [department1, setDepartment1] = useState("");
+  const [deptId, setDeptId] = useState("");
   const handleClose = () => setShow(false);
   const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
@@ -35,6 +44,8 @@ const navigate = useNavigate();
 
   const [eyeClicked, setEyeClicked] = useState(false);
   const [trashClicked, setTrashClicked] = useState(false);
+  const [perm, setPerm] = useState([]);
+  const [permId, setPermId] = useState([]);
   const [fullName, setFullName] = useState("");
   const [fullName1, setFullName1] = useState("");
   const [email, setEmail] = useState("");
@@ -42,12 +53,13 @@ const navigate = useNavigate();
   const [phone1, setPhone1] = useState("");
   const [phone, setPhone] = useState("");
   const [roles, setRoles] = useState([]);
-  const [selectedRole, setSelectedRole] = useState('');
-  const [selectedRoleId, setSelectedRoleId] = useState(null);
+  const [address, setAddress] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [user, setUser] = useState("");
+  const [beneficiaries, setBeneficiaries] = useState('');
+  const [user, setUser] = useState('');
 
   const readData = async () => {
     try {
@@ -69,46 +81,21 @@ useEffect(() => {
 readData();
 }, []);
 
+
+  // specify header
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${bearer}`
   };
 
-  // const fetchPayment = async () => {
-  //   setIsLoading(true);
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/payment_voucher/pending_payment_list`, { headers });
-  //     const results = response.data?.data;
-  //     setTableData(results);
-  //     // console.log(results);
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       // Redirect to login page if unauthorized
-  //       navigate('/login');
-  //     } else {
-  //     const errorStatus = error.response?.data?.message;
-  //     console.log(errorStatus);
-  //     setTableData([]);
-  //     }
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-
-
-  // useEffect(() => {
-  //   if (bearer) {
-  //     fetchPayment();
-
-  //   }
-  // }, [bearer]);
-
-  const fetchPayment = async () => {
+  //fetch records
+  const fetchBeneficiaries = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/payment_voucher/pending_payment_list`, { headers });
-      const results = response.data?.data?.payments;
+      const response = await axios.get(`${BASE_URL}/beneficiary`, { headers });
+
+
+      const results = response.data?.data;
       setTableData(results);
       console.log(results);
     } catch (error) {
@@ -116,10 +103,10 @@ readData();
         // Redirect to login page if unauthorized
         navigate('/login');
       } else {
-        const errorStatus = error.response?.data?.message;
-        console.log(errorStatus);
-        setTableData([]);
-      }
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setTableData([]);
+    }
     } finally {
       setIsLoading(false);
     }
@@ -129,15 +116,49 @@ readData();
 
   useEffect(() => {
     if (bearer) {
-      fetchPayment();
-      // fetchBankss();
+      fetchBeneficiaries();
 
     }
   }, [bearer]);
 
+  //create beneficiary
+  const createBeneficiary = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${BASE_URL}/beneficiary/add`,
+        {
+          name: fullName,
+          email: email,
+          phone_number: phone,
+          address: address
+        },
+        { headers }
+      );
+      console.log(response.data.message)
+      fetchBeneficiaries();
+      handleClose();
+      // return
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+      console.log(response.data.message);
 
+    } catch (error) {
+      const errorStatus = error.response.data.message;
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-
+  //format date
   function formatDate(dateString) {
     const date = new Date(dateString);
     const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
@@ -149,88 +170,103 @@ readData();
   }
 
 
-  const handleEyeClick = (id) => {
+  //view records
+//   const handleEyeClick = (id) => {
+//     const foundUser = tableData.find(item => item.id === id);
 
-    const foundUser = tableData.find(item => item.id === id);
+//     if (foundUser) {
+//         const { name, email, phone_number,  } = foundUser;
+//         setSelectedUser(id);
+//         setFullName1(name || '');
+//         setEmail1(email || '');
+//         setPhone1(phone_number || '');
+//         setAddress(address || '');
+
+        
+       
+//         setShow1(true);
+//         setEyeClicked(true);
+//     } else {
+//         console.error(`User with id ${id} not found`);
+//     }
+// };
+const handleEyeClick = (id) => {
+  const foundCustomer = tableData.find(item => item.id === id);
+  navigate('/accounting/payables/suppliers/edit_supplier', { state: { selectedCustomer: foundCustomer } });
+  setEyeClicked(true);
+};
 
 
-    const { name, email, phone_no, roles } = foundUser;
-
-
-    setFullName1(name || '');
-    setEmail1(email || '');
-    setPhone1(phone_no || '');
-
-    const selectedRole = roles.length > 0 ? roles[0].id : '';
-    setSelectedRole(selectedRole);
-
-    setShow1(true);
-    setEyeClicked(true);
-  };
-
-
+  //delete function
   const handleTrashClick = async (id) => {
     try {
-      const response = await axios.get(`${BASE_URL}/payment_voucher/delete-payment-voucher?id=${id}`, { headers });
-  
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
+      const response = await axios.get(`${BASE_URL}/beneficiary/delete?id=${id}`, { headers });
+      fetchBeneficiaries();
+      // Swal.fire({
+      //   icon: 'success',
+      //   title: 'Success',
+      //   text: response.data.message,
+      // });
+      toast.success(response.data.message);
+
       setTrashClicked(true);
     } catch (error) {
-      const errorStatus = error.response?.data?.message;
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-      console.log(errorStatus);
-    }
-  };
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
+        }};
+  // };
 
+  //update function
   const editUser = async () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${BASE_URL}/update`,
+      const response = await axios.post(`${BASE_URL}/admin/users/update`,
         {
           name: fullName1,
           // id: deptId, 
           email: email1,
-          phone_no: phone1,
-          role: selectedRole
+          phone_number: phone1,
+          // role: selectedRole
         },
         { headers }
       );
 
+      fetchBeneficiaries();
 
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: response.data.message,
-      });
-
+      toast.success(response.data.message);
       // console.log(response.data);
     } catch (error) {
-      const errorStatus = error.response?.data?.message || 'An error occurred';
-
-      Swal.fire({
-        icon: 'error',
-        title: 'Failed',
-        text: errorStatus,
-      });
-
-      console.error(error);
+      let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                  errorMessage = JSON.stringify(error.response.data.message);
+              }
+              toast.error(errorMessage)
+              console.log(errorMessage);
+          }
     } finally {
       setLoading(false);
     }
   };
 
 
-  const filteredData = tableData.filter(item => item.description.toLowerCase().includes(searchTerm.toLowerCase()));
+  //filter function
+  const filteredData = tableData.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
@@ -242,38 +278,26 @@ readData();
     setCurrentPage(Math.min(currentPage + 1, totalPages));
   };
 
-  // const totalEntries = filteredData.length;
-  // const startIndexx = (currentPage - 1) * entriesPerPage + 1;
-  // const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-  // const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
-
   const totalEntries = filteredData.length;
   const startIndexx = (currentPage - 1) * entriesPerPage + 1;
   const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
   const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
 
+  useEffect(() => {
+    const retrieveAdminStatus = async () => {
+      try {
+        const permitted = await AsyncStorage.getItem('permissions');
+        if (permitted) {
+          setPermittedHeaders(permitted);
+         
+        }
+      } catch (error) {
+        console.error('Error retrieving admin status:', error);
+      }
+    };
 
-  const handleRoleChange = (e) => {
-    setSelectedRole(e.target.value);
-  };
-
-  const handleCreate = () => {
-    navigate('/accounting/payables/payment_voucher/create_payment_voucher');
-  };
-
-  const handlePrintInvoice = (id) => {
-    const selectedVoucher = tableData.find(item => item.id === id);
-  
-  
-    navigate('/print_payment', { state: { selectedVoucher } });
-  };
-
-  const handleViewVoucher = (id) => {
-    const selectedVoucher = tableData.find(item => item.id === id);
-  
-  
-    navigate('/accounting/payables/payment_voucher/view_pending_payment_voucher', { state: { selectedVoucher } });
-  };
+    retrieveAdminStatus();
+  }, []);
   
 
   return (
@@ -295,7 +319,7 @@ readData();
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Payment Voucher</h3>
+                            <h3>Receivables</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -353,21 +377,20 @@ readData();
 
                 </nav> */}
                 <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
-                <div
-                  style={{
-                    marginTop: 20,
-                    marginBottom: 20,
-                    justifyContent: "flex-end",
-                    display: "flex",
-                    marginLeft: "auto",
-                  }}
-                >
-                  <Button variant="success" onClick={handleCreate}>
-                    Add New Payment Voucher
-                  </Button>
-                </div>
-
-              </nav>
+                    <div
+                      style={{
+                        marginTop: 20,
+                        marginBottom: 20,
+                        justifyContent: "flex-end",
+                        display: "flex",
+                        marginLeft: "auto",
+                      }}
+                    >
+                      <Button variant="success" onClick={handleShow}>
+                        Add New 
+                      </Button>
+                    </div>
+                  </nav>
               {/* )} */}
               
                 <div className="col-sm-8 header-title p-0">
@@ -384,7 +407,69 @@ readData();
               {/* <!--/.Content Header (Page header)--> */}
               <div className="body-content">
                 
-              
+              <Modal show={show} onHide={handleClose} animation={false}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Add New Beneficiaries</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <Form style={{ marginTop: 20 }}>
+                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Full Name"
+                              // autoFocus
+                              value={fullName}
+                              onChange={(e) => setFullName(e.target.value)}
+                            />
+                            <div style={{ marginTop: 10 }} />
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Enter Email Address"
+                              // autoFocus
+                              value={email}
+                              onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <div style={{ marginTop: 10 }} />
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control
+                              type="number"
+                              placeholder="Enter Phone Number"
+                              // autoFocus
+                              value={phone}
+                              onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <div style={{ marginTop: 10 }} />
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder="Input Address"
+                              // autoFocus
+                              value={address}
+                              onChange={(e) => setAddress(e.target.value)}
+                            />
+
+                          </Form.Group>
+                        </Form>
+                      </Modal.Body>
+
+                      <Modal.Footer>
+                        <Button variant="danger" onClick={handleClose}>
+                          Go back
+                        </Button>
+                        <Button variant="success" onClick={createBeneficiary}>
+                          {loading ? (
+                            <>
+                              <Spinner size='sm' />
+                              <span style={{ marginLeft: '5px' }}>Creating Beneficiary, Please wait...</span>
+                            </>
+                          ) : (
+                            "Create Beneficiary"
+                          )}
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                 
                 <div className="row">
                   
@@ -438,68 +523,51 @@ readData();
                             </div>
                           </div>
 
-                          <div className={classes.table}>
-                            {isLoading ? (
-                              <p>Fetching Users...</p>
-                            ) : (
-                              <div className="table-responsive">
-                                <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
-                                  <thead style={{ whiteSpace: 'nowrap' }}>
-                                    <tr>
-                                    <th>S/N</th>
-                                      <th>Beneficiary</th>
-                                      <th>PV Number</th>
-                                      <th>Date</th>
-                                      {/* <th>Status</th> */}
-                                      <th>Total Amount</th>
-                                      <th>Amount Paid</th>
-                                      <th>Balance</th>
+                          {isLoading ? (
+                            <p>Fetching Users...</p>
+                          ) : (
+                            <div className="table-responsive">
+                              <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
+
+                                <thead style={{ whiteSpace: 'nowrap' }}>
+                                  <tr>
+                                  <th>S/N</th>
+                                    <th>Transaction Date</th>
+                                    <th>Particulars</th>
+                                    <th>Description</th>
+                                    <th>Invoice</th>
+                                    <th>Total Amount</th>
+                                    <th>Balance</th>
+                                    <th>Payment Due</th>
                                     <th>Action</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody style={{ whiteSpace: 'nowrap' }}>
-                                  {displayedData.map((item, index) => (
-                                    <tr key={index}>
-                                      <td>{index + 1}</td>
-                                      <td>{item.beneficiary === null ? item.description : item.beneficiary?.name}</td>
-                                        <td>{item.pvnumber}</td>
-                                        <td>{item.date}</td>
-                                      {/* <td><Badge bg={item.payment_status === "0" ? "warning" : "success"}>{item.payment_status === "0" ? "Pending" : "Paid"}</Badge></td> */}
-                                      {/* <td><Badge bg={item.approval_status === "0" ? "warning" : item.approval_status === "1" ? "success" : item.approval_status === "2" ? "danger" : "null"}>{item.approval_status === "0" ? "Pending" : item.approval_status === "1" ? "Approved" : item.approval_status === "2" ? "Disapproved" : "null"}</Badge></td> */}
-                                      <td style={{ textAlign: "right" }}>{parseFloat(item.total_amount).toLocaleString('en-US', {
-                                          minimumIntegerDigits: 1,
-                                          minimumFractionDigits: 2,
-                                          maximumFractionDigits: 2
-                                        })}</td>
-                                        <td style={{ textAlign: "right" }}>{parseFloat(item.amount_paid).toLocaleString('en-US', {
-                                          minimumIntegerDigits: 1,
-                                          minimumFractionDigits: 2,
-                                          maximumFractionDigits: 2
-                                        })}</td>
-                                        <td style={{ textAlign: "right" }}>{parseFloat(item.balance).toLocaleString('en-US', {
-                                          minimumIntegerDigits: 1,
-                                          minimumFractionDigits: 2,
-                                          maximumFractionDigits: 2
-                                        })}</td>
+                                  </tr>
+                                </thead>
+                                <tbody style={{ whiteSpace: 'nowrap' }}>
+                                {/* {displayedData.map((item, index) => (
+                                  <tr key={index}>
+                                    <td>{index + 1}</td>
+                                        <td>{item.name}</td>
+                                        <td>{item.email}</td>
+                                        <td>{item.phone_number}</td>
+                                        <td>{item.phone_number}</td>
+                                        <td>{item.phone_number}</td>
+                                        <td>{formatDate(item.created_at)}</td>
+                                        <td>{formatDate(item.updated_at)}</td>
                                         <td style={{textAlign: "left"}}>
-                                          <div onClick={() => handleViewVoucher(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                          <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
-                                          </div>
-                                          <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                          <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
-                                          </div>
-                                          <div className="btn btn-sm printbtninv" onClick={() => handlePrintInvoice(item.id)}>
-                                            <i className="fa fa-print dawg" style={{backgroundColor:'#e9f6ec', color:'#008a4b', padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
-                                            </div>
+                                        <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                        <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
+                                        </div>
+                                        <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                        <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
+                                        </div>
                                         </td>
-                                    </tr>
-                                  ))}
-                                </tbody>
-                                </table>
-                              </div>
-                            )}
-                          </div>
+                                  </tr>
+                                ))} */}
+                              </tbody>
+                              </table>
+                            </div>
+                          )}
                           <div className={classes.endded}>
                             <p>
                               Showing {startIndexx} to {endIndexx} of {totalEntries} entries
@@ -551,7 +619,58 @@ readData();
                             </div>
                           </div>
 
-                         
+                          <Modal show={show1} onHide={handleClose1} animation={false}>
+                              <Modal.Header closeButton>
+                                <Modal.Title>Edit User</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <Form style={{ marginTop: 20 }}>
+                                  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                    <Form.Label>Full Name</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Enter Full Name"
+                                      // autoFocus
+                                      value={fullName1}
+                                      onChange={(e) => setFullName1(e.target.value)}
+                                    />
+                                    <div style={{ marginTop: 10 }} />
+                                    <Form.Label>Email Address</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Enter Email Address"
+                                      // autoFocus
+                                      value={email1}
+                                      onChange={(e) => setEmail1(e.target.value)}
+                                    />
+                                    <div style={{ marginTop: 10 }} />
+                                    <Form.Label>Phone Number</Form.Label>
+                                    <Form.Control
+                                      type="text"
+                                      placeholder="Enter Phone Number"
+                                      // autoFocus
+                                      value={phone1}
+                                      onChange={(e) => setPhone1(e.target.value)}
+                                    />
+
+                                  </Form.Group>
+                                </Form>
+                              </Modal.Body>
+
+
+
+
+
+
+                              <Modal.Footer>
+                                <Button variant="danger" onClick={handleClose1}>
+                                  Go back
+                                </Button>
+                                <Button variant="success" onClick={editUser}>
+                                  {loading ? <Spinner id="loader" animation="border" variant="warning" /> : 'Save Changes'}
+                                </Button>
+                              </Modal.Footer>
+                            </Modal>
                           
 
                         </div>
@@ -579,4 +698,4 @@ readData();
   );
 }
 
-export default PaymentVoucher;
+export default AccountReceivables;

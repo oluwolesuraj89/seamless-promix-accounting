@@ -86,6 +86,9 @@ import Schedule from './Pages/Manage Payables/Schedule of payment/Schedule.js';
 import Savings from './Pages/Manage Payables/Manage Savings/Savings.js';
 import AddNewSavings from './Pages/Manage Payables/Manage Savings/AddNewSavings.js';
 import ManageGeneralLedger from './Pages/Manage Payables/Manage General Ledger/ManageGeneralLedger.js';
+import CreateJournal from './Pages/Manage Jurnal Entries/CreateJournal.js';
+import AccountReceivables from './Pages/Manage Receivables/AccountReceivables.js';
+import ManualEntries from './Pages/Manage Receivables/ManualEntries.js';
 
 
 function App() {
@@ -145,7 +148,10 @@ function App() {
         <Route path='/accounting/payables/schedule_of_payment' element={<Schedule/>} />
         <Route path='/accounting/payables/savings' element={<Savings/>} />
         <Route path='/accounting/payables/add_new_savings' element={<AddNewSavings/>} />
-        <Route path='/accounting/general_ledger' element={<ManageGeneralLedger/>} />
+        <Route path='/accounting/general_ledger/postings' element={<ManageGeneralLedger/>} />
+        <Route path='/accounting/general_ledger/create_journal_entries' element={<CreateJournal/>} />
+        <Route path='/accounting/receivables/account_receivables' element={<AccountReceivables/>} />
+        <Route path='/accounting/receivables/manual_entries' element={<ManualEntries/>} />
         
         <Route path='/print_payment' element={<PrintVoucher/>} />
 
