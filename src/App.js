@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import LandingPage from './Pages/LandingPage.js';
 import GeneralPaymentVoucher from './Pages/PaymentVouchers/GeneralPaymentVoucher/GeneralPaymentVoucher.js';
 import PaymentVoucherForm from './Pages/PaymentVouchers/PaymentVoucherForm/PaymentVoucherForm.js';
-import GeneralLedger from './Pages/General Ledger/GeneralLedger.js';
+// import GeneralLedger from './Pages/General Ledger/GeneralLedger.js';
 import SignUp from './Promix/Signup/Signup.js';
 import GeneralLedgerTable from './Pages/General Ledger Table/GeneralLedgerTable.js';
 import CreatePaymentVoucher from './Pages/PaymentVouchers/Create Payment Voucher/CreatePaymentVoucher.js';
@@ -83,6 +83,9 @@ import ViewCompletedPaymentVoucher from './Pages/Manage Payables/Manage Payment 
 import BulkPaymentExcel from './Pages/Manage Payables/Manage Payment Excel/BulkPaymentExcel.js';
 import BulkEntries from './Pages/Manage Payables/Manage Payment Excel/BulkEntries.js';
 import Schedule from './Pages/Manage Payables/Schedule of payment/Schedule.js';
+import Savings from './Pages/Manage Payables/Manage Savings/Savings.js';
+import AddNewSavings from './Pages/Manage Payables/Manage Savings/AddNewSavings.js';
+import ManageGeneralLedger from './Pages/Manage Payables/Manage General Ledger/ManageGeneralLedger.js';
 
 
 function App() {
@@ -140,6 +143,9 @@ function App() {
         <Route path='/accounting/payables/bulk_payment_excel' element={<BulkPaymentExcel/>} />
         <Route path='/accounting/payables/bulk_payment' element={<BulkEntries/>} />
         <Route path='/accounting/payables/schedule_of_payment' element={<Schedule/>} />
+        <Route path='/accounting/payables/savings' element={<Savings/>} />
+        <Route path='/accounting/payables/add_new_savings' element={<AddNewSavings/>} />
+        <Route path='/accounting/general_ledger' element={<ManageGeneralLedger/>} />
         
         <Route path='/print_payment' element={<PrintVoucher/>} />
 

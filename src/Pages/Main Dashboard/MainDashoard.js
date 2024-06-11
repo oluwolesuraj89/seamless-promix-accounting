@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classes from '../../Pages/Main Dashboard/MinDashboard.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { Tab, Tabs, Form, Spinner } from 'react-bootstrap';
+import { Tab, Tabs, Form, Spinner, Nav } from 'react-bootstrap';
 import dashIcon from '../../assets/promix/dash-icon1.svg'
 import dIcon2 from '../../assets/promix/dIcon2.svg'
 import dIcon3 from '../../assets/promix/dIcon3.svg'
@@ -218,26 +218,28 @@ export default function MainDashboard() {
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu7}>
                                     <ContextAwareToggle eventKey="7">
-                                        <p>
-                                            <span>
-                                                <img src={dIcon2} alt='icon'/> General Ledger
-                                            </span>
-                                            {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
-                                        </p>
+                                        <NavLink to={'/accounting/general_ledger'}>
+                                            <p>
+                                                <span>
+                                                    <img src={dIcon2} alt='icon'/> General Ledger
+                                                </span>
+                                                {/* {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)}  */}
+                                            </p>
+                                        </NavLink>
                                     </ContextAwareToggle>
                                 </Card.Header>
-                                <Accordion.Collapse eventKey="7" style={{backgroundColor:'#164B2E'}}>
+                                {/* <Accordion.Collapse eventKey="7" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        {/* <Link to={'/members'}>Manage Member</Link><br/>
+                                        <Link to={'/members'}>Manage Member</Link><br/>
                                         <NavLink to={'/savings_account'}>Savings Account</NavLink><br/>
                                         <NavLink to={'/loan_account'}>Loan Account</NavLink><br/>
                                         <NavLink to={'/deductions'}>Monthly Deduction</NavLink><br/>
                                         <NavLink to={'/loan_repayment'}>Loan Repayment</NavLink><br/>
                                         <NavLink to={'/loan_repayment_excel'}>Loan Excel</NavLink><br/>
-                                        <NavLink to={'/manage_savings'}>Savings Repayment</NavLink> */}
+                                        <NavLink to={'/manage_savings'}>Savings Repayment</NavLink>
                                     </Card.Body>
                                     
-                                </Accordion.Collapse>
+                                </Accordion.Collapse> */}
                             </Card>
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
@@ -281,7 +283,7 @@ export default function MainDashboard() {
                                         <Link to={'/accounting/payables/bulk_payment_excel'}>Bulk Payment Excel</Link><br/>
                                         <Link to={'/accounting/payables/bulk_payment'}>Bulk Payment</Link><br/>
                                         <Link to={'/accounting/payables/schedule_of_payment'}>Schedule of Payables</Link><br/>
-                                        <Link to={'#'}>Savings</Link>
+                                        <Link to={'/accounting/payables/savings'}>Savings</Link>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
