@@ -498,7 +498,7 @@ const handleEyeClick = (id) => {
 
 
                           {isLoading ? (
-                            <p>Fetching Users...</p>
+                            <p>Fetching Suppliers...</p>
                           ) : (
                             <div className="table-responsive">
                               <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">

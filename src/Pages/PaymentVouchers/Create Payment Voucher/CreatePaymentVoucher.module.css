@@ -16,17 +16,37 @@
     --blackGray: #6C757D;
     /* --Background:rgba(172, 231, 199, 0.05); */
 }
+.topPadding{
+    width: 100%;
+    padding-top: 1rem;
+}
 
-
+.formSecCont{
+    padding: 24px 32px;
+    background-color: var(--White);
+    /* border-radius: 12px; */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .formSecCont h3{
+    color: #343A40;
+    font-size: 20px;
+    font-weight: 700;
+  }
 .formSection{
     width: 100%;
-    padding-left: 20rem;
+    /* padding-left: 20rem; */
     /* background-color: #4b9483; */
     padding-right: 3rem;
 }
+.newWidth{
+    padding: 0 2rem 0 21rem;
+}
 .formSectionHeader{
-  width: 100%;
-  padding-top: 40px;
+  /* width: 100%; */
+  /* padding-top: 40px; */
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
@@ -36,7 +56,7 @@
     font-size: 14px;
 }
 .formSectionHeader h3{
-    color: var(--Light-green);
+    /* color: var(--Light-green); */
     font-size: 20px;
     font-weight: 700;
 }
@@ -95,17 +115,17 @@
     border: 1px solid var(--blackGray);
 }
 .bodyContainer{
-    padding:2rem 3rem 0 20rem ;
+    /* padding:2rem 3rem 0 20rem ; */
     /* padding-right: ; */
 }
 .main{
-    border: 1px solid var(--Light-green);
+    /* border: 1px solid var(--Light-green); */
     border-radius: 8px;
 }
 .header1{
     width: 100%;   
     padding: 20px 21px;
-    border-bottom: 1px solid var(--Light-green);
+    /* border-bottom: 1px solid var(--Light-green); */
 
 }
 .actionBtns{
@@ -124,7 +144,7 @@
 }
 .formCont{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     /* justify-content: space-between; */
     gap: 20px   ;
 }
@@ -140,6 +160,13 @@
     font-size: 12px;
     border-radius: 4px;
     padding: 14px 20px;
+    /* width: 80%; */
+}
+.formFlex{
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; */
 }
 
 
@@ -150,17 +177,17 @@
     border: 1px solid var(--blackGray);
 }
 .bodyContainer{
-    padding:2rem 3rem 0 20rem ;
+    /* padding:2rem 3rem 0 20rem ; */
     /* padding-right: ; */
 }
 .main{
-    border: 1px solid var(--Light-green);
+    /* border: 1px solid var(--Light-green); */
     border-radius: 8px;
 }
 .header1{
     width: 100%;   
     padding: 20px 21px;
-    border-bottom: 1px solid var(--Light-green);
+    /* border-bottom: 1px solid var(--Light-green); */
 
 }
 .actionBtns{
