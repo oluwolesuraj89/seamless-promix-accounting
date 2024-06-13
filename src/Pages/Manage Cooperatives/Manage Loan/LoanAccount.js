@@ -234,7 +234,7 @@ const navigate = useNavigate();
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LOANS</p>
-                        <h5>N0</h5>
+                        <h5>N0.00</h5>
                         <div className={classes.perceCont}>
                             {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p> */}
@@ -242,7 +242,7 @@ const navigate = useNavigate();
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N0</h5>
+                        <h5>N0.00</h5>
                         <div className={classes.perceCont}>
                             {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p> */}
@@ -250,7 +250,7 @@ const navigate = useNavigate();
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N0</h5>
+                        <h5>N0.00</h5>
                         <div className={classes.perceCont}>
                             {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p> */}
@@ -429,12 +429,12 @@ const navigate = useNavigate();
                                     <td>
                                     {(isAdmin || permittedHeaders.includes('update-loan-account')) && (
                                       <div onClick={() => handleEyeClick(item.id)}  className="btn btn-success-soft btn-sm mr-1">
-                                        <i className="far fa-eye" style={{backgroundColor:'#e9f6ec', color:'#008a4b', border:'1px solid #afdeba', padding:'5px', borderRadius:'3px'}}></i>
+                                        <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
                                       </div>
                                     )}
                                     {(isAdmin || permittedHeaders.includes('delete-loan-account')) && (
                                       <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                        <i className="far fa-trash-alt" style={{backgroundColor:'#fbeaec', color:'#e28e80', border:'1px solid #f1b3ba', padding:'5px',  borderRadius:'3px'}}></i>
+                                        <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
                                       </div>
                                     )}
                                     </td>

@@ -295,7 +295,7 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="8" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/welcome_screen'}>Switch Account</Link><br/>
+                                        <Link to={'/welcome'}>Switch Account</Link><br/>
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classes from '../../Pages/Main Dashboard/MinDashboard.module.css';
 // import RegLogo from '../../Images/RegistrationLogo.svg'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { Tab, Tabs, Form, Spinner } from 'react-bootstrap';
+import { Tab, Tabs, Form, Spinner, Nav } from 'react-bootstrap';
 import dashIcon from '../../assets/promix/dash-icon1.svg'
 import dIcon2 from '../../assets/promix/dIcon2.svg'
 import dIcon3 from '../../assets/promix/dIcon3.svg'
@@ -215,30 +215,7 @@ export default function MainDashboard() {
                                     
                                 </Accordion.Collapse>
                             </Card>
-                            <Card className={classes.accordionCard}>
-                                <Card.Header className={classes.cardHeader} onClick={toggleMenu7}>
-                                    <ContextAwareToggle eventKey="7">
-                                        <p>
-                                            <span>
-                                                <img src={dIcon2} alt='icon'/> General Ledger
-                                            </span>
-                                            {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
-                                        </p>
-                                    </ContextAwareToggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="7" style={{backgroundColor:'#164B2E'}}>
-                                    <Card.Body className={classes.cardBody}>
-                                        {/* <Link to={'/members'}>Manage Member</Link><br/>
-                                        <NavLink to={'/savings_account'}>Savings Account</NavLink><br/>
-                                        <NavLink to={'/loan_account'}>Loan Account</NavLink><br/>
-                                        <NavLink to={'/deductions'}>Monthly Deduction</NavLink><br/>
-                                        <NavLink to={'/loan_repayment'}>Loan Repayment</NavLink><br/>
-                                        <NavLink to={'/loan_repayment_excel'}>Loan Excel</NavLink><br/>
-                                        <NavLink to={'/manage_savings'}>Savings Repayment</NavLink> */}
-                                    </Card.Body>
-                                    
-                                </Accordion.Collapse>
-                            </Card>
+                            
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
                                     <ContextAwareToggle eventKey="6">
@@ -252,9 +229,11 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    {/* <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
-                                        <Link to={'/sales_invoice'}>Sales Invoices</Link><br/>
-                                        <Link to={'/manage_booking'}>Advance Booking</Link><br/>
+                                        <Link to={'/accounting/receivables/manual_entries'}>Manual Entries</Link><br/>
+                                        <Link to={'/accounting/receivables/account_receivables'}>Account Receivables</Link><br/>
+                                        {/* <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
+                                        <Link to={'/sales_invoice'}>Sales Invoices</Link><br/> */}
+                                        {/* <Link to={'/manage_booking'}>Advance Booking</Link><br/>
                                         <Link to={'/advance_booking_payment'}>Advance Booking Payments</Link><br/>
                                         <Link to={'#'}>Sales Invoice Payments</Link><br/>
                                         <Link to={'#'}>Loan & Advances</Link> */}
@@ -281,12 +260,57 @@ export default function MainDashboard() {
                                         <Link to={'/accounting/payables/bulk_payment_excel'}>Bulk Payment Excel</Link><br/>
                                         <Link to={'/accounting/payables/bulk_payment'}>Bulk Payment</Link><br/>
                                         <Link to={'/accounting/payables/schedule_of_payment'}>Schedule of Payables</Link><br/>
-                                        <Link to={'#'}>Savings</Link>
+                                        <Link to={'/accounting/payables/savings'}>Savings</Link>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
                             </Card>
                             <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu1}>
+                                    <ContextAwareToggle eventKey="9">
+                                        <p>
+                                            <span><img src={dIcon3} alt='icon' /> Services</span>
+                                            {isMenuOpen1 ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="9" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                        <Link to={'/accounting/receivables/services'}>Manage Services</Link><br/>
+                                        
+                                    </Card.Body>
+                                    
+                                </Accordion.Collapse>
+                            </Card>
+                            <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu7}>
+                                    <ContextAwareToggle eventKey="7">
+                                        {/* <NavLink to={'/accounting/general_ledger'}> */}
+                                            <p>
+                                                <span>
+                                                    <img src={dIcon2} alt='icon'/> General Ledger
+                                                </span>
+                                                {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                            </p>
+                                        {/* </NavLink> */}
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="7" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                    <Link to={'/accounting/general_ledger/postings'}>View Postings</Link><br/>
+                                    <Link to={'/accounting/general_ledger/create_journal_entries'}>Create Journal Entries</Link><br/>
+                                        {/* <Link to={'/members'}>Manage Member</Link><br/>
+                                        <NavLink to={'/savings_account'}>Savings Account</NavLink><br/>
+                                        <NavLink to={'/loan_account'}>Loan Account</NavLink><br/>
+                                        <NavLink to={'/deductions'}>Monthly Deduction</NavLink><br/>
+                                        <NavLink to={'/loan_repayment'}>Loan Repayment</NavLink><br/>
+                                        <NavLink to={'/loan_repayment_excel'}>Loan Excel</NavLink><br/>
+                                        <NavLink to={'/manage_savings'}>Savings Repayment</NavLink> */}
+                                    </Card.Body>
+                                    
+                                </Accordion.Collapse>
+                            </Card>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
                                     <ContextAwareToggle eventKey="2">
                                         <p> 
@@ -297,7 +321,7 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="2" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'#'}>Create Journal</Link><br/>
+                                        
                                         <Link to={'#'}>View Postings</Link><br/>
                                         <Link to={'#'}>Manage Items</Link><br/>
                                         <Link to={'#'}>Manage Order</Link><br/>
@@ -305,7 +329,7 @@ export default function MainDashboard() {
                                         <Link to={'#'}>Manage Purchase Delivery</Link><br/>
                                     </Card.Body>
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                             {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
                                     <ContextAwareToggle eventKey="2">
@@ -382,7 +406,7 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="3" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'/welcome_screen'}>Switch Account</Link><br/>
+                                    <Link to={'/welcome'}>Switch Account</Link><br/>
                                         {/* <Link to={'/general_ledger'}>General Ledger</Link><br/>
                                         <Link to={'/cashbook'}>Cashbook</Link><br/>
                                         <Link to={'/trial_balance'}>Trial Balance</Link><br/>

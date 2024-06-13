@@ -60,6 +60,9 @@ function Welcome() {
         if (module === 'accounting') {
             navigate('/accounting');
         }
+        if (module === 'stock_management') {
+            navigate('/stock_management');
+        }
         
     };
 
@@ -155,9 +158,9 @@ function Welcome() {
                     </div>
                 </div>
                 <div className={classes.row2}>
-                    <div className={classes.modules} onClick={() => handleModuleClick('budget')}>
+                    <div className={classes.modules} onClick={() => handleModuleClick('stock_management')}>
                         <img src={budget} className={classes.icon2} />
-                        <p>Budget</p>
+                        <p>Event Centers Mgt. System</p>
                     </div>
                     <div className={classes.modules} onClick={() => handleModuleClick('church')}>
                         <img src={church} className={classes.icon2} />

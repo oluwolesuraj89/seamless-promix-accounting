@@ -24,6 +24,7 @@ function SavingsPayment() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
+  const [saveLoading, setSaveLoading] = useState(false);
   const [customerLoading, setCustomerLoading] = useState(false);
   const [modeLoading, setModeLoading] = useState(false);
   const [load, setLoad] = useState(false);
@@ -106,11 +107,11 @@ function SavingsPayment() {
 
 
     const fetchSavingsWithdrawal = async () => {
-      setLoading(true);
+      setSaveLoading(true);
 
       try {
           const response = await axios.get(
-              `${BASE_URL}/customer/customer/fetch-savings-paid`,
+              `${BASE_URL}/customer/fetch-savings-company`,
               {
 
                   headers: {
@@ -127,7 +128,7 @@ console.log(resultsss);
           const errorStatus = error.response.data.message;
           console.error(errorStatus);
       } finally {
-          setLoading(false);
+          setSaveLoading(false);
       }
   };
 
@@ -384,7 +385,7 @@ const handleCreate = () => {
 
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL LOAN REPAID</p>
+                        <p style={{paddingBottom:'5px'}}>TOTAL SAVINGS PAID</p>
                         <h5>N0.00</h5>
                         {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
@@ -555,7 +556,7 @@ const handleCreate = () => {
                           </div>
 
 
-                          {loading ? (
+                          {saveLoading ? (
                                 <p>Fetching data...</p>
                             ) : (
                             <div className="table-responsive">
@@ -574,7 +575,7 @@ const handleCreate = () => {
                                         <tr key={index}>
                                             <td>{item.transaction_date}</td>
                                 <td>{item?.customer?.name}</td>
-                                <td>{item?.loan_account?.loan?.description}</td>
+                                <td>{item?.savings_account?.saving_type?.description}</td>
                                 <td style={{ textAlign: "right" }}>{parseFloat(item.amount).toLocaleString('en-US', {
                                     minimumIntegerDigits: 1,
                                     minimumFractionDigits: 2,

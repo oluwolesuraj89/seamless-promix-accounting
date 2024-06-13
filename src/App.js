@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-route
 import LandingPage from './Pages/LandingPage.js';
 import GeneralPaymentVoucher from './Pages/PaymentVouchers/GeneralPaymentVoucher/GeneralPaymentVoucher.js';
 import PaymentVoucherForm from './Pages/PaymentVouchers/PaymentVoucherForm/PaymentVoucherForm.js';
-import GeneralLedger from './Pages/General Ledger/GeneralLedger.js';
+// import GeneralLedger from './Pages/General Ledger/GeneralLedger.js';
 import SignUp from './Promix/Signup/Signup.js';
 import GeneralLedgerTable from './Pages/General Ledger Table/GeneralLedgerTable.js';
 import CreatePaymentVoucher from './Pages/PaymentVouchers/Create Payment Voucher/CreatePaymentVoucher.js';
@@ -88,6 +88,22 @@ import CreateLoanRepayment from './Pages/Loan Payment/CreateLoanRepayment.js';
 import LoanRepay from './Pages/Loan Payment/LoanRepay.js';
 import SavingsPayment from './Pages/Savings Payment/SavingsPayment.js';
 import CreateSavingsPayment from './Pages/Savings Payment/CreateSavingsPayment.js';
+import Savings from './Pages/Manage Payables/Manage Savings/Savings.js';
+import AddNewSavings from './Pages/Manage Payables/Manage Savings/AddNewSavings.js';
+import ManageGeneralLedger from './Pages/Manage Payables/Manage General Ledger/ManageGeneralLedger.js';
+import CreateJournal from './Pages/Manage Jurnal Entries/CreateJournal.js';
+import AccountReceivables from './Pages/Manage Receivables/AccountReceivables.js';
+import ManualEntries from './Pages/Manage Receivables/ManualEntries.js';
+import MaterialCost from './Pages/Receiveables/Advance Booking/MaterialCost.js';
+import StockDashboard from './Pages/Stock Dashboard/StockDashboard.js';
+import StockDash from './Pages/Dashboard/StockDash.js';
+import ManageUnit from './Pages/ManageUnit/ManageUnit.js';
+import ManageStocks from './Pages/Manage Stocks/ManageStocks.js';
+import Services from './Pages/Services/Services.js';
+import CreateServices from './Pages/Services/CreateServices.js';
+import ViewServices from './Pages/Services/ViewServices.js';
+import ViewMaterial from './Pages/Services/ViewMaterial.js';
+import ViewLabor from './Pages/Services/ViewLabor.js';
 
 
 function App() {
@@ -102,7 +118,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/welcome_screen' element={<Welcome />} />
+        <Route path='/welcome' element={<Welcome />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/cooperative' element={<Dashboard />} />
         <Route path='/cooperative/manage_roles' element={<ManageRoles />} />
@@ -150,6 +166,25 @@ function App() {
         <Route path='/accounting/payables/bulk_payment_excel' element={<BulkPaymentExcel/>} />
         <Route path='/accounting/payables/bulk_payment' element={<BulkEntries/>} />
         <Route path='/accounting/payables/schedule_of_payment' element={<Schedule/>} />
+        <Route path='/accounting/payables/savings' element={<Savings/>} />
+        <Route path='/accounting/payables/add_new_savings' element={<AddNewSavings/>} />
+        <Route path='/accounting/general_ledger/postings' element={<ManageGeneralLedger/>} />
+        <Route path='/accounting/general_ledger/create_journal_entries' element={<CreateJournal/>} />
+        <Route path='/accounting/receivables/account_receivables' element={<AccountReceivables/>} />
+        <Route path='/accounting/receivables/manual_entries' element={<ManualEntries/>} />
+        <Route path='/accounting/receivables/services' element={<ManageBooking/>} />
+        <Route path='/accounting/receivables/create_services' element={<CreateBooking/>} />
+        <Route path='/accounting/receivables/view_material_cost' element={<MaterialCost/>} />
+
+        <Route path='/stock_management' element={<StockDash/>} />
+        <Route path='/stock_management/unit_of_measurement' element={<ManageUnit/>} />
+      <Route path='/stock_management/products' element={<ManageStocks/>} />
+      <Route path='/stock_management/event_bookings' element={<Services/>} />
+      <Route path='/stock_management/create_booking' element={<CreateServices/>} />
+      <Route path='/stock_management/view_booking' element={<ViewServices/>} />
+      <Route path='/stock_management/material_cost' element={<ViewMaterial/>} />
+      <Route path='/stock_management/labour_cost' element={<ViewLabor/>} />
+
         
         <Route path='/print_payment' element={<PrintVoucher/>} />
 

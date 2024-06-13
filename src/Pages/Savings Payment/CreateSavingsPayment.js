@@ -300,6 +300,7 @@ console.log(amountToPay, selectedDate, selectedCustomer, selectedSavings, cheque
     navigate(-1);
 
       toast.success(response.data.message);
+      console.log(response, "mdddd");
 
       setSelectedDate('');
       setSelectedCustomer('');
@@ -352,7 +353,7 @@ console.log(amountToPay, selectedDate, selectedCustomer, selectedSavings, cheque
 
   };
 
-console.log(selectedSavings, "hfslhfldh");
+console.log(selectedSavings, "savings type", selectedCustomer, "MEMBER", selectedBank, "BANK", selectedMode, "mode" );
 const handleModeChange = (selectedOption) => {
   setSelectedMode(selectedOption?.value);
 }
