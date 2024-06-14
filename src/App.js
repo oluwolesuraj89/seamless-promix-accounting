@@ -83,6 +83,11 @@ import ViewCompletedPaymentVoucher from './Pages/Manage Payables/Manage Payment 
 import BulkPaymentExcel from './Pages/Manage Payables/Manage Payment Excel/BulkPaymentExcel.js';
 import BulkEntries from './Pages/Manage Payables/Manage Payment Excel/BulkEntries.js';
 import Schedule from './Pages/Manage Payables/Schedule of payment/Schedule.js';
+import CreateSavingsWithdrawals from './Pages/Manage Cooperatives/Manage Savings/SavingsWithdrawals/CreateSavingsWithdrawals.js';
+import CreateLoanRepayment from './Pages/Loan Payment/CreateLoanRepayment.js';
+import LoanRepay from './Pages/Loan Payment/LoanRepay.js';
+import SavingsPayment from './Pages/Savings Payment/SavingsPayment.js';
+import CreateSavingsPayment from './Pages/Savings Payment/CreateSavingsPayment.js';
 import Savings from './Pages/Manage Payables/Manage Savings/Savings.js';
 import AddNewSavings from './Pages/Manage Payables/Manage Savings/AddNewSavings.js';
 import ManageGeneralLedger from './Pages/Manage Payables/Manage General Ledger/ManageGeneralLedger.js';
@@ -93,6 +98,16 @@ import EditAccountReceivables from './Pages/Manage Receivables/EditAccountReceiv
 import LoanAdvances from './Pages/Manage Receivables/LoandAdvancese.js';
 import CreateNewLoan from './Pages/Manage Receivables/CreateNewLoan.js';
 import EditLaonAdvance from './Pages/Manage Receivables/EditLoanAdvance.js';
+import MaterialCost from './Pages/Receiveables/Advance Booking/MaterialCost.js';
+import StockDashboard from './Pages/Stock Dashboard/StockDashboard.js';
+import StockDash from './Pages/Dashboard/StockDash.js';
+import ManageUnit from './Pages/ManageUnit/ManageUnit.js';
+import ManageStocks from './Pages/Manage Stocks/ManageStocks.js';
+import Services from './Pages/Services/Services.js';
+import CreateServices from './Pages/Services/CreateServices.js';
+import ViewServices from './Pages/Services/ViewServices.js';
+import ViewMaterial from './Pages/Services/ViewMaterial.js';
+import ViewLabor from './Pages/Services/ViewLabor.js';
 
 
 function App() {
@@ -107,7 +122,7 @@ function App() {
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/welcome_screen' element={<Welcome />} />
+        <Route path='/welcome' element={<Welcome />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/cooperative' element={<Dashboard />} />
         <Route path='/cooperative/manage_roles' element={<ManageRoles />} />
@@ -115,6 +130,7 @@ function App() {
         <Route path='/cooperative/loan_advances' element={<ManageLoans />} />
         <Route path='/cooperative/disburse_loan' element={<DisburseLoan />} />
         <Route path='/cooperative/savings_withdrawals' element={<SavingsWithdrawals />} />
+        <Route path='/cooperative/create_savings_withdrawals' element={<CreateSavingsWithdrawals />} />
         <Route path='/cooperative/savings_individual_ledger' element={<SavingsLedger />} />
         <Route path='/cooperative/loan_individual_ledger' element={<LoanLedger />} />
         <Route path='/cooperative/report_ledger' element={<ReportLedger />} />
@@ -135,6 +151,10 @@ function App() {
         <Route path='/cooperative/create_loan' element={<CreateLoan />} />
         <Route path='/cooperative/edit_loan' element={<EditLoan />} />
         <Route path='/cooperative/create_savings_application' element={<CreateSavingsApp />} />
+        <Route path='/cooperative/loan_repayment' element={<LoanRepay />} />
+        <Route path='/cooperative/savings_payment' element={<SavingsPayment />} />
+        <Route path='/cooperative/create_loan_repayment' element={<CreateLoanRepayment />} />
+        <Route path='/cooperative/create_savings_payment' element={<CreateSavingsPayment />} />
         <Route path='/forbidden' element={<Forbidden />} />
 
         <Route path='/accounting' element={<AccountingDashboard />} />
@@ -156,6 +176,19 @@ function App() {
         <Route path='/accounting/general_ledger/create_journal_entries' element={<CreateJournal/>} />
         <Route path='/accounting/receivables/account_receivables' element={<AccountReceivables/>} />
         <Route path='/accounting/receivables/manual_entries' element={<ManualEntries/>} />
+        {/* <Route path='/accounting/receivables/services' element={<ManageBooking/>} />
+        <Route path='/accounting/receivables/create_services' element={<CreateBooking/>} />
+        <Route path='/accounting/receivables/view_material_cost' element={<MaterialCost/>} /> */}
+
+        <Route path='/stock_management' element={<StockDash/>} />
+        <Route path='/stock_management/unit_of_measurement' element={<ManageUnit/>} />
+      <Route path='/stock_management/products' element={<ManageStocks/>} />
+      <Route path='/stock_management/event_bookings' element={<Services/>} />
+      <Route path='/stock_management/create_booking' element={<CreateServices/>} />
+      <Route path='/stock_management/view_booking' element={<ViewServices/>} />
+      <Route path='/stock_management/material_cost' element={<ViewMaterial/>} />
+      <Route path='/stock_management/labour_cost' element={<ViewLabor/>} />
+
         <Route path='/accounting/receivables/edit_account_receivables' element={<EditAccountReceivables/>} />
         <Route path='/accounting/receivables/customers_advance_payment' element={<AdvanceBooking/>} />
         <Route path='/accounting/receivables/create_new_payment' element={<CreateNew/>} />

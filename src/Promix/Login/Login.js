@@ -56,7 +56,7 @@ function Login() {
             AsyncStorage.setItem('companyAddress', addresses);
             AsyncStorage.setItem('companyId', companyId)
 
-                navigate('/welcome_screen');
+                navigate('/welcome');
 
         } catch (error) {
             let errorMessage = error.response?.data?.message || 'An error occurred';
@@ -113,7 +113,7 @@ function Login() {
                                 {showPassword ? (
                                     <img src={crossedEyeIcon} alt="Hide Password" style={{ height: "20px", width: "20px" }} />
                                 ) : (
-                                    '👁'
+                                    '👁️'
                                 )}
                             </button>
                         </Form.Group>

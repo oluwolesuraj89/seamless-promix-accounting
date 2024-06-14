@@ -391,7 +391,7 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="3" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'/welcome_screen'}>Switch Account</Link><br/>
+                                    <Link to={'/welcome'}>Switch Account</Link><br/>
                                         {/* <Link to={'/general_ledger'}>General Ledger</Link><br/>
                                         <Link to={'/cashbook'}>Cashbook</Link><br/>
                                         <Link to={'/trial_balance'}>Trial Balance</Link><br/>

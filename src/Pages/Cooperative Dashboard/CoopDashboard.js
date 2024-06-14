@@ -277,8 +277,8 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="2" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'#'}>Teller Entries Savings</Link><br/>
-                                        <Link to={'#'}>Teller Entries Loans</Link><br/>
+                                        <Link to={'/cooperative/savings_payment'}>Savings Payment - Bank</Link><br/>
+                                        <Link to={'/cooperative/loan_repayment'}>Loan Repayment - Bank</Link><br/>
                                         <Link to={'/cooperative/savings_withdrawals'}>Savings Withdrawal</Link><br/>
                                         
                                     </Card.Body>
@@ -295,7 +295,7 @@ export default function CoopDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="8" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/welcome_screen'}>Switch Account</Link><br/>
+                                        <Link to={'/welcome'}>Switch Account</Link><br/>
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>

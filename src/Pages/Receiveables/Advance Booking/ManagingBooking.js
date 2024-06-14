@@ -176,7 +176,7 @@ export default function ManageBooking() {
   };
 
   const handleCreate = () => {
-    navigate('/create_booking');
+    navigate('/accounting/receivables/create_services');
   };
 
   const handlePrintInvoice = (id) => {
@@ -184,6 +184,13 @@ export default function ManageBooking() {
   
   
     navigate('/booking_receipt', { state: { selectedBooking } });
+  };
+
+  const handleViewMaterial = (id) => {
+    const selectedBooking = tableData.find(item => item.id === id);
+  
+  
+    navigate('/accounting/receivables/view_material_cost', { state: { selectedBooking } });
   };
 
   return (
@@ -194,7 +201,7 @@ export default function ManageBooking() {
         <div className={classes.topPadding}>
           <div className={`${classes.formSecCont}`}>
             <div className={classes.formSectionHeader}>
-              <h3>Manage Booking</h3>
+              <h3>Manage Services</h3>
             </div>
             <div className={classes.formSectionHeader}>
               <h3 style={{ color: '#2D995F' }}>{user.toLocaleUpperCase()}</h3>
@@ -204,28 +211,28 @@ export default function ManageBooking() {
 
         <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
-                        <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <p style={{paddingBottom:'5px'}}>TOTAL BOOKINGS</p>
+                        <h5>N0.00</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0.00</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0.00</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -238,7 +245,7 @@ export default function ManageBooking() {
               <div className={classes.formLabel}>
               </div>
               <div className={classes.formIntBtn}>
-                <Button variant="success" onClick={handleCreate} className={classes.btn2}> Add New Booking</Button>
+                <Button variant="success" onClick={handleCreate} className={classes.btn2}> Add New Service</Button>
               </div>
             </div>
            
@@ -340,8 +347,14 @@ export default function ManageBooking() {
                                     <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 5, borderColor: "#dc35454d", borderRadius: 5}}></i>
                                   </div>
 )}
-<div onClick={() => handlePrintInvoice(item.id)} className="btn btn-sm printbtninv">
+{/* <div onClick={() => handlePrintInvoice(item.id)} className="btn btn-sm printbtninv">
                                     <i className="fa fa-print dawg"  style={{color: "#17a2b8", backgroundColor: "#afe1e9", padding: 5, borderColor: "#b0d1d6", borderRadius: 5}}></i>
+                                  </div> */}
+                                  <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                  <i class="fa fa-user" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
+                                  </div>
+                                  <div onClick={() => handleViewMaterial(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                  <i class="fa fa-industry" style={{color: "#1034A6", backgroundColor: "#87ceeb", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
                                   </div>
                                 </td>
                               </tr>
