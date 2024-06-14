@@ -440,316 +440,319 @@ export default function CreatePaymentVoucher() {
     <div>
       <MainDashoard/>
 
-      <div className={classes.formSection}>
-        <div className={classes.formSectionHeader}>
-            <div>
-                <h4 style={{color:'black'}}>Add New</h4>
-                
+      <div className={classes.newWidth}>
+
+        <div className={classes.formSection}>
+            <div className={classes.formSectionHeader}>
+                <div>
+                    <h4 style={{color:'black'}}>Add New</h4>
+                    
+                </div>
+                <div style={{textAlign:'right'}}>
+                    {/* <p style={{margin:'0'}}>Welcome</p> */}
+                    <h3>
+                        {/* user */}
+                    </h3>
+                    
+                </div>
             </div>
-            <div style={{textAlign:'right'}}>
-                {/* <p style={{margin:'0'}}>Welcome</p> */}
-                <h3>
-                    {/* user */}
-                </h3>
-                
+            <div className={classes.analysis}>
+                <div className={classes.analysisCont}>
+                    <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
+                    <h5>N232,096,635.05</h5>
+                    <div className={classes.perceCont}>
+                        <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                        <p>vs average</p>
+                    </div>
+                </div>
+                <div className={classes.analysisCont}>
+                    <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
+                    <h5>N232,096,635.05</h5>
+                    <div className={classes.perceCont}>
+                        <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                        <p>vs average</p>
+                    </div>
+                </div>
+                <div className={classes.analysisCont}>
+                    <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
+                    <h5>N232,096,635.05</h5>
+                    <div className={classes.perceCont}>
+                        <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
+                        <p>vs average</p>
+                    </div>
+                </div>
             </div>
         </div>
-        <div className={classes.analysis}>
-            <div className={classes.analysisCont}>
-                <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                <h5>N232,096,635.05</h5>
-                <div className={classes.perceCont}>
-                    <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                    <p>vs average</p>
-                </div>
+
+
+
+        <div className={classes.bodyContainer}>
+            <div className={classes.main}>
+            <div className={`${classes.header1} ${classes.flex1}`}>
+                <h6>Create New Payment Voucher</h6>
             </div>
-            <div className={classes.analysisCont}>
-                <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                <h5>N232,096,635.05</h5>
-                <div className={classes.perceCont}>
-                    <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                    <p>vs average</p>
-                </div>
-            </div>
-            <div className={classes.analysisCont}>
-                <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                <h5>N232,096,635.05</h5>
-                <div className={classes.perceCont}>
-                    <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                    <p>vs average</p>
-                </div>
-            </div>
-        </div>
-      </div>
+            <div className={classes.header2}>
+                <Form>
+            
+                <div className={classes.formContainer}>
+                <div className={classes.formCont}>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label  >Date</Form.Label>
+                        <Form.Control type='date' id="date" 
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)} style={{ height: 'calc(1.8em + 1.89rem + 2px)' }}
+                        />
+                    </Form.Group>
+    {/* 
+                    <Form.Select className="form-control"
+                                as="select"
+                                value={selectedSubCategory}
+                                onChange={handleSubCatChange}
+                                >
+                                <option value="" disabled>Select Type</option>
+                                {tableData2.map((item) => (
+                                    <option key={item.id} value={item.id}>
+                                    {item.description}
+                                    </option>
+                                ))}
+                                </Form.Select> */}
 
 
-
-      <div className={classes.bodyContainer}>
-        <div className={classes.main}>
-          <div className={`${classes.header1} ${classes.flex1}`}>
-              <h6>Create New Payment Voucher</h6>
-          </div>
-          <div className={classes.header2}>
-            <Form>
-        
-              <div className={classes.formContainer}>
-              <div className={classes.formCont}>
-                <Form.Group className={classes.formGroup}>
-                      <Form.Label  >Date</Form.Label>
-                      <Form.Control type='date' id="date" 
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)} style={{ height: 'calc(1.8em + 1.89rem + 2px)' }}
-                      />
-                  </Form.Group>
-{/* 
-                  <Form.Select className="form-control"
-                              as="select"
-                              value={selectedSubCategory}
-                              onChange={handleSubCatChange}
-                            >
-                              <option value="" disabled>Select Type</option>
-                              {tableData2.map((item) => (
-                                <option key={item.id} value={item.id}>
-                                  {item.description}
-                                </option>
-                              ))}
-                            </Form.Select> */}
-
-
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label >Debit account (DR)</Form.Label>
-                      <Form.Select id="disabledSelect"
-                      onChange={handleDebit}
-                      value={selectedDebitAccount}
-                      >
-                        <option>Select debit account</option>
-                        {debitAccount.map((account)=>(
-                          <option key={account.id} value={account.id}>
-                            {account.gl_name}
-                            {account.id}
-                          </option>
-                        ))}
-                      </Form.Select>
-                  </Form.Group>
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label >Credit account (CR)</Form.Label>
-                      <Form.Select id="disabledSelect"
-                        onChange={handleCredit}
-                        value={selectedCreditAccount}
-                      >
-                        <option>Select credit account</option>
-                      {debitAccount.map((debitAccount)=>(
-                          <option key={debitAccount.id} value={debitAccount.id}>
-                            {debitAccount.gl_name}
-                            {debitAccount.id}
-                          </option>
-                      ))}
-                      </Form.Select>
-                  </Form.Group>
-              
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label >Beneficiary</Form.Label>
-                      <Form.Select 
-                        onChange={handleBeneficiaryChange}
-                        value={selectedBeneficiary}
-                      >
-                        <option>Select a beneficiary</option>
-                        {ben.map((beneficiary)=>(
-                          <option key={beneficiary.id} value={beneficiary.id}>
-                            {beneficiary.name}
-                            {beneficiary.id}
-                          </option>
-                        ))}
-                      </Form.Select>
-                  </Form.Group>
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label >Select beneficiary</Form.Label>
-                      <Form.Select id="disabledSelect"
-                        value={selectedBank}
-                        onChange={handleBankChange}
-                      >
-                        <option>Select beneficiary account</option>
-                        {benBank.map((bank)=>(
-                          <option key={bank.id} value={bank.id}>
-                            {bank.name}
-                            {bank.id}
-                          </option>
-                        ))}
-                      </Form.Select>
-                  </Form.Group>
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label  >Description </Form.Label>
-                      <Form.Control  placeholder='Enter the description here' 
-                      value={description} 
-                      onChange={(e) => setDescription(e.target.value)}
-                      />
-                  </Form.Group>
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label >Mode</Form.Label>
-                      <Form.Select id="disabledSelect"
-                        value={selectedMode}
-                        onChange={handleModeChange}
-                      >
-                        <option value="">Select Mode</option>
-                        {payMode.map((mode)=>(
-                            <option value={mode.id} key={mode.id}>
-                                {mode.name}
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label >Debit account (DR)</Form.Label>
+                        <Form.Select id="disabledSelect"
+                        onChange={handleDebit}
+                        value={selectedDebitAccount}
+                        >
+                            <option>Select debit account</option>
+                            {debitAccount.map((account)=>(
+                            <option key={account.id} value={account.id}>
+                                {account.gl_name}
+                                {account.id}
+                            </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label >Credit account (CR)</Form.Label>
+                        <Form.Select id="disabledSelect"
+                            onChange={handleCredit}
+                            value={selectedCreditAccount}
+                        >
+                            <option>Select credit account</option>
+                        {debitAccount.map((debitAccount)=>(
+                            <option key={debitAccount.id} value={debitAccount.id}>
+                                {debitAccount.gl_name}
+                                {debitAccount.id}
                             </option>
                         ))}
-                      </Form.Select>
-                  </Form.Group>
-                  <Form.Group className={classes.formGroup}>
-                      <Form.Label  >Supporting Document </Form.Label>
-                      <Form.Control  placeholder='Enter the description here' 
-                      // value={description} 
-                      onChange={handleFileChange} 
-                      type="file" 
-                      accept=".pdf, .jpg, .jpeg, .png" 
-                      name="document"
-                      />
-                  </Form.Group>
+                        </Form.Select>
+                    </Form.Group>
+                
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label >Beneficiary</Form.Label>
+                        <Form.Select 
+                            onChange={handleBeneficiaryChange}
+                            value={selectedBeneficiary}
+                        >
+                            <option>Select a beneficiary</option>
+                            {ben.map((beneficiary)=>(
+                            <option key={beneficiary.id} value={beneficiary.id}>
+                                {beneficiary.name}
+                                {beneficiary.id}
+                            </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label >Select beneficiary</Form.Label>
+                        <Form.Select id="disabledSelect"
+                            value={selectedBank}
+                            onChange={handleBankChange}
+                        >
+                            <option>Select beneficiary account</option>
+                            {benBank.map((bank)=>(
+                            <option key={bank.id} value={bank.id}>
+                                {bank.name}
+                                {bank.id}
+                            </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label  >Description </Form.Label>
+                        <Form.Control  placeholder='Enter the description here' 
+                        value={description} 
+                        onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label >Mode</Form.Label>
+                        <Form.Select id="disabledSelect"
+                            value={selectedMode}
+                            onChange={handleModeChange}
+                        >
+                            <option value="">Select Mode</option>
+                            {payMode.map((mode)=>(
+                                <option value={mode.id} key={mode.id}>
+                                    {mode.name}
+                                </option>
+                            ))}
+                        </Form.Select>
+                    </Form.Group>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label  >Supporting Document </Form.Label>
+                        <Form.Control  placeholder='Enter the description here' 
+                        // value={description} 
+                        onChange={handleFileChange} 
+                        type="file" 
+                        accept=".pdf, .jpg, .jpeg, .png" 
+                        name="document"
+                        />
+                    </Form.Group>
 
-                  <Form.Group className={classes.formGroup}>
-                    <Form.Label  >Contract Amount</Form.Label>
-                    <CurrencyInput
-                        name="contract-amount" // Provide a unique name for each CurrencyInput
-                        decimalsLimit={2}
-                        value={contractAmount}
-                        className="form-control"
-                        onValueChange={(value) => handleValueChange(value)}
-                        // style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
-                    />
-                  </Form.Group>
-                  <Form.Group className={classes.formGroup}>
-                    <Form.Label  >Total Amount</Form.Label>
-                    <CurrencyInput
-                        name="contract-amount" // Provide a unique name for each CurrencyInput
-                        decimalsLimit={2}
-                        value={totalAmount}
-                        className="form-control"
-                        onValueChange={(value) => handleValueChange2(value)}
-                        style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
-                        readOnly
-                    />
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label  >Contract Amount</Form.Label>
+                        <CurrencyInput
+                            name="contract-amount" // Provide a unique name for each CurrencyInput
+                            decimalsLimit={2}
+                            value={contractAmount}
+                            className="form-control"
+                            onValueChange={(value) => handleValueChange(value)}
+                            // style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
+                        />
+                    </Form.Group>
+                    <Form.Group className={classes.formGroup}>
+                        <Form.Label  >Total Amount</Form.Label>
+                        <CurrencyInput
+                            name="contract-amount" // Provide a unique name for each CurrencyInput
+                            decimalsLimit={2}
+                            value={totalAmount}
+                            className="form-control"
+                            onValueChange={(value) => handleValueChange2(value)}
+                            style={{ textAlign: "right", border: "1px solid #e4e4e4" }}
+                            readOnly
+                        />
 
-                  </Form.Group>        
+                    </Form.Group>        
+                    </div>
                 </div>
-              </div>
 
-              {/* <Form.Group className={classes.formGroup} style={{marginTop:20}}>
-                    <Form.Check // prettier-ignore
-                      type="switch"
-                      id="custom-switch"
-                      label="Apply Tax"
-                      onChange={handleToggle}
-                      style={{display:"flex", alignItems:"center", gap:"10px"}}
-                    />
-                </Form.Group> */}
+                {/* <Form.Group className={classes.formGroup} style={{marginTop:20}}>
+                        <Form.Check // prettier-ignore
+                        type="switch"
+                        id="custom-switch"
+                        label="Apply Tax"
+                        onChange={handleToggle}
+                        style={{display:"flex", alignItems:"center", gap:"10px"}}
+                        />
+                    </Form.Group> */}
 
 
-            </Form>
-          </div>
-
-          
-          {/* {applyTax &&
-          
-          <div>
-            <h4>Select taxes</h4>
-            <div className={classes.table}>
-              <Table striped bordered hover>
-                <thead className={classes.tableHead}>
-                  <tr>
-                  <th>#</th>
-                    <th style={{ width: '50%', }}>Tax</th>
-                    <th>Percentage</th>
-                    <th>Amount</th>
-                    <th ><Button variant="primary" onClick={() => addRow()}>
-                        <i className="fas fa-plus"></i>
-                    </Button></th>
-                    <th 
-                      style={{textAlign:'center'}}>
-                      <Button variant='success' style={{
-                        padding:'0',
-                        width:'24px',
-                        height:'24px',
-                        borderRadius:'50%',
-                        backgroundColor:'#2D995F',
-                        
-
-                        }}><i class='bx bx-plus'></i></Button></th>
-                  </tr>
-                </thead>
-                <tbody style={{ whiteSpace: "nowrap", textAlign: "center", alignItems: "center" }}>
-                    {formData.map((row, index) => (
-                        <tr key={index}>
-                            <td>{row.sn}</td>
-                            <td>
-                                <Form.Select
-                                    className="form-control"
-                                    value={row.tax}
-                                    onChange={(e) => handleAccountChange(index, e)}
-                                >
-                                    <option value="">Select Tax</option>
-                                    {tax.map((item) => (
-                                        <option key={item.id} value={item.id}>
-                                            {item.description}
-                                        </option>
-                                    ))}
-
-                                </Form.Select>
-                            </td>
-                            <td>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={row.percentage}
-                                    readOnly
-
-                                />
-                            </td>
-                            <td>
-                                <CurrencyInput
-                                    name={`rowAmount ${index}`}
-                                    decimalsLimit={2}
-                                    value={row.amount}
-                                    className="form-control"
-                                    onValueChange={(value) => handleValueChange1(value, index)}
-                                    style={{ textAlign: "right", border: "none" }}
-                                    readOnly
-                                />
-                                
-                            </td>
-                            <td>
-                                <Button variant="danger" onClick={() => deleteRow(index)}>
-                                    <i className="far fa-trash-alt"></i>
-                                </Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-              </Table>
-              
+                </Form>
             </div>
-          </div>
 
-          
+            
+            {/* {applyTax &&
+            
+            <div>
+                <h4>Select taxes</h4>
+                <div className={classes.table}>
+                <Table striped bordered hover>
+                    <thead className={classes.tableHead}>
+                    <tr>
+                    <th>#</th>
+                        <th style={{ width: '50%', }}>Tax</th>
+                        <th>Percentage</th>
+                        <th>Amount</th>
+                        <th ><Button variant="primary" onClick={() => addRow()}>
+                            <i className="fas fa-plus"></i>
+                        </Button></th>
+                        <th 
+                        style={{textAlign:'center'}}>
+                        <Button variant='success' style={{
+                            padding:'0',
+                            width:'24px',
+                            height:'24px',
+                            borderRadius:'50%',
+                            backgroundColor:'#2D995F',
+                            
+
+                            }}><i class='bx bx-plus'></i></Button></th>
+                    </tr>
+                    </thead>
+                    <tbody style={{ whiteSpace: "nowrap", textAlign: "center", alignItems: "center" }}>
+                        {formData.map((row, index) => (
+                            <tr key={index}>
+                                <td>{row.sn}</td>
+                                <td>
+                                    <Form.Select
+                                        className="form-control"
+                                        value={row.tax}
+                                        onChange={(e) => handleAccountChange(index, e)}
+                                    >
+                                        <option value="">Select Tax</option>
+                                        {tax.map((item) => (
+                                            <option key={item.id} value={item.id}>
+                                                {item.description}
+                                            </option>
+                                        ))}
+
+                                    </Form.Select>
+                                </td>
+                                <td>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={row.percentage}
+                                        readOnly
+
+                                    />
+                                </td>
+                                <td>
+                                    <CurrencyInput
+                                        name={`rowAmount ${index}`}
+                                        decimalsLimit={2}
+                                        value={row.amount}
+                                        className="form-control"
+                                        onValueChange={(value) => handleValueChange1(value, index)}
+                                        style={{ textAlign: "right", border: "none" }}
+                                        readOnly
+                                    />
+                                    
+                                </td>
+                                <td>
+                                    <Button variant="danger" onClick={() => deleteRow(index)}>
+                                        <i className="far fa-trash-alt"></i>
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
+                
+                </div>
+            </div>
+
+            
 
 
-          } */}
+            } */}
+            </div>
+            <div style={{justifyContent: "flex-end", margin:'30px'}} class="modal-footer">
+            <Button style={{borderRadius: 0}} variant='success' onClick={handlePayment} >
+                {load ? (
+                    <>
+                        {/* <Spinner size='sm' /> */}
+                        <span style={{ marginLeft: '5px' }}>Creating, Please wait...</span>
+                    </>
+                ) : (
+                    "Create Payment Voucher"
+                )}
+            </Button>
+
         </div>
-        <div style={{justifyContent: "flex-end", margin:'30px'}} class="modal-footer">
-          <Button style={{borderRadius: 0}} variant='success' onClick={handlePayment} >
-              {load ? (
-                  <>
-                      {/* <Spinner size='sm' /> */}
-                      <span style={{ marginLeft: '5px' }}>Creating, Please wait...</span>
-                  </>
-              ) : (
-                  "Create Payment Voucher"
-              )}
-          </Button>
-
-      </div>
+        </div>
       </div>
     </div>
   )

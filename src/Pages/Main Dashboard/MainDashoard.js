@@ -229,8 +229,10 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/accounting/receivables/manual_entries'}>Manual Entries</Link><br/>
                                         <Link to={'/accounting/receivables/account_receivables'}>Account Receivables</Link><br/>
+                                        <Link to={'/accounting/receivables/manual_entries'}>Manual Entries</Link><br/>
+                                        <Link to={'/accounting/receivables/loan_and_advances'}>Loan & Advances</Link><br/>
+                                        <Link to={'/accounting/receivables/customers_advance_payment'}>Customers Advance Payments</Link><br/>
                                         {/* <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
                                         <Link to={'/sales_invoice'}>Sales Invoices</Link><br/> */}
                                         {/* <Link to={'/manage_booking'}>Advance Booking</Link><br/>
@@ -261,23 +263,6 @@ export default function MainDashboard() {
                                         <Link to={'/accounting/payables/bulk_payment'}>Bulk Payment</Link><br/>
                                         <Link to={'/accounting/payables/schedule_of_payment'}>Schedule of Payables</Link><br/>
                                         <Link to={'/accounting/payables/savings'}>Savings</Link>
-                                    </Card.Body>
-                                    
-                                </Accordion.Collapse>
-                            </Card>
-                            <Card className={classes.accordionCard}>
-                                <Card.Header className={classes.cardHeader} onClick={toggleMenu1}>
-                                    <ContextAwareToggle eventKey="9">
-                                        <p>
-                                            <span><img src={dIcon3} alt='icon' /> Services</span>
-                                            {isMenuOpen1 ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
-                                        </p>
-                                    </ContextAwareToggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="9" style={{backgroundColor:'#164B2E'}}>
-                                    <Card.Body className={classes.cardBody}>
-                                        <Link to={'/accounting/receivables/services'}>Manage Services</Link><br/>
-                                        
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>

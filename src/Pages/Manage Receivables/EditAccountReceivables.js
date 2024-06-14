@@ -14,11 +14,11 @@ import classes from '../../Pages/PaymentVouchers/Create Payment Voucher/CreatePa
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Arrow from '../../assets/promix/dArrow-down.svg'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 // import { BASE_URL } from '../../api/api';
 // import CurrencyInput from 'react-currency-input-field';
 
-export default function ManualEntries() {
+export default function EditAccountReceivables() {
 
   const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -26,7 +26,7 @@ export default function ManualEntries() {
     const [phone, setPhone] = useState('');
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [address, setAddress] = useState('');
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState("");
     const [updateDate, setUpdateDate] = useState('');
     const [creditAccount, setCreditAccount] = useState([]);
     const [selectedCreditAccount, setSelectedCreditAccount] = useState("");
@@ -52,6 +52,11 @@ export default function ManualEntries() {
     const [user, setUser] = useState("")
     const [invoiceDate, setInvoiceDate] = useState("")
     const [invoiceNumber, setInvoiceNumber] = useState("")
+    const location = useLocation();
+    const { selectedAccount } = location.state || {};
+
+
+    console.log("selected Account:", selectedAccount)
 
     
     const handleFileChange = (event) => {

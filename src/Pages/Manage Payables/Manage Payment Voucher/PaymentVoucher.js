@@ -306,27 +306,27 @@ readData();
                     <div className={classes.analysis} style={{marginBottom:"30px"}}>
                         <div className={classes.analysisCont}>
                             <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                            <h5>N232,096,635.05</h5>
-                            <div className={classes.perceCont}>
+                            <h5>N0.00</h5>
+                            {/* <div className={classes.perceCont}>
                                 <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                                 <p>vs average</p>
-                            </div>
+                            </div> */}
                         </div>
                         <div className={classes.analysisCont}>
                             <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                            <h5>N232,096,635.05</h5>
-                            <div className={classes.perceCont}>
+                            <h5>N0.00</h5>
+                            {/* <div className={classes.perceCont}>
                                 <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                                 <p>vs average</p>
-                            </div>
+                            </div> */}
                         </div>
                         <div className={classes.analysisCont}>
                             <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                            <h5>N232,096,635.05</h5>
-                            <div className={classes.perceCont}>
+                            <h5>N0.00</h5>
+                            {/* <div className={classes.perceCont}>
                                 <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                                 <p>vs average</p>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
             </div>
@@ -440,7 +440,7 @@ readData();
 
                           <div className={classes.table}>
                             {isLoading ? (
-                              <p>Fetching Users...</p>
+                              <p>Fetching Vouchers...</p>
                             ) : (
                               <div className="table-responsive">
                                 <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">

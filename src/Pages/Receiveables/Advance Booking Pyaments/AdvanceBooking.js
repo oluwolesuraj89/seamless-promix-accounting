@@ -328,7 +328,7 @@ const handlePrintInvoice = (id) => {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Advance Booking Payment</h3>
+                            <h3>Customers Advance Payment</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -339,27 +339,27 @@ const handlePrintInvoice = (id) => {
                     <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0.00</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0.00</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
-                        <h5>N232,096,635.05</h5>
-                        <div className={classes.perceCont}>
+                        <h5>N0.00</h5>
+                        {/* <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -384,13 +384,13 @@ const handlePrintInvoice = (id) => {
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Booking ID:</label>
                                 <div className="col-sm-9">
                                 <Form.Select name="account" className="form-control" required="" value={selectedBookingId} onChange={handleBookingChange}>
-                                                                                <option value="">Choose bookings</option>
-                                                                                {bookingId.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.booking_order} - {item.particulars}
-                                                                                    </option>
-                                                                                ))}
-                                                                            </Form.Select>
+                                      <option value="">Choose bookings</option>
+                                      {bookingId.map((item) => (
+                                          <option key={item.id} value={item.id}>
+                                              {item.booking_order} - {item.particulars}
+                                          </option>
+                                      ))}
+                                  </Form.Select>
                                 </div>
                             </div>
                         </div>
@@ -400,13 +400,14 @@ const handlePrintInvoice = (id) => {
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Description:</label>
                                 <div className="col-sm-9">
                                 <textarea
-                                                                                className="form-control"
-                                                                                required=""
-                                                                                value={description}
-                                                                                onChange={(e) => setDescription(e.target.value)}
-                                                                                name="description"
-                                                                                readOnly
-                                                                            />
+                                      className="form-control"
+                                      required=""
+                                      rows={1}
+                                      value={description}
+                                      onChange={(e) => setDescription(e.target.value)}
+                                      name="description"
+                                      readOnly
+                                  />
                                 </div>
                             </div>
                         </div>
@@ -416,15 +417,15 @@ const handlePrintInvoice = (id) => {
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Total Amount:</label>
                                 <div className="col-sm-9">
                                 <input
-                                                                                className="form-control"
-                                                                                required=""
-                                                                                readOnly
-                                                                                type="text"
-                                                                                value={formattedAmount}
-                                                                                onChange={(e) => setAmount(e.target.value)}
-                                                                                name="amount"
-                                                                                style={{ textAlign: "right" }}
-                                                                            />
+                                      className="form-control"
+                                      required=""
+                                      readOnly
+                                      type="text"
+                                      value={formattedAmount}
+                                      onChange={(e) => setAmount(e.target.value)}
+                                      name="amount"
+                                      style={{ textAlign: "right" }}
+                                  />
                                 </div>
                             </div>
                         </div>
@@ -454,41 +455,29 @@ const handlePrintInvoice = (id) => {
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount:</label>
                                 <div className="col-sm-9" >
                                 <CurrencyInput
-                                                                                //   
-                                                                                name="amount-to-pay"
-                                                                                decimalsLimit={2}
-                                                                                className="form-control"
-                                                                                value={amountToPay} // Set the value to the balance state
-                                                                                onValueChange={handleValueChange}
-                                                                                style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                                                                            />
+                                      name="amount-to-pay"
+                                      decimalsLimit={2}
+                                      className="form-control"
+                                      value={amountToPay} // Set the value to the balance state
+                                      onValueChange={handleValueChange}
+                                      style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                  />
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
 
     <div className="col-md-6">
         <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Debit Account:</label>
             <div className="col-sm-9" >
             <Form.Select name="account" className="form-control" required="" value={selectedCreditAccount2} onChange={handleAccountChange2}>
-                                                                                <option value="">Choose Debit Account</option>
-                                                                                {creditAcc.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.gl_name}
-                                                                                    </option>
-                                                                                ))}
-                                                                            </Form.Select>
+                  <option value="">Choose Debit Account</option>
+                  {creditAcc.map((item) => (
+                      <option key={item.id} value={item.id}>
+                          {item.gl_name}
+                      </option>
+                  ))}
+              </Form.Select>
             </div>
         </div>
     </div>
@@ -497,13 +486,13 @@ const handlePrintInvoice = (id) => {
             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Credit Account:</label>
             <div className="col-sm-9" >
             <Form.Select name="account" className="form-control" required="" value={selectedCreditAccount1} onChange={handleAccountChange1}>
-                                                                                <option value="">Choose Credit Account</option>
-                                                                                {creditAcc.map((item) => (
-                                                                                    <option key={item.id} value={item.id}>
-                                                                                        {item.gl_name}
-                                                                                    </option>
-                                                                                ))}
-                                                                            </Form.Select>
+                  <option value="">Choose Credit Account</option>
+                  {creditAcc.map((item) => (
+                      <option key={item.id} value={item.id}>
+                          {item.gl_name}
+                      </option>
+                  ))}
+              </Form.Select>
             </div>
         </div>
     </div>
@@ -516,20 +505,20 @@ const handlePrintInvoice = (id) => {
 <div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start' }}>
     <Button style={{ borderRadius: 0 }} variant='success' onClick={createPayment}>
     {load ? (
-                                                                        <>
-                                                                            <Spinner size='sm' />
-                                                                            <span style={{ marginLeft: '5px' }}>Creating your payment, Please wait...</span>
-                                                                        </>
-                                                                    ) : (
-                                                                        "Make Payment"
-                                                                    )}
+          <>
+              <Spinner size='sm' />
+              <span style={{ marginLeft: '5px' }}>Creating your payment, Please wait...</span>
+          </>
+      ) : (
+          "Make Payment"
+      )}
     </Button>
 
 </div>
 
 </div>
-                                            </div>
-            </div>
+</div>
+</div>
 
 
 
@@ -678,47 +667,59 @@ const handlePrintInvoice = (id) => {
                           {loading ? (
                                 <p>Fetching loans paid...</p>
                             ) : (
-                            <div className="table-responsive">
+                              <div className="table-responsive">
                               <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
-                                <thead style={{ whiteSpace: 'nowrap' }}>
-                                  <tr>
-                                  <th>S/N</th>
-                                                            <th>Particulars</th>
-                                                            <th>Event Date</th>
-                                                            <th>Total Amount</th>
-                                                            <th>Amount Paid</th>
-                                                            <th>Outstanding</th>
-                                                            <th>Status</th>
-                                                            <th>Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody style={{ whiteSpace: 'nowrap' }}>
-                                    {displayedData.map((item, index) => (
-                                        <tr key={index}>
-                                            <td>{item.transaction_date}</td>
-                                            <td>{item?.customer?.name}</td>
-                                            <td>{item?.loan_account?.loan?.description}</td>
-                                            <td style={{ textAlign: "right" }}>{parseFloat(item.amount).toLocaleString('en-US', {
-                                                minimumIntegerDigits: 1,
-                                                minimumFractionDigits: 2,
-                                                maximumFractionDigits: 2
-                                            })}
-                                            </td>
-
-                                            {/* <td> */}
-                                            {/* <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                            <i className="far fa-eye"></i>
-                                        </div> */}
-                                            {/* <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                            <i className="far fa-trash-alt"></i>
-                                        </div> */}
-                                            {/* </td> */}
-                                        </tr>
-                                    ))}
-                                </tbody>
+                                  <thead style={{ whiteSpace: 'nowrap' }}>
+                                      <tr>
+                                          <th>S/N</th>
+                                          <th>Particulars</th>
+                                          <th>Event Date</th>
+                                          <th>Total Amount</th>
+                                          <th>Amount Paid</th>
+                                          <th>Outstanding</th>
+                                          <th>Status</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody style={{ whiteSpace: 'nowrap' }}>
+                                      {displayedData.map((item, index) => (
+                                          <tr key={index}>
+                                              <td>{index + 1}</td>
+                                              <td>{item.booking?.particulars}</td>
+                                              <td>{item.booking?.event_date}</td>
+                                              <td style={{ textAlign: "right" }}>{parseFloat(item.booking?.amount).toLocaleString('en-US', {
+                                                  minimumIntegerDigits: 1,
+                                                  minimumFractionDigits: 2,
+                                                  maximumFractionDigits: 2
+                                              })}</td>
+                                              <td style={{ textAlign: "right" }}>{parseFloat(item.amount).toLocaleString('en-US', {
+                                                  minimumIntegerDigits: 1,
+                                                  minimumFractionDigits: 2,
+                                                  maximumFractionDigits: 2
+                                              })}</td>
+                                              <td style={{ textAlign: "right" }}>{parseFloat(item.booking?.balance).toLocaleString('en-US', {
+                                                  minimumIntegerDigits: 1,
+                                                  minimumFractionDigits: 2,
+                                                  maximumFractionDigits: 2
+                                              })}</td>
+                                              <td style={{ textAlign: "left" }}><Badge bg={item.booking?.balance === "0.00" ? 'success' : 'warning'}>{item.booking?.balance === "0.00" ? 'Paid' : 'Pending'}</Badge></td>
+                                              <td>
+                                                  <div className="btn btn-success-soft btn-sm mr-1">
+                                                  <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
+                                                  </div>
+                                                  <div className="btn btn-danger-soft btn-sm">
+                                                  <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
+                                                  </div>
+                                                  <div className="btn btn-sm printbtninv" onClick={() => handlePrintInvoice(item.id)}>
+                                                  <i className="fa fa-print dawg" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
+                                                  </div>
+                                              </td>
+                                          </tr>
+                                      ))}
+                                  </tbody>
                               </table>
-                            </div>
+                          </div>
                           )}
                           <div className={classes.endded}>
                             <p>

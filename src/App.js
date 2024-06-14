@@ -93,7 +93,11 @@ import AddNewSavings from './Pages/Manage Payables/Manage Savings/AddNewSavings.
 import ManageGeneralLedger from './Pages/Manage Payables/Manage General Ledger/ManageGeneralLedger.js';
 import CreateJournal from './Pages/Manage Jurnal Entries/CreateJournal.js';
 import AccountReceivables from './Pages/Manage Receivables/AccountReceivables.js';
-import ManualEntries from './Pages/Manage Receivables/ManualEntries.js';
+import ManualEntries from './Pages/Manage Receivables/EditAccountReceivables.js';
+import EditAccountReceivables from './Pages/Manage Receivables/EditAccountReceivables.js';
+import LoanAdvances from './Pages/Manage Receivables/LoandAdvancese.js';
+import CreateNewLoan from './Pages/Manage Receivables/CreateNewLoan.js';
+import EditLaonAdvance from './Pages/Manage Receivables/EditLoanAdvance.js';
 import MaterialCost from './Pages/Receiveables/Advance Booking/MaterialCost.js';
 import StockDashboard from './Pages/Stock Dashboard/StockDashboard.js';
 import StockDash from './Pages/Dashboard/StockDash.js';
@@ -172,9 +176,9 @@ function App() {
         <Route path='/accounting/general_ledger/create_journal_entries' element={<CreateJournal/>} />
         <Route path='/accounting/receivables/account_receivables' element={<AccountReceivables/>} />
         <Route path='/accounting/receivables/manual_entries' element={<ManualEntries/>} />
-        <Route path='/accounting/receivables/services' element={<ManageBooking/>} />
+        {/* <Route path='/accounting/receivables/services' element={<ManageBooking/>} />
         <Route path='/accounting/receivables/create_services' element={<CreateBooking/>} />
-        <Route path='/accounting/receivables/view_material_cost' element={<MaterialCost/>} />
+        <Route path='/accounting/receivables/view_material_cost' element={<MaterialCost/>} /> */}
 
         <Route path='/stock_management' element={<StockDash/>} />
         <Route path='/stock_management/unit_of_measurement' element={<ManageUnit/>} />
@@ -185,6 +189,11 @@ function App() {
       <Route path='/stock_management/material_cost' element={<ViewMaterial/>} />
       <Route path='/stock_management/labour_cost' element={<ViewLabor/>} />
 
+        <Route path='/accounting/receivables/edit_account_receivables' element={<EditAccountReceivables/>} />
+        <Route path='/accounting/receivables/customers_advance_payment' element={<AdvanceBooking/>} />
+        <Route path='/accounting/receivables/loan_and_advances' element={<LoanAdvances/>} />
+        <Route path='/accounting/receivables/loan_and_advances/create_loan' element={<CreateNewLoan/>} />
+        <Route path='/accounting/receivables/loan_and_advances/edit_loan_advance' element={<EditLaonAdvance/>} />
         
         <Route path='/print_payment' element={<PrintVoucher/>} />
 

@@ -19,24 +19,15 @@ import Arrow from '../../assets/promix/dArrow-down.svg'
 
 
 
-function AccountReceivables() {
-    const navigate = useNavigate();
-  const [currentTime, setCurrentTime] = useState(new Date());
+function LoanAdvances() {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [bearer, setBearer] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [role, setRole] = useState("");
-  const [role1, setRole1] = useState("");
-  const [checkAll, setCheckAll] = useState(false);
   const [tableData, setTableData] = useState([]);
-  const [permissions, setPermissions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [permittedHeaders, setPermittedHeaders] = useState([]);
-  const [department, setDepartment] = useState("");
-  const [department1, setDepartment1] = useState("");
-  const [deptId, setDeptId] = useState("");
+const navigate = useNavigate();
   const handleClose = () => setShow(false);
   const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
@@ -44,8 +35,6 @@ function AccountReceivables() {
 
   const [eyeClicked, setEyeClicked] = useState(false);
   const [trashClicked, setTrashClicked] = useState(false);
-  const [perm, setPerm] = useState([]);
-  const [permId, setPermId] = useState([]);
   const [fullName, setFullName] = useState("");
   const [fullName1, setFullName1] = useState("");
   const [email, setEmail] = useState("");
@@ -53,16 +42,13 @@ function AccountReceivables() {
   const [phone1, setPhone1] = useState("");
   const [phone, setPhone] = useState("");
   const [roles, setRoles] = useState([]);
-  const [address, setAddress] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedRole, setSelectedRole] = useState('');
+  const [selectedRoleId, setSelectedRoleId] = useState(null);
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [beneficiaries, setBeneficiaries] = useState('');
-  const [user, setUser] = useState('');
-  const [totalEntries, setTotalEntries] = useState("");
-  const [ledgTableData, setLedgTableData] = useState([]);
-  const [totalPages, setTotalPages] = useState(1);
+  const [user, setUser] = useState("");
+
 
   const readData = async () => {
     try {
@@ -92,87 +78,72 @@ readData();
   };
 
 
-  const fetchReceivables = async () => {
+  const fetchBooking = async () => {
     setIsLoading(true);
     try {
-        const response = await axios.get(`${BASE_URL}/fetch-receivables?page=${currentPage}`, { headers });
-        const results = response.data?.data?.data;
-        const resultx = response.data?.data?.total;
-        setTotalEntries(resultx);
-        setLedgTableData(results);
-        const total = response.data?.data?.last_page || 1;
-        setTotalPages(total);
-        console.log("response:", results);
-        // toast.success(response.data.message);
+      const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/account/fetch-staff-loan', { headers });
+      const results = response.data?.data;
+      setTableData(results);
+      // console.log(results);
     } catch (error) {
-        if (error.response && error.response.status === 401) {
-            navigate('/login');
-        } else {
-          let errorMessage = 'An error occurred. Please try again.';
-          if (error.response && error.response.data && error.response.data.message) {
-              if (typeof error.response.data.message === 'string') {
-                  errorMessage = error.response.data.message;
-              } else if (Array.isArray(error.response.data.message)) {
-                  errorMessage = error.response.data.message.join('; ');
-              } else if (typeof error.response.data.message === 'object') {
-                toast.error(errorMessage)
-                console.log(errorMessage);
-              }
-          }
-            setTableData([]);
-        }
+      if (error.response && error.response.status === 401) {
+        // Redirect to login page if unauthorized
+        navigate('/login');
+      } else {
+      const errorStatus = error.response?.data?.message;
+      console.log(errorStatus);
+      setTableData([]);
+    }
     } finally {
       setIsLoading(false);
     }
   };
-  
-  
-  
+
+
+
   useEffect(() => {
     if (bearer) {
-      fetchReceivables();
-  
-    }
-  }, [bearer, currentPage]);
+      fetchBooking();
 
-  
-  const createBeneficiary = async () => {
+    }
+  }, [bearer]);
+
+  const createUser = async () => {
     setLoading(true);
+
     try {
-      const response = await axios.post(`${BASE_URL}/beneficiary/add`,
+      const response = await axios.post(
+        'https://api-sme.promixaccounting.com/api/v1/create',
         {
           name: fullName,
           email: email,
-          phone_number: phone,
-          address: address
+          phone_no: phone,
+          role: selectedRole
         },
         { headers }
       );
-      console.log(response.data.message)
-      // fetchBeneficiaries();
+      fetchBooking();
       handleClose();
-      // return
       Swal.fire({
         icon: 'success',
         title: 'Success',
         text: response.data.message,
       });
-      console.log(response.data.message);
+      console.log(response.data);
 
     } catch (error) {
-      const errorStatus = error.response.data.message;
+      const errorStatus = error.response.name;
       Swal.fire({
         icon: 'error',
         title: 'Failed',
-        text: errorStatus,
+        text: error.response.name,
       });
-      console.log(error);
+      console.error(errorStatus);
     } finally {
       setLoading(false);
     }
   };
 
-  //format date
   function formatDate(dateString) {
     const date = new Date(dateString);
     const formattedDate = `${date.getFullYear()}-${padZero(date.getMonth() + 1)}-${padZero(date.getDate())} ${padZero(date.getHours())}:${padZero(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
@@ -183,133 +154,103 @@ readData();
     return num < 10 ? `0${num}` : num;
   }
 
- 
-const handleEyeClick = (id) => {
-  const foundCustomer = ledgTableData.find(item => item.id === id);
-  navigate('/accounting/receivables/edit_account_receivables', { state: { selectedAccount: foundCustomer } });
-  setEyeClicked(true);
-};
+
+  const handleEyeClick = (id) => {
+
+    const foundLoan = tableData.find(item => item.id === id);
+navigate('/accounting/receivables/loan_and_advances/edit_loan_advance', { state: { selectedLoan: foundLoan } });
+    setEyeClicked(true);
+  };
 
 
-  //delete function
   const handleTrashClick = async (id) => {
     try {
-      const response = await axios.get(`${BASE_URL}/beneficiary/delete?id=${id}`, { headers });
-      // fetchBeneficiaries();
-      // Swal.fire({
-      //   icon: 'success',
-      //   title: 'Success',
-      //   text: response.data.message,
-      // });
-      toast.success(response.data.message);
-
+      const response = await axios.get(`https://api-sme.promixaccounting.com/api/v1/destroy?id=${id}`, { headers });
+      fetchBooking();
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
       setTrashClicked(true);
     } catch (error) {
-      let errorMessage = 'An error occurred. Please try again.';
-          if (error.response && error.response.data && error.response.data.message) {
-              if (typeof error.response.data.message === 'string') {
-                  errorMessage = error.response.data.message;
-              } else if (Array.isArray(error.response.data.message)) {
-                  errorMessage = error.response.data.message.join('; ');
-              } else if (typeof error.response.data.message === 'object') {
-                  errorMessage = JSON.stringify(error.response.data.message);
-              }
-              toast.error(errorMessage)
-              console.log(errorMessage);
-          }
-        }};
-  // };
+      const errorStatus = error.response?.data?.message;
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+      console.log(errorStatus);
+    }
+  };
 
-  //update function
   const editUser = async () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(`${BASE_URL}/admin/users/update`,
+      const response = await axios.post(
+        'https://api-sme.promixaccounting.com/api/v1/update',
         {
           name: fullName1,
           // id: deptId, 
           email: email1,
-          phone_number: phone1,
-          // role: selectedRole
+          phone_no: phone1,
+          role: selectedRole
         },
         { headers }
       );
 
-      // fetchBeneficiaries();
+      fetchBooking();
 
-      toast.success(response.data.message);
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: response.data.message,
+      });
+
       // console.log(response.data);
     } catch (error) {
-      let errorMessage = 'An error occurred. Please try again.';
-          if (error.response && error.response.data && error.response.data.message) {
-              if (typeof error.response.data.message === 'string') {
-                  errorMessage = error.response.data.message;
-              } else if (Array.isArray(error.response.data.message)) {
-                  errorMessage = error.response.data.message.join('; ');
-              } else if (typeof error.response.data.message === 'object') {
-                  errorMessage = JSON.stringify(error.response.data.message);
-              }
-              toast.error(errorMessage)
-              console.log(errorMessage);
-          }
+      const errorStatus = error.response?.data?.message || 'An error occurred';
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed',
+        text: errorStatus,
+      });
+
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
 
-  //filter function
-  // const filteredData = tableData.filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredData = tableData.filter(item => item.principal_amount.toLowerCase().includes(searchTerm.toLowerCase()));
 
-  // const totalPages = Math.ceil(filteredData.length / entriesPerPage);
+  const totalPages = Math.ceil(filteredData.length / entriesPerPage);
 
   const handlePrevPage = () => {
-    setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
-  };
-  
-  const handleNextPage = () => {
-    setCurrentPage(prevPage => Math.min(prevPage + 1, totalPages));
+    setCurrentPage(Math.max(currentPage - 1, 1));
   };
 
-  // const filteredData = ledgTableData.filter(item => item.name.includes(searchTerm));
+  const handleNextPage = () => {
+    setCurrentPage(Math.min(currentPage + 1, totalPages));
+  };
+
+  const totalEntries = filteredData.length;
   const startIndexx = (currentPage - 1) * entriesPerPage + 1;
   const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-  // const displayedData = filteredData.slice(currentPage - 1, totalEntries);
+  const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
 
-  // const totalEntries = filteredData.length;
-  // const startIndexx = (currentPage - 1) * entriesPerPage + 1;
-  // const endIndexx = Math.min(startIndexx + entriesPerPage - 1, totalEntries);
-  // const displayedData = filteredData.slice(startIndexx - 1, endIndexx);
+  const handleRoleChange = (e) => {
+    setSelectedRole(e.target.value);
+  };
 
-  useEffect(() => {
-    const retrieveAdminStatus = async () => {
-      try {
-        const permitted = await AsyncStorage.getItem('permissions');
-        if (permitted) {
-          setPermittedHeaders(permitted);
-         
-        }
-      } catch (error) {
-        console.error('Error retrieving admin status:', error);
-      }
-    };
+  const handleCreate = () => {
+    navigate('/accounting/receivables/loan_and_advances/create_loan');
+  };
 
-    retrieveAdminStatus();
-  }, []);
-
-  const filteredData = ledgTableData.filter(item => {
-    const searchFields = [
-      item.description, 
-      item.invoice_number, 
-      formatDate(item.transaction_date),
-      formatDate(item.transaction_date),
-    ];
-    return searchFields.some(field => field.toLowerCase().includes(searchTerm.toLowerCase()));
-  });
-  
   const formattedTotalEntries = totalEntries.toLocaleString();
-
   return (
 
     <div>
@@ -329,7 +270,7 @@ const handleEyeClick = (id) => {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Receivables</h3>
+                            <h3>Loan & Advance</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -396,8 +337,8 @@ const handleEyeClick = (id) => {
                         marginLeft: "auto",
                       }}
                     >
-                      <Button variant="success" onClick={handleShow}>
-                        Add New 
+                      <Button variant="success" onClick={handleCreate}>
+                        Disbuse New Loan  
                       </Button>
                     </div>
                   </nav>
@@ -535,35 +476,71 @@ const handleEyeClick = (id) => {
 
 
                           {isLoading ? (
-                            <p>Fetching Receivables...</p>
+                            <p>Fetching Loans...</p>
                           ) : (
                             <div className="table-responsive">
                               <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
                                 <thead style={{ whiteSpace: 'nowrap' }}>
-                                  <tr>
+                                <tr>
                                   <th>S/N</th>
-                                    <th>Transaction Date</th>
-                                    {/* <th>Particulars</th> */}
-                                    <th>Description</th>
-                                    <th>Invoice</th>
-                                    <th>Total Amount</th>
-                                    <th>Balance</th>
-                                    <th>Payment Due</th>
-                                    <th>Action</th>
-                                  </tr>
+                                  <th>Date</th>
+                                  <th>Staff Name</th>
+                                  <th>Loan Name</th>
+                                  <th>Loan Prefix</th>
+                                  <th>Duration</th>
+                                  <th>Principal Amount</th>
+                                  <th>Interest Amount</th>
+                                  <th>Total Loan</th>
+                                  <th>Monthly Deduction</th>
+                                  <th>Total Repayment</th>
+                                  <th>Balance</th>
+                                  <th>Approval Status</th>
+                                  <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                   {filteredData.map((item, index) => (
                                   <tr key={index}>
                                     <td>{index + 1}</td>
-                                      <td>{formatDate(item.transaction_date)}</td>
-                                      {/* <td>{}</td> */}
-                                      <td>{item.description}</td>
-                                      <td>{item.invoice_number}</td>
-                                      <td>{item.amount}</td>
-                                      <td>{item.balance}</td>
-                                      <td>{item.date_of_invoice}</td>
+                                    <td>{item.transaction_date}</td>
+                                    <td>{item.beneficiary?.name}</td>
+                                    <td>{item.loan?.description}</td>
+                                    <td>{item.prefix}</td>
+                                    <td>{item.duration}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.principal_amount).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.interest_amount).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.total_repayment).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.monthly_deduction).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.total_repayment).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                    <td style={{textAlign: "right"}}>{parseFloat(item.balance).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}</td>
+                                 
+                                    <td><Badge bg={item.approved === "0" ? "warning" : item.approved === "1" ? "success" : item.approved === "2" ? "danger" : "null"}>{item.approved === "0" ? "Pending" : item.approved === "1" ? "Approved" : item.approved === "2" ? "Disapproved" : "null"}</Badge></td>
+
                                       <td style={{textAlign: "left"}}>
                                       <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
                                       <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
@@ -708,4 +685,4 @@ const handleEyeClick = (id) => {
   );
 }
 
-export default AccountReceivables;
+export default LoanAdvances;
