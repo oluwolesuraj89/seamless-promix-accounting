@@ -176,27 +176,24 @@ function App() {
         <Route path='/accounting/general_ledger/create_journal_entries' element={<CreateJournal/>} />
         <Route path='/accounting/receivables/account_receivables' element={<AccountReceivables/>} />
         <Route path='/accounting/receivables/manual_entries' element={<ManualEntries/>} />
-        {/* <Route path='/accounting/receivables/services' element={<ManageBooking/>} />
-        <Route path='/accounting/receivables/create_services' element={<CreateBooking/>} />
-        <Route path='/accounting/receivables/view_material_cost' element={<MaterialCost/>} /> */}
-
-        <Route path='/stock_management' element={<StockDash/>} />
-        <Route path='/stock_management/unit_of_measurement' element={<ManageUnit/>} />
-      <Route path='/stock_management/products' element={<ManageStocks/>} />
-      <Route path='/stock_management/event_bookings' element={<Services/>} />
-      <Route path='/stock_management/create_booking' element={<CreateServices/>} />
-      <Route path='/stock_management/view_booking' element={<ViewServices/>} />
-      <Route path='/stock_management/material_cost' element={<ViewMaterial/>} />
-      <Route path='/stock_management/labour_cost' element={<ViewLabor/>} />
-
         <Route path='/accounting/receivables/edit_account_receivables' element={<EditAccountReceivables/>} />
         <Route path='/accounting/receivables/customers_advance_payment' element={<AdvanceBooking/>} />
         <Route path='/accounting/receivables/create_new_payment' element={<CreateNew/>} />
         <Route path='/accounting/receivables/loan_and_advances' element={<LoanAdvances/>} />
         <Route path='/accounting/receivables/loan_and_advances/create_loan' element={<CreateNewLoan/>} />
         <Route path='/accounting/receivables/loan_and_advances/edit_loan_advance' element={<EditLaonAdvance/>} />
-        
         <Route path='/print_payment' element={<PrintVoucher/>} />
+        
+        <Route path='/event_mgt_system' element={<StockDash/>} />
+        <Route path='/event_mgt_system/unit_of_measurement' element={<ManageUnit/>} />
+      <Route path='/event_mgt_system/products' element={<ManageStocks/>} />
+      <Route path='/event_mgt_system/event_bookings' element={<Services/>} />
+      <Route path='/event_mgt_system/create_booking' element={<CreateServices/>} />
+      <Route path='/event_mgt_system/view_booking' element={<ViewServices/>} />
+      <Route path='/event_mgt_system/material_cost' element={<ViewMaterial/>} />
+      <Route path='/event_mgt_system/other_cost' element={<ViewLabor/>} />
+
+      
 
       </Routes>
 

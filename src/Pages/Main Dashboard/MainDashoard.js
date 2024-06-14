@@ -232,7 +232,7 @@ export default function MainDashboard() {
                                         <Link to={'/accounting/receivables/account_receivables'}>Account Receivables</Link><br/>
                                         <Link to={'/accounting/receivables/manual_entries'}>Manual Entries</Link><br/>
                                         <Link to={'/accounting/receivables/loan_and_advances'}>Loan & Advances</Link><br/>
-                                        <Link to={'/accounting/receivables/customers_advance_payment'}>Customers Advance Payments</Link><br/>
+                                        {/* <Link to={'/accounting/receivables/customers_advance_payment'}>Customers Advance Payments</Link><br/> */}
                                         {/* <Link to={'/employee'}>Customer/Employee/Member</Link><br/>
                                         <Link to={'/sales_invoice'}>Sales Invoices</Link><br/> */}
                                         {/* <Link to={'/manage_booking'}>Advance Booking</Link><br/>
