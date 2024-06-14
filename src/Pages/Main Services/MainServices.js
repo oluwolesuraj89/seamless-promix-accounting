@@ -109,9 +109,9 @@ export default function MainServices() {
   const fetchData = async () => {
     setRoleLoading(true);
     try {
-      const response = await axios.get(`${BASE_URL}/items/fetch-all`, { headers });
+      const response = await axios.get(`${BASE_URL}/services`, { headers });
       const results = response.data?.data;
-      // console.log(results);
+      console.log(results);
       setTableData(results);
     } catch (error) {
       if (error.response && error.response.status === 401) {
@@ -216,26 +216,22 @@ export default function MainServices() {
     setLoading(true);
     try {
       const response = await axios.post(
-        `${BASE_URL}/items/add-new-item`,
+        `${BASE_URL}/services/create`,
         {
-          // name: name,
-          // description: description,
-          // unit: unit,
-          // gl_code: glCode,
-          // re_order_level: reOderLevel,
-          // price: price,
-          // quantity: stockBalance
+         description: description,
+         code: code,
+         report_to: glCode
          
          
         },
         { headers }
       );
+      toast.success(response.data.message);
       console.log(response)
       fetchData();
       handleClose();
     
       // return
-    toast.success(response.data.message);
       console.log(response.data);
 
     } catch (error) {
@@ -291,15 +287,12 @@ export default function MainServices() {
     setSelectedItem(itemId);
  
     
-    const { name, description, unit, gl_code, re_order_level, price, stock } = foundItems;
+    const { description, code, report_to} = foundItems;
     
-    // setName1(name || '');
-    // setDescription1(description || '');
-    // setglCode1(gl_code || '');
-    // setReOrderLevel1(re_order_level || '');
-    // setUnit1(unit || '');
-    // setPrice1(price || '');
-    // setStockBalance1(stock?.quantity || '');
+    setDescription1(description || '');
+    setglCode1(report_to || '');
+    setCode1(code || '');
+    
     
     setShow1(true);
     setEyeClicked(true);
@@ -316,23 +309,19 @@ const editUser = async (id) => {
 
   try {
     const response = await axios.post(
-      `${BASE_URL}/items/update-item`,
+      `${BASE_URL}/services/update`,
       {
-        // name: name1,
-        // description: description1,
-        // unit: unit1,
-        // gl_code: glCode1,
-        // re_order_level: reOderLevel1,
-        // id: selectedItem,
-        // price: price1,
-        // quantity: stockBalance1
+        description: description1,
+         code: code1,
+         report_to: glCode1,
+         id: selectedItem
       },
       { headers }
     );
 
+    toast.success(response.data.message);
     fetchData();
 handleClose1();
-    toast.success(response.data.message);
     // console.log(response.data);
   } catch (error) {
     let errorMessage = 'An error occurred. Please try again.';
@@ -356,7 +345,7 @@ handleClose1();
   const handleTrashClick = async (id) => {
     const confirmed = await Swal.fire({
       title: 'Are you sure?',
-      text: 'You are about to delete this stock.',
+      text: 'You are about to delete this service.',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -370,7 +359,7 @@ handleClose1();
     }
 
     try {
-      const response = await axios.get(`${BASE_URL}/items/delete-item?id=${id}`, { headers });
+      const response = await axios.get(`${BASE_URL}/services/delete?id=${id}`, { headers });
       toast.success(response.data.message);
       fetchData();
       setTrashClicked(true);
@@ -390,19 +379,12 @@ handleClose1();
     }
   };
 
-  const handleUnitChange = (event) =>{
-    setUnit(event.target.value)
-   }
+  
    const handleGlChange = (event) =>{
     setglCode(event.target.value)
    }
   
-   const handleUnitChange1 = (event) =>{
-    setUnit1(event.target.value)
-   }
-   const handleGlChange1 = (event) =>{
-    setglCode1(event.target.value)
-   }
+   
 
 
 
@@ -637,6 +619,7 @@ handleClose1();
                             <th>S/N</th>
                                   <th>Description</th>
                                   <th>Service Code</th>
+                                  <th>GL Account</th>
                                   <th>Date Created</th>
                                   <th>Action</th>
                             </tr>
@@ -647,7 +630,8 @@ handleClose1();
                                   <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{item.description}</td>
-                                    <td style={{textAlign: "left"}}>{item.description}</td>
+                                    <td style={{textAlign: "left"}}>{item.code}</td>
+                                    <td style={{textAlign: "left"}}>{item.account?.gl_name}</td>
                                     <td style={{textAlign: "left"}}>{formatDate(item.created_at)}</td>
                                     
                                     

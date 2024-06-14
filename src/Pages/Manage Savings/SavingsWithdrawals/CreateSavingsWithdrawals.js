@@ -399,7 +399,7 @@ const handlePrintInvoice = (id) => {
                             <div className="form-group row">
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Transaction Date:</label>
                                 <div className="col-sm-9">
-                                <input className="form-control" required="" type="date" onChange={handleDateChange} name="date" value={selectedDate} />
+                                <input style={{width: '100%',}} className="form-control" required="" type="date" onChange={handleDateChange} name="date" value={selectedDate} />
                                 </div>
                             </div>
                         </div>
@@ -413,6 +413,7 @@ const handlePrintInvoice = (id) => {
                                 options={customers}
                                 menuPortalTarget={document.body}
                                 styles={{
+                                  width: '100%',
                                     menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                                     menu: (provided) => ({
                                     ...provided,
@@ -425,8 +426,10 @@ const handlePrintInvoice = (id) => {
                             </div>
                         </div>
 
+                        <div style={{marginTop: 20}} />
+
                         <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                            <div className="form-group row" style={{ display:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Savings Type:</label>
                                 <div className="col-sm-9">
                                 <Select
@@ -448,11 +451,11 @@ const handlePrintInvoice = (id) => {
                         </div>
 
                         <div className="col-md-6">
-                            <div className="form-group row" style={{marginBottom:"10px", desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                            <div className="form-group row" style={{display:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Balance:</label>
                                 <div className="col-sm-9">
                                 <CurrencyInput
-                                        style={{ width: '330px', height: '38px', textAlign: 'right', padding: '10px' }}
+                                        style={{ width: '100%', height: '38px', textAlign: 'right', padding: '10px' }}
                                         value={balance}
                                         // onChange={(selectedOption) => handleBankChange(selectedOption)}
 
@@ -462,7 +465,7 @@ const handlePrintInvoice = (id) => {
                                           menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                                           menu: (provided) => ({
                                             ...provided,
-                                            maxHeight: '200px',
+                                            maxHeight: '300px',
                                             overflowY: 'auto',
 
 
@@ -475,7 +478,7 @@ const handlePrintInvoice = (id) => {
                        
 <div style={{marginTop: 20}}/>
                         <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                            <div className="form-group row" style={{ display:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Mode of Savings:</label>
                                 <div className="col-sm-9">
                                 <Select
@@ -483,10 +486,11 @@ const handlePrintInvoice = (id) => {
                                         options={mode}
                                         menuPortalTarget={document.body}
                                         styles={{
+                                          width: '100%',
                                           menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                                           menu: (provided) => ({
                                             ...provided,
-                                            maxHeight: '200px',
+                                            maxHeight: '300px',
                                             overflowY: 'auto',
                                           }),
                                         }}
@@ -498,7 +502,7 @@ const handlePrintInvoice = (id) => {
 
 
                         <div className="col-md-6">
-                            <div className="form-group row" style={{ desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                            <div className="form-group row" style={{ display:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Bank:</label>
                                 <div className="col-sm-9">
                                 <Select
@@ -506,6 +510,7 @@ const handlePrintInvoice = (id) => {
                                         options={banks}
                                         menuPortalTarget={document.body}
                                         styles={{
+                                          width: '100%',
                                           menuPortal: (base) => ({ ...base, zIndex: 9999 }),
                                           menu: (provided) => ({
                                             ...provided,
@@ -518,8 +523,9 @@ const handlePrintInvoice = (id) => {
                             </div>
                         </div>
 
+                        <div style={{marginTop: 20}} />
                         <div className="col-md-6">
-                            <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+                            <div className="form-group row" style={{display:"flex", justifyContent:"space-between", alignItems:'center'}}>
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Amount To Withdraw:</label>
                                 <div className="col-sm-9" >
                                 <CurrencyInput
@@ -528,7 +534,7 @@ const handlePrintInvoice = (id) => {
                                         className="form-control"
                                         value={amountToPay}
                                         onValueChange={handleValueChange}
-                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none", width: '100%', }}
                                       />
                                 </div>
                             </div>
@@ -546,12 +552,12 @@ const handlePrintInvoice = (id) => {
 
 
     <div className="col-md-6">
-        <div className="form-group row" style={{marginTop:'20px', desplay:"flex", justifyContent:"space-between", alignItems:'center'}}>
+        <div className="form-group row" style={{display:"flex", justifyContent:"space-between", alignItems:'center'}}>
             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Cheque No:</label>
             <div className="col-sm-9" >
             <input className="form-control" required="" type="text" 
                                        name="cheque-no"
-                                       
+                                       style={{width: "100%"}}
                                        value={chequeNo} // Set the value to the balance state
                                        onChange={(e) => setChequeNo(e.target.value)}
                                        

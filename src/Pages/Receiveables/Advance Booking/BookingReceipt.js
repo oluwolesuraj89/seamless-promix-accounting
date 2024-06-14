@@ -19,6 +19,7 @@ import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
+import StockDashboard from '../../Stock Dashboard/StockDashboard';
 // import classes from './LoanRepayment.module.css'
 // import favicon from '../../Images/faviconn.png'
 
@@ -85,9 +86,9 @@ function BookingReceipt() {
         setCurrentDateTime(formattedDateTime);
       }, []);
       
-      const { selectedBooking } = location.state || {};
+      const { selectedBook } = location.state || {};
      
-      console.log(selectedBooking);
+      console.log(selectedBook);
       const handlePrint = () => {
         window.print();
       };
@@ -106,7 +107,7 @@ function BookingReceipt() {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard />
+          <StockDashboard />
             <div className='newBody'>
             <div className={classes.newWidth}>
 
@@ -138,20 +139,26 @@ function BookingReceipt() {
                     <body className={classes.officialBody}>
             
             <div className={classes.a4}>
+            <h4 className={classes.fontBold} >{company}</h4>
+            <p className={classes.fontSmall}>{address}</p>
+                        <p className={classes.fontSmall}>{phone}</p>
+                        <p className={classes.fontSmall}>{email}</p>
                 <div className={classes.headerContainer}>
                     <div className={classes.flex1}>
-                        <h1>BOOKING RECEIPT</h1>
-                        <h4 className={classes.fontBold} >{company}</h4>
-                        <p style={{fontSize:'15px', width: "420px", wordWrap: 'break-word'}}>{address}</p>
-                        <p>{phone}</p>
-                        <p>{email}</p>
+                        {/* <h1>OFFICIAL RECEIPT</h1> */}
+                       
+                       {/* <div style={{marginTop: 20}}/> */}
                         <table className={classes.headerTable1}>
+                        <tr>
+                                <td>CUSTOMER NAME:</td>
+                               <td className={classes.tdWidth}>{selectedBook?.booking?.particulars}</td>
+                            </tr>
                             <tr>
-                                <td>SALESPERSON</td>
+                                <td>CUSTOMER NO.:</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>CREDIT CARD NO.</td>
+                                <td>CUSTOMER ADD.:</td>
                                 <td></td>
                             </tr>
                         </table>
@@ -160,32 +167,26 @@ function BookingReceipt() {
                     <div className={classes.flex2}>
                         <table className={classes.headerTable2}>
                             <tr>
-                                <td style={{borderBottom:'1px solid gray',}}>DATE & TIME</td>
-                                <td>{currentDateTime}</td>
+                                <td style={{borderBottom:'1px solid gray',}}>PAYMENT DATE:</td>
+                                <td>{selectedBook?.payment_date}</td>
                             </tr>
                             <tr>
-                                <td>BOOKING NO.</td>
-                                <td>{selectedBooking.booking_order}</td>
+                                <td>BOOKING NO.:</td>
+                                <td>{selectedBook?.booking?.booking_order}</td>
                             </tr>
                             <tr>
-                                <td>CUSTOMER NO.</td>
-                                <td>{selectedBooking.customer?.id}</td>
+                                <td>SALESPERSON:</td>
+                                <td></td>
                             </tr>
-                            <tr>
-                                <td>CUSTOMER NAME</td>
-                                <td className={classes.fontBold}><h5 style={{fontSize: "15px"}}>{selectedBooking.particulars} </h5></td>
-                            </tr>
-                            <tr>
-                                <td style={{ wordWrap: 'break-word'}}>CUSTOMER ADDRESS</td>
-                                <td>{selectedBooking.customer?.address}</td>
-                            </tr>
-                            <tr>
-                                <td style={{ wordWrap: 'break-word'}}>CUSTOMER PHONE</td>
-                                <td>{selectedBooking.customer?.phone}</td>
-                            </tr>
-                            <tr>
+                           
+                            {/* <tr>
+                                <td>CREDIT CARD NO.</td>
+                                <td></td>
+                            </tr> */}
+                            
+                            {/* <tr>
                                 <td colSpan={2} style={{backgroundColor:'gray', padding:'3px', height:'20px',}}></td>
-                            </tr>
+                            </tr> */}
                         </table>
                         
                     </div>     
@@ -202,14 +203,14 @@ function BookingReceipt() {
                     </tr>   
                     <tr>
                         <td>1</td>
-                        <td >{selectedBooking.description}</td>
+                        <td >{selectedBook?.booking?.description}</td>
                         <td>1</td>
-                        <td style={{textAlign: "right"}}>{parseFloat(selectedBooking.amount).toLocaleString('en-US', {
+                        <td style={{textAlign: "right"}}>{parseFloat(selectedBook.amount).toLocaleString('en-US', {
                         minimumIntegerDigits: 1,
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     })}</td>
-                        <td style={{textAlign: "right"}}>{parseFloat(selectedBooking.amount).toLocaleString('en-US', {
+                        <td style={{textAlign: "right"}}>{parseFloat(selectedBook.amount).toLocaleString('en-US', {
                         minimumIntegerDigits: 1,
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
@@ -266,35 +267,35 @@ function BookingReceipt() {
                     </tr>   
                     <tr>
                         <td rowSpan={5} colSpan={2} className={classes.spaned}>
-                            <span>Remarks/Instructions:</span>
-                            <div style={{textAlign:'center', marginTop:'90px',}}>
-                                <span>Please make check payable to Your Company Name.</span><br/>
-                                <div style={{fontSize:'23px', paddingTop:'10px'}}>THANK YOU</div>
+                            <span style={{fontWeight: 700}}>Remarks/Instructions:</span>
+                            <div style={{textAlign:'center', marginTop:'20px',}}>
+                                <span>Please make cheque payable to Your Company Name.</span><br/>
+                                <div style={{fontSize:'23px', paddingTop:'10px', fontWeight: 700}}>THANK YOU</div>
                             </div>
 
                         </td>
-                        <td colSpan={2}>SUBTOTAL</td>
-                        <td style={{textAlign:'right',}}>{parseFloat(selectedBooking.amount).toLocaleString('en-US', {
+                        <td style={{fontWeight: 900}} colSpan={2}>SUBTOTAL</td>
+                        <td style={{textAlign:'right',}}>{parseFloat(selectedBook.amount).toLocaleString('en-US', {
                         minimumIntegerDigits: 1,
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
                     })}</td>
                     </tr>   
                     <tr>
-                    <td colSpan={2}>TAX</td>
+                    <td style={{fontWeight: 900}} colSpan={2}>TAX</td>
                         <td style={{textAlign:'right',}}></td>
                     </tr>
                     <tr>
-                    <td colSpan={2}>SHIPPING / HANDLING</td>
+                    <td style={{fontWeight: 900}} colSpan={2}>SHIPPING / HANDLING</td>
                         <td style={{textAlign:'right',}}></td>
                     </tr>
                     <tr>
-                    <td colSpan={2}>OTHER</td>
+                    <td style={{fontWeight: 900}} colSpan={2}>OTHER</td>
                         <td style={{textAlign:'right',}}></td>
                     </tr>
                     <tr>
-                    <td colSpan={2}>TOTAL</td>
-                        <td style={{textAlign:'right',}}>{parseFloat(selectedBooking.amount).toLocaleString('en-US', {
+                    <td style={{fontWeight: 900}} colSpan={2}>TOTAL</td>
+                        <td style={{textAlign:'right', fontWeight: 900}}>{parseFloat(selectedBook.amount).toLocaleString('en-US', {
                         minimumIntegerDigits: 1,
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2
@@ -310,7 +311,7 @@ function BookingReceipt() {
                                         <span>MONEY ORDER</span>
                                     </div>
                                     <span className={classes.span1}>
-                                        For questions concerning this invoice please contact {company} on {phone}, Email<br/> {email}
+                                        For questions concerning this payment, please contact <strong>{company}</strong> on <strong>{phone}</strong>, or email us at <strong>{email}</strong>.
                                     </span>
                                    
                                     

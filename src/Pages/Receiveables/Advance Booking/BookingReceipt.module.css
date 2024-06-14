@@ -43,7 +43,7 @@
 .a4{
     /* height: 8.3in; */
     /* padding-top: 8rem; */
-    min-height: 11.69in;
+    min-height: 8.3in;
     min-width: 8.27in;
     background-color: white;
     padding: 0.3in 0.5in 0.5in 0.5in;
@@ -51,15 +51,21 @@
 .headerContainer{
     /* padding-top: 5rem; */
     display: flex;
-    justify-content: space-between;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 30px;
 }
 .headerTable1 td{
     width: 150px;
 }
 .headerTable2 td:nth-child(2){
     width: 200px;
-    text-align: center;
+    text-align: left;
 }
+/* .flex1{
+    display: flex;
+    justify-content: center;
+} */
 .flex1 .headerTable1,
 .flex2 .headerTable2,
 .headerTable1 td,
@@ -79,9 +85,26 @@ border:1px solid rgb(196, 192, 192);
 }
 
 .fontBold{
-    width: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
     word-wrap: break-word;
-  
+  text-align: center;
+  font-size: 40px;
+  font-weight: 900;
+  color: #000000;
+}
+.fontSmall{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+    word-wrap: break-word;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+}
+.flex1 h1{
+    font-size: 20px;
 }
 
 
@@ -91,7 +114,7 @@ border:1px solid rgb(196, 192, 192);
     color: white;
 }
 .flex2{
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 
 .bodyTable th{
@@ -152,7 +175,7 @@ border:1px solid rgb(196, 192, 192);
     justify-content: space-around;
     /* gap: 12rem; */
     width: 100%;
-    margin-top: 10px;
+    margin-top: 60px;
 }
 .div2 .span1{
     width: 100%;
@@ -170,6 +193,9 @@ table{
  
   display: flex;
   justify-content: flex-end;
+}
+.tdWidth{
+    width: 300px !important;
 }
 
 @media print {
@@ -194,6 +220,10 @@ table{
     .a4{
         margin: 0;
         /* padding: 0; */
+    }
+    .headerTable1 .tdWidth{
+     /* white-space: nowrap; */
+     width: 200px !important;
     }
     .printHide{
         display: none;

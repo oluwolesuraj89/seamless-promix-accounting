@@ -375,7 +375,7 @@ const handleCreate = () => {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Savings Payment</h3>
+                            <h3>Bank Deposits - Savings</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>

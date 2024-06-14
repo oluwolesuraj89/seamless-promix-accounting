@@ -313,7 +313,7 @@ function CreateServices() {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Create New Service</h3>
+                            <h3>Create New Booking</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -408,24 +408,9 @@ function CreateServices() {
                             </div>
                           </div>
                         </div>
-                        <div style={{ marginTop: 20 }} />
+                        {/* <div style={{ marginTop: 20 }} /> */}
 
-                        <div className="col-md-6" >
-                          <div className="form-group row">
-                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Service Charged</label>
-                            <div className="col-sm-9">
-                              <Form.Select name="customer" className="form-control" required="" value={selectedService} onChange={handleServiceChange}>
-                                <option value="">Select Account</option>
-                                {revenues.map((item) => (
-                                  <option key={item.id} value={item.id}>
-                                    {item.gl_name}
-                                  </option>
-                                ))}
-                              </Form.Select>
-
-                            </div>
-                          </div>
-                        </div>
+                        
 
 
                         <div className="col-md-6">
@@ -443,7 +428,6 @@ function CreateServices() {
                             </div>
                           </div>
                         </div>
-                        <div style={{ marginTop: 20 }} />
                         <div className="col-md-6">
                           <div className="form-group row">
                             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Credit Account</label>
@@ -458,8 +442,25 @@ function CreateServices() {
                               </Form.Select>
                             </div>
                           </div>
+                        {/* <div style={{ marginTop: 20 }} /> */}
+                        
                         </div>
+                        <div className="col-md-6" >
+                          <div className="form-group row">
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Service Charged</label>
+                            <div className="col-sm-9">
+                              <Form.Select name="customer" className="form-control" required="" value={selectedService} onChange={handleServiceChange}>
+                                <option value="">Select Account</option>
+                                {revenues.map((item) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.gl_name}
+                                  </option>
+                                ))}
+                              </Form.Select>
 
+                            </div>
+                          </div>
+                        </div>
 
                         <div style={{ marginTop: 20 }} />
                         {/* <div className="row">
@@ -581,10 +582,10 @@ function CreateServices() {
                     {createLoading ? (
                             <>
                               <Spinner size='sm' />
-                              <span style={{ marginLeft: '5px' }}>Creating your service, Please wait...</span>
+                              <span style={{ marginLeft: '5px' }}>Creating your booking, Please wait...</span>
                             </>
                           ) : (
-                            "Create your service"
+                            "Create Booking"
                           )}
                     </Button>
                     {/* <Button>Save Changes</Button> */}

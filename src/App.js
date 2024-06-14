@@ -109,6 +109,11 @@ import ViewServices from './Pages/Services/ViewServices.js';
 import ViewMaterial from './Pages/Services/ViewMaterial.js';
 import ViewLabor from './Pages/Services/ViewLabor.js';
 import MainServices from './Pages/Main Services/MainServices.js';
+import AdvancePayment from './Pages/Receiveables/Advance Booking Pyaments/AdvancePayment.js';
+import ViewAdvance from './Pages/Receiveables/Advance Booking Pyaments/ViewAdvance.js';
+import Requisition from './Pages/Requisition/Requisition.js';
+import CreateRequistion from './Pages/Requisition/CreateRequistion.js';
+import ViewRequisition from './Pages/Requisition/ViewRequisition.js';
 
 
 function App() {
@@ -195,6 +200,12 @@ function App() {
       <Route path='/event_mgt_system/material_cost' element={<ViewMaterial/>} />
       <Route path='/event_mgt_system/other_cost' element={<ViewLabor/>} />
       <Route path='/event_mgt_system/customers_advance_payment' element={<AdvanceBooking/>} />
+      <Route path='/event_mgt_system/create_customers_advance_payment' element={<AdvancePayment/>} />
+      <Route path='/event_mgt_system/view_customers_advance_payment' element={<ViewAdvance/>} />
+      <Route path='/event_mgt_system/print_advance_payment' element={<BookingReceipt/>} />
+      <Route path='/event_mgt_system/requisition' element={<Requisition/>} />
+      <Route path='/event_mgt_system/create_requisition' element={<CreateRequistion/>} />
+      <Route path='/event_mgt_system/view_requisition' element={<ViewRequisition/>} />
 
       
 
