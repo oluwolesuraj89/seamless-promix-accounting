@@ -370,13 +370,13 @@ export default function MainDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="4" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        {/* <Link to={'/general_ledger'}>General Ledger</Link><br/>
-                                        <Link to={'/cashbook'}>Cashbook</Link><br/>
-                                        <Link to={'/trial_balance'}>Trial Balance</Link><br/>
-                                        <Link to={'/income_expenditure'}>Income & Expenditure</Link><br/>
-                                        <Link to={'/monthly_income'}>Monthly Income</Link><br/>
-                                        <Link to={'/balance_sheet'}>Balance Sheet</Link><br/>
-                                        <Link to={'#'}>Inflow</Link> */}
+                                        {/* <Link to={'/general_ledger'}>General Ledger</Link><br/> */}
+                                        <Link to={'/accounting/reports/cashbook'}>Cashbook</Link><br/>
+                                        <Link to={'/accounting/reports/trial_balance'}>Trial Balance</Link><br/>
+                                        <Link to={'/accounting/reports/income_expenditure'}>Income & Expenditure</Link><br/>
+                                        <Link to={'/accounting/reports/monthly_income'}>Monthly Income</Link><br/>
+                                        <Link to={'/accounting/reports/balance_sheet'}>Balance Sheet</Link><br/>
+                                        <Link to={'/accounting/reports/inflow'}>Inflow</Link>
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>

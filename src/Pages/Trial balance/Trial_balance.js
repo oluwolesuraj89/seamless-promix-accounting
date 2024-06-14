@@ -315,7 +315,7 @@ export default function TrialBalance() {
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
                                                     {inputss.length > 0 && (
-                                                        <button onClick={() => navigate('/process_ctivity_report', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                        <button onClick={() => navigate('/accounting/reports/trial_balance/process_activity_report', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>

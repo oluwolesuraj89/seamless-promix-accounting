@@ -108,6 +108,7 @@ import CreateServices from './Pages/Services/CreateServices.js';
 import ViewServices from './Pages/Services/ViewServices.js';
 import ViewMaterial from './Pages/Services/ViewMaterial.js';
 import ViewLabor from './Pages/Services/ViewLabor.js';
+import Inflow from './Pages/Inflow/Inflow.js';
 
 
 function App() {
@@ -182,6 +183,17 @@ function App() {
         <Route path='/accounting/receivables/loan_and_advances' element={<LoanAdvances/>} />
         <Route path='/accounting/receivables/loan_and_advances/create_loan' element={<CreateNewLoan/>} />
         <Route path='/accounting/receivables/loan_and_advances/edit_loan_advance' element={<EditLaonAdvance/>} />
+        <Route path='/accounting/reports/cashbook' element={<Cashbook/>} />
+        <Route path='/accounting/reports/cashbook/process_cash_book' element={<ProcessCashBook/>} />
+        <Route path='/accounting/reports/trial_balance' element={<TrialBalance/>} />
+        <Route path='/accounting/reports/trial_balance/process_activity_report' element={<ProcessActivityReport/>} />
+        <Route path='/accounting/reports/income_expenditure' element={<IncomeExpenditure/>} />
+        <Route path='/accounting/reports/income_expenditure/income_print' element={<IncomeProcess/>} />
+        <Route path='/accounting/reports/monthly_income' element={<MonthlyIncome/>} />
+        <Route path='/accounting/reports/monthly_income/monthly_income_process' element={<MonthlyIncomeProcess/>} />
+        <Route path='/accounting/reports/balance_sheet' element={<BalanceSheet/>} />
+        <Route path='/accounting/reports/balance_sheet/balance_sheet_print' element={<BalanceSheetPrint/>} />
+        <Route path='/accounting/reports/inflow' element={<Inflow/>} />
         <Route path='/print_payment' element={<PrintVoucher/>} />
         
         <Route path='/event_mgt_system' element={<StockDash/>} />
