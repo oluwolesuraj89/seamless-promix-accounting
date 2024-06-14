@@ -108,6 +108,7 @@ import CreateServices from './Pages/Services/CreateServices.js';
 import ViewServices from './Pages/Services/ViewServices.js';
 import ViewMaterial from './Pages/Services/ViewMaterial.js';
 import ViewLabor from './Pages/Services/ViewLabor.js';
+import MainServices from './Pages/Main Services/MainServices.js';
 
 
 function App() {
@@ -187,10 +188,12 @@ function App() {
         <Route path='/event_mgt_system/unit_of_measurement' element={<ManageUnit/>} />
       <Route path='/event_mgt_system/products' element={<ManageStocks/>} />
       <Route path='/event_mgt_system/event_bookings' element={<Services/>} />
+      <Route path='/event_mgt_system/services' element={<MainServices/>} />
       <Route path='/event_mgt_system/create_booking' element={<CreateServices/>} />
       <Route path='/event_mgt_system/view_booking' element={<ViewServices/>} />
       <Route path='/event_mgt_system/material_cost' element={<ViewMaterial/>} />
       <Route path='/event_mgt_system/other_cost' element={<ViewLabor/>} />
+      <Route path='/event_mgt_system/customers_advance_payment' element={<AdvanceBooking/>} />
 
       
 

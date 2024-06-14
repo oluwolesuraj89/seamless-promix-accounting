@@ -46,6 +46,7 @@ function ViewMaterial() {
   const [selectedDate, setSelectedDate] = useState(selectedBooking?.event_date || "");
   const [selectedTime, setSelectedTime] = useState(selectedBooking?.start_hour || "");
   const [selectedTime1, setSelectedTime1] = useState(selectedBooking?.end_hour || "");
+  const [eventId, setEventId] = useState(selectedBooking?.booking_order || "");
   const [itemList, setItemList] = useState([]);
   const [selectOptions1, setSelectOptions1] = useState([]);
   const [debitAccount, setDebitAccounts] = useState([]);
@@ -58,6 +59,9 @@ function ViewMaterial() {
   };
   const handleTimeChange = (event) => {
     setSelectedTime(event.target.value);
+  };
+  const handleEvent = (event) => {
+    setEventId(event.target.value);
   };
   const handleTimeChange1 = (event) => {
     setSelectedTime1(event.target.value);
@@ -409,8 +413,57 @@ useEffect(() => {
 
 
                     <div className="row">
-                       
-
+                    <div style={{ marginTop: 20 }} />
+                    <div className="col-md-6">
+                          <div className="form-group row">
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Event Description:</label>
+                            <div className="col-sm-9">
+                              <textarea
+                              disabled
+                                className="form-control"
+                                required=""
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                name="description"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                    <div className="col-md-6">
+                          <div className="form-group row">
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Event ID:</label>
+                            <div className="col-sm-9">
+                              <input
+                                className="form-control"
+                                required=""
+                                type="text"
+                                onChange={handleEvent}
+                                name="eventId"
+                                value={eventId}
+                                disabled
+                              // min={new Date().toISOString().split('T')[0]} // Set min attribute to the current date
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ marginTop: 20 }} />
+                    <div className="col-md-6">
+                          <div className="form-group row">
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Event Date:</label>
+                            <div className="col-sm-9">
+                              <input
+                                className="form-control"
+                                required=""
+                                type="date"
+                                onChange={handleDateChange}
+                                name="date"
+                                value={selectedDate}
+                                disabled
+                              // min={new Date().toISOString().split('T')[0]} // Set min attribute to the current date
+                              />
+                            </div>
+                          </div>
+                        </div>
                         
                         
 
@@ -427,9 +480,12 @@ useEffect(() => {
 
                         
 
-            
+                        <div style={{ marginTop: 20 }} />
+
+                        <hr style={{marginTop: 20, color: "#c4c4c4", borderWidth: "0.5px"}}/>
                        
                         <div className="row">
+                        <div style={{ marginTop: 20 }} />
                           <h5 style={{ textAlign: "center" }}>Add Expense(s)</h5>
                           <div className="table-responsive">
                             <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">

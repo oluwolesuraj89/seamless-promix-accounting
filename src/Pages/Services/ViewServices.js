@@ -530,6 +530,40 @@ disabled
                         </div>
                         <div style={{ marginTop: 20 }} />
 
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Debit Account</label>
+                            <div className="col-sm-9">
+                              <Form.Select disabled name="customer" className="form-control" required="" value={selectedaAsetAccount} onChange={handleAssetChange}>
+                                <option value="">Choose Debit Account</option>
+                                {subCat.map((item) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.gl_name}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-md-6">
+                          <div className="form-group row">
+                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Credit Account</label>
+                            <div className="col-sm-9">
+                              <Form.Select disabled name="customer" className="form-control" required="" value={selectedAccount} onChange={handleAccountChange}>
+                                <option value="">Choose Credit Account</option>
+                                {subCat2.map((item) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.gl_name}
+                                  </option>
+                                ))}
+                              </Form.Select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div style={{ marginTop: 20 }} />
+                        
                         <div className="col-md-6" >
                           <div className="form-group row">
                             <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Service Charged</label>
@@ -546,39 +580,8 @@ disabled
                             </div>
                           </div>
                         </div>
-
-
-                        <div className="col-md-6">
-                          <div className="form-group row">
-                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Debit Account</label>
-                            <div className="col-sm-9">
-                              <Form.Select disabled name="customer" className="form-control" required="" value={selectedaAsetAccount} onChange={handleAssetChange}>
-                                <option value="">Choose Debit Account</option>
-                                {subCat.map((item) => (
-                                  <option key={item.id} value={item.id}>
-                                    {item.gl_name}
-                                  </option>
-                                ))}
-                              </Form.Select>
-                            </div>
-                          </div>
-                        </div>
                         <div style={{ marginTop: 20 }} />
-                        <div className="col-md-6">
-                          <div className="form-group row">
-                            <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Credit Account</label>
-                            <div className="col-sm-9">
-                              <Form.Select disabled name="customer" className="form-control" required="" value={selectedAccount} onChange={handleAccountChange}>
-                                <option value="">Choose Credit Account</option>
-                                {subCat2.map((item) => (
-                                  <option key={item.id} value={item.id}>
-                                    {item.gl_name}
-                                  </option>
-                                ))}
-                              </Form.Select>
-                            </div>
-                          </div>
-                        </div>
+                        
                         <hr style={{marginTop: 30, color: "#c4c4c4", borderWidth: "0.5px"}}/>
 
                         <div style={{ marginTop: 30 }} />
@@ -682,7 +685,7 @@ disabled
 
 <hr style={{marginTop: 30, color: "#c4c4c4", borderWidth: "0.5px"}}/>
                         <div className="row">
-                        <h5 style={{ textAlign: "center", marginTop: 40 }}>Labour Cost</h5>
+                        <h5 style={{ textAlign: "center", marginTop: 40 }}>Other Cost</h5>
                         <div className="table-responsive">
                           <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
                             <thead style={{ whiteSpace: "nowrap", textAlign: "center", alignItems: "center" }}>
@@ -698,7 +701,7 @@ disabled
                                     <textarea 
                                       value={row.description} 
                                       disabled
-                                      rows="3" 
+                                      rows="1" 
                                       style={{ textAlign: "left", border: "1px solid #c4c4c4",padding: 5, width: '100%' }} 
                                       onChange={(e) => handleFormChange(e.target.value, 'description', index)}
                                     />
