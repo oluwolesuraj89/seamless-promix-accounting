@@ -181,7 +181,7 @@ export default function StockDashboard() {
 
                     <div className={`${classes.regMenu} ${isMenuOpen ? '' : classes.menuOpen}`}>
                         <Link
-                            to={'/stock_management'}
+                            to={'/event_mgt_system'}
                             className={activeLink === 'Dashboard' ? classes.active : ''}
                         >
                             <p>
@@ -205,7 +205,7 @@ export default function StockDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <NavLink to={'/stock_management/unit_of_measurement'} >Unit of Measurement</NavLink><br/>
+                                        <NavLink to={'/event_mgt_system/unit_of_measurement'} >Unit of Measurement</NavLink><br/>
                                        
                                     </Card.Body>
                                     
@@ -225,7 +225,7 @@ export default function StockDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                    <Link to={'/stock_management/products'}>Products/List Items</Link><br/>
+                                    <Link to={'/event_mgt_system/products'}>Products/List Items</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -242,7 +242,7 @@ export default function StockDashboard() {
                                 <Accordion.Collapse eventKey="1" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
                                         {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
-                                        <Link to={'/stock_management/event_bookings'}>Event Bookings</Link><br/>
+                                        <Link to={'/event_mgt_system/event_bookings'}>Event Bookings</Link><br/>
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
@@ -258,7 +258,7 @@ export default function StockDashboard() {
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="2" style={{backgroundColor:'#164B2E'}}>
                                     <Card.Body className={classes.cardBody}>
-                                        <Link to={'/stock_management/requisition'}>Requistion List</Link><br/>
+                                        <Link to={'/event_mgt_system/requisition'}>Requistion List</Link><br/>
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>

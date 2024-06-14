@@ -122,7 +122,7 @@ function Services() {
 
     const foundBooking = tableData.find(item => item.id === id);
    
-    navigate('/stock_management/view_booking', { state: { selectedBooking: foundBooking } });
+    navigate('/event_mgt_system/view_booking', { state: { selectedBooking: foundBooking } });
     setEyeClicked(true);
   };
 
@@ -170,20 +170,20 @@ function Services() {
 
  
   const handleCreate = () => {
-    navigate('/stock_management/create_booking');
+    navigate('/event_mgt_system/create_booking');
   };
 
   const handleViewMaterial = (id) => {
     const selectedBooking = tableData.find(item => item.id === id);
   
   
-    navigate('/stock_management/material_cost', { state: { selectedBooking } });
+    navigate('/event_mgt_system/material_cost', { state: { selectedBooking } });
   };
   const handleViewLabor = (id) => {
     const selectedBooking = tableData.find(item => item.id === id);
   
   
-    navigate('/stock_management/labour_cost', { state: { selectedBooking } });
+    navigate('/event_mgt_system/other_cost', { state: { selectedBooking } });
   };
 
  
