@@ -158,6 +158,7 @@ function App() {
         <Route path='/accounting/receivables/manual_entries' element={<ManualEntries/>} />
         <Route path='/accounting/receivables/edit_account_receivables' element={<EditAccountReceivables/>} />
         <Route path='/accounting/receivables/customers_advance_payment' element={<AdvanceBooking/>} />
+        <Route path='/accounting/receivables/create_new_payment' element={<CreateNew/>} />
         <Route path='/accounting/receivables/loan_and_advances' element={<LoanAdvances/>} />
         <Route path='/accounting/receivables/loan_and_advances/create_loan' element={<CreateNewLoan/>} />
         <Route path='/accounting/receivables/loan_and_advances/edit_loan_advance' element={<EditLaonAdvance/>} />
