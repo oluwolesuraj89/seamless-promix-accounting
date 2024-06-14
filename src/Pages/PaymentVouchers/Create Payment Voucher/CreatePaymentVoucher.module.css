@@ -16,6 +16,9 @@
     --blackGray: #6C757D;
     /* --Background:rgba(172, 231, 199, 0.05); */
 }
+.header2{
+
+}
 .topPadding{
     width: 100%;
     padding-top: 1rem;
@@ -133,8 +136,9 @@
     gap: 24px;
 }
 .header2{
+    background-color: var(--White);
     /* display: flex; */
-    padding: 12px 20px;
+    padding: 20px 20px;
     /* gap: 31px; */
 }
 .formContainer{
@@ -163,10 +167,17 @@
     /* width: 80%; */
 }
 .formFlex{
-    /* display: flex;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr;
     justify-content: center;
+    gap: 10px;
+
+    /* justify-content: space-between;
     align-items: center;
     gap: 10px; */
+}
+.formFlex label{
+    padding-top: 10px;
 }
 
 

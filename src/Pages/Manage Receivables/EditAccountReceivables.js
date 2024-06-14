@@ -533,8 +533,8 @@ export default function EditAccountReceivables() {
                         />
                     </Form.Group>        
                     
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Debit account (DR)</Form.Label>
+                    <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
+                        <Form.Label >Debit acct (DR)</Form.Label>
                         <Form.Select id="disabledSelect"
                         onChange={handleDebit}
                         value={selectedDebitAccount}
@@ -548,8 +548,8 @@ export default function EditAccountReceivables() {
                             ))}
                         </Form.Select>
                     </Form.Group>
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Credit account (CR)</Form.Label>
+                    <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
+                        <Form.Label >Credit acct (CR)</Form.Label>
                         <Form.Select id="disabledSelect"
                             onChange={handleCredit}
                             value={selectedCreditAccount}
