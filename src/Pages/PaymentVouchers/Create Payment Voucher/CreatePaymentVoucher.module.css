@@ -171,10 +171,9 @@
     grid-template-columns: 0.5fr 2fr;
     justify-content: center;
     gap: 10px;
-
-    /* justify-content: space-between;
-    align-items: center;
-    gap: 10px; */
+}
+.formFlex2 label{
+    padding: 0 !important;
 }
 .formFlex label{
     padding-top: 10px;
