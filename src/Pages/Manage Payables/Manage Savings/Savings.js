@@ -291,7 +291,7 @@ const handleUpload = () => {
                         </div>
                     </div>
 
-                    <div className={classes.analysis} style={{marginBottom:"30px"}}>
+                    {/* <div className={classes.analysis} style={{marginBottom:"30px"}}>
                         <div className={classes.analysisCont}>
                             <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
                             <h5>N232,096,635.05</h5>
@@ -316,7 +316,7 @@ const handleUpload = () => {
                                 <p>vs average</p>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
             </div>
 
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
