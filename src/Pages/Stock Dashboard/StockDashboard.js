@@ -212,7 +212,7 @@ export default function StockDashboard() {
                                 </Accordion.Collapse>
                             </Card>
                            
-                            <Card className={classes.accordionCard}>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
                                     <ContextAwareToggle eventKey="6">
                                         <p>
@@ -229,7 +229,7 @@ export default function StockDashboard() {
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu1}>
                                     <ContextAwareToggle eventKey="1">
