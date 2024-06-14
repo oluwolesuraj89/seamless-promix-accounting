@@ -430,32 +430,29 @@ function LoanDeduction() {
                         </div>
                     </div>
 
-                    <div className={classes.analysis}>
+                    {/* <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LOANS</p>
                         <h5>N0.00</h5>
                         <div className={classes.perceCont}>
-                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p> */}
+                            
                         </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
                         <h5>N0.00</h5>
                         <div className={classes.perceCont}>
-                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p> */}
+                            
                         </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
                         <h5>N0.00</h5>
                         <div className={classes.perceCont}>
-                            {/* <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
-                            <p>vs average</p> */}
+                            
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
