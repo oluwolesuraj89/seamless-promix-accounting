@@ -253,7 +253,22 @@ export default function CreateNewLoan() {
         // navigate('/loans_advances')
     
         // return
-        toast.success(response.data.message);
+      //   Swal.fire({
+      //     icon: 'success',
+      //     title: 'Success',
+      //     text: response.data.message,
+      //   });
+      //   console.log(response.data);
+    
+      // } catch (error) {
+      //   const errorStatus = error.response.data.message;
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Failed',
+      //     text: errorStatus,
+      //   });
+      //   console.log(error);
+      toast.success(response.data.message);
       } catch (error) {
         let errorMessage = 'An error occurred. Please try again.';
           if (error.response && error.response.data && error.response.data.message) {

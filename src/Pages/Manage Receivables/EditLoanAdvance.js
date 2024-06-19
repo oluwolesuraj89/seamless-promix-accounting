@@ -36,6 +36,7 @@ export default function EditLaonAdvance() {
  
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
+  const [createLoadings, setCreateLoadings] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
   const navigate = useNavigate();
@@ -216,7 +217,7 @@ useEffect(() => {
   calculateReturn();
 }, [totalRepayment, duration]);
 
-console.log(selectedCustomer.value, selectedLoan.value, selectedBank.value, principalAmount, interest, totalRepayment,  loanInterest);
+// console.log(selectedCustomer.value, selectedLoan.value, selectedBank.value, principalAmount, interest, totalRepayment,  loanInterest);
 
 const createLoan = async () => {
   setCreateLoading(true);
@@ -235,31 +236,25 @@ const createLoan = async () => {
         duration: duration,
         transaction_date: selectedDate,
         cheque_number: cheque
-
-
       },
       { headers }
     );
     console.log(response.data.message)
     
-    navigate('/loans_advances')
-
-    // return
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: response.data.message,
-    });
-    console.log(response.data);
-
-  } catch (error) {
-    const errorStatus = error.response.data.message;
-    Swal.fire({
-      icon: 'error',
-      title: 'Failed',
-      text: errorStatus,
-    });
-    console.log(error);
+    navigate('/accounting/receivables/loan_and_advances')
+  toast.success(response.data.message);
+      } catch (error) {
+        let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                toast.error(errorMessage)
+                console.log(errorMessage);
+              }
+          }
   } finally {
     setCreateLoading(false);
   }
@@ -445,6 +440,7 @@ const createLoan = async () => {
                                 <div style={{width:'100%'}}>
                                 <Select
                                         value={selectedBank}
+                                        onChange={(selectedOption) => handleBankChange(selectedOption)}
                                        disabled
                                         options={banks}
                                         menuPortalTarget={document.body}
@@ -489,7 +485,9 @@ const createLoan = async () => {
                                   )}
                                 </Button>
                                 <Button style={{borderRadius: 0}} variant="danger" >
-                                  {createLoading ? (
+                                  {
+                                  createLoadings
+                                  ? (
                                     <>
                                       <Spinner size='sm' />
                                       <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
