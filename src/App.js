@@ -109,6 +109,10 @@ import ViewServices from './Pages/Services/ViewServices.js';
 import ViewMaterial from './Pages/Services/ViewMaterial.js';
 import ViewLabor from './Pages/Services/ViewLabor.js';
 import Inflow from './Pages/Inflow/Inflow.js';
+import Income from './Pages/Main Income and Expenditur/Income.js';
+import CreateNewIncome from './Pages/Main Income and Expenditur/CreateNewIncome.js';
+import Expenditures from './Pages/Main Income and Expenditur/Expenditures.js';
+import CreateNewExpenditure from './Pages/Main Income and Expenditur/CreateNewExpenditure.js';
 
 
 function App() {
@@ -194,6 +198,10 @@ function App() {
         <Route path='/accounting/reports/balance_sheet' element={<BalanceSheet/>} />
         <Route path='/accounting/reports/balance_sheet/balance_sheet_print' element={<BalanceSheetPrint/>} />
         <Route path='/accounting/reports/inflow' element={<Inflow/>} />
+        <Route path='/accounting/income_and_expenditure/income' element={<Income/>} />
+        <Route path='/accounting/income_and_expenditure/income/add_new_income' element={<CreateNewIncome/>} />
+        <Route path='/accounting/income_and_expenditure/expenditures' element={<Expenditures/>} />
+        <Route path='/accounting/income_and_expenditure/expenditures/add_new_expenditure' element={<CreateNewExpenditure/>} />
         <Route path='/print_payment' element={<PrintVoucher/>} />
         
         <Route path='/event_mgt_system' element={<StockDash/>} />

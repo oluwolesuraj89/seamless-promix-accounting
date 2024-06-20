@@ -217,6 +217,30 @@ export default function MainDashboard() {
                             </Card>
                             
                             <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu5}>
+                                    <ContextAwareToggle eventKey="5" style={{paddingTop:'0'}}>
+                                        <p>
+                                            <span>
+                                                <img src={dIcon2} alt='icon'/> Income & Expen..
+                                            </span>
+                                            {isMenuOpen5 ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="5" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                        {/* <NavLink to={'/manage_roles'} >Manage Roles</NavLink><br/> */}
+                                        {/* <NavLink to={'/approval_level'}>Approval Levels</NavLink><br/> */}
+                                        {/* <NavLink to={'/manage_user'}>Manage User</NavLink><br/> */}
+                                        <NavLink to={'/accounting/income_and_expenditure/income'}>Income</NavLink><br/>
+                                        <NavLink to={'/accounting/income_and_expenditure/expenditures'}>Expenses</NavLink><br/>
+                                        {/* <Link to={'#'}>Loan & Advances</Link> */}
+                                    </Card.Body>
+                                    
+                                </Accordion.Collapse>
+                            </Card>
+                            
+                            <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
                                     <ContextAwareToggle eventKey="6">
                                         <p>

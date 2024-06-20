@@ -63,6 +63,16 @@
     column-gap: 1em;
     row-gap: 2em;
 }
+.formSectionGap{
+    column-gap: 1em;
+}
+
+.accountDtls{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
 
 
 .actionBtns button{
