@@ -187,7 +187,7 @@ function CreateStockDelivery() {
     setFilterLoading(true);
     try {
         const response = await axios.get(
-            `${BASE_URL}/order-details?customer_id=${selectedBeneficiary}&order_id=${selectedOrder}`,
+            `${BASE_URL}/fetch-invoice-items?invoice_number=${selectedOrder}`,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -218,6 +218,8 @@ function CreateStockDelivery() {
         setFilterLoading(false);
     }
 };
+
+console.log(selectedOrder);
 
     const fetchBenAcct = async (selectedBeneficiary) => {
       setLoading(true);

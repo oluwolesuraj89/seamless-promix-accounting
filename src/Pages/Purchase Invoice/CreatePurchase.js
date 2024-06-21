@@ -22,6 +22,7 @@ function CreatePurchase() {
     const [user, setUser] = useState("");
     const [address, setAddress] = useState("");
     const [debitGl, setDebitGl] = useState('');
+    const [totalDebit, setTotalDebit] = useState('');
     const [glMethod, setGlMethod] = useState([]);
     const [sICode, setSICode] = useState('');
     const [selectedAccountName, setSelectedAccountName] = useState('');
@@ -90,7 +91,11 @@ function CreatePurchase() {
     setTotalAmount(calculatedTotalAmount.toFixed(2));
 }, [formData]);
     
-console.log(totalAmount);
+useEffect(() => {
+  const calculatedDebit = parseFloat(debitAmount || 0)
+  setTotalDebit(calculatedDebit.toFixed(2))
+}, [debitAmount]);
+  
 
     const headers = {
       'Content-Type': 'application/json',
@@ -389,7 +394,7 @@ const handleItemDescriptionChange = (selectedOption, rowIndex) => {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Create Sales Invoice</h3>
+                            <h3>Create Purchase Invoice</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -586,10 +591,24 @@ className="form-control"
                                                                 </div>
                                                             </div>
                                                             <div style={{ marginTop: 20 }} />
-                                                            <div className="col-md-11" style={{marginLeft: 45}}>
-                                                                <div className="form-group row justify-content-end">
-                                                                    <label for="example-text-input" className="col-sm-2 col-form-label font-weight-400">Total Amount:</label>
-                                                                    <div className="col-sm-4" style={{padding:'0', maxWidth:'18.5%',}}>
+                                                            <div  style={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", gap: 30, width: "97%"}}>
+                                                                <div style={{flexDirection: "column", justifyContent: "center"}}>
+                                                                    <label for="example-text-input" >Total Debit:</label>
+                                                                    <div  style={{padding:'0', maxWidth:'18.5%',}}>
+                                                                    <CurrencyInput
+                                                                                            name='total-amount' 
+                                                                                            decimalsLimit={2}
+                                                                                            value={totalDebit}
+                                                                                            className="form-control"
+                                                                                            disabled
+                                                                                            style={{ textAlign: "right", border: "none", width: '10rem' }}
+                                                                                        />
+                                                                    
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{flexDirection: "column", justifyContent: "center"}}>
+                                                                    <label for="example-text-input" >Total Credit:</label>
+                                                                    <div  style={{padding:'0', maxWidth:'18.5%',}}>
                                                                     <CurrencyInput
                                                                                             name='total-amount' 
                                                                                             decimalsLimit={2}
@@ -598,29 +617,10 @@ className="form-control"
                                                                                             disabled
                                                                                             style={{ textAlign: "right", border: "none", width: '10rem' }}
                                                                                         />
+                                                                    
                                                                     </div>
                                                                 </div>
-                                                           
-
-
-
-
-
-
-
-
-
-
-
-   
-
-
-
-
-
-
 </div>
-
 
 
 
@@ -638,7 +638,7 @@ className="form-control"
 
 <div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start', gap: 20, marginTop: 50 }}>
 <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
-<Button disabled={parseFloat(debitAmount) !== totalAmount ? true : false} style={{ borderRadius: 5 }} variant='success' onClick={createSalesInvoice}>
+<Button disabled={parseFloat(debitAmount) !== parseFloat(totalAmount) ? true : false} style={{ borderRadius: 5 }} variant='success' onClick={createSalesInvoice}>
         {createLoading ? (
             <>
                 <Spinner size='sm' />
