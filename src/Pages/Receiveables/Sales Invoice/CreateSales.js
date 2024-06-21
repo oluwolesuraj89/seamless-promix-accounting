@@ -1,53 +1,48 @@
 import React, { useState, useEffect } from 'react';
-// import "../assets/plugins/bootstrap/css/bootstrap.min.css";
-// import "../assets/plugins/metisMenu/metisMenu.min.css";
-// import "../assets/plugins/fontawesome/css/all.min.css";
-// import "../assets/plugins/typicons/src/typicons.min.css";
-// import "../assets/plugins/themify-icons/themify-icons.min.css";
-// import "../assets/plugins/datatables/dataTables.bootstrap4.min.css";
-// import "../style.css";
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'react-bootstrap';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
-// import { InfoFooter } from '../../InfoFooter';
-// import { AdminHeaderNav } from '../AdminHeaderNav';
 import classes from './CreateSales.module.css';
-import MainDashboard from '../../Main Dashboard/MainDashoard';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
-// import classes from './LoanRepayment.module.css'
-// import favicon from '../../Images/faviconn.png'
+import InventoryDash from '../../Inventory Dashboard/InventoryDash';
+
+
+const initialState = () => {
+  const unitPrice = '';
+  const qty = '';
+  return [{ items: '', unitPrice, qty, totalPrice: unitPrice * qty }];
+};
 
 function CreateSales() {
     const [user, setUser] = useState("");
+    const [address, setAddress] = useState("");
     const [debitGl, setDebitGl] = useState('');
-    const [selectedGlCode, setSelectedGlCode] = useState('');
     const [glMethod, setGlMethod] = useState([]);
     const [sICode, setSICode] = useState('');
-    const [invoiceData, setInvoiceData] = useState('');
     const [selectedAccountName, setSelectedAccountName] = useState('');
     const [accountName, setAccountName] = useState([]);
     const [customerList, setCustomerList] = useState([]);
-    const [invoice, setInvoice] = useState('');
     const [description, setDescription] = useState('');
+    const [totalAmount, setTotalAmount] = useState('');
     const [debitCode, setDebitCode] = useState('');
     const [debitAmount, setDebitAmount] = useState('');
-    const [selectedDebitAccount, setSelectedDebitAccount] = useState('');
-    const [selectedAccount, setSelectedAccount] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState('');
     const [loading, setLoading] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [createLoading, setCreateLoading] = useState(false);
     const [bearer, setBearer] = useState('');
     const navigate = useNavigate();
-    const [formData, setFormData] = useState([{ sn: 1, accountName: '', accountCode: '', amount: '' }]);
-    const [totalAmount, setTotalAmount] = useState('');
+    const [formData, setFormData] = useState(initialState);
     // const [loading, setLoading] = useState(false);
-
+    const [totalCharge, setTotalCharge] = useState("");
+    const [itemList, setItemList] = useState([]);
+    const [selectOptions1, setSelectOptions1] = useState([]);
+    const [debitAccount, setDebitAccounts] = useState([]);
 
     const readData = async () => {
         try {
@@ -57,14 +52,11 @@ function CreateSales() {
     
           if (value !== null) {
             setBearer(value);
-            // setAuthenticated(true);
-          }
+                     }
           if (value1 !== null) {
               setUser(value1);
             }
-        //   if (value2 !== null) {
-        //     setCompanyId(value2);
-        //   }
+    
     
         } catch (e) {
           alert('Failed to fetch the input from storage');
@@ -78,38 +70,28 @@ function CreateSales() {
       const handleGlChange = (event) =>{
         setDebitGl(event.target.value);
     }
-    const handleAccountChange = (index, event) => {
-        const selectedAccount = event.target.value;
-        const intselectedId = parseInt(selectedAccount);
-        const selectedGlCode = accountName.find((item) => item.id === intselectedId)?.gl_code || '';
-
-        const updatedFormData = [...formData];
-        updatedFormData[index] = {
-            ...updatedFormData[index],
-            accountName: selectedAccount,
-            accountCode: selectedGlCode,
-        };
-
-        setFormData(updatedFormData);
-    };
+    
 
     const handleCustomerChange = (event) => {
-        setSelectedCustomer(event.target.value);
-    };
-    const handleDebitChange = (event) => {
-        selectedDebitAccount(event.target.value);
-    };
+      const selectedCustomerId = event.target.value;
+      setSelectedCustomer(selectedCustomerId);
 
+      const selectedCus = customerList.find((item) => item.id === parseInt(selectedCustomerId));
+      setAddress(selectedCus ? selectedCus.address : "");
+  };
 
-    const calculateTotalAmount = () => {
-        const total = formData.reduce((acc, item) => acc + parseFloat(item.amount || 0), 0);
-        const formattedTotal = total.toLocaleString('en-US', {
-            minimumIntegerDigits: 1,
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        });
-        setTotalAmount(formattedTotal);
-    };
+  
+    
+  useEffect(() => {
+    const calculatedTotalAmount = formData.reduce(
+      (acc, curr) => acc + (parseFloat(curr.amount) || 0),
+      0
+    );
+    console.log(formData);
+    setTotalAmount(calculatedTotalAmount.toFixed(2))
+  }, [formData]);
+    
+
 
     const headers = {
       'Content-Type': 'application/json',
@@ -121,24 +103,26 @@ function CreateSales() {
       setCreateLoading(true);
   
       try {
-          const accountNames = formData.map((row) => row.accountName).filter((name) => name !== undefined);
-          const amounts = formData.map((row) => row.amount).filter((name) => name !== undefined);
+          const items = formData.map((row) => row.items.value).filter((id) => id !== undefined);
+          const quantities = formData.map((row) => row.qty).filter((id) => id !== undefined);
+          const amounts = formData.map((row) => row.amount).filter((id) => id !== undefined);
          
-  console.log(accountNames, amounts, debitAmount);
+         
           const response = await axios.post(
               `${BASE_URL}/post-sales-invoice`,
               {
-                  account_name: accountNames,
-                  account_amount: amounts,
+                  item_id: items,
+                  quantity: quantities,
+                  item_amount: amounts,
+                  amount: debitAmount,
                   description: description,
                   invoice_number: sICode,
                   customer_id: selectedCustomer,
                   debit_gl_code: debitGl,
-                  amount: debitAmount,
               },
               { headers }
           );
-  
+          
           console.log(response.data?.message, "heeee");
           setSICode("");
           setSelectedCustomer("");
@@ -213,8 +197,9 @@ function CreateSales() {
         );
         const custome = response.data?.data;
         setCustomerList(custome);
+        // setAddress(custome);
   
-      //   console.log(results, "NI");
+        // console.log(custome, "itss");
       } catch (error) {
         const errorStatus = error.response.data.message;
         console.error(errorStatus);
@@ -229,6 +214,9 @@ function CreateSales() {
           fetchCustomers();
       }
     }, [bearer]);
+
+    
+
     
   const fetchInvoiceCode = async () => {
       setLoading(true);
@@ -277,45 +265,70 @@ function CreateSales() {
 
     const addRow = () => {
       const newRow = {
-          sn: formData.length + 1,
-          accountName: '',
-          accountCode: '',
-          amount: '',
+        items: '', unitPrice: '', qty: '', totalPrice: ''
       };
       setFormData([...formData, newRow]);
-  };
-
-  const deleteRow = (index) => {
+    };
+  
+    const deleteRow = (index) => {
       const updatedData = formData.filter((_, i) => i !== index);
       setFormData(updatedData);
-  };
-
-  const handleFormChange = (index, field, value) => {
-      const updatedFormData = [...formData];
-      const numericValue = value.replace(/\D/g, '');
-      const numericAmount = numericValue !== '' ? parseFloat(numericValue) : '';
-      const formattedValue = numericAmount !== '' ? numericAmount.toLocaleString() : '';
-
-      updatedFormData[index][field] = formattedValue;
-      setFormData(updatedFormData);
-  };
-
-
-
-  const handleValueChange = (value, name, values) => {
-      setDebitAmount(value); // Update the balance state
-      console.log(value, name, values);
     };
 
-    const handleValueChange1 = (value, index) => {
-      const updatedFormData = [...formData];
-      updatedFormData[index] = {
-          ...updatedFormData[index],
-          amount: value,
-      };
-      setFormData(updatedFormData);
-      calculateTotalAmount(); // Recalculate total amount after each change
+
+
+  
+  const handleValueChange2 = (value, name, values) => {
+    setDebitAmount(value); 
+   
   };
+
+  const fetchItems = async () => {
+    setIsLoading(true);
+    try {
+        const response = await axios.get(`${BASE_URL}/items/fetch-all`, { headers });
+        const itemss = response.data?.data;
+
+        const options1 = itemss.map((item) => ({
+            label: item.name,
+            value: item.id,
+        }));
+        setItemList(itemss);
+        setSelectOptions1(options1);
+    } catch (error) {
+        const errorStatus = error.response?.data?.message;
+        console.log(errorStatus);
+        setDebitAccounts([]);
+    } finally {
+        setIsLoading(false);
+    }
+};
+
+
+
+
+
+const handleFormChange = (value, fieldName, rowIndex) => {
+  setFormData(prevFormData => {
+      const updatedFormData = [...prevFormData];
+      updatedFormData[rowIndex] = {
+          ...updatedFormData[rowIndex],
+          [fieldName]: value
+      };
+      updatedFormData[rowIndex].amount = parseFloat(updatedFormData[rowIndex].unitPrice) * parseFloat(updatedFormData[rowIndex].qty) || 0;
+      return updatedFormData;
+  });
+};
+
+const handleItemDescriptionChange = (selectedOption, rowIndex) => {
+  const selectedItemId = selectedOption.value;
+  const selectedItem = itemList.find(item => item.id === selectedItemId);
+  const selectedUnitPrice = selectedItem?.price || 0;
+  handleFormChange(selectedOption, "items", rowIndex);
+  handleFormChange(selectedUnitPrice, "unitPrice", rowIndex);
+};
+
+   
 
   const fetchAcctName = async () => {
     setLoading(true);
@@ -347,10 +360,11 @@ function CreateSales() {
   useEffect(() => {
     if (bearer) {
         fetchAcctName();
+        fetchItems();
     }
   }, [bearer]);
 
-  
+  const disableButton = debitAmount !== totalAmount;
 
   return (
 
@@ -364,7 +378,7 @@ function CreateSales() {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <InventoryDash/>
             <div className='newBody'>
             <div className={classes.newWidth}>
 
@@ -413,6 +427,20 @@ function CreateSales() {
 
                         <div className="col-md-6">
                             <div className="form-group row">
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Customer's Address:</label>
+                                <div className="col-sm-9">
+                                <textarea
+                                                                                className="form-control"
+                                                                                required=""
+                                                                                value={address}
+                                                                                name="address"
+                                                                                disabled
+                                                                            />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="form-group row">
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Description:</label>
                                 <div className="col-sm-9">
                                 <textarea
@@ -425,7 +453,7 @@ function CreateSales() {
                                 </div>
                             </div>
                         </div>
-
+<div style={{marginTop: 20}}/>
                         <div className="col-md-6">
                             <div className="form-group row">
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Debit GL Account:</label>
@@ -443,7 +471,7 @@ function CreateSales() {
                         </div>
 <div style={{marginTop: 20}}/>
 
-                        <div className="col-md-6" >
+                        {/* <div className="col-md-6" >
                             <div className="form-group row">
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">GL Code:</label>
                                 <div className="col-sm-9">
@@ -451,7 +479,7 @@ function CreateSales() {
 
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
 
                         <div className="col-md-6">
@@ -464,81 +492,90 @@ className="form-control"
   name="debit amount"
   decimalsLimit={2}
   value={debitAmount} // Set the value to the balance state
-      onValueChange={handleValueChange}
-      style={{ textAlign: "right", width: 330, height: 38}}
+      onValueChange={handleValueChange2}
+      style={{ textAlign: "right", width: "100%", height: 38}}
 />
                                 </div>
                             </div>
                         </div>
 
                        
-                        <div style={{ marginTop: 20 }} />
-                                                            <div className="row">
+                        <div style={{ marginTop: 50 }} />
+                        <div className="row">
+                                                            <h5 style={{ textAlign: "center" }}>Add Item(s)</h5>
                                                                 {/* <div className="col-md-6"> */}
                                                                 <div className="table-responsive">
                                                                     <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
 
                                                                         <thead style={{ whiteSpace: "nowrap", textAlign: "center", alignItems: "center" }}>
                                                                             <tr>
-                                                                                <th>#</th>
-                                                                                <th style={{width:'50%',}}>Account Name</th>
-                                                                                <th>Account Code</th>
-                                                                                <th>Amount</th>
-                                                                                <th ><Button variant="primary" onClick={() => addRow()}>
-                                                                                    <i className="fas fa-plus"></i>
+                                                                            <th style={{ width: '50%', }}>Item</th>
+                                        <th>Unit Price(N)</th>
+                                        <th>Quantity</th>
+                                        <th>Total Price(N)</th>
+                                        <th ><Button variant="primary" onClick={() => addRow()}>
+                                          <i className="fas fa-plus"></i>
 
-                                                                                </Button></th>
+                                        </Button></th>
                                                                             </tr>
                                                                         </thead>
-                                                                        <tbody style={{ whiteSpace: "nowrap", textAlign: "center", alignItems: "center" }}>
-                                                                        {formData.map((row, index) => (
-                <tr key={index}>
-                    <td>{row.sn}</td>
-                    <td>
-                        <Form.Select
-                            name="DebitGl"
-                            className="form-control"
-                            required=""
-                            value={row.accountName}
-                            onChange={(e) => handleAccountChange(index, e)}
-                        >
-                            <option value="">Choose Debit Gl Account</option>
-                            {accountName.map((item) => (
-                                <option key={item.id} value={item.id}>
-                                    {item.gl_name}
-                                </option>
-                            ))}
-                        </Form.Select>
-                    </td>
-                    <td>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={row.accountCode}
-                            disabled
-                        />
-                    </td>
-                    <td>
-                        
-                        <CurrencyInput
-    name={`debit amount ${index}`} // Provide a unique name for each CurrencyInput
-    decimalsLimit={2}
-    value={row.amount}
-    className="form-control"
-    onValueChange={(value) => handleValueChange1(value, index)}
-    style={{ textAlign: "right", border: "none"}}
-/>
+                                                                        <tbody style={{ whiteSpace: "nowrap",  }}>
+                                                                            {formData.map((row, index) => (
+                                                                                <tr key={index}>
+                                                                                    <td style={{ width: '400px' }}>
+                                                                                        <Select
+                                                                                            value={row.items} // Assuming row.itemsDescription contains the selected option
+                                                                                            onChange={(selectedOption) => handleItemDescriptionChange(selectedOption, index)}
+                                                                                            options={selectOptions1}
+                                                                                            menuPortalTarget={document.body}
+                                                                                            styles={{
+                                                                                                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                                                                                menu: (provided) => ({
+                                                                                                    ...provided,
+                                                                                                    maxHeight: '400px',
+                                                                                                    overflowY: 'auto',
+                                                                                                }),
+                                                                                            }}
+                                                                                        />
 
-
-                       
-                    </td>
-                    <td>
-                        <Button variant="danger" onClick={() => deleteRow(index)}>
-                            <i className="far fa-trash-alt"></i>
-                        </Button>
-                    </td>
-                </tr>
-            ))}
+                                                                                    </td>
+                                                                                    <td style={{ width: '7rem' }}>
+                                                                                        <CurrencyInput
+                                                                                            name={`rowUnitPrice ${index}`} // Provide a unique name for each CurrencyInput
+                                                                                            decimalsLimit={2}
+                                                                                            value={row.unitPrice}
+                                                                                            className="form-control"
+                                                                                            disabled
+                                                                                            style={{ textAlign: "right", border: "none", width: '10rem' }}
+                                                                                        />
+                                                                                    </td>
+                                                                                    <td style={{ width: '5rem' }}>
+                                                                                        <input
+                                                                                            
+                                                                                            type="text"
+                                                                                            className="form-control"
+                                                                                            value={row.qty}
+                                                                                            onChange={(e) => handleFormChange(e.target.value, "qty", index)}
+                                                                                        />
+                                                                                        {row.quantityError && <span style={{ color: 'red' }}>{row.quantityError}</span>}
+                                                                                    </td>
+                                                                                    <td style={{ width: '7rem' }}>
+                                                                                    <CurrencyInput
+                                                                                            name={`rowLineTotal ${index}`} // Provide a unique name for each CurrencyInput
+                                                                                            decimalsLimit={2}
+                                                                                            value={row.qty * row.unitPrice}
+                                                                                            className="form-control"
+                                                                                            disabled
+                                                                                            style={{ textAlign: "right", border: "none", width: '10rem' }}
+                                                                                        />
+                                                                                    </td>
+                                                                                    <td style={{ textAlign: "center" }}>
+                                                                                        <Button variant="danger" onClick={() => deleteRow(index)}>
+                                                                                            <i className="far fa-trash-alt"></i>
+                                                                                        </Button>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            ))}
                                                                         </tbody>
                                                                     </table>
 
@@ -547,12 +584,38 @@ className="form-control"
                                                             <div style={{ marginTop: 20 }} />
                                                             <div className="col-md-11" style={{marginLeft: 45}}>
                                                                 <div className="form-group row justify-content-end">
-                                                                    <label for="example-text-input" className="col-sm-1 col-form-label font-weight-400">Amount:</label>
+                                                                    <label for="example-text-input" className="col-sm-2 col-form-label font-weight-400">Total Amount:</label>
                                                                     <div className="col-sm-4" style={{padding:'0', maxWidth:'18.5%',}}>
-                                                                        <input style={{ textAlign: "right",}} className="form-control" required="" type="text" value={totalAmount} name="total" disabled />
+                                                                    <CurrencyInput
+                                                                                            name='total-amount' 
+                                                                                            decimalsLimit={2}
+                                                                                            value={totalAmount}
+                                                                                            className="form-control"
+                                                                                            disabled
+                                                                                            style={{ textAlign: "right", border: "none", width: '10rem' }}
+                                                                                        />
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                           
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+</div>
 
 
 
@@ -569,9 +632,9 @@ className="form-control"
 </div>
 
 
-<div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start', gap: 20 }}>
+<div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start', gap: 20, marginTop: 50 }}>
 <Button variant="light" className={classes.btn1} onClick={goBack}> Cancel</Button>
-    <Button style={{ borderRadius: 5 }} variant='success' onClick={createSalesInvoice}>
+<Button disabled={parseFloat(debitAmount) !== totalAmount ? true : false} style={{ borderRadius: 5 }} variant='success' onClick={createSalesInvoice}>
         {createLoading ? (
             <>
                 <Spinner size='sm' />

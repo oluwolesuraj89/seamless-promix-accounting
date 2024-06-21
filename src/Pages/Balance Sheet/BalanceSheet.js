@@ -170,7 +170,7 @@ export default function BalanceSheet() {
                       <div className={classes.greenbtn} style={{ display: 'flex', }}>
                         <div>
                           {accounts.length > 0 && (
-                            <button onClick={() => navigate('/balance_sheet_print', { state: { accounts } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                            <button onClick={() => navigate('/accounting/reports/balance_sheet/balance_sheet_print', { state: { accounts } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                           )}
                         </div>
                         <div>

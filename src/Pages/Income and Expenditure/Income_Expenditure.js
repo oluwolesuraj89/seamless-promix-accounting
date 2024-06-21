@@ -232,7 +232,7 @@ export default function IncomeExpenditure() {
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
                                                     {inputss.length > 0 && (
-                                                        <button onClick={() => navigate('/income_print', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                        <button onClick={() => navigate('/accounting/reports/income_expenditure/income_print', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>

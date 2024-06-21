@@ -143,6 +143,7 @@ function BookingReceipt() {
             <p className={classes.fontSmall}>{address}</p>
                         <p className={classes.fontSmall}>{phone}</p>
                         <p className={classes.fontSmall}>{email}</p>
+                        <h4 className={classes.salesInv} >BOOKING RECEIPT</h4>
                 <div className={classes.headerContainer}>
                     <div className={classes.flex1}>
                         {/* <h1>OFFICIAL RECEIPT</h1> */}

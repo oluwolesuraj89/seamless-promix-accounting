@@ -235,7 +235,7 @@ export default function Cashbook() {
 
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
-                        <div className="card" style={{ width: '100%' }}>
+                        <div className="card" style={{ width: '100%', border:'none' }}>
                             <div className="card-body" style={{ padding: '1.5rem 0.5rem 1.5rem 1.5rem', }}>
                                 <div className="row">
                                 
@@ -314,22 +314,22 @@ export default function Cashbook() {
                         <div className="content-wrapper">
 
 
-                            <div className="card">
+                            <div className="card" >
                                 <div className="card-body">
-                                    <div className="card-header">
+                                    {/* <div className="card-header">
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h6 className="fs-17 font-weight-600 mb-0"></h6>
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="table-resposive">
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
                                                     {accounts.length > 0 && (
-                                                        <button onClick={() => navigate('/process_cash_book', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                        <button onClick={() => navigate('/accounting/reports/cashbook/process_cash_book', { state: { accounts, inputss } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>

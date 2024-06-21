@@ -302,152 +302,204 @@ export default function CreateNewLoan() {
             
                 <div className={classes.formContainer}>
                 <div className={classes.formCont}>
-                    <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label  >Transaction Date</Form.Label>
-                        <Form.Control type='date' id="date" 
-                        onChange={handleDateChange} 
-                        value={selectedDate}
-                        // onChange={(e) => setDate(e.target.value)} style={{ height: 'calc(1.8em + 1.89rem + 2px)' }}
-                        />
-                    </Form.Group>
+                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input">Transaction Date</label>
+                                    <div >
+                                      <input className="form-control" required="" type="date" onChange={handleDateChange} name="date" value={selectedDate} />
+                                    </div>
+                                  </div>
+                                </div>
 
-                    
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label >Customer / Employee / Member</Form.Label>
-                        <Select
-                            value={selectedCustomer}
-                            onChange={(selectedOption) => handleSupplierChange(selectedOption)}
-                            options={selectOptions}
-                            menuPortalTarget={document.body}
-                            styles={{
-                                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                menu: (provided) => ({
-                                ...provided,
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Customer / Employee / Member</label>
+                                    <div className="col-sm-9">
+                                      <Select
+                                        value={selectedCustomer}
+                                        onChange={(selectedOption) => handleSupplierChange(selectedOption)}
+                                        options={selectOptions}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Type</label>
+                                    <div className="col-sm-9">
+                                      <Select
+                                        value={selectedLoan}
+                                        onChange={(selectedOption) => handleLoanTypeChange(selectedOption)}
+                                        options={loans}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Principal Amount</label>
+                                    <div className="col-sm-9">
+                                      {/* <div className="form-control" > */}
+                                      <CurrencyInput
+
+                                        name="principal amount"
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={principalAmount} 
+                                        onValueChange={handleValueChange}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
+                                      {/* </div> */}
+
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Loan Interest</label>
+                                    <div className="col-sm-9">
+                                      
+                                      <CurrencyInput
+
+                                        name="loan interest"
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={loanInterest} 
+                                        disabled
+                                        onValueChange={handleValueChange1}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
+                                     
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Interest</label>
+                                    <div className="col-sm-9">
+                                      
+                                      <CurrencyInput
+
+                                        name="loan interest"
+                                        disabled
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={interest} 
+                                        onValueChange={handleValueChange2}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
+                                     
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Total Repayment</label>
+                                    <div className="col-sm-9">
+                                      
+                                      <CurrencyInput
+
+                                        name="loan interest"
+                                        disabled
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={totalRepayment} 
+                                        onValueChange={handleValueChange3}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
+                                     
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Duration (Months)</label>
+                                    <div className="col-sm-9">
+                                      <input className="form-control" required="" type="text" onChange={(e) => setDuration(e.target.value)} name="duration" value={duration} />
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Monthly Deduction</label>
+                                    <div className="col-sm-9">
+                                      
+                                      <CurrencyInput
+
+                                        name="loan interest"
+                                        disabled
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={monthlyDeduction} 
+                                        onValueChange={handleValueChange4}
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
+                                     
+
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Select Bank</label>
+                                    <div className="col-sm-9">
+                                      <Select
+                                        value={selectedBank}
+                                        onChange={(selectedOption) => handleBankChange(selectedOption)}
+                                        options={banks}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+
                                 
-                                }),
-                            }}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label >Loan Type</Form.Label>
-                        <Select
-                            value={selectedLoan}
-                            onChange={(selectedOption) => handleLoanTypeChange(selectedOption)}
-                            options={loans}
-                            menuPortalTarget={document.body}
-                            styles={{
-                                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                menu: (provided) => ({
-                                ...provided,
-                                
-                                }),
-                            }}
-                            />
-                        </Form.Group>
-
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label >Principal Amount</Form.Label>
-                        <CurrencyInput
-
-                            name="principal amount"
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={principalAmount} 
-                            onValueChange={handleValueChange}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                        </Form.Group>
-                
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label  >Loan Interest</Form.Label>
-                        <CurrencyInput
-
-                            name="loan interest"
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={loanInterest} 
-                            disabled
-                            onValueChange={handleValueChange1}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                    </Form.Group>        
-                    
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Interest</Form.Label>
-                        <CurrencyInput
-
-                            name="loan interest"
-                            disabled
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={interest} 
-                            onValueChange={handleValueChange2}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                    </Form.Group>
-
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Total Repayment</Form.Label>
-                        <CurrencyInput
-
-                            name="loan interest"
-                            disabled
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={totalRepayment} 
-                            onValueChange={handleValueChange3}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                    </Form.Group>
-
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Duration</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        onChange={(e) => setDuration(e.target.value)} 
-                        value={duration}
-                        />
-                    </Form.Group>
-
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Monthly Deduction</Form.Label>
-                        <CurrencyInput
-
-                            name="loan interest"
-                            disabled
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={monthlyDeduction} 
-                            onValueChange={handleValueChange4}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                        />
-                    </Form.Group>
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Select Bank</Form.Label>
-                        <Select
-                            value={selectedBank}
-                            onChange={(selectedOption) => handleBankChange(selectedOption)}
-                            options={banks}
-                            menuPortalTarget={document.body}
-                            styles={{
-                                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                menu: (provided) => ({
-                                ...provided,
-                                
-                                }),
-                            }}
-                        />
-                    </Form.Group>
-
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Duration</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        onChange={(e) => setCheque(e.target.value)}
-                        value={cheque}
-                        />
-                    </Form.Group>
+                                <div className="col-md-6">
+                                  <div className="form-group row">
+                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Cheque No.</label>
+                                    <div className="col-sm-9">
+                                      <input className="form-control" required="" type="text" onChange={(e) => setCheque(e.target.value)} name="cheque no" value={cheque} />
+                                    </div>
+                                  </div>
+                                </div>
                     </div>
                 </div>
                 </Form>

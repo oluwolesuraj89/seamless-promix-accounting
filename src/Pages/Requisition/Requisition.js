@@ -9,6 +9,7 @@ import classes from './Requisition.module.css';
 import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
 import StockDashboard from '../Stock Dashboard/StockDashboard';
+import InventoryDash from '../Inventory Dashboard/InventoryDash';
 
 function Requisition() {
     const [show, setShow] = useState(false);
@@ -166,7 +167,7 @@ function Requisition() {
 
  
   const handleCreate = () => {
-    navigate('/event_mgt_system/create_requisition');
+    navigate('/inventory/create_requisition');
   };
 
 
@@ -184,7 +185,7 @@ function Requisition() {
       const requestsss = response.data?.data;
   
       setTableData2(requestsss);
-      navigate('/event_mgt_system/view_requisition', { state: { selectedRequisition: requestsss } });
+      navigate('/inventory/view_requisition', { state: { selectedRequisition: requestsss } });
     } catch (error) {
       const errorStatus = error.response?.data?.message;
       // console.log(errorStatus);
@@ -217,7 +218,7 @@ function Requisition() {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <StockDashboard />
+          <InventoryDash />
             <div className='newBody'>
             <div className={classes.newWidth}>
 

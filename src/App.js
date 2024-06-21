@@ -114,6 +114,18 @@ import ViewAdvance from './Pages/Receiveables/Advance Booking Pyaments/ViewAdvan
 import Requisition from './Pages/Requisition/Requisition.js';
 import CreateRequistion from './Pages/Requisition/CreateRequistion.js';
 import ViewRequisition from './Pages/Requisition/ViewRequisition.js';
+import Inflow from './Pages/Inflow/Inflow.js';
+import InventoryDashboard from './Pages/Dashboard/InventoryDashboard.js';
+import Customers from './Pages/Manage Customers/Customers.js';
+import EditCustomer from './Pages/Manage Customers/EditCustomer.js';
+import Suppliers from './Pages/Manage Suppliers/Suppliers.js';
+import EditSupplier from './Pages/Manage Suppliers/EditSupplier.js';
+import PurchaseInvoice from './Pages/Purchase Invoice/PurchaseInvoice.js';
+import EditPurchase from './Pages/Purchase Invoice/EditPurchase.js';
+import Purchase from './Pages/Purchase Invoice/Purchase.js';
+import CreatePurchase from './Pages/Purchase Invoice/CreatePurchase.js';
+import StockDelivery from './Pages/Stock Delivery/StockDelivery.js';
+import CreateStockDelivery from './Pages/Stock Delivery/CreateStockDelivery.js';
 
 
 function App() {
@@ -188,11 +200,20 @@ function App() {
         <Route path='/accounting/receivables/loan_and_advances' element={<LoanAdvances/>} />
         <Route path='/accounting/receivables/loan_and_advances/create_loan' element={<CreateNewLoan/>} />
         <Route path='/accounting/receivables/loan_and_advances/edit_loan_advance' element={<EditLaonAdvance/>} />
+        <Route path='/accounting/reports/cashbook' element={<Cashbook/>} />
+        <Route path='/accounting/reports/cashbook/process_cash_book' element={<ProcessCashBook/>} />
+        <Route path='/accounting/reports/trial_balance' element={<TrialBalance/>} />
+        <Route path='/accounting/reports/trial_balance/process_activity_report' element={<ProcessActivityReport/>} />
+        <Route path='/accounting/reports/income_expenditure' element={<IncomeExpenditure/>} />
+        <Route path='/accounting/reports/income_expenditure/income_print' element={<IncomeProcess/>} />
+        <Route path='/accounting/reports/monthly_income' element={<MonthlyIncome/>} />
+        <Route path='/accounting/reports/monthly_income/monthly_income_process' element={<MonthlyIncomeProcess/>} />
+        <Route path='/accounting/reports/balance_sheet' element={<BalanceSheet/>} />
+        <Route path='/accounting/reports/balance_sheet/balance_sheet_print' element={<BalanceSheetPrint/>} />
+        <Route path='/accounting/reports/inflow' element={<Inflow/>} />
         <Route path='/print_payment' element={<PrintVoucher/>} />
         
         <Route path='/event_mgt_system' element={<StockDash/>} />
-        <Route path='/event_mgt_system/unit_of_measurement' element={<ManageUnit/>} />
-      <Route path='/event_mgt_system/products' element={<ManageStocks/>} />
       <Route path='/event_mgt_system/event_bookings' element={<Services/>} />
       <Route path='/event_mgt_system/services' element={<MainServices/>} />
       <Route path='/event_mgt_system/create_booking' element={<CreateServices/>} />
@@ -203,10 +224,28 @@ function App() {
       <Route path='/event_mgt_system/create_customers_advance_payment' element={<AdvancePayment/>} />
       <Route path='/event_mgt_system/view_customers_advance_payment' element={<ViewAdvance/>} />
       <Route path='/event_mgt_system/print_advance_payment' element={<BookingReceipt/>} />
-      <Route path='/event_mgt_system/requisition' element={<Requisition/>} />
-      <Route path='/event_mgt_system/create_requisition' element={<CreateRequistion/>} />
-      <Route path='/event_mgt_system/view_requisition' element={<ViewRequisition/>} />
+     
 
+      <Route path='/inventory' element={<InventoryDashboard/>} />
+      <Route path='/inventory/unit_of_measurement' element={<ManageUnit/>} />
+      <Route path='/inventory/products' element={<ManageStocks/>} />
+      <Route path='/inventory/requisition' element={<Requisition/>} />
+      <Route path='/inventory/create_requisition' element={<CreateRequistion/>} />
+      <Route path='/inventory/view_requisition' element={<ViewRequisition/>} />
+      <Route path='/inventory/customers' element={<Customers/>} />
+      <Route path='/inventory/update_customer' element={<EditCustomer/>} />
+      <Route path='/inventory/suppliers' element={<Suppliers/>} />
+      <Route path='/inventory/update_supplier' element={<EditSupplier/>} />
+      <Route path='/inventory/sales_invoice' element={<SalesInvoice/>} />
+      <Route path='/inventory/create_sales_invoice' element={<CreateSales/>} />
+      <Route path='/inventory/stock_delivery' element={<StockDelivery/>} />
+      <Route path='/inventory/create_stock_delivery' element={<CreateStockDelivery/>} />
+      <Route path='/inventory/update_sales_invoice' element={<EditInvoice />} />
+      <Route path='/inventory/official_invoice' element={<Invoice />} />
+      <Route path='/inventory/purchase_invoices' element={<PurchaseInvoice/>} />
+      <Route path='/inventory/create_purchase_invoice' element={<CreatePurchase/>} />
+      <Route path='/inventory/update_purchase_invoice' element={<EditPurchase />} />
+      <Route path='/inventory/official_purchase_invoice' element={<Purchase />} />
       
 
       </Routes>

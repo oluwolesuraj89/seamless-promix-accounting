@@ -56,7 +56,9 @@
   margin-top: 40px;
   margin-bottom: 100px;
 }
-
+.card{
+    border: none !important;
+}
 .loandethead{
   display: flex;
   justify-content: space-between;

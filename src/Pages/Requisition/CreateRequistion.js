@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
 import StockDashboard from '../Stock Dashboard/StockDashboard';
+import InventoryDash from '../Inventory Dashboard/InventoryDash';
 
 function CreateRequistion() {
     const [user, setUser] = useState("");
@@ -192,7 +193,7 @@ const handleItemDescriptionChange = (selectedValue, rowIndex) => {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <StockDashboard />
+          <InventoryDash />
             <div className='newBody'>
             <div className={classes.newWidth}>
 

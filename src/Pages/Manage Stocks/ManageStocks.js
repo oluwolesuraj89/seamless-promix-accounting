@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import CoopDashboard from '../Cooperative Dashboard/CoopDashboard';
 import StockDashboard from '../Stock Dashboard/StockDashboard';
+import InventoryDash from '../Inventory Dashboard/InventoryDash';
 
 
 export default function ManageStocks() {
@@ -408,7 +409,7 @@ handleClose1();
 
   return (
     <div>
-      <StockDashboard />
+      <InventoryDash />
 
       <div className={classes.finishedbodyCont}>
         <div className={classes.topPadding}>
@@ -432,6 +433,7 @@ handleClose1();
               </div>
               <div className={classes.formIntBtn}>
                 <Button variant="success" onClick={handleShow} className={classes.btn2}> Add New Stock</Button>
+                <Button variant="success"  className={classes.btn1}> Upload Stock</Button>
               </div>
             </div>
             <Modal show={show} onHide={handleClose} animation={false}>

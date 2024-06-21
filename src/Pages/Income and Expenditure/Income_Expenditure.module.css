@@ -580,6 +580,9 @@ justify-content: space-around;
     box-shadow: 0 2px 6px 0 rgba(40, 167, 69, .5);
     cursor: pointer;
 }
+.greenbtns{
+    gap: 10px;
+}
 
 .diffbtn {
     width: 145px !important;

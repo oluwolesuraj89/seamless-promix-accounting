@@ -219,7 +219,7 @@ export default function MonthlyIncome() {
                                                            </div>
                                                        </div>
                                                        <div className="row justify-content-center" style={{ marginTop: 30 }}>
-                                                           <div className="col-md-4 text-center" >
+                                                           <div className="col-md-6 text-center" >
                                                                <div className="form-group row">
                                                                    <Button disabled={monthlyLoading} variant='success' onClick={fetchMonthExpenditure}>
                                                                        {monthlyLoading ? (
@@ -271,7 +271,7 @@ export default function MonthlyIncome() {
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>
                                                 <div>
                                                     {tableData1.length > 0 && (
-                                                        <button onClick={() => navigate('/monthly_income_process', { state: { tableData1, tableData2 } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
+                                                        <button onClick={() => navigate('/accounting/reports/monthly_income/monthly_income_process', { state: { tableData1, tableData2 } })} style={{ height: 30, width: 150, borderRadius: 5 }}>PRINT REPORT</button>
                                                     )}
                                                 </div>
                                                 <div>

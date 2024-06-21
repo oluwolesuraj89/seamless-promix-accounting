@@ -192,7 +192,7 @@ export default function StockDashboard() {
                         </Link>
                         <Accordion>
                            
-                            <Card className={classes.accordionCard}>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu}>
                                     <ContextAwareToggle eventKey="0">
                                         <p>
@@ -210,7 +210,7 @@ export default function StockDashboard() {
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                            
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
@@ -282,7 +282,7 @@ export default function StockDashboard() {
                                     
                                 </Accordion.Collapse>
                             </Card>
-                            <Card className={classes.accordionCard}>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
                                     <ContextAwareToggle eventKey="2">
                                         <p> 
@@ -297,7 +297,7 @@ export default function StockDashboard() {
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
                                     <ContextAwareToggle eventKey="8">

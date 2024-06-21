@@ -378,7 +378,7 @@ const handleEyeClick = (id) => {
 
                 </nav> */}
                 <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
-                    <div
+                    {/* <div
                       style={{
                         marginTop: 20,
                         marginBottom: 20,
@@ -390,7 +390,7 @@ const handleEyeClick = (id) => {
                       <Button variant="success" onClick={handleShow}>
                         Add New 
                       </Button>
-                    </div>
+                    </div> */}
                   </nav>
               {/* )} */}
               
