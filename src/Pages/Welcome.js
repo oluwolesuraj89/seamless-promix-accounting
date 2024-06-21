@@ -63,6 +63,9 @@ function Welcome() {
         if (module === 'event_mgt_system') {
             navigate('/event_mgt_system');
         }
+        if (module === 'inventory') {
+            navigate('/inventory');
+        }
         
     };
 
@@ -150,7 +153,7 @@ function Welcome() {
                 <div className={classes.row2}>
                     <div className={classes.modules} onClick={() => handleModuleClick('inventory')}>
                         <img src={pos} className={classes.icon2} />
-                        <p>Inventory and POS</p>
+                        <p>Inventory</p>
                     </div>
                     <div className={classes.modules} onClick={() => handleModuleClick('fixed')}>
                         <img src={fixed} className={classes.icon2} />

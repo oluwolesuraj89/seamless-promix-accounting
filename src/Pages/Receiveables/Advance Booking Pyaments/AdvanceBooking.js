@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import CurrencyInput from 'react-currency-input-field';
 import Select from 'react-select';
 import Arrow from '../../../assets/promix/dArrow-down.svg'
+import StockDashboard from '../../Stock Dashboard/StockDashboard';
 
 
 function AdvanceBooking() {
@@ -305,7 +306,15 @@ const handlePrintInvoice = (id) => {
     const selectedBook = paidBooking.find(item => item.id === id);
   
   
-    navigate('/print_payment', { state: { selectedBook } });
+    navigate('/event_mgt_system/print_advance_payment', { state: { selectedBook } });
+  };
+const handleEyeClick = (id) => {
+    const selectedBook = paidBooking.find(item => item.id === id);
+    navigate('/event_mgt_system/view_customers_advance_payment', { state: { selectedBook } });
+  };
+
+const handleCreate = (id) => {
+    navigate('/event_mgt_system/create_customers_advance_payment');
   };
     
 
@@ -321,7 +330,7 @@ const handlePrintInvoice = (id) => {
         <div className="content-wrapper">
           <div className="main-content">
 
-          <MainDashboard/>
+          <StockDashboard/>
             <div className='newBody'>
             <div className={classes.newWidth}>
 
@@ -336,40 +345,40 @@ const handlePrintInvoice = (id) => {
                         </div>
                     </div>
 
-                    <div className={classes.analysis}>
+                    {/* <div className={classes.analysis}>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
                         <h5>N0.00</h5>
-                        {/* <div className={classes.perceCont}>
+                        <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div> */}
+                        </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL LODGE</p>
                         <h5>N0.00</h5>
-                        {/* <div className={classes.perceCont}>
+                        <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div> */}
+                        </div>
                     </div>
                     <div className={classes.analysisCont}>
                         <p style={{paddingBottom:'5px'}}>TOTAL OUTSTANDING</p>
                         <h5>N0.00</h5>
-                        {/* <div className={classes.perceCont}>
+                        <div className={classes.perceCont}>
                             <p className={classes.percent}><img src={Arrow} alt="arrowDown"/> 5%</p>
                             <p>vs average</p>
-                        </div> */}
+                        </div>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div className={classes.topPadding}>
-                    <div className={`${classes.formSecCont}`}>
-                    <div className="card-body" style={{border:'none'}}>
+                    {/* <div className={`${classes.formSecCont}`}>
+                    <div className="card-body" style={{border:'none'}}> */}
 
 
-                    <div className="row">
+                    {/* <div className="row">
                         <div className="col-md-6">
                             <div className="form-group row">
                                 <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Transaction Date:</label>
@@ -497,12 +506,12 @@ const handlePrintInvoice = (id) => {
         </div>
     </div>
 
-</div>
+</div> */}
 
 <div style={{ marginTop: 20 }} />
 
 
-<div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start' }}>
+{/* <div class="modal-footer" style={{ display: 'flex', justifyContent: 'flex-start' }}>
     <Button style={{ borderRadius: 0 }} variant='success' onClick={createPayment}>
     {load ? (
           <>
@@ -514,10 +523,10 @@ const handlePrintInvoice = (id) => {
       )}
     </Button>
 
-</div>
+</div> */}
 
-</div>
-</div>
+{/* </div>
+</div> */}
 </div>
 
 
@@ -535,7 +544,7 @@ const handlePrintInvoice = (id) => {
               {/* <!--Content Header (Page header)--> */}
               <div className="content-header row align-items-center m-0">
               {/* {(isAdmin || permittedHeaders.includes('create-savings-account')) && ( */}
-                {/* <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
+                <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
                   <div
                     style={{
                       marginTop: 20,
@@ -547,11 +556,11 @@ const handlePrintInvoice = (id) => {
                     className={classes.actionBtns}
                   >
                     <Button variant="success" onClick={handleCreate}>
-                      Create New Accounts
+                      Create New Payment
                     </Button>
                   </div>
 
-                </nav> */}
+                </nav>
               {/* )} */}
               
                 <div className="col-sm-8 header-title p-0">
@@ -665,7 +674,7 @@ const handlePrintInvoice = (id) => {
 
 
                           {loading ? (
-                                <p>Fetching loans paid...</p>
+                                <p>Fetching advance payments...</p>
                             ) : (
                               <div className="table-responsive">
                               <table className="table display table-bordered table-striped table-hover bg-white m-0 card-table">
@@ -705,7 +714,7 @@ const handlePrintInvoice = (id) => {
                                               })}</td>
                                               <td style={{ textAlign: "left" }}><Badge bg={item.booking?.balance === "0.00" ? 'success' : 'warning'}>{item.booking?.balance === "0.00" ? 'Paid' : 'Pending'}</Badge></td>
                                               <td>
-                                                  <div className="btn btn-success-soft btn-sm mr-1">
+                                                  <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
                                                   <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
                                                   </div>
                                                   <div className="btn btn-danger-soft btn-sm">

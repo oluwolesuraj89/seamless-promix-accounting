@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import CoopDashboard from '../Cooperative Dashboard/CoopDashboard';
 import StockDashboard from '../Stock Dashboard/StockDashboard';
+import InventoryDash from '../Inventory Dashboard/InventoryDash';
 
 
 export default function ManageUnit() {
@@ -343,7 +344,7 @@ handleClose1();
 
   return (
     <div>
-      <StockDashboard />
+      <InventoryDash />
 
       <div className={classes.finishedbodyCont}>
         <div className={classes.topPadding}>
@@ -533,18 +534,14 @@ handleClose1();
                              <td>{item.name}</td>
                              <td>{formatDate(item.updated_at)}</td>
                            
-                                <td>
-                               
-                                  <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                    <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
-                                  </div>
-
-
-                                  <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                    <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 5, borderColor: "#dc35454d", borderRadius: 5}}></i>
-                                  </div>
-
-                                </td>
+                             <td>
+                                      <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
+                                      <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
+                                      </div>
+                                      <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
+                                      <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
+                                      </div>
+                                    </td>
                               </tr>
                             ))}
                           </tbody>

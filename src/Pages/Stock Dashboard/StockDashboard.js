@@ -192,7 +192,7 @@ export default function StockDashboard() {
                         </Link>
                         <Accordion>
                            
-                            <Card className={classes.accordionCard}>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu}>
                                     <ContextAwareToggle eventKey="0">
                                         <p>
@@ -210,8 +210,26 @@ export default function StockDashboard() {
                                     </Card.Body>
                                     
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                            
+                            <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
+                                    <ContextAwareToggle eventKey="6">
+                                        <p>
+                                            <span>
+                                                <img src={dIcon2} alt='icon'/> Services
+                                            </span>
+                                            {isMenuOpen ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="6" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                    <Link to={'/event_mgt_system/services'}>Manage Services</Link><br/>
+                                    </Card.Body>
+                                    
+                                </Accordion.Collapse>
+                            </Card>
                             {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu6}>
                                     <ContextAwareToggle eventKey="6">
@@ -248,6 +266,23 @@ export default function StockDashboard() {
                                 </Accordion.Collapse>
                             </Card>
                             <Card className={classes.accordionCard}>
+                                <Card.Header className={classes.cardHeader} onClick={toggleMenu1}>
+                                    <ContextAwareToggle eventKey="12">
+                                        <p>
+                                            <span><img src={dIcon3} alt='icon' /> Advance Payment</span>
+                                            {isMenuOpen1 ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
+                                        </p>
+                                    </ContextAwareToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="12" style={{backgroundColor:'#164B2E'}}>
+                                    <Card.Body className={classes.cardBody}>
+                                        {/* <Link to={'/general_payment_voucher'}>Suppliers/Beneficiaries</Link><br/> */}
+                                        <Link to={'/event_mgt_system/customers_advance_payment'}>Customers Advance Payments</Link><br/>
+                                    </Card.Body>
+                                    
+                                </Accordion.Collapse>
+                            </Card>
+                            {/* <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
                                     <ContextAwareToggle eventKey="2">
                                         <p> 
@@ -262,7 +297,7 @@ export default function StockDashboard() {
                                         
                                     </Card.Body>
                                 </Accordion.Collapse>
-                            </Card>
+                            </Card> */}
                             <Card className={classes.accordionCard}>
                                 <Card.Header className={classes.cardHeader} onClick={toggleMenu2}>
                                     <ContextAwareToggle eventKey="8">

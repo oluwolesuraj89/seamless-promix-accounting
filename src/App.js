@@ -108,7 +108,24 @@ import CreateServices from './Pages/Services/CreateServices.js';
 import ViewServices from './Pages/Services/ViewServices.js';
 import ViewMaterial from './Pages/Services/ViewMaterial.js';
 import ViewLabor from './Pages/Services/ViewLabor.js';
+import MainServices from './Pages/Main Services/MainServices.js';
+import AdvancePayment from './Pages/Receiveables/Advance Booking Pyaments/AdvancePayment.js';
+import ViewAdvance from './Pages/Receiveables/Advance Booking Pyaments/ViewAdvance.js';
+import Requisition from './Pages/Requisition/Requisition.js';
+import CreateRequistion from './Pages/Requisition/CreateRequistion.js';
+import ViewRequisition from './Pages/Requisition/ViewRequisition.js';
 import Inflow from './Pages/Inflow/Inflow.js';
+import InventoryDashboard from './Pages/Dashboard/InventoryDashboard.js';
+import Customers from './Pages/Manage Customers/Customers.js';
+import EditCustomer from './Pages/Manage Customers/EditCustomer.js';
+import Suppliers from './Pages/Manage Suppliers/Suppliers.js';
+import EditSupplier from './Pages/Manage Suppliers/EditSupplier.js';
+import PurchaseInvoice from './Pages/Purchase Invoice/PurchaseInvoice.js';
+import EditPurchase from './Pages/Purchase Invoice/EditPurchase.js';
+import Purchase from './Pages/Purchase Invoice/Purchase.js';
+import CreatePurchase from './Pages/Purchase Invoice/CreatePurchase.js';
+import StockDelivery from './Pages/Stock Delivery/StockDelivery.js';
+import CreateStockDelivery from './Pages/Stock Delivery/CreateStockDelivery.js';
 import Income from './Pages/Main Income and Expenditur/Income.js';
 import CreateNewIncome from './Pages/Main Income and Expenditur/CreateNewIncome.js';
 import Expenditures from './Pages/Main Income and Expenditur/Expenditures.js';
@@ -205,14 +222,38 @@ function App() {
         <Route path='/print_payment' element={<PrintVoucher/>} />
         
         <Route path='/event_mgt_system' element={<StockDash/>} />
-        <Route path='/event_mgt_system/unit_of_measurement' element={<ManageUnit/>} />
-      <Route path='/event_mgt_system/products' element={<ManageStocks/>} />
       <Route path='/event_mgt_system/event_bookings' element={<Services/>} />
+      <Route path='/event_mgt_system/services' element={<MainServices/>} />
       <Route path='/event_mgt_system/create_booking' element={<CreateServices/>} />
       <Route path='/event_mgt_system/view_booking' element={<ViewServices/>} />
       <Route path='/event_mgt_system/material_cost' element={<ViewMaterial/>} />
       <Route path='/event_mgt_system/other_cost' element={<ViewLabor/>} />
+      <Route path='/event_mgt_system/customers_advance_payment' element={<AdvanceBooking/>} />
+      <Route path='/event_mgt_system/create_customers_advance_payment' element={<AdvancePayment/>} />
+      <Route path='/event_mgt_system/view_customers_advance_payment' element={<ViewAdvance/>} />
+      <Route path='/event_mgt_system/print_advance_payment' element={<BookingReceipt/>} />
+     
 
+      <Route path='/inventory' element={<InventoryDashboard/>} />
+      <Route path='/inventory/unit_of_measurement' element={<ManageUnit/>} />
+      <Route path='/inventory/products' element={<ManageStocks/>} />
+      <Route path='/inventory/requisition' element={<Requisition/>} />
+      <Route path='/inventory/create_requisition' element={<CreateRequistion/>} />
+      <Route path='/inventory/view_requisition' element={<ViewRequisition/>} />
+      <Route path='/inventory/customers' element={<Customers/>} />
+      <Route path='/inventory/update_customer' element={<EditCustomer/>} />
+      <Route path='/inventory/suppliers' element={<Suppliers/>} />
+      <Route path='/inventory/update_supplier' element={<EditSupplier/>} />
+      <Route path='/inventory/sales_invoice' element={<SalesInvoice/>} />
+      <Route path='/inventory/create_sales_invoice' element={<CreateSales/>} />
+      <Route path='/inventory/stock_delivery' element={<StockDelivery/>} />
+      <Route path='/inventory/create_stock_delivery' element={<CreateStockDelivery/>} />
+      <Route path='/inventory/update_sales_invoice' element={<EditInvoice />} />
+      <Route path='/inventory/official_invoice' element={<Invoice />} />
+      <Route path='/inventory/purchase_invoices' element={<PurchaseInvoice/>} />
+      <Route path='/inventory/create_purchase_invoice' element={<CreatePurchase/>} />
+      <Route path='/inventory/update_purchase_invoice' element={<EditPurchase />} />
+      <Route path='/inventory/official_purchase_invoice' element={<Purchase />} />
       
 
       </Routes>
