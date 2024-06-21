@@ -225,7 +225,7 @@ function CreateNewExpenditure() {
       }, [bearer, selectedPayment]);
 
 // console.log(formData);
-      const createIncome = async () => {
+      const createExpenses = async () => {
         setIsLoading(true);
     
         try {
@@ -236,7 +236,7 @@ function CreateNewExpenditure() {
             
 // return;
 
-            const response = await axios.post(`${BASE_URL}/post-receipt`,
+            const response = await axios.post(`${BASE_URL}/post-expenses`,
                 {
                     account_id : accountNames,
                     gl_code : selectedAssetAccount,
@@ -701,7 +701,7 @@ function CreateNewExpenditure() {
 
 
                 <div class="modal-footer" style={{marginTop:'20px'}}>
-                <Button style={{borderRadius: 0}} variant='success' disabled={parseFloat(incomeAmount) !== parseFloat(totalCredit) ? true : false} onClick={createIncome}>
+                <Button style={{borderRadius: 0}} variant='success' disabled={parseFloat(incomeAmount) !== parseFloat(totalCredit) ? true : false} onClick={createExpenses}>
                     {isLoading ? (
                         <>
                         <Spinner size='sm' />

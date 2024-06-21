@@ -70,10 +70,10 @@ const headers = {
   'Authorization': `Bearer ${bearer}`
 };
 
-const fetchLedgers = async () => {
+const fetchExpenses = async () => {
   setLoad(true);
   try {
-      const response = await axios.get(`${BASE_URL}/ledger-postings?page=${currentPage}`, { headers });
+      const response = await axios.get(`${BASE_URL}/fetch-expenses?page=${currentPage}`, { headers });
       const results = response.data?.data?.data;
       const resultx = response.data?.data?.total;
       setTotalEntries(resultx);
@@ -108,7 +108,7 @@ const fetchLedgers = async () => {
 
 useEffect(() => {
   if (bearer) {
-    fetchLedgers();
+    fetchExpenses();
 
   }
 }, [bearer, currentPage]);
@@ -284,7 +284,7 @@ useEffect(() => {
   }
 
   const filteredData = ledgTableData.filter(item => {
-    const searchFields = [item.details, item.transaction_date, formatDate(item.created_at)];
+    const searchFields = [item.narration, item.transaction_date, formatDate(item.created_at)];
     return searchFields.some(field => field.toLowerCase().includes(searchTerm.toLowerCase()));
   });
   
@@ -504,38 +504,62 @@ const handleCreate = ()=>{
 
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
-                                    <th>Post Date</th>
-                                    <th>Value Date</th>
-                                    <th>Detail</th>
-                                    <th>Debit</th>
-                                    <th>Credit</th>
+                                    <td>S/N</td>
+                                    <th>Transaction Date</th>
+                                    <th>Particulars</th>
+                                    <th>Description</th>
+                                    {/* <th>Receipt Number</th> */}
+                                    <th>Amount</th>
+                                    <th>Payment Mode</th>
+                                    <th>Teller Number</th>
+                                    {/* <th>Received By</th> */}
+                                    <th>Action</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                 {filteredData.map((item, index) => (
                                      <tr key={item.id}>
-                                      <td>{formatDate(item.created_at)}</td>
-                                      <td>{item.transaction_date}</td>
-                                      <td>{item.details}</td>
-                                      <td style={{textAlign: "right"}}>{parseFloat(item.debit).toLocaleString('en-US', {
+                                      <td>{index + 1}</td>
+                                      <td>{formatDate(item.transaction_date)}</td>
+                                      <td>{item.particular}</td>
+                                      <td>{item.description }</td>
+                                      <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
                                       maximumFractionDigits: 2
-                                    })}</td>
-                                     <td style={{textAlign: "right"}}>{parseFloat(item.credit).toLocaleString('en-US', {
+                                    })}
+                                    </td>
+                                    <td>{item?.mode?.name }</td>
+                                    <td>{item.invoice_number }</td>
+                                    {/* <td>{item.invoice_number }</td> */}
+                                    <td style={{textAlign: "left"}}>
+                                      <div 
+                                      // onClick={() => handleEyeClick(item.id)} 
+                                      className="btn btn-success-soft btn-sm mr-1">
+                                      <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
+                                      </div>
+                                      <div 
+                                      // onClick={() => handleTrashClick(item.id)} 
+                                      className="btn btn-danger-soft btn-sm">
+                                      <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
+                                      </div>
+                                      </td>
+
+                                     {/* <td style={{textAlign: "right"}}>{parseFloat(item.credit).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
                                       maximumFractionDigits: 2
-                                    })}</td>
+                                    })}
+                                    </td> */}
                                     </tr>
                                   ))}
-                                 {accounts.length > 0 && (
+                                 {/* {accounts.length > 0 && (
                                   <>
                                     <td colSpan={3}>Total</td>
                                     <td style={{textAlign: 'right', fontWeight: "bold"}}>{totalDebit}</td>
                                     <td style={{textAlign: 'right', fontWeight: "bold"}}>{totalCredit}</td>
                                   </>
-                                )}
+                                )} */}
 
                                 </tbody>
                               </table>
