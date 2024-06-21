@@ -475,7 +475,7 @@ const handleEyeClick = (id) => {
                 <div className="row">
                   
                   <div className="col-lg-12">
-                    <div className="card">
+                    <div className="card" style={{border:"none"}}>
                       <div className="card-body">
                         <div className="table-resposive">
                           <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
@@ -552,8 +552,20 @@ const handleEyeClick = (id) => {
                                       {/* <td>{}</td> */}
                                       <td>{item.description}</td>
                                       <td>{item.invoice_number}</td>
-                                      <td>{item.amount}</td>
-                                      <td>{item.balance}</td>
+                                      <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}
+                                    </td>
+                                      <td style={{textAlign: "right"}}>{parseFloat(item.balance).toLocaleString('en-US', {
+                                      minimumIntegerDigits: 1,
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}
+                                    </td>
+                                      {/* <td>{item.amount}</td> */}
+                                      {/* <td>{item.balance}</td> */}
                                       <td>{item.date_of_invoice}</td>
                                       <td style={{textAlign: "left"}}>
                                       <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">

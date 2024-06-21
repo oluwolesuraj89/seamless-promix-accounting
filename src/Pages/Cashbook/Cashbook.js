@@ -314,7 +314,7 @@ export default function Cashbook() {
                         <div className="content-wrapper">
 
 
-                            <div className="card" >
+                            <div className="card" style={{border:"none"}}>
                                 <div className="card-body">
                                     {/* <div className="card-header">
                                         <div className="d-flex justify-content-between align-items-center">

@@ -401,7 +401,7 @@ readData();
                 <div className="row">
                   
                   <div className="col-lg-12">
-                    <div className="card">
+                    <div className="card" style={{border:"none"}}>
                       <div className="card-body">
                         <div className="table-resposive">
                           <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
@@ -474,7 +474,7 @@ readData();
                                     <tr >
                                       <td>1</td>
                                       <td>	OMOTAYO BELLO</td>
-                                      <td>50,000,00</td>
+                                      <td style={{textAlign:'right'}}>50,000,00</td>
                                       <td>34567</td>
                                       <td></td>
                                       <td></td>

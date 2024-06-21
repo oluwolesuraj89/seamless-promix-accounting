@@ -44,6 +44,8 @@ function CreateNewExpenditure() {
     const [paymentMethod, setPaymentMethod] = useState([]);
     const [incomeAmount, setIncomeAmount] = useState();
     const [totalAmount, setTotalAmount] = useState('');
+    const [subcat1, setSubcat1] = useState([]);
+    // const [subcat, setSubcat] = useState([]);
     const [debitAccount, setDebitAccount] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedAssetAccount, setSelectedAssetAccount] = useState('');
@@ -191,38 +193,67 @@ function CreateNewExpenditure() {
       };
 
    
-    const fetchAccountName = async (selectedPayment) => {
+    //   const fetchAccountName = async (selectedPayment) => {
+    //     setLoading(true);
+    
+    //     try {
+    //         const response = await axios.get(
+    //             `https://api-sme.promixaccounting.com/api/v1/get-account-by-payment-mode?type=${selectedPayment}`,
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: `Bearer ${bearer}`,
+    //                 },
+    //             }
+    //         );
+    
+    //         const paid = response.data?.data;
+    //         // console.log(paid, 'paid');
+    //         setPaymentMeth(paid);
+    //     } catch (error) {
+    //         const errorStatus = error.response.data.message;
+    //         console.error(errorStatus);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+
+    const fetchAccountName = async () => {
         setLoading(true);
     
         try {
-            const response = await axios.get(
-                `https://api-sme.promixaccounting.com/api/v1/get-account-by-payment-mode?type=${selectedPayment}`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${bearer}`,
-                    },
-                }
-            );
+          const response = await axios.get(
+            `https://api-sme.promixaccounting.com/api/v1/get-account-by-class-id?class_id=${5}`,
+            {
+             
+              headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bearer}`
+              }
+            }
+          );
+          const results = response.data?.data;
+          setSubcat1(results);
     
-            const paid = response.data?.data;
-            // console.log(paid, 'paid');
-            setPaymentMeth(paid);
+          console.log(results, "NIYIN");
         } catch (error) {
-            const errorStatus = error.response.data.message;
-            console.error(errorStatus);
+          const errorStatus = error.response.data.message;
+          console.error(errorStatus);
         } finally {
-            setLoading(false);
+          setLoading(false);
         }
-    };
+      };
     
-    
-      
       useEffect(() => {
-        if (bearer && selectedPayment) {
-          fetchAccountName(selectedPayment);
-        }
-      }, [bearer, selectedPayment]);
+        fetchAccountName();
+    }, [bearer]);
+      
+    //   useEffect(() => {
+    //     if (bearer && selectedPayment) {
+    //       fetchAccountName(selectedPayment);
+    //     }
+    //   }, [bearer, selectedPayment]);
 
 // console.log(formData);
       const createExpenses = async () => {
@@ -259,7 +290,7 @@ function CreateNewExpenditure() {
             setTeller("");
             setDescription("");
             setSelectedDate('');
-            navigate('/accounting/income_and_expenditure/income');
+            navigate('/accounting/income_and_expenditure/expenditures');
     
             toast.success(response.data.message);
         } catch (error) {
@@ -386,7 +417,7 @@ function CreateNewExpenditure() {
     const handleAccountChange = (index, event) => {
         const selectedAccount = event.target.value;
         const intselectedId = parseInt(selectedAccount);
-        const selectedGlCode = subCat.find((item) => item.id === intselectedId)?.gl_code || '';
+        const selectedGlCode = subcat1.find((item) => item.id === intselectedId)?.gl_code || '';
 
         const updatedFormData = [...formData];
         updatedFormData[index] = {
@@ -622,7 +653,7 @@ function CreateNewExpenditure() {
                                                         onChange={(e) => handleAccountChange(index, e)}
                                                     >
                                                         <option value="">Select Account</option>
-                                                        {subCat.map((item) => (
+                                                        {subcat1.map((item) => (
                                                             <option key={item.id} value={item.id}>
                                                                 {item.gl_name}
                                                             </option>
