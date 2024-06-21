@@ -130,6 +130,9 @@ import Income from './Pages/Main Income and Expenditur/Income.js';
 import CreateNewIncome from './Pages/Main Income and Expenditur/CreateNewIncome.js';
 import Expenditures from './Pages/Main Income and Expenditur/Expenditures.js';
 import CreateNewExpenditure from './Pages/Main Income and Expenditur/CreateNewExpenditure.js';
+import BankLodgement from './Pages/Main Income and Expenditur/BankLodgement.js';
+import TotalLodgements from './Pages/Main Income and Expenditur/TotalLodgements.js';
+import PendingLodgements from './Pages/Main Income and Expenditur/PendingLodgements.js';
 
 
 function App() {
@@ -219,6 +222,9 @@ function App() {
         <Route path='/accounting/income_and_expenditure/income/add_new_income' element={<CreateNewIncome/>} />
         <Route path='/accounting/income_and_expenditure/expenditures' element={<Expenditures/>} />
         <Route path='/accounting/income_and_expenditure/expenditures/add_new_expenditure' element={<CreateNewExpenditure/>} />
+        <Route path='/accounting/income_and_expenditure/bank_lodgement' element={<BankLodgement/>} />
+        <Route path='/accounting/income_and_expenditure/bank_lodgement/total_lodgements' element={<TotalLodgements/>} />
+        <Route path='/accounting/income_and_expenditure/bank_lodgement/pending_lodgements' element={<PendingLodgements/>} />
         <Route path='/print_payment' element={<PrintVoucher/>} />
         
         <Route path='/event_mgt_system' element={<StockDash/>} />

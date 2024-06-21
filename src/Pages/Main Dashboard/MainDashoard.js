@@ -221,7 +221,7 @@ export default function MainDashboard() {
                                     <ContextAwareToggle eventKey="5" style={{paddingTop:'0'}}>
                                         <p>
                                             <span>
-                                                <img src={dIcon2} alt='icon'/> Income & Expen..
+                                                <img src={dIcon2} alt='icon'/> Transactions
                                             </span>
                                             {isMenuOpen5 ? (<i class='bx bx-chevron-down'></i>) : (<i class='bx bx-chevron-up'></i>)} 
                                         </p>
@@ -234,6 +234,7 @@ export default function MainDashboard() {
                                         {/* <NavLink to={'/manage_user'}>Manage User</NavLink><br/> */}
                                         <NavLink to={'/accounting/income_and_expenditure/income'}>Income</NavLink><br/>
                                         <NavLink to={'/accounting/income_and_expenditure/expenditures'}>Expenses</NavLink><br/>
+                                        <NavLink to={'/accounting/income_and_expenditure/bank_lodgement'}>Bank Lodgement</NavLink><br/>
                                         {/* <Link to={'#'}>Loan & Advances</Link> */}
                                     </Card.Body>
                                     

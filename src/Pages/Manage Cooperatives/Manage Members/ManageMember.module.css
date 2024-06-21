@@ -8503,6 +8503,28 @@ pre .arg {
     gap:2em;
     /* background-color: rebeccapurple; */
 }
+.lodgementCardsCont{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* background-color: wheat; */
+    gap: 1em;
+}
+.lodgementCardsCont .lodgementCards{
+    box-shadow: 0.2px 0.2px 5px  gray;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--Light-green);
+    height: 100px;
+    transition: ease 0.5s;
+}
+.lodgementCardsCont .lodgementCards:hover{
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
 
 @media(max-width:800px){ 
     .belowheader {
