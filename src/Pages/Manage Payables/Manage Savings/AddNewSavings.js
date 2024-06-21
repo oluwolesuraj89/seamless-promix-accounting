@@ -310,7 +310,7 @@ const handleBankChange = (selectedOption) => {
 
                         <div className="col-md-6" style={{width:"100%"}}>
                             <div className="form-group row">
-                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Customer / Employee / Member</label>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Customer</label>
                                 <div className="col-sm-9">
                                     {/* <input className="form-control" required="" type="text" value={name} onChange={(e) => setName(e.target.value)} name="name" /> */}
                                     <Select

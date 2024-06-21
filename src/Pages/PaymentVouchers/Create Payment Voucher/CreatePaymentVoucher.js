@@ -194,7 +194,6 @@ export default function CreatePaymentVoucher() {
         try {
             const response = await axios.get(`${BASE_URL}/income/get-payment-method`, { headers });
 
-
             const reply = response.data?.data;
             setPayMod(reply);
             console.log("reply", reply);
@@ -456,7 +455,7 @@ export default function CreatePaymentVoucher() {
                     
                 </div>
             </div>
-            <div className={classes.analysis}>
+            {/* <div className={classes.analysis}>
                 <div className={classes.analysisCont}>
                     <p style={{paddingBottom:'5px'}}>TOTAL INCOME</p>
                     <h5>N232,096,635.05</h5>
@@ -481,7 +480,7 @@ export default function CreatePaymentVoucher() {
                         <p>vs average</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
 
 

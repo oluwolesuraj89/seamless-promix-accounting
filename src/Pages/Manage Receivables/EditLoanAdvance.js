@@ -36,6 +36,7 @@ export default function EditLaonAdvance() {
  
   const [loading, setLoading] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
+  const [createLoadings, setCreateLoadings] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [bearer, setBearer] = useState('');
   const navigate = useNavigate();
@@ -216,7 +217,7 @@ useEffect(() => {
   calculateReturn();
 }, [totalRepayment, duration]);
 
-console.log(selectedCustomer.value, selectedLoan.value, selectedBank.value, principalAmount, interest, totalRepayment,  loanInterest);
+// console.log(selectedCustomer.value, selectedLoan.value, selectedBank.value, principalAmount, interest, totalRepayment,  loanInterest);
 
 const createLoan = async () => {
   setCreateLoading(true);
@@ -235,31 +236,25 @@ const createLoan = async () => {
         duration: duration,
         transaction_date: selectedDate,
         cheque_number: cheque
-
-
       },
       { headers }
     );
     console.log(response.data.message)
     
-    navigate('/loans_advances')
-
-    // return
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: response.data.message,
-    });
-    console.log(response.data);
-
-  } catch (error) {
-    const errorStatus = error.response.data.message;
-    Swal.fire({
-      icon: 'error',
-      title: 'Failed',
-      text: errorStatus,
-    });
-    console.log(error);
+    navigate('/accounting/receivables/loan_and_advances')
+  toast.success(response.data.message);
+      } catch (error) {
+        let errorMessage = 'An error occurred. Please try again.';
+          if (error.response && error.response.data && error.response.data.message) {
+              if (typeof error.response.data.message === 'string') {
+                  errorMessage = error.response.data.message;
+              } else if (Array.isArray(error.response.data.message)) {
+                  errorMessage = error.response.data.message.join('; ');
+              } else if (typeof error.response.data.message === 'object') {
+                toast.error(errorMessage)
+                console.log(errorMessage);
+              }
+          }
   } finally {
     setCreateLoading(false);
   }
@@ -290,143 +285,190 @@ const createLoan = async () => {
                 {/* <h6>Create New Payment Voucher</h6> */}
             </div>
             <div className={classes.header2}>
-                <Form>
+            <Form>
             
-                <div className={classes.formContainer}>
-                <div className={classes.formCont}>
-                    <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label  >Transaction Date</Form.Label>
-                        <Form.Control type='date' id="date" 
-                        // onChange={handleDateChange} 
-                        value={selectedLoan.transaction_date}
-                        // onChange={(e) => setDate(e.target.value)} style={{ height: 'calc(1.8em + 1.89rem + 2px)' }}
-                        />
-                    </Form.Group>
+            <div className={classes.formContainer}>
+            <div className={classes.formCont}>
+            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input">Transaction Date</label>
+                                <div style={{width:'100%'}}>
+                                  <input className="form-control" required="" type="date"
+                                  //  onChange={handleDateChange} 
+                                  desabled
+                                   name="date" value={selectedLoan.transaction_date} />
+                                </div>
+                              </div>
+                            {/* </div> */}
 
-                    
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label >Customer / Employee / Member</Form.Label>
-                        <Form.Control
-                            value={selectedLoan.beneficiary?.name}
-                            disabled
-                            />
-                        </Form.Group>
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input" >Member</label>
+                                <div style={{width:'100%'}}>
+                                <input className="form-control" required="" type="text" 
+                                disabled name="customer" 
+                                value={selectedLoan.beneficiary?.name} />
+                                </div>
+                              </div>
+                            {/* </div> */}
 
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label >Loan Type</Form.Label>
-                        <Form.Control
-                          value={selectedLoan.loan?.description}
-                          disabled
-                        />
-                        </Form.Group>
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input">Loan Type</label>
+                                <div style={{width:'100%'}}>
+                                <input className="form-control" required="" type="text" disabled name="loan type" value={selectedLoan.loan?.description} />
+                                </div>
+                              </div>
+                            {/* </div> */}
 
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label >Principal Amount</Form.Label>
-                        <CurrencyInput
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Principal Amount</label>
+                                <div style={{width:'100%'}}>
+                                  {/* <div className="form-control" > */}
+                                  <CurrencyInput
 
-                            name="principal amount"
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={selectedLoan.principal_amount} 
-                            disabled
-                            // onValueChange={handleValueChange}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                        </Form.Group>
-                
-                        <Form.Group className={`${classes.formGroup} ${classes.formFlex}`}>
-                        <Form.Label  >Loan Interest</Form.Label>
-                        <CurrencyInput
+                                        name="principal amount"
+                                        decimalsLimit={2}
+                                        className="form-control"
+                                        value={selectedLoan.principal_amount} 
+                                        disabled
+                                        style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                      />
+                                  </div>
 
-                            name="loan interest"
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={selectedLoan.loan_interest} 
-                            disabled
-                            // onValueChange={handleValueChange1}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                    </Form.Group>        
-                    
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Interest</Form.Label>
-                        <CurrencyInput
+                                </div>
+                              {/* </div> */}
+                            {/* </div> */}
 
-                            name="loan interest"
-                            disabled
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={selectedLoan.interest_amount} 
-                            // onValueChange={handleValueChange2}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                    </Form.Group>
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input" >Loan Interest</label>
+                                <div style={{width:'100%'}}>
+                                  
+                                <CurrencyInput
 
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Total Repayment</Form.Label>
-                        <CurrencyInput
+                                  name="loan interest"
+                                  decimalsLimit={2}
+                                  className="form-control"
+                                  value={selectedLoan.loan_interest} 
+                                  disabled
 
-                            name="loan interest"
-                            disabled
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={selectedLoan.total_repayment} 
-                            onValueChange={handleValueChange3}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                            />
-                    </Form.Group>
+                                  style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                  />
+                                 
 
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Duration (Months)</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        // onChange={(e) => setDuration(e.target.value)} 
-                        value={selectedLoan.duration}
-                        />
-                    </Form.Group>
+                                </div>
+                              </div>
+                            {/* </div> */}
 
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Monthly Deduction</Form.Label>
-                        <CurrencyInput
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input" >Interest</label>
+                                <div style={{width:'100%'}}>
+                                  
+                                <CurrencyInput
 
-                            name="loan interest"
-                            disabled
-                            decimalsLimit={2}
-                            className="form-control"
-                            value={selectedLoan.monthly_deduction} 
-                            // onValueChange={handleValueChange4}
-                            style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                        />
-                    </Form.Group>
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Select Bank</Form.Label>
-                        <Select
-                            value={selectedBank}
-                            // onChange={(selectedOption) => handleBankChange(selectedOption)}
-                            menuPortalTarget={document.body}
-                            options={banks}
-                            disabled
-                            styles={{
-                                menuPortal: (base) => ({ ...base, zIndex: 9999 }),
-                                menu: (provided) => ({
-                                ...provided,
-                                
-                                }),
-                            }}
-                        />
-                    </Form.Group>
+                                  name="loan interest"
+                                  disabled
+                                  decimalsLimit={2}
+                                  className="form-control"
+                                  value={selectedLoan.interest_amount} 
 
-                    <Form.Group className={classes.formGroup}>
-                        <Form.Label >Cheque No.</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        // onChange={(e) => setCheque(e.target.value)}
-                        value={selectedLoan.cheque_number} 
-                        />
-                    </Form.Group>
-                    </div>
+                                  style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                  />
+                                 
+
+                                </div>
+                              </div>
+                            {/* </div> */}
+
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input" >Total Repayment</label>
+                                <div style={{width:'100%'}}>
+                                  
+                                <CurrencyInput
+
+                                name="loan interest"
+                                disabled
+                                decimalsLimit={2}
+                                className="form-control"
+                                value={selectedLoan.total_repayment} 
+
+                                style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                />
+                                 
+
+                                </div>
+                              </div>
+                            {/* </div> */}
+
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input">Duration (Months)</label>
+                                <div style={{width:'100%'}}>
+                                <input className="form-control" required="" type="text" disabled name="duration" value={selectedLoan.duration} />
+                                </div>
+                              </div>
+                            {/* </div> */}
+
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input"  >Monthly Deduction</label>
+                                <div style={{width:'100%'}}>
+                                  
+                                <CurrencyInput
+
+                                  name="loan interest"
+                                  disabled
+                                  decimalsLimit={2}
+                                  className="form-control"
+                                  value={selectedLoan.monthly_deduction} 
+
+                                  style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                                  />
+                                 
+
+                                </div>
+                              </div>
+                            {/* </div> */}
+
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input">Select Bank</label>
+                                <div style={{width:'100%'}}>
+                                <Select
+                                        value={selectedBank}
+                                        onChange={(selectedOption) => handleBankChange(selectedOption)}
+                                       disabled
+                                        options={banks}
+                                        menuPortalTarget={document.body}
+                                        styles={{
+                                          menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                                          menu: (provided) => ({
+                                            ...provided,
+                                            maxHeight: '200px',
+                                            overflowY: 'auto',
+                                          }),
+                                        }}
+                                      />
+                                </div>
+                              </div>
+                            {/* </div> */}
+
+                            
+                            {/* <div className="col-md-6"> */}
+                              <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                <label for="example-text-input" >Cheque No.</label>
+                                <div style={{width:'100%'}}>
+                                <input className="form-control" required="" type="text" disabled name="cheque no" value={selectedLoan.cheque_number} />
+                                </div>
+                              </div>
+                            {/* </div> */}
                 </div>
-                </Form>
+            </div>
+            </Form>
             </div>
 
             
@@ -443,7 +485,9 @@ const createLoan = async () => {
                                   )}
                                 </Button>
                                 <Button style={{borderRadius: 0}} variant="danger" >
-                                  {createLoading ? (
+                                  {
+                                  createLoadings
+                                  ? (
                                     <>
                                       <Spinner size='sm' />
                                       <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>

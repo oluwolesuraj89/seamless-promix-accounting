@@ -86,9 +86,9 @@ export default function CreateNewLoan() {
       const fetchSupplierss = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/customer', { headers });
+          const response = await axios.get('https://api-sme.promixaccounting.com/api/v1/customer/no-pagination', { headers });
           const results = response.data?.data;
-    
+          console.log("results:", results)
           const options = results.map((item) => ({
             label: item.name,
             value: item.id,
@@ -103,6 +103,7 @@ export default function CreateNewLoan() {
           setIsLoading(false);
         }
       };
+
     
       const fetchLoans = async () => {
         setIsLoading(true);
@@ -249,10 +250,25 @@ export default function CreateNewLoan() {
         );
         console.log(response.data.message)
         
-        navigate('/loans_advances')
+        // navigate('/loans_advances')
     
         // return
-        toast.success(response.data.message);
+      //   Swal.fire({
+      //     icon: 'success',
+      //     title: 'Success',
+      //     text: response.data.message,
+      //   });
+      //   console.log(response.data);
+    
+      // } catch (error) {
+      //   const errorStatus = error.response.data.message;
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Failed',
+      //     text: errorStatus,
+      //   });
+      //   console.log(error);
+      toast.success(response.data.message);
       } catch (error) {
         let errorMessage = 'An error occurred. Please try again.';
           if (error.response && error.response.data && error.response.data.message) {
@@ -302,19 +318,19 @@ export default function CreateNewLoan() {
             
                 <div className={classes.formContainer}>
                 <div className={classes.formCont}>
-                <div className="col-md-6">
-                                  <div className="form-group row">
+                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
                                     <label for="example-text-input">Transaction Date</label>
-                                    <div >
+                                    <div style={{width:'100%'}}>
                                       <input className="form-control" required="" type="date" onChange={handleDateChange} name="date" value={selectedDate} />
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Customer / Employee / Member</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input" >Member</label>
+                                    <div style={{width:'100%'}}>
                                       <Select
                                         value={selectedCustomer}
                                         onChange={(selectedOption) => handleSupplierChange(selectedOption)}
@@ -331,12 +347,12 @@ export default function CreateNewLoan() {
                                       />
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Loan Type</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input">Loan Type</label>
+                                    <div style={{width:'100%'}}>
                                       <Select
                                         value={selectedLoan}
                                         onChange={(selectedOption) => handleLoanTypeChange(selectedOption)}
@@ -353,12 +369,12 @@ export default function CreateNewLoan() {
                                       />
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
                                     <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Principal Amount</label>
-                                    <div className="col-sm-9">
+                                    <div style={{width:'100%'}}>
                                       {/* <div className="form-control" > */}
                                       <CurrencyInput
 
@@ -369,17 +385,16 @@ export default function CreateNewLoan() {
                                         onValueChange={handleValueChange}
                                         style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
                                       />
-                                      {/* </div> */}
+                                      </div>
 
                                     </div>
-                                  </div>
-                                </div>
+                                  {/* </div> */}
+                                {/* </div> */}
 
-
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Loan Interest</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input" >Loan Interest</label>
+                                    <div style={{width:'100%'}}>
                                       
                                       <CurrencyInput
 
@@ -395,12 +410,12 @@ export default function CreateNewLoan() {
 
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Interest</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input" >Interest</label>
+                                    <div style={{width:'100%'}}>
                                       
                                       <CurrencyInput
 
@@ -416,12 +431,12 @@ export default function CreateNewLoan() {
 
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Total Repayment</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input" >Total Repayment</label>
+                                    <div style={{width:'100%'}}>
                                       
                                       <CurrencyInput
 
@@ -437,21 +452,21 @@ export default function CreateNewLoan() {
 
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Duration (Months)</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input">Duration (Months)</label>
+                                    <div style={{width:'100%'}}>
                                       <input className="form-control" required="" type="text" onChange={(e) => setDuration(e.target.value)} name="duration" value={duration} />
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400" >Monthly Deduction</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input"  >Monthly Deduction</label>
+                                    <div style={{width:'100%'}}>
                                       
                                       <CurrencyInput
 
@@ -467,12 +482,12 @@ export default function CreateNewLoan() {
 
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Select Bank</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input">Select Bank</label>
+                                    <div style={{width:'100%'}}>
                                       <Select
                                         value={selectedBank}
                                         onChange={(selectedOption) => handleBankChange(selectedOption)}
@@ -489,17 +504,17 @@ export default function CreateNewLoan() {
                                       />
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
 
                                 
-                                <div className="col-md-6">
-                                  <div className="form-group row">
-                                    <label for="example-text-input" className="col-sm-3 col-form-label font-weight-400">Cheque No.</label>
-                                    <div className="col-sm-9">
+                                {/* <div className="col-md-6"> */}
+                                  <div className={`${classes.formFlex} ${classes.formFlex2}`}>
+                                    <label for="example-text-input" >Cheque No.</label>
+                                    <div style={{width:'100%'}}>
                                       <input className="form-control" required="" type="text" onChange={(e) => setCheque(e.target.value)} name="cheque no" value={cheque} />
                                     </div>
                                   </div>
-                                </div>
+                                {/* </div> */}
                     </div>
                 </div>
                 </Form>

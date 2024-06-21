@@ -90,7 +90,7 @@ function CreatePurchase() {
     setTotalAmount(calculatedTotalAmount.toFixed(2));
 }, [formData]);
     
-
+console.log(totalAmount);
 
     const headers = {
       'Content-Type': 'application/json',
@@ -284,7 +284,7 @@ function CreatePurchase() {
   
   const handleValueChange2 = (value, name, values) => {
     setDebitAmount(value); 
-   
+   console.log(value);
   };
 
   const fetchItems = async () => {
@@ -368,7 +368,7 @@ const handleItemDescriptionChange = (selectedOption, rowIndex) => {
     }
   }, [bearer]);
 
-  console.log(totalAmount, debitAmount, "here iam");
+  
 
   return (
 
