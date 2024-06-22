@@ -10,6 +10,7 @@ import Table from 'react-bootstrap/Table';
 import { BASE_URL } from '../../api/api';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import Select from 'react-select';
 import InventoryDash from '../../Inventory Dashboard/InventoryDash';
 
 
@@ -29,6 +30,7 @@ export default function SalesInvoice() {
   const [updateLoading, setUpdateLoading] = useState(false);
   const [eyeClicked, setEyeClicked] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [tableData5, setTableData5] = useState([]);
   const [permissions, setPermissions] = useState([]);
   const [trashClicked, setTrashClicked] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
@@ -36,17 +38,9 @@ export default function SalesInvoice() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [admin, setAdmin] = useState("");
-  const [selectedRole, setSelectedRole] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [fullName1, setFullName1] = useState("");
-  const [email, setEmail] = useState("");
-  const [email1, setEmail1] = useState("");
-  const [phone1, setPhone1] = useState("");
-  const [selectedRole1, setSelectedRole1] = useState("");
-  const [phone, setPhone] = useState("");
+  const [tellerNumber, setTellerNumber] = useState("");
   const [roless, setRoless] = useState([]);
-  const [selectedId, setSelectedId] = useState('');
-  const [selectedUser, setSelectedUser] = useState(null);
+  
   const [outstanding, setOutstanding] = useState('');
   const [totalAmount, setTotalAmount] = useState('');
   const [amountToPay, setAmountToPay] = useState('');
@@ -55,6 +49,8 @@ export default function SalesInvoice() {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
     const [tableData2, setTableData2] = useState([]);
+    const [paymentMode, setPaymentMode] = useState([]);
+    const [newData, setNewData] = useState([]);
 
   const readData = async () => {
     try {
@@ -125,7 +121,28 @@ export default function SalesInvoice() {
       } else {
         const errorStatus = error.response?.data?.message;
         console.log(errorStatus);
-        setTableData([]);
+        setTableData2([]);
+      }
+    } finally {
+      setRoleLoading(false);
+    }
+  };
+
+  const fetchData4 = async () => {
+    setRoleLoading(true);
+    try {
+      const response = await axios.get(`${BASE_URL}/income/get-payment-method`, { headers });
+      const results = response.data?.data;
+      // console.log(results);
+      setTableData5(results);
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        // Redirect to login page if unauthorized
+        navigate('/login');
+      } else {
+        const errorStatus = error.response?.data?.message;
+        console.log(errorStatus);
+        setTableData5([]);
       }
     } finally {
       setRoleLoading(false);
@@ -137,8 +154,14 @@ export default function SalesInvoice() {
     try {
       const response = await axios.get(`${BASE_URL}/fetch-pending-sales-invoice`, { headers });
       const roleList = response.data?.data;
-      console.log(roleList);
-      setRoless(roleList);
+      setNewData(roleList);
+      // console.log(roleList);
+      const roled = roleList.map((item) => ({
+        label:  `${item.invoice_number} - ${item.customer?.name}`,
+        value: item.id,
+    }));
+     
+      setRoless(roled);
     } catch (error) {
       if (error.response && error.response.status === 401) {
         // Redirect to login page if unauthorized
@@ -162,6 +185,7 @@ export default function SalesInvoice() {
       fetchData();
       fetchData1();
       fetchData3();
+      fetchData4();
     }
   }, [bearer]);
 
@@ -247,15 +271,16 @@ export default function SalesInvoice() {
     navigate('/inventory/official_invoice', { state: { selectedInvoice } });
   };
 
-  const handleSalesChange = (event) => {
-    const selectedId = event.target.value;
-    setSelectedInvoice(selectedId);
+  const handleSalesChange = (selectedOption) => {
+    const selectedId = selectedOption.value;
+    
+    setSelectedInvoice(selectedOption.value);
     
     const intselectedId = parseInt(selectedId);
-    const selectedInvoice = roless.find(item => item.id == intselectedId);
+    const selectedInvoice = newData.find(item => item.id == intselectedId);
     setDescription(selectedInvoice?.description || '');
     setAmount(selectedInvoice?.amount || '');
-    setOutstanding(selectedInvoice.balance || '');
+    setOutstanding(selectedInvoice?.balance || '');
 
 };
 
@@ -387,112 +412,143 @@ handleClose();
               </div>
             </div>
            
-            <Modal show={show} onHide={handleClose} animation={false}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Sales Invoice Payment</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Form style={{ marginTop: 20 }}>
-                          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                          <Form.Label>Sales Invoice ID:</Form.Label>
-                            <Form.Select
-                              type="text"
-                              // placeholder="Enter Description"
-                              // autoFocus
-                              value={selectedInvoice}
-                              onChange={handleSalesChange}
-                            >
-                                <option value="" disabled>Select Invoice</option>
-                                {roless.map((item)=>(
-                                 <option key={item.id} value={item.id}>
-                                 {item.invoice_number} - {item.customer?.name}
-                             </option>
-                                ))}
-                            </Form.Select>
-                            <Form.Label style={{ marginTop: 20 }}>Description</Form.Label>
-                            <Form.Control
-                              type="text"
-                              placeholder="Enter Description"
-                              // autoFocus
-                              value={description}
-                              onChange={(e) => setDescription(e.target.value)}
-                            />
-                            
-                            <div style={{ marginTop: 20 }} />
-                            <Form.Label>Total Amount</Form.Label>
-                            <Form.Control
-                              type="text"
-                              placeholder="Enter Total Amount"
-                              // autoFocus
-                              disabled
-                              value={formattedAmount}
-                              onChange={(e) => setAmount(e.target.value)}
-                            />
-                            <div style={{ marginTop: 20 }} />
-                            <Form.Label>Outstanding</Form.Label>
-                            <Form.Control
-                              type="text"
-                              placeholder="Enter outstanding"
-                              // autoFocus
-                              disabled
-                              value={formattedOutstanding}
-                              onChange={(e) => setOutstanding(e.target.value)}
-                            />
+            <Modal show={show} onHide={handleClose} animation={false} size="lg">
+      <Modal.Header closeButton>
+        <Modal.Title>Sales Invoice Payment</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form style={{ marginTop: 20 }}>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Sales Invoice ID:</Form.Label>
+            <Select
+             options={roless}
+             placeholder="Select Invoice"
+              onChange={handleSalesChange}
+              menuPortalTarget={document.body}
+              styles={{
+                width: "100%",
+                  menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+                  menu: (provided) => ({
+                      ...provided,
+                      maxHeight: '300px',
+                      overflowY: 'auto',
+              
+                  }),
+              }}
+              />
 
-<div style={{ marginTop: 20 }} />
-                            <Form.Label>Amount</Form.Label>
-                            <CurrencyInput
-                                                                                //   
-                                                                                name="amount-to-pay"
-                                                                                decimalsLimit={2}
-                                                                                className="form-control"
-                                                                                value={amountToPay} // Set the value to the balance state
-                                                                                onValueChange={handleValueChange}
-                                                                                style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
-                                                                            />
-
-<div style={{ marginTop: 10 }} />
-                            
-                            <div style={{ marginTop: 10 }} />
-                            <Form.Label>Debit Account</Form.Label>
-                            <Form.Select
-                              type="text"
-                              value={selectedDebitAccount}
-                              onChange={handleDebitChange}
-                            >
-                              <option value="" disabled>Select Debit Account</option>
-                              {tableData2.map((item)=>(
-                                <option key={item.id} value ={item.id}>
-                                  {item.gl_name}
-                                </option>
-                              ))}
+            <Form.Label style={{ marginTop: 20 }}>Description</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              disabled
+              placeholder="Enter Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
 
 
-                            </Form.Select>
-                            
-                            <div style={{ marginTop: 10 }} />
-                            
-                          </Form.Group>
-                        </Form>
-                      </Modal.Body>
+            <div className="row" style={{ marginTop: 20 }}>
+              <div className="col-md-6">
+                <Form.Label>Total Amount</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Total Amount"
+                  disabled
+                  value={formattedAmount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label>Outstanding</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Outstanding"
+                  disabled
+                  value={formattedOutstanding}
+                  onChange={(e) => setOutstanding(e.target.value)}
+                />
+              </div>
+            </div>
 
+            <div className="row" style={{ marginTop: 20 }}>
+            <div className="col-md-6">
+                <Form.Label>Payment Mode</Form.Label>
+                <Form.Select
+                  value={paymentMode}
+                  onChange={(e) => setPaymentMode(e.target.value)}
+                >
+                  <option value="" disabled>Select Payment Mode</option>
+                  {tableData5.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </div>
 
-                      <Modal.Footer>
-                        <Button variant="danger" onClick={handleClose}>
-                          Go back
-                        </Button>
-                        <Button variant="success" onClick={createPayment}>
-                    {paymentLoading ? (
-                      <>
-                      <Spinner  size='sm' /> 
-                      <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
-    </>
-  ) : (
-                "Make Payment"
-                      )}
-                    </Button>
-                      </Modal.Footer>
-                    </Modal>
+              
+              <div className="col-md-6">
+                <Form.Label>Teller Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Teller Number"
+                  value={tellerNumber}
+                  onChange={(e) => setTellerNumber(e.target.value)}
+                />
+              </div>
+              
+            </div>
+
+            <div className="row" style={{ marginTop: 20 }}>
+              <div className="col-md-6">
+                <Form.Label>Amount</Form.Label>
+                <CurrencyInput
+                  name="amount-to-pay"
+                  decimalsLimit={2}
+                  className="form-control"
+                  value={amountToPay}
+                  onValueChange={handleValueChange}
+                  style={{ textAlign: "right", border: "1px solid #e4e4e4", backgroundColor: "none" }}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label>Debit Account</Form.Label>
+                <Form.Select
+                  value={selectedDebitAccount}
+                  onChange={handleDebitChange}
+                >
+                  <option value="" disabled>Select Debit Account</option>
+                  {tableData2.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.gl_name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </div>
+            </div>
+
+            
+            
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="danger" onClick={handleClose}>
+          Go back
+        </Button>
+        <Button variant="success" onClick={createPayment}>
+          {paymentLoading ? (
+            <>
+              <Spinner size='sm' />
+              <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
+            </>
+          ) : (
+            "Make Payment"
+          )}
+        </Button>
+      </Modal.Footer>
+    </Modal>
 
             <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
               <div className={classes.greenbtn} style={{ display: 'flex', gap: '20px' }}>
@@ -555,7 +611,9 @@ handleClose();
                                       <th>Invoice Number</th>
                                       <th>Description</th>
                                       <th>Customer</th>
-                                      <th>Amount</th>
+                                      <th>Total Amount</th>
+                                      <th>Total Paid</th>
+                                      <th>Outstanding</th>
                                       <th>Action</th>
                             </tr>
                           </thead>
@@ -571,19 +629,29 @@ handleClose();
                                           minimumFractionDigits: 2,
                                           maximumFractionDigits: 2
                                         })}</td>
+                                        <td style={{textAlign: "right"}}>{parseFloat(item.amount - item.balance).toLocaleString('en-US', {
+                                          minimumIntegerDigits: 1,
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2
+                                        })}</td>
+                                        <td style={{textAlign: "right"}}>{parseFloat(item.balance).toLocaleString('en-US', {
+                                          minimumIntegerDigits: 1,
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2
+                                        })}</td>
                                 <td>
                                 {(admin === "1" || permissions.includes('update-user')) && (
                                   <div onClick={() => handleEyeClick(item.id)} className="btn btn-success-soft btn-sm mr-1">
-                                    <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 5, borderColor: "#28a7454d", borderRadius: 5}}></i>
+                                    <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize: 12}}></i>
                                   </div>
 )}
 {(admin === "1" || permissions.includes('delete-user')) && (
                                   <div onClick={() => handleTrashClick(item.id)} className="btn btn-danger-soft btn-sm">
-                                    <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 5, borderColor: "#dc35454d", borderRadius: 5}}></i>
+                                    <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize: 12}}></i>
                                   </div>
 )}
 <div onClick={() => handlePrintInvoice(item.id)} className="btn btn-sm printbtninv">
-                                    <i className="fa fa-print dawg"  style={{color: "#17a2b8", backgroundColor: "#afe1e9", padding: 5, borderColor: "#b0d1d6", borderRadius: 5}}></i>
+                                    <i className="fa fa-print dawg"  style={{color: "#17a2b8", backgroundColor: "#afe1e9", padding: 2, borderColor: "#b0d1d6", borderRadius: 5, fontSize: 12}}></i>
                                   </div>
                                 </td>
                               </tr>

@@ -112,6 +112,11 @@ function MembersUi({
                       <Button variant="secondary"  onClick={handleShow56}>
                         Upload Member
                       </Button>
+                      <a href="https://api-sme.promixaccounting.com/api/v1/download-member-template" download>
+                      <Button className={classes.btn2} variant="primary" >
+                        Download Template
+                      </Button>
+                      </a>
                     </div>
 
                   </nav>

@@ -207,7 +207,7 @@ function padZero(num) {
               <div className={classes.formLabel}>
               </div>
               <div className={classes.formIntBtn}>
-                <Button variant="success" onClick={handleCreate} className={classes.btn2}> Create New Invoice</Button>
+                <Button variant="success" onClick={handleCreate} className={classes.btn2}> Receive Stock</Button>
               </div>
             </div>
            

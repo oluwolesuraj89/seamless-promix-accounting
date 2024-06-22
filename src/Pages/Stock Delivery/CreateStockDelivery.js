@@ -22,7 +22,7 @@ function CreateStockDelivery() {
     const [user, setUser] = useState("");
     const [address, setAddress] = useState("");
     const [filterLoading, setFilterLoading] = useState(false);
-    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [selectedOrder, setSelectedOrder] = useState('');
     const [debitGl, setDebitGl] = useState('');
     const [glMethod, setGlMethod] = useState([]);
     const [sICode, setSICode] = useState('');
@@ -80,6 +80,8 @@ function CreateStockDelivery() {
       const handleBeneficiaryChange = (selectedOption) => {
         setSelectedBeneficiary(selectedOption.value);
         setSelectedOrder("");
+        setTotalSupplied("");
+       setFormData([]);
         setMyOrders([]);
 
     };
@@ -185,6 +187,7 @@ function CreateStockDelivery() {
 
   const handleClick = async () => {
     setFilterLoading(true);
+    console.log()
     try {
         const response = await axios.get(
             `${BASE_URL}/fetch-invoice-items?invoice_number=${selectedOrder}`,
@@ -197,7 +200,7 @@ function CreateStockDelivery() {
         );
         console.log(response)
         const orders = response.data?.data || [];
-        // console.log(paid, 'paid');
+        console.log(orders, 'ord');
 
         setMyOrders(orders);
     } catch (error) {
@@ -239,7 +242,7 @@ console.log(selectedOrder);
           console.log(paid, 'paid');
           const banks = paid.map((item) => ({
               label: item.invoice_number,
-              value: item.id,
+              value: item.invoice_number,
           }));
           setBenBank(banks);
       } catch (error) {
@@ -335,7 +338,7 @@ console.log(selectedOrder);
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>Create Stock Delivery</h3>
+                            <h3>Receive Stock</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -379,7 +382,7 @@ console.log(selectedOrder);
                                 <Select
 
 options={benBank}
-placeholder="select order ID"
+placeholder="Select Order ID"
 onChange={handleOrderChange}
 menuPortalTarget={document.body}
 styles={{
@@ -444,8 +447,12 @@ styles={{
                                                                         <tbody style={{ whiteSpace: "nowrap", textAlign: "center", alignItems: "center" }}>
                                                                             {orders.map((rowData, index) => (
                                                                                 <tr key={index}>
-                                                                                    <td>{rowData?.stock?.name}</td>
-                                                                                    <td>{rowData.price}</td>
+                                                                                    <td>{rowData?.item?.name}</td>
+                                                                                    <td style={{textAlign: "right"}}>{parseFloat(rowData.item?.price).toLocaleString('en-US', {
+                                          minimumIntegerDigits: 1,
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2
+                                        })}</td>
                                                                                     <td>{rowData.quantity}</td>
                                                                                     
                                                                                     <td>
@@ -539,7 +546,7 @@ styles={{
                 <span style={{ marginLeft: '5px' }}>Processing, Please wait...</span>
             </>
         ) : (
-            "Create Stock Delivery"
+            "Process Delivery"
         )}
     </Button>
 

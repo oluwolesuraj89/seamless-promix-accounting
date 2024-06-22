@@ -10,7 +10,7 @@ import SignUp from './Promix/Signup/Signup.js';
 import GeneralLedgerTable from './Pages/General Ledger Table/GeneralLedgerTable.js';
 import CreatePaymentVoucher from './Pages/PaymentVouchers/Create Payment Voucher/CreatePaymentVoucher.js';
 import SalesReceipt from './Pages/Sales Receipt/SalesReceipt.js';
-
+import 'react-toastify/dist/ReactToastify.css';
 import Login from './Promix/Login/Login.js';
 import MainDashboard from './Pages/Main Dashboard/MainDashoard.js';
 import Dashboard from './Pages/Dashboard/Dashboard.js';
