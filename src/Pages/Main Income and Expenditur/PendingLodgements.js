@@ -11,15 +11,15 @@ import { Navbar, Nav, NavDropdown, Button, Modal, Form, Spinner, Badge } from 'r
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Swal from 'sweetalert2';
-import classes from '../../Manage Cooperatives/Manage Members/ManageMember.module.css'
-import MainDashboard from '../../Main Dashboard/MainDashoard';
-import { BASE_URL } from '../../api/api';
+import classes from '../Manage Cooperatives/Manage Members/ManageMember.module.css'
+import MainDashboard from '../Main Dashboard/MainDashoard';
+import { BASE_URL } from '../api/api';
 import { toast } from 'react-toastify';
-import Arrow from '../../../assets/promix/dArrow-down.svg'
+import Arrow from '../../assets/promix/dArrow-down.svg'
 
 
 
-function ManageGeneralLedger() {
+function PendingLodgements() {
   const [entriesPerPage, setEntriesPerPage] = useState(100);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,6 +41,8 @@ const [user, setUser] = useState('');
 const [ledgTableData, setLedgTableData] = useState([]);
 const [totalEntries, setTotalEntries] = useState("");
 const [totalPages, setTotalPages] = useState(1);
+const [selectedRows, setSelectedRows] = useState([]);
+const [selectAll, setSelectAll] = useState(false);
 
 
 
@@ -70,10 +72,10 @@ const headers = {
   'Authorization': `Bearer ${bearer}`
 };
 
-const fetchLedgers = async () => {
+const fetchReceipt = async () => {
   setLoad(true);
   try {
-      const response = await axios.get(`${BASE_URL}/ledger-postings?page=${currentPage}`, { headers });
+      const response = await axios.get(`${BASE_URL}/fetch-receipts?page=${currentPage}`, { headers });
       const results = response.data?.data?.data;
       const resultx = response.data?.data?.total;
       setTotalEntries(resultx);
@@ -108,7 +110,7 @@ const fetchLedgers = async () => {
 
 useEffect(() => {
   if (bearer) {
-    fetchLedgers();
+    fetchReceipt();
 
   }
 }, [bearer, currentPage]);
@@ -284,12 +286,57 @@ useEffect(() => {
   }
 
   const filteredData = ledgTableData.filter(item => {
-    const searchFields = [item.details, item.transaction_date, formatDate(item.created_at)];
+    const searchFields = [item.narration, item.transaction_date, formatDate(item.created_at)];
     return searchFields.some(field => field.toLowerCase().includes(searchTerm.toLowerCase()));
   });
-
   
   const formattedTotalEntries = totalEntries.toLocaleString();
+
+const handleCreate = ()=>{
+    navigate('/accounting/income_and_expenditure/income/add_new_income')
+}
+
+const isSelected = (id) => {
+  return selectedRows.includes(id);
+};
+
+const handleCheckboxChange = (row) => {
+  const selectedIndex = selectedRows.findIndex(item => item.id === row.id);
+  let updatedSelectedRows = [];
+
+  if (selectedIndex === -1) {
+    updatedSelectedRows = [...selectedRows, row];
+  } else {
+    updatedSelectedRows = selectedRows.filter(item => item.id !== row.id);
+  }
+
+  setSelectedRows(updatedSelectedRows);
+  setSelectAll(updatedSelectedRows.length === tableData.length);
+  // console.log(updatedSelectedRows);
+};
+
+const handleSelectAllChange = () => {
+  const newSelectAll = !selectAll;
+  setSelectAll(newSelectAll);
+  if (newSelectAll) {
+    const allRowIds = ledgTableData.map(row => row.id);
+    setSelectedRows(allRowIds);
+  } else {
+    setSelectedRows([]);
+  }
+};
+
+const handleRowCheckboxChange = (rowId) => {
+  setSelectedRows((prevSelectedRows) => {
+    if (prevSelectedRows.includes(rowId)) {
+      return prevSelectedRows.filter(id => id !== rowId);
+    } else {
+      return [...prevSelectedRows, rowId];
+    }
+  });
+};
+
+
   return (
 
     <div>
@@ -309,7 +356,7 @@ useEffect(() => {
             <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
                         <div className={classes.formSectionHeader}>
-                            <h3>General Ledger</h3>
+                            <h3>Pending Lodgement</h3>
                             {/* <small>Create and view your loan accounts...</small> */}
                         </div>
                         <div className={classes.formSectionHeader}>
@@ -320,6 +367,27 @@ useEffect(() => {
 
             <div style={{backgroundColor:'white', padding:'10px 20px'}}>
               {/* <!--Content Header (Page header)--> */}
+              {/* <nav aria-label="breadcrumb">
+                  <div
+                    style={{
+                      marginTop: 20,
+                      marginBottom: 20,
+                      justifyContent: "flex-end",
+                      display: "flex",
+                      marginLeft: "auto",
+                      width:'100%',
+                      textAlign:'right'
+                    }}
+                    className={classes.actionBtns}
+                  >
+                    <Button variant="success" 
+                    onClick={handleCreate}
+                    >
+                      Manual Entries
+                    </Button>
+                  </div>
+
+                </nav> */}
               <div className="content-header row align-items-center m-0">
               {/* {(isAdmin || permittedHeaders.includes('create-savings-account')) && ( */}
                 {/* <nav aria-label="breadcrumb" className="col-sm-4 order-sm-last mb-3 mb-sm-0 p-0 ">
@@ -333,8 +401,10 @@ useEffect(() => {
                     }}
                     className={classes.actionBtns}
                   >
-                    <Button variant="success" onClick={handleCreate}>
-                      Create New Accounts
+                    <Button variant="success" 
+                    // onClick={handleCreate}
+                    >
+                      Manual Entries
                     </Button>
                   </div>
 
@@ -476,38 +546,76 @@ useEffect(() => {
 
                                 <thead style={{ whiteSpace: 'nowrap' }}>
                                   <tr>
-                                    <th>Post Date</th>
-                                    <th>Value Date</th>
-                                    <th>Detail</th>
-                                    <th>Debit</th>
-                                    <th>Credit</th>
+                                  <th>
+                                        <input
+                                          type="checkbox"
+                                          checked={selectAll}
+                                          onChange={handleSelectAllChange}
+                                        />
+                                      </th>
+                                    <td>S/N</td>
+                                    <th>Transaction Date</th>
+                                    <th>Particulars</th>
+                                    <th>Description</th>
+                                    {/* <th>Receipt Number</th> */}
+                                    <th>Amount</th>
+                                    <th>Payment Mode</th>
+                                    <th>Teller Number</th>
+                                    {/* <th>Received By</th> */}
+                                    <th>Action</th>
                                   </tr>
                                 </thead>
                                 <tbody style={{ whiteSpace: 'nowrap' }}>
                                 {filteredData.map((item, index) => (
                                      <tr key={item.id}>
-                                      <td>{formatDate(item.created_at)}</td>
-                                      <td>{item.transaction_date}</td>
-                                      <td>{item.details}</td>
-                                      <td style={{textAlign: "right"}}>{parseFloat(item.debit).toLocaleString('en-US', {
+                                      <td>
+                                          <input
+                                            type="checkbox"
+                                            checked={selectedRows.includes(item.id)}
+                                            onChange={() => handleRowCheckboxChange(item.id)}
+                                          />
+                                        </td>
+                                      <td>{index + 1}</td>
+                                      <td>{formatDate(item.transaction_date)}</td>
+                                      <td>{item.particular}</td>
+                                      <td>{item.description }</td>
+                                      <td style={{textAlign: "right"}}>{parseFloat(item.amount).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
                                       maximumFractionDigits: 2
-                                    })}</td>
-                                     <td style={{textAlign: "right"}}>{parseFloat(item.credit).toLocaleString('en-US', {
+                                    })}
+                                    </td>
+                                    <td>{item?.mode?.name }</td>
+                                    <td>{item.invoice_number }</td>
+                                    {/* <td>{item.invoice_number }</td> */}
+                                    <td style={{textAlign: "left"}}>
+                                      <div 
+                                      // onClick={() => handleEyeClick(item.id)} 
+                                      className="btn btn-success-soft btn-sm mr-1">
+                                      <i className="far fa-eye" style={{color: "#008a4b", backgroundColor: "#28a7451a", padding: 2, borderColor: "#28a7454d", borderRadius: 5, fontSize:12}}></i>
+                                      </div>
+                                      <div 
+                                      // onClick={() => handleTrashClick(item.id)} 
+                                      className="btn btn-danger-soft btn-sm">
+                                      <i className="far fa-trash-alt"  style={{color: "#dc3545", backgroundColor: "#dc35451a", padding: 2, borderColor: "#dc35454d", borderRadius: 5, fontSize:12}}></i>
+                                      </div>
+                                      </td>
+
+                                     {/* <td style={{textAlign: "right"}}>{parseFloat(item.credit).toLocaleString('en-US', {
                                       minimumIntegerDigits: 1,
                                       minimumFractionDigits: 2,
                                       maximumFractionDigits: 2
-                                    })}</td>
+                                    })}
+                                    </td> */}
                                     </tr>
                                   ))}
-                                 {accounts.length > 0 && (
+                                 {/* {accounts.length > 0 && (
                                   <>
                                     <td colSpan={3}>Total</td>
                                     <td style={{textAlign: 'right', fontWeight: "bold"}}>{totalDebit}</td>
                                     <td style={{textAlign: 'right', fontWeight: "bold"}}>{totalCredit}</td>
                                   </>
-                                )}
+                                )} */}
 
                                 </tbody>
                               </table>
@@ -645,4 +753,4 @@ useEffect(() => {
   );
 }
 
-export default ManageGeneralLedger;
+export default PendingLodgements;

@@ -416,7 +416,7 @@ navigate('/accounting/receivables/loan_and_advances/edit_loan_advance', { state:
                 <div className="row">
                   
                   <div className="col-lg-12">
-                    <div className="card">
+                    <div className="card" style={{border:"none"}}>
                       <div className="card-body">
                         <div className="table-resposive">
                           <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>

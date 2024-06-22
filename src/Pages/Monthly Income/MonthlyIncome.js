@@ -184,7 +184,7 @@ export default function MonthlyIncome() {
 
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
-                        <div className="card" style={{ width: '100%' }}>
+                        <div className="card" style={{ width: '100%', border:"none"}}>
                         <div className="card-body" style={{ padding: '1.5rem 10.5rem 1.5rem 12.5rem', }}>
                                                        
 
@@ -256,16 +256,16 @@ export default function MonthlyIncome() {
 
 
 
-                            <div className="card">
+                            <div className="card" style={{border:"none"}}>
                                 <div className="card-body">
-                                    <div className="card-header">
+                                    {/* <div className="card-header">
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div>
                                                 <h6 className="fs-17 font-weight-600 mb-0"></h6>
                                             </div>
 
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="table-resposive">
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
                                             <div className={classes.greenbtn} style={{ display: 'flex', }}>

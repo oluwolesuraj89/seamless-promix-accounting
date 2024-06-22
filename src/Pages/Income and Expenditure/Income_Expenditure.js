@@ -167,7 +167,7 @@ export default function IncomeExpenditure() {
                 </div>
                 <div className={classes.topPadding}>
                     <div className={`${classes.formSecCont}`}>
-                        <div className="card" style={{width: '100%'}}>
+                        <div className="card" style={{width: '100%', border:'none'}}>
                             <div className="card-body" >
                                 <div className='row' style={{ marginTop: 30 }}>
                                     <Row>
@@ -225,7 +225,7 @@ export default function IncomeExpenditure() {
 
                         <div className="content-wrapper">
 
-                            <div className="card">
+                            <div className="card" style={{border:"none"}}>
                                 <div className="card-body">
                                     <div className="table-resposive">
                                         <div className="d-flex justify-content-between align-items-center" style={{ padding: '20px 0 0 0', marginBottom: 20 }}>
